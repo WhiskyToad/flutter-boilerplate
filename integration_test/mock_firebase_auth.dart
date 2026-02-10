@@ -1,22 +1,39 @@
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
 
+/// A Mocktail-based FirebaseAuth mock.
+/// Use this in integration tests to simulate different authentication states.
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
   @override
   String? get tenantId => null;
 
-  @override
-  Stream<User?> authStateChanges() => Stream.value(null);
-
-  final MockUser _mockUser = MockUser();
-
-  MockUser get testUser => _mockUser;
+  final _userController = StreamController<User?>.broadcast();
+  User? _mockUser;
 
   @override
   User? get currentUser => _mockUser;
 
+  /// Update the mock user state and notify listeners.
+  void setMockUser(User? user) {
+    _mockUser = user;
+    _userController.add(user);
+  }
+
+  @override
+  Stream<User?> authStateChanges() =>
+      _userController.stream.startWith(_mockUser);
+
+  @override
+  Stream<User?> userChanges() => _userController.stream.startWith(_mockUser);
+
+  @override
+  Stream<User?> idTokenChanges() => _userController.stream.startWith(_mockUser);
+
+  // Manual override for verifyPhoneNumber because it's callback-heavy
+  // and usually doesn't need when() stubbing.
   @override
   Future<void> verifyPhoneNumber({
     String? phoneNumber,
@@ -34,137 +51,13 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {
 
     const String mockVerificationId = 'mock-verification-id';
     codeSent(mockVerificationId, 123456);
-
-    // You can also simulate auto-verification if needed
-    // final credential = PhoneAuthProvider.credential(
-    //   verificationId: mockVerificationId,
-    //   smsCode: '123456'
-    // );
-    // verificationCompleted(credential);
-  }
-
-  @override
-  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
-    debugPrint('Mock signInWithCredential called');
-    return MockUserCredential();
   }
 }
 
-class MockFirebaseAuthService extends Mock implements FirebaseAuthService {
-  bool signInWithEmailShouldFail = false;
-  String signInWithEmailError = 'Invalid email or password';
-  User? signInWithEmailUser;
-  String? signInWithEmailUserEmail;
-  bool? signInWithEmailUserVerified;
-
-  bool sendVerificationShouldFail = false;
-  String sendVerificationError = 'Failed to send verification';
-
-  bool resetPasswordShouldFail = false;
-  String resetPasswordError = 'Invalid email';
-
-  bool loginWithGoogleShouldFail = false;
-  String loginWithGoogleError = 'Google sign-in failed';
-
-  bool loginWithAppleShouldFail = false;
-  String loginWithAppleError = 'Apple sign-in failed';
-
-  bool signupWithEmailShouldFail = false;
-  String signupWithEmailError = 'Email already in use';
-  User? signupWithEmailUser;
-  String? signupWithEmailUserEmail;
-  bool? signupWithEmailUserVerified;
-
-  @override
-  Future<void> verifyFBAuthPhoneNumber({
-    required String phoneNumber,
-    required Function(PhoneAuthCredential) verificationCompleted,
-    required Function(String) codeSent,
-    required Function(String) codeAutoRetrievalTimeout,
-    required Function(String, {StackTrace? stackTrace}) onError,
-  }) async {
-    codeSent('mock_verification_id');
-  }
-
-  @override
-  Future<UserCredential?> signInWithEmailAndPassword(
-    String email,
-    String password, {
-    required Function(String, {StackTrace? stackTrace}) onError,
-  }) async {
-    if (signInWithEmailShouldFail) {
-      onError(signInWithEmailError);
-      return null;
-    }
-    final user = signInWithEmailUser ??
-        (signInWithEmailUserEmail != null || signInWithEmailUserVerified != null
-            ? MockUser(
-                email: signInWithEmailUserEmail,
-                emailVerified: signInWithEmailUserVerified ?? false,
-              )
-            : null);
-    return MockUserCredential(user);
-  }
-
-  @override
-  Future<void> sendVerificationEmail({
-    required Function(String, {StackTrace? stackTrace}) onError,
-  }) async {
-    if (sendVerificationShouldFail) {
-      onError(sendVerificationError);
-    }
-  }
-
-  @override
-  Future<void> sendFBAuthPasswordResetEmail(
-    String email, {
-    required Function(String, {StackTrace? stackTrace}) onError,
-  }) async {
-    if (resetPasswordShouldFail) {
-      onError(resetPasswordError);
-    }
-  }
-
-  @override
-  Future<UserCredential?> loginWithGoogle({
-    required Function(String, {StackTrace? stackTrace}) onError,
-  }) async {
-    if (loginWithGoogleShouldFail) {
-      onError(loginWithGoogleError);
-      return null;
-    }
-    return MockUserCredential(MockUser(email: 'google@example.com'));
-  }
-
-  @override
-  Future<UserCredential?> loginWithApple({
-    required Function(String, {StackTrace? stackTrace}) onError,
-  }) async {
-    if (loginWithAppleShouldFail) {
-      onError(loginWithAppleError);
-      return null;
-    }
-    return MockUserCredential(MockUser(email: 'apple@example.com'));
-  }
-
-  @override
-  Future<UserCredential?> signupWithEmailAndPassword(
-    String email,
-    String password, {
-    required Function(String, {StackTrace? stackTrace}) onError,
-  }) async {
-    if (signupWithEmailShouldFail) {
-      onError(signupWithEmailError);
-      return null;
-    }
-    final user = signupWithEmailUser ??
-        (signupWithEmailUserEmail != null || signupWithEmailUserVerified != null
-            ? MockUser(
-                email: signupWithEmailUserEmail ?? email,
-                emailVerified: signupWithEmailUserVerified ?? false,
-              )
-            : MockUser(email: email));
-    return MockUserCredential(user);
+extension on Stream<User?> {
+  Stream<User?> startWith(User? initialValue) async* {
+    yield initialValue;
+    yield* this;
   }
 }
 
@@ -178,12 +71,17 @@ class MockUserCredential extends Mock implements UserCredential {
 }
 
 class MockUser extends Mock implements User {
-  MockUser({String? email, bool emailVerified = false})
-      : _email = email,
-        _emailVerified = emailVerified;
+  MockUser({String? email, bool emailVerified = false, String? phoneNumber})
+    : _email = email,
+      _emailVerified = emailVerified,
+      _phoneNumber = phoneNumber;
 
   final String? _email;
   bool _emailVerified;
+  final String? _phoneNumber;
+
+  bool sendVerificationShouldFail = false;
+  String? sendVerificationError;
 
   @override
   String? get email => _email;
@@ -199,7 +97,7 @@ class MockUser extends Mock implements User {
   String get uid => 'mock-user-id';
 
   @override
-  String? get phoneNumber => '9999988888';
+  String? get phoneNumber => _phoneNumber ?? '9999988888';
 
   @override
   Future<String> getIdToken([bool forceRefresh = false]) {
@@ -208,4 +106,106 @@ class MockUser extends Mock implements User {
 
   @override
   Future<void> reload() async {}
+
+  @override
+  Future<void> sendEmailVerification([
+    ActionCodeSettings? actionCodeSettings,
+  ]) async {
+    if (sendVerificationShouldFail) {
+      throw FirebaseAuthException(
+        code: 'too-many-requests',
+        message: sendVerificationError ?? 'Failed to send verification',
+      );
+    }
+  }
 }
+
+class FakeAuthCredential extends Fake implements AuthCredential {}
+
+/// Mock GoogleSignInAccount
+class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {
+  @override
+  final String email;
+  final String idToken;
+
+  MockGoogleSignInAccount({
+    this.email = 'google@example.com',
+    this.idToken = 'mock-id-token',
+  }) {
+    _mockAuthClient = MockGoogleSignInAuthorizationClient();
+  }
+
+  late final MockGoogleSignInAuthorizationClient _mockAuthClient;
+
+  /// Authentication getter with accessToken provided via overridden getter
+  @override
+  GoogleSignInAuthentication get authentication =>
+      _MockGoogleSignInAuthentication(idToken: idToken);
+
+  @override
+  String get displayName => 'Mock User';
+
+  @override
+  String get id => 'mock-user-id';
+
+  /// Provide mock authorization client
+  @override
+  GoogleSignInAuthorizationClient get authorizationClient => _mockAuthClient;
+}
+
+/// MockGoogleSignInAuthentication to provide accessToken and idToken
+class _MockGoogleSignInAuthentication extends GoogleSignInAuthentication {
+  final String _idToken;
+
+  const _MockGoogleSignInAuthentication({required String idToken})
+    : _idToken = idToken,
+      super(idToken: idToken);
+
+  @override
+  String? get idToken => _idToken;
+
+  String? get accessToken => 'mock-access-token';
+}
+
+/// Mock GoogleSignInAuthorizationClient
+class MockGoogleSignInAuthorizationClient extends Mock
+    implements GoogleSignInAuthorizationClient {
+  @override
+  Future<GoogleSignInClientAuthorization> authorizeScopes(
+    List<String> scopes,
+  ) async {
+    return MockGoogleSignInClientAuthorization();
+  }
+}
+
+/// Mock GoogleSignInClientAuthorization
+class MockGoogleSignInClientAuthorization
+    implements GoogleSignInClientAuthorization {
+  @override
+  String get accessToken => 'mock-client-access-token';
+}
+
+/// Mock GoogleSignIn
+class MockGoogleSignIn extends Mock implements GoogleSignIn {
+  bool _isCancelled = false;
+  bool _shouldFail = false;
+
+  void setIsCancelled({required bool value}) => _isCancelled = value;
+  void setShouldFail({required bool value}) => _shouldFail = value;
+
+  /// Implements authenticate() for GoogleSignIn v7.x API
+  @override
+  Future<GoogleSignInAccount> authenticate({
+    List<String> scopeHint = const <String>[],
+  }) async {
+    if (_shouldFail) throw Exception('Google sign-in failed');
+    if (_isCancelled) throw Exception('User cancelled');
+    return MockGoogleSignInAccount();
+  }
+
+  @override
+  Future<void> signOut() async {}
+}
+
+class MockFirebaseAuthService extends Mock
+    implements MockFirebaseAuth, MockGoogleSignIn {}

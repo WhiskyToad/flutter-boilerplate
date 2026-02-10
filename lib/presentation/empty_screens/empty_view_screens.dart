@@ -45,7 +45,7 @@ class EmptyViewsScreen extends StatelessWidget {
                 label: context.localization.empty_order_title,
                 foregroundColor: context.currentTheme.textNeutralLight,
                 onPressed: () {
-                  context.pushRoute(const MyOrdersRoute());
+                  context.pushRoute(const EmptyOrdersViewRoute());
                 },
               ),
               const SizedBox(height: 16),

@@ -23,12 +23,18 @@ class MockLoginBloc extends MockBloc<LoginEvents, LoginState>
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUpAll(() {
-    final mockAuthService = MockFirebaseAuthService();
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
-    }
-    sl.registerLazySingleton<FirebaseAuthService>(() => mockAuthService);
+  late MockFirebaseAuth mokFirebaseAuth;
+  late FirebaseAuthService mockFirebaseAuthService;
+
+  setUp(() {
+    mokFirebaseAuth = MockFirebaseAuth();
+    sl.allowReassignment = true;
+    mockFirebaseAuthService = FirebaseAuthService(
+      firebaseAuth: mokFirebaseAuth,
+    );
+    sl.registerLazySingleton<FirebaseAuthService>(
+      () => mockFirebaseAuthService,
+    );
   });
 
   // Widget tests
@@ -72,7 +78,8 @@ void main() {
         when(() => loginBlocLongEmail.state).thenReturn(
           LoginState.test(
             emailPasswordLoginState: EmailPasswordLoginState.test(
-              email: 'longemailaddressforlogintestingpurposes'
+              email:
+                  'longemailaddressforlogintestingpurposes'
                   '@longdomainnametotest.com',
             ),
           ),
@@ -156,9 +163,7 @@ void main() {
               child: const SendResetLinkButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocEmptyEmail,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocEmptyEmail),
               ],
             ),
             createTestScenario(
@@ -166,9 +171,7 @@ void main() {
               child: const SendResetLinkButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocValidEmail,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocValidEmail),
               ],
             ),
           ],

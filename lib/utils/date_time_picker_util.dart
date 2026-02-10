@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class DateTimePickerUtil {
   DateTimePickerUtil._();
@@ -114,5 +115,50 @@ class DateTimePickerUtil {
     );
 
     onDateTimeSelected(selectedDateTime);
+  }
+
+  /// Returns the current time in the specified IANA timezone.
+  ///
+  /// Example:
+  ///
+  /// final indiaTime = getCurrentTimeInTimezone('Asia/Kolkata');
+  /// // Output: 2025-12-26 11:50:31.000 (current time in India)
+  ///
+  static DateTime getCurrentTimeInTimezone(String timeZone) {
+    final location = tz.getLocation(timeZone);
+    final tzDateTime = tz.TZDateTime.now(location);
+    return DateTime(
+      tzDateTime.year,
+      tzDateTime.month,
+      tzDateTime.day,
+      tzDateTime.hour,
+      tzDateTime.minute,
+      tzDateTime.second,
+      tzDateTime.millisecond,
+      tzDateTime.microsecond,
+    );
+  }
+
+  /// Converts a DateTime to the specified IANA timezone.
+  ///
+  /// Example:
+  ///
+  /// final utc = DateTime.utc(2025, 1, 15, 12, 0);
+  /// final india = convertDateTimeToTimezone(utc, 'Asia/Kolkata');
+  /// // Output: 2025-01-15 17:30:00.000 (12:00 UTC = 17:30 India)
+  ///
+  static DateTime convertDateTimeToTimezone(DateTime date, String timeZone) {
+    final location = tz.getLocation(timeZone);
+    final tzDateTime = tz.TZDateTime.from(date, location);
+    return DateTime(
+      tzDateTime.year,
+      tzDateTime.month,
+      tzDateTime.day,
+      tzDateTime.hour,
+      tzDateTime.minute,
+      tzDateTime.second,
+      tzDateTime.millisecond,
+      tzDateTime.microsecond,
+    );
   }
 }

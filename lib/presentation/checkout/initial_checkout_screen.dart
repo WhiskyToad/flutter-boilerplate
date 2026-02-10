@@ -18,16 +18,14 @@ class InitialCheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CheckoutBloc>(
-      create: (context) => CheckoutBloc()..add(const InitialCalculationEvent()),
+      create: (_) => CheckoutBloc()..add(const InitialCalculationEvent()),
       child: const CheckoutScreenBody(),
     );
   }
 }
 
 class CheckoutScreenBody extends StatefulWidget {
-  const CheckoutScreenBody({
-    super.key,
-  });
+  const CheckoutScreenBody({super.key});
 
   @override
   State<CheckoutScreenBody> createState() => _CheckoutScreenBodyState();

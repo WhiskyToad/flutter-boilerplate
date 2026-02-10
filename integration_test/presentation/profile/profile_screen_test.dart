@@ -18,6 +18,7 @@ void main() {
   final mockDio = MockDio();
 
   setUpAll(() {
+    registerFallbackValue(FakeAuthCredential());
     final mockResponse = MockDioResponse<List<dynamic>>();
 
     when(() => mockResponse.statusCode).thenReturn(200);
@@ -38,6 +39,15 @@ void main() {
       final mockFirebaseAuth = MockFirebaseAuth();
 
       await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
+
+      // Stub phone sign-in
+      when(() => mockFirebaseAuth.signInWithCredential(any()))
+          .thenAnswer((_) async {
+        final phoneUser = MockUser(phoneNumber: '9999988888');
+        mockFirebaseAuth.setMockUser(phoneUser);
+        return MockUserCredential(phoneUser);
+      });
+
       await $.pumpWidgetAndSettle(const MainApp());
 
       await $(keys.signInPage.mobileNoTextField).enterText('9999988888');

@@ -23,14 +23,18 @@ class MockLoginBloc extends MockBloc<LoginEvents, LoginState>
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  late MockFirebaseAuth mokFirebaseAuth;
+  late FirebaseAuthService mockFirebaseAuthService;
 
   setUpAll(() {
-    final mockAuthService = MockFirebaseAuthService();
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
-    }
-    sl.registerLazySingleton<FirebaseAuthService>(() => mockAuthService);
-
+    mokFirebaseAuth = MockFirebaseAuth();
+    sl.allowReassignment = true;
+    mockFirebaseAuthService = FirebaseAuthService(
+      firebaseAuth: mokFirebaseAuth,
+    );
+    sl.registerLazySingleton<FirebaseAuthService>(
+      () => mockFirebaseAuthService,
+    );
     // Mock sms_autofill plugin
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(

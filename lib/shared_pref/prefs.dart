@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs {
@@ -5,6 +6,9 @@ class Prefs {
 
   // call this method from initState() function of mainApp().
   static SharedPreferencesAsync init() => _prefs = SharedPreferencesAsync();
+
+  @visibleForTesting
+  static void setMockPrefs(SharedPreferencesAsync prefs) => _prefs = prefs;
 
   //sets
   static Future<void> setBool(String key, {required bool value}) async =>

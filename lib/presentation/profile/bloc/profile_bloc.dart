@@ -10,12 +10,12 @@ import 'package:skelter/utils/haptic_feedback_util.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc()
-      : super(
-          ProfileState.initial(
-            name: 'Josh Fernandes',
-            email: 'josh@gmail.com',
-          ),
-        ) {
+    : super(
+        ProfileState.initial(
+          name: 'Jessica Fernandes',
+          email: 'jessica@gmail.com',
+        ),
+      ) {
     _setupEventListener();
   }
 
@@ -51,10 +51,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(state.copyWith(isProUser: event.isSubscribed));
   }
 
-  void _onSignOutEvent(
-    SignOutEvent event,
-    Emitter<ProfileState> emit,
-  ) async {
+  void _onSignOutEvent(SignOutEvent event, Emitter<ProfileState> emit) async {
     try {
       await Prefs.clear();
       await sl<CacheManager>().clearCachedApiResponse();

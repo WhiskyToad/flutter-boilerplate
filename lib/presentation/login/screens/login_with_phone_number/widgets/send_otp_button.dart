@@ -4,6 +4,7 @@ import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
+import 'package:skelter/presentation/login/enum/enum_login_type.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/internet_connectivity_helper.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
@@ -58,6 +59,9 @@ class SendOTPButton extends StatelessWidget {
         }
 
         if (phoneNumberOnly.isNotEmpty) {
+          context
+              .read<LoginBloc>()
+              .add(SelectLoginSignupTypeEvent(LoginType.PHONE));
           context
               .read<LoginBloc>()
               .add(LoginWithPhoneNumEvent(phoneNumWithCountryCode));

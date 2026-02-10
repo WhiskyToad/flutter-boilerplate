@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
@@ -12,11 +13,16 @@ import 'package:skelter/presentation/home/data/datasources/product_remote_data_s
 import 'package:skelter/presentation/home/data/repositories/product_repository_impl.dart';
 import 'package:skelter/presentation/home/domain/repositories/product_repository.dart';
 import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
+import 'package:skelter/presentation/product_detail/data/datasources/ai_product_description_remote_data_source.dart';
 import 'package:skelter/presentation/product_detail/data/datasources/product_detail_remote_data_source.dart';
+import 'package:skelter/presentation/product_detail/data/repositories/ai_product_description_repository_impl.dart';
 import 'package:skelter/presentation/product_detail/data/repositories/product_detail_repository_impl.dart';
+import 'package:skelter/presentation/product_detail/domain/repositories/ai_product_description_repository.dart';
 import 'package:skelter/presentation/product_detail/domain/repositories/product_detail_repository.dart';
+import 'package:skelter/presentation/product_detail/domain/usecases/generate_ai_product_description.dart';
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/prefs.dart';
@@ -33,6 +39,7 @@ bool _isForceLoggingOutUser = false;
 
 Future<void> configureDependencies({
   FirebaseAuth? firebaseAuth,
+  GoogleSignIn? googleSignIn,
   FirebaseAuthService? firebaseAuthService,
   Dio? dio,
 }) async {
@@ -40,10 +47,17 @@ Future<void> configureDependencies({
     () => firebaseAuth ?? FirebaseAuth.instance,
   );
 
+  sl.registerLazySingleton<GoogleSignIn>(
+    () => googleSignIn ?? GoogleSignIn.instance,
+  );
+
   sl.registerLazySingleton<FirebaseAuthService>(
     () =>
         firebaseAuthService ??
-        FirebaseAuthService(firebaseAuth: sl<FirebaseAuth>()),
+        FirebaseAuthService(
+          firebaseAuth: sl<FirebaseAuth>(),
+          googleSignIn: sl<GoogleSignIn>(),
+        ),
   );
 
   final cacheManager = CacheManager();
@@ -77,6 +91,14 @@ Future<void> configureDependencies({
     ..registerLazySingleton<ProductDetailRemoteDatasource>(
       () => ProductDetailRemoteDataSrcImpl(sl()),
     )
+    ..registerLazySingleton(() => GenerateAIProductDescription(sl()))
+    ..registerLazySingleton<AIProductDescriptionRepository>(
+      () => AIProductDescriptionRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton<AIProductDescriptionRemoteDataSource>(
+      () => AIProductDescriptionRemoteDataSourceImpl(sl()),
+    )
+    ..registerLazySingleton(() => GeminiService())
     ..registerLazySingleton(() => GetExchangeRate(sl()))
     ..registerLazySingleton<CurrencyConverterRepository>(
       () => CurrencyConverterRepositoryImpl(sl()),

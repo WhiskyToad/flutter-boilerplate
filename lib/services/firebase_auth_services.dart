@@ -15,9 +15,11 @@ import 'package:skelter/utils/cache_manager.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
 
-  FirebaseAuthService({FirebaseAuth? firebaseAuth})
-    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+  FirebaseAuthService({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
+    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+      _googleSignIn = googleSignIn ?? GoogleSignIn.instance;
 
   int? _phoneResendToken;
 
@@ -122,7 +124,8 @@ class FirebaseAuthService {
   }) async {
     try {
       await _firebaseAuth.signOut();
-      final GoogleSignInAccount googleUser = await GoogleSignIn.instance
+
+      final GoogleSignInAccount googleUser = await _googleSignIn
           .authenticate();
 
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
@@ -154,6 +157,7 @@ class FirebaseAuthService {
       return null;
     } catch (e) {
       debugPrint('Error signing in with Google: $e');
+      onError('Google sign-in failed');
       return null;
     }
   }
@@ -191,6 +195,7 @@ class FirebaseAuthService {
       return null;
     } catch (e) {
       debugPrint('Error signing in with Apple: $e');
+      onError('An error occurred, please try again.');
       return null;
     }
   }
@@ -231,7 +236,7 @@ class FirebaseAuthService {
   Future<void> signOut() async {
     if (isSignedInWithGoogle) {
       try {
-        await GoogleSignIn.instance.signOut();
+        await _googleSignIn.signOut();
       } catch (e) {
         debugPrint('Error during Google sign out: $e');
       }
@@ -336,7 +341,7 @@ class FirebaseAuthService {
   }
 
   Future<void> _reAuthWithGoogle(User user) async {
-    final googleUser = await GoogleSignIn.instance.authenticate();
+    final googleUser = await _googleSignIn.authenticate();
 
     final googleAuth = googleUser.authentication;
     if (googleAuth.idToken == null) {

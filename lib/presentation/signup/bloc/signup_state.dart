@@ -256,6 +256,7 @@ class SignupState with EquatableMixin {
         resendVerificationEmailTimeLeft,
         userDetailsInputStatus,
         isLoading,
+        authenticationErrorMessage,
       ];
 }
 

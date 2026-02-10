@@ -20,13 +20,18 @@ class MockLoginBloc extends MockBloc<LoginEvents, LoginState>
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  late MockFirebaseAuth mokFirebaseAuth;
+  late FirebaseAuthService mockFirebaseAuthService;
 
-  setUpAll(() {
-    final mockAuthService = MockFirebaseAuthService();
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
-    }
-    sl.registerLazySingleton<FirebaseAuthService>(() => mockAuthService);
+  setUp(() {
+    mokFirebaseAuth = MockFirebaseAuth();
+    sl.allowReassignment = true;
+    mockFirebaseAuthService = FirebaseAuthService(
+      firebaseAuth: mokFirebaseAuth,
+    );
+    sl.registerLazySingleton<FirebaseAuthService>(
+      () => mockFirebaseAuthService,
+    );
   });
 
   // Widget tests
@@ -68,7 +73,8 @@ void main() {
         when(() => loginBlocWithLongEmail.state).thenReturn(
           LoginState.test(
             emailPasswordLoginState: EmailPasswordLoginState.test(
-              email: 'long.email.address.for.testing.'
+              email:
+                  'long.email.address.for.testing.'
                   'purposes@example-longdomain.com',
             ),
           ),

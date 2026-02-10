@@ -32,36 +32,40 @@ class MockSignupBloc extends MockBloc<SignupEvent, SignupState>
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUpAll(() {
-    final mockAuthService = MockFirebaseAuthService();
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
-    }
-    sl.registerLazySingleton<FirebaseAuthService>(() => mockAuthService);
+  late MockFirebaseAuth mokFirebaseAuth;
+  late FirebaseAuthService mockFirebaseAuthService;
+
+  setUp(() {
+    mokFirebaseAuth = MockFirebaseAuth();
+    sl.allowReassignment = true;
+    mockFirebaseAuthService = FirebaseAuthService(
+      firebaseAuth: mokFirebaseAuth,
+    );
+    sl.registerLazySingleton<FirebaseAuthService>(
+      () => mockFirebaseAuthService,
+    );
   });
 
   // Widget tests
   group('Add Profile Picture Screen', () {
-    testWidgets('Add Profile Picture Screen renders correctly with no picture',
-        (tester) async {
-      final loginBloc = MockLoginBloc();
-      when(() => loginBloc.state).thenReturn(LoginState.test());
+    testWidgets(
+      'Add Profile Picture Screen renders correctly with no picture',
+      (tester) async {
+        final loginBloc = MockLoginBloc();
+        when(() => loginBloc.state).thenReturn(LoginState.test());
 
-      final signupBloc = MockSignupBloc();
-      when(() => signupBloc.state).thenReturn(SignupState.test());
+        final signupBloc = MockSignupBloc();
+        when(() => signupBloc.state).thenReturn(SignupState.test());
 
-      await tester.runWidgetTest(
-        child: AddProfilePictureScreen(loginBloc: loginBloc),
-        providers: [
-          BlocProvider<SignupBloc>.value(
-            value: signupBloc,
-          ),
-        ],
-      );
-      expect(find.byType(AddProfilePictureScreen), findsOneWidget);
-      expect(find.byType(UserPlaceholder), findsOneWidget);
-      expect(find.byType(AddSkipPictureButton), findsOneWidget);
-    });
+        await tester.runWidgetTest(
+          child: AddProfilePictureScreen(loginBloc: loginBloc),
+          providers: [BlocProvider<SignupBloc>.value(value: signupBloc)],
+        );
+        expect(find.byType(AddProfilePictureScreen), findsOneWidget);
+        expect(find.byType(UserPlaceholder), findsOneWidget);
+        expect(find.byType(AddSkipPictureButton), findsOneWidget);
+      },
+    );
   });
 
   // Golden tests
@@ -75,11 +79,9 @@ void main() {
         when(() => loginBlocNoPicture.state).thenReturn(LoginState.test());
 
         final signupBlocNoPicture = MockSignupBloc();
-        when(() => signupBlocNoPicture.state).thenReturn(
-          SignupState.test(
-            isDoneProfilePicEditing: false,
-          ),
-        );
+        when(
+          () => signupBlocNoPicture.state,
+        ).thenReturn(SignupState.test(isDoneProfilePicEditing: false));
 
         final loginBlocWithPicture = MockLoginBloc();
         when(() => loginBlocWithPicture.state).thenReturn(LoginState.test());
@@ -99,18 +101,14 @@ void main() {
               name: 'default state',
               child: AddProfilePictureScreen(loginBloc: loginBlocNoPicture),
               providers: [
-                BlocProvider<SignupBloc>.value(
-                  value: signupBlocNoPicture,
-                ),
+                BlocProvider<SignupBloc>.value(value: signupBlocNoPicture),
               ],
             ),
             createTestScenario(
               name: 'done editing state',
               child: AddProfilePictureScreen(loginBloc: loginBlocWithPicture),
               providers: [
-                BlocProvider<SignupBloc>.value(
-                  value: signupBlocDoneEditing,
-                ),
+                BlocProvider<SignupBloc>.value(value: signupBlocDoneEditing),
               ],
             ),
           ],

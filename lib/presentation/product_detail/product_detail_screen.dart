@@ -8,6 +8,7 @@ import 'package:skelter/presentation/product_detail/bloc/product_detail_event.da
 import 'package:skelter/presentation/product_detail/bloc/product_detail_state.dart';
 import 'package:skelter/presentation/product_detail/domain/entities/product_detail.dart';
 import 'package:skelter/presentation/product_detail/widgets/add_to_cart_button.dart';
+import 'package:skelter/presentation/product_detail/widgets/ai_product_description.dart';
 import 'package:skelter/presentation/product_detail/widgets/description.dart';
 import 'package:skelter/presentation/product_detail/widgets/info_headline_bar.dart';
 import 'package:skelter/presentation/product_detail/widgets/mark_favorite_button.dart';
@@ -34,8 +35,10 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProductDetailBloc>(
-      create: (_) => ProductDetailBloc(getProductDetail: sl())
-        ..add(
+      create: (_) => ProductDetailBloc(
+        getProductDetail: sl(),
+        generateAIProductDescription: sl(),
+      )..add(
           GetProductDetailDataEvent(productId: productId),
         ),
       child: BlocListener<ProductDetailBloc, ProductDetailState>(
@@ -49,6 +52,13 @@ class ProductDetailScreen extends StatelessWidget {
     if (state is ProductDetailErrorState) {
       context.showSnackBar(
         state.errorMessage ?? context.localization.opps_something_went_wrong,
+      );
+    }
+    
+    // Handle AI description errors
+    if (state is AIDescriptionError) {
+      context.showSnackBar(
+        state.errorMessage ?? 'Failed to generate AI description',
       );
     }
   }
@@ -150,6 +160,13 @@ class ProductDetailBody extends StatelessWidget {
                           Description(
                             description: productDetail.description,
                           ),
+                          const SizedBox(height: 24),
+                          AIProductDescription(
+                            productDetail: productDetail,
+                            userOrderHistory: _getMockUserOrderHistory(
+                              productDetail.category,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -162,5 +179,14 @@ class ProductDetailBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Mock method to get user order history
+  List<String>? _getMockUserOrderHistory(String currentCategory) {
+    return [
+      'electronics',
+      'fashion',
+      currentCategory,
+    ];
   }
 }

@@ -12,10 +12,7 @@ import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class CartOrderItem extends StatelessWidget {
-  const CartOrderItem({
-    super.key,
-    required this.cartModel,
-  });
+  const CartOrderItem({super.key, required this.cartModel});
 
   final CartModel cartModel;
 
@@ -93,6 +90,8 @@ class CartOrderItem extends StatelessWidget {
                     TablerIcons.star_filled,
                     color: context.currentTheme.bgWarningHover,
                   ),
+                  allowHalfRating: true,
+                  ignoreGestures: true,
                   onRatingUpdate: (rating) {},
                 ),
                 const SizedBox(height: 6),

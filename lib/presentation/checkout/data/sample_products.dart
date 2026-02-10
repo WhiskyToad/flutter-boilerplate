@@ -3,7 +3,7 @@ import 'package:skelter/presentation/home/data/models/product_model.dart';
 final List<ProductModel> sampleProducts = [
   const ProductModel(
     id: 'sample001',
-    image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
     title: 'Wireless Headphones',
     description: 'High-quality wireless headphones with noise cancellation.',
     category: 'Electronics',

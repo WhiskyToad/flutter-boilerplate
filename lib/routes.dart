@@ -47,9 +47,12 @@ class AppRouter extends RootStackRouter {
       AddAddressRoute.page,
       EditAddressRoute.page,
       AvailableCouponsRoute.page,
+      InvoicePreviewRoute.page,
 
       // Notifications
       NotificationsRoute.page,
+
+      OrderDetailRoute.page,
 
       // Product Detail
       ProductDetailRoute.page,
@@ -60,6 +63,7 @@ class AppRouter extends RootStackRouter {
       NoInternetRoute.page,
       UnderMaintenanceRoute.page,
       MyOrdersRoute.page,
+      EmptyOrdersViewRoute.page,
       SavedCardRoute.page,
       EmptyViewsRoute.page,
       ReminderRoute.page,
@@ -88,27 +92,21 @@ class AppRouter extends RootStackRouter {
 
       // Biometrics authentication
       BiometricAuthRoute.page,
-    ]
-        .map(
-          (page) => AutoRoute(
-            page: page,
-            path: '/${page.name}',
-          ),
-        )
-        .toList();
+    ].map((page) => AutoRoute(page: page, path: '/${page.name}')).toList();
 
-    final List<AutoRoute> noTransitionRoutes = [
-      // Home page
-      HomeRoute.page,
-    ]
-        .map(
-          (page) => CustomRoute(
-            page: page,
-            transitionsBuilder: TransitionsBuilders.noTransition,
-            durationInMilliseconds: 2,
-          ),
-        )
-        .toList();
+    final List<AutoRoute> noTransitionRoutes =
+        [
+              // Home page
+              HomeRoute.page,
+            ]
+            .map(
+              (page) => CustomRoute(
+                page: page,
+                transitionsBuilder: TransitionsBuilders.noTransition,
+                durationInMilliseconds: 2,
+              ),
+            )
+            .toList();
 
     // final List<AutoRoute> customRoutes = [
     //   CustomRoute(

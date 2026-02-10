@@ -107,8 +107,12 @@ class _MainAppState extends State<MainApp> {
   Future<void> _cleanupNotifications() async {
     await _notificationSubscription?.cancel();
     _notificationSubscription = null;
-    await FirebaseMessaging.instance.deleteToken();
-    debugPrint('FCM token deleted on logout');
+    try {
+      await FirebaseMessaging.instance.deleteToken();
+      debugPrint('FCM token deleted on logout');
+    } catch (e) {
+      debugPrint('Failed to delete FCM token: $e');
+    }
   }
 
   /// Handles notification taps and navigates based on payload type.

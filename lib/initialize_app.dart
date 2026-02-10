@@ -14,18 +14,22 @@ import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/firebase_options_dev.dart' as dev;
 import 'package:skelter/firebase_options_prod.dart' as prod;
 import 'package:skelter/firebase_options_stage.dart' as stage;
+import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
 import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> initializeApp({
   FirebaseAuth? firebaseAuth,
+  GoogleSignIn? googleSignIn,
   FirebaseAuthService? firebaseAuthService,
   Dio? dio,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
 
   final firebaseOptions = switch (AppConfig.appFlavor) {
     AppFlavor.dev => dev.DefaultFirebaseOptions.currentPlatform,
@@ -63,9 +67,16 @@ Future<void> initializeApp({
 
   await configureDependencies(
     firebaseAuth: firebaseAuth,
+    googleSignIn: googleSignIn,
     firebaseAuthService: firebaseAuthService,
     dio: dio,
   );
+  
+  try {
+    sl<GeminiService>().initialize();
+  } catch (e) {
+    debugPrint('[Gemini] Initialization warning: $e');
+  }
 
   await GoogleSignIn.instance.initialize();
 }

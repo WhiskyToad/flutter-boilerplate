@@ -145,6 +145,8 @@ class NotificationService {
         debugPrint('User not logged in, skipping FCM token retrieval');
         return null;
       }
+      final apnsToken = await _firebaseMessaging.getAPNSToken();
+      debugPrint('APNS Token: $apnsToken');
       final token = await _firebaseMessaging.getToken();
       debugPrint('FCM Token: $token');
 

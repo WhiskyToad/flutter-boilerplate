@@ -24,12 +24,18 @@ class MockSignupBloc extends MockBloc<SignupEvent, SignupState>
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUpAll(() {
-    final mockAuthService = MockFirebaseAuthService();
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
-    }
-    sl.registerLazySingleton<FirebaseAuthService>(() => mockAuthService);
+  late MockFirebaseAuth mokFirebaseAuth;
+  late FirebaseAuthService mockFirebaseAuthService;
+
+  setUp(() {
+    mokFirebaseAuth = MockFirebaseAuth();
+    sl.allowReassignment = true;
+    mockFirebaseAuthService = FirebaseAuthService(
+      firebaseAuth: mokFirebaseAuth,
+    );
+    sl.registerLazySingleton<FirebaseAuthService>(
+      () => mockFirebaseAuthService,
+    );
   });
 
   // Widget tests
@@ -57,11 +63,9 @@ void main() {
       fileName: 'create_your_password_screen',
       builder: () {
         final signupBlocEmpty = MockSignupBloc();
-        when(() => signupBlocEmpty.state).thenReturn(
-          SignupState.test(
-            email: 'test@example.com',
-          ),
-        );
+        when(
+          () => signupBlocEmpty.state,
+        ).thenReturn(SignupState.test(email: 'test@example.com'));
 
         final signupBlocPoorPassword = MockSignupBloc();
         when(() => signupBlocPoorPassword.state).thenReturn(
@@ -148,8 +152,9 @@ void main() {
             ),
             createTestScenario(
               name: 'poor password state',
-              child:
-                  CreateYourPasswordScreen(signupBloc: signupBlocPoorPassword),
+              child: CreateYourPasswordScreen(
+                signupBloc: signupBlocPoorPassword,
+              ),
             ),
             createTestScenario(
               name: 'weak password state',

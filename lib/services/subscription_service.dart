@@ -42,15 +42,34 @@ class SubscriptionService {
 
     try {
       await Purchases.setLogLevel(LogLevel.debug);
-      // Note: Release builds require a separate RevenueCat API key.
-      // Ensure the release API key is configured before app publishing.
-      final revenueCatApiKey = kReleaseMode
-          ? dotenv.env[revenueCatGoogleReleaseApiKey]
-          : dotenv.env[revenueCatGoogleApiKey];
+      // Note: Test Store uses a separate API key from your real store API keys.
+      // Development/Testing: Use Test Store API Key.
+      // Platform Store API Keys (iOS, Android, etc.): Use for production builds
+
+      // CURRENT IMPLEMENTATION: We are using the Test Store API Key
+      final revenueCatApiKey = dotenv.env[revenueCatTestStoreApiKey];
       if (revenueCatApiKey == null || revenueCatApiKey.isEmpty) {
         debugPrint('RevenueCat API key is missing!');
         return;
       }
+      
+      // We are bypassing RevenueCat initialization in release mode because
+      // the production stores (App Store/Google Play) are not yet fully implemented.
+      //
+      // IMPORTANT PRODUCTION CHECKLIST BEFORE RELEASE:
+      // (To prevent crashes and unexpected behavior):
+      // - Never submit apps to App Store or Google Play using a Test Store key.
+      // - Ensure platform-specific Production Keys (iOS/Android) are used.
+      // - Remove this bypass logic once the store implementation is finalized.
+
+      if (kReleaseMode) {
+        debugPrint(
+          'Bypassing RevenueCat initialization in Release mode '
+          '(Production Store not yet implemented).',
+        );
+        return;
+      }
+
       await Purchases.configure(PurchasesConfiguration(revenueCatApiKey));
       _isPurchaseConfigured = true;
       debugPrint('Purchase configuration initialized successfully');
@@ -61,6 +80,7 @@ class SubscriptionService {
   }
 
   Future<void> _checkSubscriptionStatus() async {
+    if (!_isPurchaseConfigured) return;
     try {
       final customerInfo = await Purchases.getCustomerInfo();
       _updateSubscriptionStatus(customerInfo);
@@ -133,6 +153,7 @@ class SubscriptionService {
   }
 
   Future<String?> getUserManagementUrl() async {
+    if (!_isPurchaseConfigured) return null;
     try {
       final customerInfo = await Purchases.getCustomerInfo();
       return customerInfo.managementURL;
