@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -25,6 +26,7 @@ import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/local_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
@@ -99,6 +101,14 @@ Future<void> configureDependencies({
       () => AIProductDescriptionRemoteDataSourceImpl(sl()),
     )
     ..registerLazySingleton(() => GeminiService())
+    ..registerLazySingleton<FirebasePerformance>(
+      () => FirebasePerformance.instance,
+    )
+    ..registerLazySingleton(
+      () => PerformanceMonitoringService(
+        performance: sl<FirebasePerformance>(),
+      ),
+    )
     ..registerLazySingleton(() => GetExchangeRate(sl()))
     ..registerLazySingleton<CurrencyConverterRepository>(
       () => CurrencyConverterRepositoryImpl(sl()),
