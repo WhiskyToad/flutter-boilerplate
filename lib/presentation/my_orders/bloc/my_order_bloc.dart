@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skelter/constants/constants.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/checkout/model/invoice_model.dart';
 import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
@@ -6,6 +8,8 @@ import 'package:skelter/presentation/my_orders/bloc/my_order_event.dart';
 import 'package:skelter/presentation/my_orders/bloc/my_order_state.dart';
 import 'package:skelter/presentation/my_orders/services/pdf_service.dart';
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:skelter/utils/permission_util.dart';
 
 class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
@@ -23,6 +27,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
 
   final GetProducts _getProducts;
   final GetProductDetail _getProductDetail;
+  final PerformanceMonitoringService _performanceService = sl();
 
   void _setupEventListener() {
     on<GetMyOrderProductsEvent>(_onGetMyOrderProductsEvent);
@@ -35,15 +40,31 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
     GetMyOrderProductsEvent event,
     Emitter<MyOrderState> emit,
   ) async {
+    _performanceService.startTrace(kTraceApiGetOrders);
     emit(MyOrderLoadingState(state));
 
     final result = await _getProducts();
 
     result.fold(
-      (failure) =>
-          emit(MyOrderErrorState(state, errorMessage: failure.errorMessage)),
-      (products) => emit(MyOrderLoadedState(state, products: products)),
+      (failure) {
+        _performanceService.putAttribute(
+          kTraceApiGetOrders,
+          kTraceAttrError,
+          failure.errorMessage.truncate(100),
+        );
+        emit(MyOrderErrorState(state, errorMessage: failure.errorMessage));
+      },
+      (products) {
+        _performanceService.putAttribute(
+          kTraceApiGetOrders,
+          kTraceAttrSuccess,
+          true,
+        );
+        emit(MyOrderLoadedState(state, products: products));
+      },
     );
+
+    _performanceService.stopTrace(kTraceApiGetOrders);
   }
 
   Future<void> _onGetOrderProductDetailEvent(
