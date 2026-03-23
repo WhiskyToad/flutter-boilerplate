@@ -13,9 +13,11 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_state.da
 import 'package:skelter/presentation/delete_account/delete_account_screen.dart';
 import 'package:skelter/presentation/delete_account/enum/delete_account_reasons.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/widgets/styling/app_theme_data.dart';
 
 import '../../../integration_test/mock_firebase_auth.dart';
+import '../../../integration_test/mock_firebase_performance.dart';
 import '../../flutter_test_config.dart';
 import '../../test_helpers.dart';
 
@@ -26,8 +28,14 @@ class MockDeleteAccountBloc
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late MockFirebaseAuth mockFirebaseAuthService;
+  late MockFirebasePerformance mockFirebasePerformance;
 
   setUpAll(() async {
+    mockFirebasePerformance = MockFirebasePerformance();
+    sl.allowReassignment = true;
+    sl.registerLazySingleton<PerformanceMonitoringService>(
+      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
+    );
     setupFirebaseCoreMocks();
     await Firebase.initializeApp(
       name: 'test',
