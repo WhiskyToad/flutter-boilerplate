@@ -1,7 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skelter/constants/constants.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
 import 'package:skelter/presentation/home/bloc/home_state.dart';
 import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
@@ -15,6 +19,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final SpeechToText _speech = SpeechToText();
 
   final GetProducts _getProducts;
+  final PerformanceMonitoringService _performanceService = sl();
 
   void _setupEventListener() {
     on<BottomNavBarIndexChangedEvent>(_onBottomNavBarIndexChangedEvent);
@@ -44,16 +49,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     GetTopProductDataEvent event,
     Emitter<HomeState> emit,
   ) async {
+    _performanceService.startTrace(kTraceApiGetProducts);
     emit(ProductLoadingState(state));
 
     final result = await _getProducts();
 
     result.fold(
-      (failure) =>
-          emit(AuthenticationError(state, errorMessage: failure.errorMessage)),
-      (topProducts) =>
-          emit(TopProductsLoadedState(state, topProducts: topProducts)),
+      (failure) {
+        _performanceService.putAttribute(
+          kTraceApiGetProducts,
+          kTraceAttrError,
+          failure.errorMessage.truncate(100),
+        );
+        emit(AuthenticationError(state, errorMessage: failure.errorMessage));
+      },
+      (topProducts) {
+        _performanceService.putAttribute(
+          kTraceApiGetProducts,
+          kTraceAttrSuccess,
+          true,
+        );
+        emit(TopProductsLoadedState(state, topProducts: topProducts));
+      },
     );
+
+    _performanceService.stopTrace(kTraceApiGetProducts);
   }
 
   void _onFilterProductsEvent(

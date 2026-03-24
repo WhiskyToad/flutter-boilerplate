@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
@@ -12,6 +13,7 @@ import 'package:skelter/presentation/login/enum/enum_login_type.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/presentation/signup/enum/user_details_input_status.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
@@ -22,6 +24,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
   static const kMinimumPasswordLength = 8;
 
   final FirebaseAuthService _firebaseAuthService = sl();
+  final PerformanceMonitoringService _performanceService = sl();
   final AppLocalizations localizations;
 
   LoginBloc({
@@ -532,6 +535,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
   }
 
   Future<void> _firebaseOTPVerification() async {
+    _performanceService.startTrace(kTraceLoginPhone);
     add(PhoneNumLoginLoadingEvent(isLoading: true));
 
     final credential = _firebaseAuthService.getPhoneAuthCredential(
@@ -543,12 +547,22 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
         await _firebaseAuthService.signInWithPhoneAuthCredential(
       credential,
       onError: (error, {stackTrace}) {
+        _performanceService.putAttribute(
+          kTraceLoginPhone,
+          kTraceAttrError,
+          error.truncate(100),
+        );
         add(PhoneNumLoginLoadingEvent(isLoading: false));
         add(PhoneOtpErrorEvent(errorMessage: error));
       },
     );
 
     if (userCredential != null && userCredential.user != null) {
+      _performanceService.putAttribute(
+        kTraceLoginPhone,
+        kTraceAttrSuccess,
+        true,
+      );
       if (state.isSignup) {
         await _storeLoginDetailsInPrefs(userCredential.user!);
         await HapticFeedbackUtil.success();
@@ -563,9 +577,11 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       }
     }
     add(PhoneNumLoginLoadingEvent(isLoading: false));
+    _performanceService.stopTrace(kTraceLoginPhone);
   }
 
   Future<void> _loginUsingEmailAndPassword() async {
+    _performanceService.startTrace(kTraceLoginEmailPassword);
     add(EmailLoginLoadingEvent(isLoading: true));
     final email = state.emailPasswordLoginState?.email ?? '';
     final password = state.emailPasswordLoginState?.password ?? '';
@@ -575,12 +591,22 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       email,
       password,
       onError: (error, {stackTrace}) {
+        _performanceService.putAttribute(
+          kTraceLoginEmailPassword,
+          kTraceAttrError,
+          error.truncate(100),
+        );
         add(EmailLoginLoadingEvent(isLoading: false));
         add(AuthenticationExceptionEvent(errorMessage: error));
       },
     );
 
     if (userCredential != null) {
+      _performanceService.putAttribute(
+        kTraceLoginEmailPassword,
+        kTraceAttrSuccess,
+        true,
+      );
       await handleUserDetails(
         userCredential.user,
         onError: (error) =>
@@ -588,37 +614,62 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       );
     }
     add(EmailLoginLoadingEvent(isLoading: false));
+    _performanceService.stopTrace(kTraceLoginEmailPassword);
   }
 
   Future<void> _loginWithGoogle() async {
+    _performanceService.startTrace(kTraceLoginGoogle);
     final userCredential = await _firebaseAuthService.loginWithGoogle(
       onError: (error, {stackTrace}) {
+        _performanceService.putAttribute(
+          kTraceLoginGoogle,
+          kTraceAttrError,
+          error.truncate(100),
+        );
         add(AuthenticationExceptionEvent(errorMessage: error));
       },
     );
 
     if (userCredential != null) {
+      _performanceService.putAttribute(
+        kTraceLoginGoogle,
+        kTraceAttrSuccess,
+        true,
+      );
       await handleUserDetails(
         userCredential.user,
         onError: (error) =>
             add(AuthenticationExceptionEvent(errorMessage: error)),
       );
     }
+    _performanceService.stopTrace(kTraceLoginGoogle);
   }
 
   Future<void> _loginWithApple() async {
+    _performanceService.startTrace(kTraceLoginApple);
     final userCredential = await _firebaseAuthService.loginWithApple(
       onError: (error, {stackTrace}) {
+        _performanceService.putAttribute(
+          kTraceLoginApple,
+          kTraceAttrError,
+          error.truncate(100),
+        );
         add(AuthenticationExceptionEvent(errorMessage: error));
       },
     );
     if (userCredential != null) {
+      _performanceService.putAttribute(
+        kTraceLoginApple,
+        kTraceAttrSuccess,
+        true,
+      );
       await handleUserDetails(
         userCredential.user,
         onError: (error) =>
             add(AuthenticationExceptionEvent(errorMessage: error)),
       );
     }
+    _performanceService.stopTrace(kTraceLoginApple);
   }
 
   Future<void> _sendPasswordResetLink() async {

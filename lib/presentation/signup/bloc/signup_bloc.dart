@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/login/enum/enum_login_type.dart';
@@ -12,6 +13,7 @@ import 'package:skelter/presentation/signup/bloc/signup_event.dart';
 import 'package:skelter/presentation/signup/bloc/signup_state.dart';
 import 'package:skelter/presentation/signup/enum/user_details_input_status.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
@@ -20,6 +22,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   static const kMinimumPasswordLength = 8;
 
   final FirebaseAuthService _firebaseAuthService = sl();
+  final PerformanceMonitoringService _performanceService = sl();
   final AppLocalizations localizations;
 
   SignupBloc({
@@ -358,6 +361,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   Future<void> _signupWithEmailAndPassword() async {
+    _performanceService.startTrace(kTraceSignupEmail);
     add(EmailSignUpLoadingEvent(isLoading: true));
     final email = state.email;
     final password = state.password;
@@ -367,19 +371,31 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       email,
       password,
       onError: (error, {stackTrace}) {
+        _performanceService.putAttribute(
+          kTraceSignupEmail,
+          kTraceAttrError,
+          error.truncate(100),
+        );
         add(EmailSignUpLoadingEvent(isLoading: false));
         add(AuthenticationExceptionEvent(errorMessage: error));
       },
     );
 
     if (userCredential != null) {
+      _performanceService.putAttribute(
+        kTraceSignupEmail,
+        kTraceAttrSuccess,
+        true,
+      );
       add(SendEmailVerificationLinkEvent());
     } else {
       debugPrint('signup with Email/Password userCredential is null');
+      _performanceService.stopTrace(kTraceSignupEmail);
       return;
     }
     add(NavigateToEmailVerifyScreenEvent());
     add(EmailSignUpLoadingEvent(isLoading: false));
+    _performanceService.stopTrace(kTraceSignupEmail);
   }
 
   Future<void> handleUserDetails(

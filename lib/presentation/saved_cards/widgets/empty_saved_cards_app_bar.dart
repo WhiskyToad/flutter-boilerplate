@@ -7,7 +7,8 @@ import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 
-class EmptySavedCardAppBar extends StatelessWidget implements PreferredSizeWidget {
+class EmptySavedCardAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const EmptySavedCardAppBar({super.key});
 
   @override
