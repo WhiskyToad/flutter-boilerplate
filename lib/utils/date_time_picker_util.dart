@@ -117,6 +117,27 @@ class DateTimePickerUtil {
     onDateTimeSelected(selectedDateTime);
   }
 
+  /// Shows a **time-only picker**.
+  ///
+  /// [initialTime] - The time initially selected when the dialog opens.
+  /// [onTimeSelected] - Callback with the selected `TimeOfDay`.
+  static Future<void> showTimeOnlyPicker({
+    required BuildContext context,
+    TimeOfDay? initialTime,
+    String? helpText,
+    required ValueChanged<TimeOfDay> onTimeSelected,
+  }) async {
+    final pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime ?? TimeOfDay.now(),
+      helpText: helpText,
+    );
+
+    if (pickedTime != null) {
+      onTimeSelected(pickedTime);
+    }
+  }
+
   /// Returns the current time in the specified IANA timezone.
   ///
   /// Example:
