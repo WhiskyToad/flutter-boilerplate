@@ -51,8 +51,9 @@ class OrderDetailProductCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 child: Text(
                   context.localization.accepted,
-                  style: AppTextStyles.p4Medium
-                      .copyWith(color: context.currentTheme.textBrandSecondary),
+                  style: AppTextStyles.p4Medium.copyWith(
+                    color: context.currentTheme.textBrandSecondary,
+                  ),
                 ),
               ),
             ],
@@ -104,8 +105,9 @@ class OrderDetailProductCard extends StatelessWidget {
                           itemSize: 16,
                           ignoreGestures: true,
                           allowHalfRating: true,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 1),
+                          itemPadding: const EdgeInsets.symmetric(
+                            horizontal: 1,
+                          ),
                           itemBuilder: (context, _) => Icon(
                             TablerIcons.star_filled,
                             color: context.currentTheme.bgWarningHover,

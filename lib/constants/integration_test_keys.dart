@@ -15,8 +15,9 @@ class SignupPageKeys {
   final signupEmailTextField = const Key('signupEmailTextField');
   final signupEmailNextButton = const Key('signupEmailNextButton');
   final signupPasswordTextField = const Key('signupPasswordTextField');
-  final signupConfirmPasswordTextField =
-      const Key('signupConfirmPasswordTextField');
+  final signupConfirmPasswordTextField = const Key(
+    'signupConfirmPasswordTextField',
+  );
   final signupPasswordNextButton = const Key('signupPasswordNextButton');
   final signupWithEmailButton = const Key('signupWithEmailButton');
 }

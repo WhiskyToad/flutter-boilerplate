@@ -26,9 +26,7 @@ class UserAvatar extends StatelessWidget {
           width: profileImageSize.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular((profileImageSize / 2).w),
-            child: Assets.images.demoUser.image(
-              fit: BoxFit.cover,
-            ),
+            child: Assets.images.demoUser.image(fit: BoxFit.cover),
           ),
         ),
         if (isProUser)
@@ -37,9 +35,7 @@ class UserAvatar extends StatelessWidget {
             right: 0,
             left: 0,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 4.0,
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
               decoration: BoxDecoration(
                 color: context.currentTheme.bgBrandLight50,
                 borderRadius: BorderRadius.circular(16.0),

@@ -28,20 +28,12 @@ class AppButtonIcon extends StatelessWidget {
         );
       }
       if (iconPath!.endsWith(kPNGWithDot)) {
-        return Image.asset(
-          iconPath!,
-          height: size,
-          width: size,
-        );
+        return Image.asset(iconPath!, height: size, width: size);
       }
     }
 
     if (iconData != null) {
-      return Icon(
-        iconData,
-        size: size * 0.9,
-        color: color,
-      );
+      return Icon(iconData, size: size * 0.9, color: color);
     }
 
     return const SizedBox.shrink();

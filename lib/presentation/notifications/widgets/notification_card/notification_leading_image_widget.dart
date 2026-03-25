@@ -29,8 +29,8 @@ class NotificationLeadingImageWidget extends StatelessWidget {
             progressIndicatorBuilder: (context, url, progress) {
               return Shimmer.fromColors(
                 baseColor: context.currentTheme.bgNeutralLight100,
-                highlightColor:
-                    context.currentTheme.bgNeutralLight100.withOpacity(0.6),
+                highlightColor: context.currentTheme.bgNeutralLight100
+                    .withOpacity(0.6),
                 child: Container(
                   height: 88,
                   width: 88,
@@ -41,17 +41,13 @@ class NotificationLeadingImageWidget extends StatelessWidget {
                 ),
               );
             },
-            errorWidget: (context, url, error) => const Icon(
-              Icons.error,
-              color: AppColors.errorColor,
-            ),
+            errorWidget: (context, url, error) =>
+                const Icon(Icons.error, color: AppColors.errorColor),
             imageBuilder: (context, imageProvider) {
               return InkWell(
                 onTap: () {
                   context.pushRoute(
-                    NetworkImageRoute(
-                      link: notificationModel.image,
-                    ),
+                    NetworkImageRoute(link: notificationModel.image),
                   );
                 },
                 child: Hero(

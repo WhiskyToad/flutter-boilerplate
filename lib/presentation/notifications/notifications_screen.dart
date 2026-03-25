@@ -33,13 +33,14 @@ class NotificationScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading =
-        context.select<NotificationBloc, bool>((bloc) => bloc.state.isLoading);
-
-    final notificationList =
-        context.select<NotificationBloc, List<NotificationModel>>(
-      (NotificationBloc bloc) => bloc.state.notificationList,
+    final isLoading = context.select<NotificationBloc, bool>(
+      (bloc) => bloc.state.isLoading,
     );
+
+    final notificationList = context
+        .select<NotificationBloc, List<NotificationModel>>(
+          (NotificationBloc bloc) => bloc.state.notificationList,
+        );
 
     return Builder(
       builder: (context) {
@@ -56,8 +57,8 @@ class NotificationScreenBody extends StatelessWidget {
           child: isLoading
               ? const NotificationLoadigShimmerList()
               : notificationList.isNotEmpty
-                  ? const NotificationList()
-                  : const EmptyNotificationsView(),
+              ? const NotificationList()
+              : const EmptyNotificationsView(),
         );
       },
     );

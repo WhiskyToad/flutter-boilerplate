@@ -5,17 +5,17 @@ import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PasswordStrengthProgressIndicator extends StatelessWidget {
-  const PasswordStrengthProgressIndicator({
-    super.key,
-  });
+  const PasswordStrengthProgressIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String password =
-        context.select<SignupBloc, String>((bloc) => bloc.state.password);
+    final String password = context.select<SignupBloc, String>(
+      (bloc) => bloc.state.password,
+    );
 
-    final int passwordStrengthLevel = context
-        .select<SignupBloc, int>((bloc) => bloc.state.passwordStrengthLevel);
+    final int passwordStrengthLevel = context.select<SignupBloc, int>(
+      (bloc) => bloc.state.passwordStrengthLevel,
+    );
 
     double progressValue = passwordStrengthLevel / 3;
 

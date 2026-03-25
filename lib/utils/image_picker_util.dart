@@ -15,8 +15,9 @@ class ImagePickerUtil {
       if (source == ImageSource.gallery) {
         return await _picker.pickMultiImage(limit: maxFileLimit);
       } else {
-        final XFile? image =
-            await _picker.pickImage(source: ImageSource.camera);
+        final XFile? image = await _picker.pickImage(
+          source: ImageSource.camera,
+        );
         return image != null ? [image] : [];
       }
     } catch (e) {

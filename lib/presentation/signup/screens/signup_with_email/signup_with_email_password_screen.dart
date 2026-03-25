@@ -44,9 +44,9 @@ class _SignupWithEmailPasswordScreenState
             return PopScope(
               onPopInvokedWithResult: (didPop, result) {
                 if (didPop) {
-                  context
-                      .read<SignupBloc>()
-                      .add(ResetSignUpStateOnScreenClosedEvent());
+                  context.read<SignupBloc>().add(
+                    ResetSignUpStateOnScreenClosedEvent(),
+                  );
                 }
               },
               child: Scaffold(
@@ -75,10 +75,7 @@ class _SignupWithEmailPasswordScreenState
       context.router.popUntilRoot();
     } else if (state is NavigateToEmailVerifyScreenState) {
       await context.router.push(
-        VerifyEmailRoute(
-          email: state.email,
-          isSignUp: true,
-        ),
+        VerifyEmailRoute(email: state.email, isSignUp: true),
       );
     } else if (state is NavigateToCreatePasswordState) {
       unawaited(

@@ -12,13 +12,10 @@ class NotificationLoadigShimmerList extends StatelessWidget {
     return ListView.separated(
       itemCount: 7,
       padding: const EdgeInsets.symmetric(vertical: 4.0),
-      separatorBuilder: (context, index) => Divider(
-        color: context.currentTheme.strokeNeutralLight200,
-      ),
+      separatorBuilder: (context, index) =>
+          Divider(color: context.currentTheme.strokeNeutralLight200),
       itemBuilder: (context, index) {
-        return NotificationShimmerCard(
-          showAnimation: showAnimation,
-        );
+        return NotificationShimmerCard(showAnimation: showAnimation);
       },
     );
   }

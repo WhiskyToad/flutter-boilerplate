@@ -6,10 +6,7 @@ import 'package:skelter/widgets/shimmer/shimmer_content.dart';
 import 'package:skelter/widgets/shimmer/shimmer_image.dart';
 
 class ProductDetailShimmer extends StatelessWidget {
-  const ProductDetailShimmer({
-    super.key,
-    this.showAnimation = true,
-  });
+  const ProductDetailShimmer({super.key, this.showAnimation = true});
 
   final bool showAnimation;
 
@@ -29,10 +26,7 @@ class ProductDetailShimmer extends StatelessWidget {
               width: double.infinity,
             ),
             const SizedBox(height: 20),
-            const ShimmerContent(
-              height: 69,
-              width: double.infinity,
-            ),
+            const ShimmerContent(height: 69, width: double.infinity),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -51,11 +45,7 @@ class ProductDetailShimmer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            const ShimmerContent(
-              width: double.infinity,
-              height: 24,
-              radius: 4,
-            ),
+            const ShimmerContent(width: double.infinity, height: 24, radius: 4),
             const SizedBox(height: 10),
             Container(
               height: 100,
@@ -64,18 +54,12 @@ class ProductDetailShimmer extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 4,
                 separatorBuilder: (_, _) => const SizedBox(width: 12),
-                itemBuilder: (_, _) => const ShimmerImage(
-                  width: 100,
-                  height: 100,
-                  radius: 12,
-                ),
+                itemBuilder: (_, _) =>
+                    const ShimmerImage(width: 100, height: 100, radius: 12),
               ),
             ),
             const SizedBox(height: 20),
-            const ShimmerContent(
-              height: 120,
-              width: double.infinity,
-            ),
+            const ShimmerContent(height: 120, width: double.infinity),
             const SizedBox(height: 10),
             ShimmerButton(
               height: 56,

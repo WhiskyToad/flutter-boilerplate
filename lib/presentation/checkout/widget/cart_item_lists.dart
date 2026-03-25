@@ -18,9 +18,8 @@ class CartItemLists extends StatelessWidget {
           itemBuilder: (context, index) {
             return CartOrderItem(cartModel: state.cartData[index]);
           },
-          separatorBuilder: (context, index) => const Padding(
-            padding: EdgeInsets.all(8),
-          ),
+          separatorBuilder: (context, index) =>
+              const Padding(padding: EdgeInsets.all(8)),
         );
       },
     );

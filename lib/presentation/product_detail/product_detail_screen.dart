@@ -27,10 +27,7 @@ import 'package:skelter/utils/theme/extention/theme_extension.dart';
 class ProductDetailScreen extends StatelessWidget {
   final String productId;
 
-  const ProductDetailScreen({
-    super.key,
-    required this.productId,
-  });
+  const ProductDetailScreen({super.key, required this.productId});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +35,7 @@ class ProductDetailScreen extends StatelessWidget {
       create: (_) => ProductDetailBloc(
         getProductDetail: sl(),
         generateAIProductDescription: sl(),
-      )..add(
-          GetProductDetailDataEvent(productId: productId),
-        ),
+      )..add(GetProductDetailDataEvent(productId: productId)),
       child: BlocListener<ProductDetailBloc, ProductDetailState>(
         listener: _listenStateChanged,
         child: const ProductDetailBody(),
@@ -54,7 +49,7 @@ class ProductDetailScreen extends StatelessWidget {
         state.errorMessage ?? context.localization.opps_something_went_wrong,
       );
     }
-    
+
     // Handle AI description errors
     if (state is AIDescriptionError) {
       context.showSnackBar(
@@ -129,9 +124,7 @@ class ProductDetailBody extends StatelessWidget {
                   children: [
                     const SizedBox(height: 10),
                     const InfoHeadlineBar(),
-                    SelectedProductImage(
-                      productDetail: productDetail,
-                    ),
+                    SelectedProductImage(productDetail: productDetail),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -154,12 +147,8 @@ class ProductDetailBody extends StatelessWidget {
                               MarkFavoriteButton(),
                             ],
                           ),
-                          PhotosSection(
-                            productDetail: productDetail,
-                          ),
-                          Description(
-                            description: productDetail.description,
-                          ),
+                          PhotosSection(productDetail: productDetail),
+                          Description(description: productDetail.description),
                           const SizedBox(height: 24),
                           AIProductDescription(
                             productDetail: productDetail,
@@ -183,10 +172,6 @@ class ProductDetailBody extends StatelessWidget {
 
   /// Mock method to get user order history
   List<String>? _getMockUserOrderHistory(String currentCategory) {
-    return [
-      'electronics',
-      'fashion',
-      currentCategory,
-    ];
+    return ['electronics', 'fashion', currentCategory];
   }
 }

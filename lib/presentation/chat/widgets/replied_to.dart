@@ -48,8 +48,9 @@ class RepliedTo extends StatelessWidget {
                   repliedToMessage?.isSentByMe ?? false
                       ? context.localization.you
                       : '${chatUser?.name}',
-                  style: AppTextStyles.p4Medium
-                      .copyWith(color: context.currentTheme.textBrandSecondary),
+                  style: AppTextStyles.p4Medium.copyWith(
+                    color: context.currentTheme.textBrandSecondary,
+                  ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),

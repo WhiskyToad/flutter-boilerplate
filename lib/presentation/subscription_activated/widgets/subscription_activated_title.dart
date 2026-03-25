@@ -10,8 +10,9 @@ class SubscriptionActivatedTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.localization.subscription_activated_title,
-      style: AppTextStyles.h4SemiBold
-          .copyWith(color: context.currentTheme.textNeutralPrimary),
+      style: AppTextStyles.h4SemiBold.copyWith(
+        color: context.currentTheme.textNeutralPrimary,
+      ),
       textAlign: TextAlign.center,
     );
   }

@@ -14,21 +14,21 @@ class NotificationState with EquatableMixin {
   });
 
   NotificationState.initial()
-      : isLoading = false,
-        notificationList = [],
-        message = '';
+    : isLoading = false,
+      notificationList = [],
+      message = '';
 
   NotificationState.test()
-      : notificationList = dummyNotifications,
-        isLoading = false,
-        message = '';
+    : notificationList = dummyNotifications,
+      isLoading = false,
+      message = '';
 
   NotificationState.copy(NotificationState state)
-      : this(
-          isLoading: state.isLoading,
-          notificationList: state.notificationList,
-          message: state.message,
-        );
+    : this(
+        isLoading: state.isLoading,
+        notificationList: state.notificationList,
+        message: state.message,
+      );
 
   NotificationState copyWith({
     bool? isLoading,
@@ -55,8 +55,8 @@ class NotificationDataLoadedState extends NotificationState {
     NotificationState state, {
     required List<NotificationModel> notificationList,
   }) : super.copy(
-          state.copyWith(notificationList: notificationList, isLoading: false),
-        );
+         state.copyWith(notificationList: notificationList, isLoading: false),
+       );
 }
 
 class NotificationDeletedState extends NotificationDataLoadedState {
@@ -64,10 +64,6 @@ class NotificationDeletedState extends NotificationDataLoadedState {
 }
 
 class NotificationErrorState extends NotificationState {
-  NotificationErrorState(
-    NotificationState state, {
-    required String message,
-  }) : super.copy(
-          state.copyWith(message: message, isLoading: false),
-        );
+  NotificationErrorState(NotificationState state, {required String message})
+    : super.copy(state.copyWith(message: message, isLoading: false));
 }

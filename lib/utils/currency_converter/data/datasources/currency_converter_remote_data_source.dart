@@ -30,10 +30,7 @@ class CurrencyConverterRemoteDataSrcImpl
     try {
       final response = await _dio.get(
         '$kCurrencyConverterBaseUrl/$kGetLatestExchangeRatesEndpoint',
-        queryParameters: {
-          'from': fromCurrency,
-          'to': toCurrency,
-        },
+        queryParameters: {'from': fromCurrency, 'to': toCurrency},
         options: sl<CacheManager>().defaultCacheOptions.toOptions(),
       );
 

@@ -49,7 +49,8 @@ extension ShowSnackbar on BuildContext {
     }
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
-        backgroundColor: color ??
+        backgroundColor:
+            color ??
             (isDisplayingError
                 ? AppColors.snackBarErrorColor
                 : AppColors.snackBarBGColor),

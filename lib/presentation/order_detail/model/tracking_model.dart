@@ -15,19 +15,22 @@ class TrackingData {
     TrackingStep(
       title: 'Order Accepted',
       date: 'Thu, 13 December',
-      description: 'Lorem ipsum dolor sit amet, consetetur '
+      description:
+          'Lorem ipsum dolor sit amet, consetetur '
           'sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
     ),
     TrackingStep(
       title: 'Order Placed',
       date: 'Fri, 14 December',
-      description: 'Lorem ipsum dolor sit amet, consetetur '
+      description:
+          'Lorem ipsum dolor sit amet, consetetur '
           'sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
     ),
     TrackingStep(
       title: 'Order Shipped',
       date: 'Fri, 14 December',
-      description: 'Lorem ipsum dolor sit amet, consetetur '
+      description:
+          'Lorem ipsum dolor sit amet, consetetur '
           'sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
     ),
   ];

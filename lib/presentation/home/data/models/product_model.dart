@@ -47,33 +47,33 @@ class ProductModel extends Product {
       ProductModel.fromMap(jsonDecode(source) as DataMap);
 
   ProductModel.fromMap(DataMap map)
-      : this(
-          id: map['id'] as String,
-          title: map['title'] as String,
-          price: (map['price'] is int)
-              ? (map['price'] as int).toDouble()
-              : map['price'] as double,
-          description: map['description'] as String,
-          category: map['category'] as String,
-          image: map['image'] as String,
-          rating: map['rating'] as double,
-          reviews: map['reviews'] as int,
-          availableQuantities: map['availableQuantities'] as int,
-          seller: map['seller'] as String,
-        );
+    : this(
+        id: map['id'] as String,
+        title: map['title'] as String,
+        price: (map['price'] is int)
+            ? (map['price'] as int).toDouble()
+            : map['price'] as double,
+        description: map['description'] as String,
+        category: map['category'] as String,
+        image: map['image'] as String,
+        rating: map['rating'] as double,
+        reviews: map['reviews'] as int,
+        availableQuantities: map['availableQuantities'] as int,
+        seller: map['seller'] as String,
+      );
 
   DataMap toMap() => {
-        'id': id,
-        'title': title,
-        'price': price,
-        'description': description,
-        'category': category,
-        'image': image,
-        'rating': rating,
-        'reviews': reviews,
-        'availableQuantities': availableQuantities,
-        'seller': seller,
-      };
+    'id': id,
+    'title': title,
+    'price': price,
+    'description': description,
+    'category': category,
+    'image': image,
+    'rating': rating,
+    'reviews': reviews,
+    'availableQuantities': availableQuantities,
+    'seller': seller,
+  };
 
   String toJson() => jsonEncode(toMap());
 }

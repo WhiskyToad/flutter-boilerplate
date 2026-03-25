@@ -5,9 +5,7 @@ import 'package:skelter/presentation/login/screens/login_with_phone_number/login
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class LoginOptionsDivider extends StatelessWidget {
-  const LoginOptionsDivider({
-    super.key,
-  });
+  const LoginOptionsDivider({super.key});
 
   @override
   Widget build(BuildContext context) {

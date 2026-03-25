@@ -11,19 +11,18 @@ class NotificationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notificationList =
-        context.select<NotificationBloc, List<NotificationModel>>((value) {
-      return value.state.notificationList;
-    });
+    final notificationList = context
+        .select<NotificationBloc, List<NotificationModel>>((value) {
+          return value.state.notificationList;
+        });
 
     return RefreshIndicator(
       onRefresh: () async {
         context.read<NotificationBloc>().add(GetNotificationDataEvent());
       },
       child: ListView.separated(
-        separatorBuilder: (context, index) => Divider(
-          color: context.currentTheme.strokeNeutralLight200,
-        ),
+        separatorBuilder: (context, index) =>
+            Divider(color: context.currentTheme.strokeNeutralLight200),
         itemCount: notificationList.length,
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         itemBuilder: (context, index) {

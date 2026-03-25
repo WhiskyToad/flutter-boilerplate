@@ -5,10 +5,7 @@ import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ImageFullScreenView extends StatelessWidget {
-  const ImageFullScreenView({
-    super.key,
-    required this.imagePathLists,
-  });
+  const ImageFullScreenView({super.key, required this.imagePathLists});
 
   final List<String> imagePathLists;
 

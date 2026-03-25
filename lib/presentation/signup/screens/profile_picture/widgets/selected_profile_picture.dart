@@ -14,8 +14,9 @@ class SelectedProfilePicture extends StatelessWidget {
   Widget build(BuildContext context) {
     const profilePictureSize = 150.0;
 
-    final File? profilePicture = context
-        .select<SignupBloc, File?>((bloc) => bloc.state.selectedProfilePicture);
+    final File? profilePicture = context.select<SignupBloc, File?>(
+      (bloc) => bloc.state.selectedProfilePicture,
+    );
 
     return profilePicture == null
         ? const SizedBox.shrink()
@@ -35,9 +36,7 @@ class SelectedProfilePicture extends StatelessWidget {
             ),
             child: Container(
               clipBehavior: Clip.hardEdge,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-              ),
+              decoration: const BoxDecoration(shape: BoxShape.circle),
               child: AppEnvironment.isTestEnvironment
                   ? Image.asset(
                       profilePicture.path,

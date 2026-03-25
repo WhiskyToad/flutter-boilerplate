@@ -17,9 +17,7 @@ class ProductDetailRemoteDataSrcImpl implements ProductDetailRemoteDatasource {
   @override
   Future<ProductDetailModel> getProductDetail({required String id}) async {
     try {
-      final response = await _dio.get(
-        '$kGetProductDetailEndpoint$id',
-      );
+      final response = await _dio.get('$kGetProductDetailEndpoint$id');
 
       if (response.statusCode != 200) {
         throw APIException(

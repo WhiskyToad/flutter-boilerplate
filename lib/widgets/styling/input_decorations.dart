@@ -7,9 +7,7 @@ class InputDecorations {
     color: Colors.black87,
   );
 
-  static TextStyle hintStyleBright = const TextStyle(
-    fontSize: 17.0,
-  );
+  static TextStyle hintStyleBright = const TextStyle(fontSize: 17.0);
 
   static TextStyle labelStyleDark = const TextStyle(
     fontSize: 17.0,
@@ -53,33 +51,31 @@ class InputDecorations {
     String? errorText,
     Widget? suffix,
     Widget? suffixIcon,
-  }) =>
-      InputDecoration(
-        labelText: labelText,
-        suffixIcon: suffixIcon,
-        suffix: suffix,
-        errorText: errorText?.isEmpty ?? false ? null : errorText,
-        isDense: true,
-        hintStyle: hintStyleBright,
-        labelStyle: labelStyleBright,
-        helperStyle: hintStyleBright,
-      );
+  }) => InputDecoration(
+    labelText: labelText,
+    suffixIcon: suffixIcon,
+    suffix: suffix,
+    errorText: errorText?.isEmpty ?? false ? null : errorText,
+    isDense: true,
+    hintStyle: hintStyleBright,
+    labelStyle: labelStyleBright,
+    helperStyle: hintStyleBright,
+  );
 
   static InputDecoration denseDecorationDark({
     String? labelText,
     String? errorText,
     Widget? suffix,
     Widget? suffixIcon,
-  }) =>
-      InputDecoration(
-        labelText: labelText,
-        errorStyle: errorStyle,
-        suffix: suffix,
-        suffixIcon: suffixIcon,
-        errorText: errorText?.isEmpty ?? false ? null : errorText,
-        isDense: true,
-        hintStyle: hintStyleDark,
-        labelStyle: labelStyleDark,
-        helperStyle: hintStyleDark,
-      );
+  }) => InputDecoration(
+    labelText: labelText,
+    errorStyle: errorStyle,
+    suffix: suffix,
+    suffixIcon: suffixIcon,
+    errorText: errorText?.isEmpty ?? false ? null : errorText,
+    isDense: true,
+    hintStyle: hintStyleDark,
+    labelStyle: labelStyleDark,
+    helperStyle: hintStyleDark,
+  );
 }

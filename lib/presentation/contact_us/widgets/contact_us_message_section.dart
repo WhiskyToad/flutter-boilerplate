@@ -31,14 +31,16 @@ class _ContactUsMessageSectionState extends State<ContactUsMessageSection> {
   }
 
   void nameControllerListener() {
-    final String? previousError =
-        context.read<ContactUsBloc>().state.descriptionError;
+    final String? previousError = context
+        .read<ContactUsBloc>()
+        .state
+        .descriptionError;
     if (previousError != null && previousError.isNotEmpty) {
       context.read<ContactUsBloc>().add(const DescriptionErrorEvent(error: ''));
     }
-    context
-        .read<ContactUsBloc>()
-        .add(DescriptionChangedEvent(message: _messageController.text));
+    context.read<ContactUsBloc>().add(
+      DescriptionChangedEvent(message: _messageController.text),
+    );
   }
 
   @override
@@ -76,14 +78,18 @@ class _ContactUsMessageSectionState extends State<ContactUsMessageSection> {
               filled: true,
               fillColor: context.currentTheme.bgSurfaceBase2,
               hintText: context.localization.message_description,
-              hintStyle: AppTextStyles.p3Regular
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              hintStyle: AppTextStyles.p3Regular.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 16,
+              ),
               errorText: errorMessage.isNullOrEmpty() ? null : errorMessage,
               counterText: '${description.length}/$kMessageMaxLength',
-              counterStyle: AppTextStyles.p4Regular
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              counterStyle: AppTextStyles.p4Regular.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
               border: buildOutlineInputBorder(hasFocus: false),
               enabledBorder: buildOutlineInputBorder(hasFocus: false),
               focusedBorder: buildOutlineInputBorder(hasFocus: true),
@@ -91,11 +97,8 @@ class _ContactUsMessageSectionState extends State<ContactUsMessageSection> {
             ),
             maxLines: 4,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) => maxLengthValidator(
-              value,
-              kMessageMaxLength,
-              context,
-            ),
+            validator: (value) =>
+                maxLengthValidator(value, kMessageMaxLength, context),
             keyboardType: TextInputType.multiline,
           ),
         ),
@@ -113,8 +116,8 @@ class _ContactUsMessageSectionState extends State<ContactUsMessageSection> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

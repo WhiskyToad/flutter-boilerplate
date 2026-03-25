@@ -9,7 +9,7 @@ class PerformanceMonitoringService {
   final Map<String, Trace> _activeTraces = {};
 
   PerformanceMonitoringService({FirebasePerformance? performance})
-      : _performance = performance ?? FirebasePerformance.instance;
+    : _performance = performance ?? FirebasePerformance.instance;
 
   Future<void> initialize() async {
     try {
@@ -21,9 +21,7 @@ class PerformanceMonitoringService {
 
       await _performance.setPerformanceCollectionEnabled(isEnabled);
 
-      debugPrint(
-        '[PerformanceMonitoring] Initialized (isEnabled: $isEnabled)',
-      );
+      debugPrint('[PerformanceMonitoring] Initialized (isEnabled: $isEnabled)');
     } catch (e) {
       debugPrint('[PerformanceMonitoring] Initialization failed: $e');
     }
@@ -55,12 +53,17 @@ class PerformanceMonitoringService {
     try {
       final trace = _performance.newTrace(name);
       _activeTraces[name] = trace;
-      trace.start().then((_) {
-        debugPrint('[PerformanceMonitoring] Started trace: $name');
-      }).catchError((e) {
-        debugPrint('[PerformanceMonitoring] Error starting trace $name: $e');
-        _activeTraces.remove(name);
-      });
+      trace
+          .start()
+          .then((_) {
+            debugPrint('[PerformanceMonitoring] Started trace: $name');
+          })
+          .catchError((e) {
+            debugPrint(
+              '[PerformanceMonitoring] Error starting trace $name: $e',
+            );
+            _activeTraces.remove(name);
+          });
     } catch (e) {
       debugPrint('[PerformanceMonitoring] Error creating trace $name: $e');
     }
@@ -70,19 +73,20 @@ class PerformanceMonitoringService {
     final trace = _activeTraces[name];
     if (trace != null) {
       _activeTraces.remove(name);
-      trace.stop().then((_) {
-        debugPrint('[PerformanceMonitoring] Stopped trace: $name');
-      }).catchError((e) {
-        debugPrint('[PerformanceMonitoring] Error stopping trace $name: $e');
-      });
+      trace
+          .stop()
+          .then((_) {
+            debugPrint('[PerformanceMonitoring] Stopped trace: $name');
+          })
+          .catchError((e) {
+            debugPrint(
+              '[PerformanceMonitoring] Error stopping trace $name: $e',
+            );
+          });
     }
   }
 
-  void putAttribute(
-    String traceName,
-    String attribute,
-    Object value,
-  ) {
+  void putAttribute(String traceName, String attribute, Object value) {
     final trace = _activeTraces[traceName];
     if (trace != null) {
       try {
@@ -158,11 +162,14 @@ class PerformanceMonitoringService {
   }
 
   void stopHttpMetric(HttpMetric metric) {
-    metric.stop().then((_) {
-      debugPrint('[PerformanceMonitoring] Stopped HTTP metric');
-    }).catchError((e) {
-      debugPrint('[PerformanceMonitoring] Error stopping HTTP metric: $e');
-    });
+    metric
+        .stop()
+        .then((_) {
+          debugPrint('[PerformanceMonitoring] Stopped HTTP metric');
+        })
+        .catchError((e) {
+          debugPrint('[PerformanceMonitoring] Error stopping HTTP metric: $e');
+        });
   }
 
   bool _isValidTraceName(String name) {

@@ -38,17 +38,17 @@ class PhoneNumberLoginState with EquatableMixin {
   }
 
   PhoneNumberLoginState.copy(PhoneNumberLoginState state)
-      : this(
-          phoneInputHasFocus: state.phoneInputHasFocus,
-          isPhoneNumValid: state.isPhoneNumValid,
-          countryCode: state.countryCode,
-          phoneNumber: state.phoneNumber,
-          phoneNumErrorMessage: state.phoneNumErrorMessage,
-          phoneOTPText: state.phoneOTPText,
-          phoneOTPErrorMessage: state.phoneOTPErrorMessage,
-          isResendOTPEnabled: state.isResendOTPEnabled,
-          resendOTPTimeLeft: state.resendOTPTimeLeft,
-        );
+    : this(
+        phoneInputHasFocus: state.phoneInputHasFocus,
+        isPhoneNumValid: state.isPhoneNumValid,
+        countryCode: state.countryCode,
+        phoneNumber: state.phoneNumber,
+        phoneNumErrorMessage: state.phoneNumErrorMessage,
+        phoneOTPText: state.phoneOTPText,
+        phoneOTPErrorMessage: state.phoneOTPErrorMessage,
+        isResendOTPEnabled: state.isResendOTPEnabled,
+        resendOTPTimeLeft: state.resendOTPTimeLeft,
+      );
 
   PhoneNumberLoginState copyWith({
     bool? phoneInputHasFocus,
@@ -69,7 +69,8 @@ class PhoneNumberLoginState with EquatableMixin {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       phoneNumErrorMessage: phoneNumErrorMessage,
       phoneOTPText: phoneOTPText ?? this.phoneOTPText,
-      phoneOTPErrorMessage: phoneOTPErrorMessage ??
+      phoneOTPErrorMessage:
+          phoneOTPErrorMessage ??
           (canSetOTPErrorMessageToNull ? null : this.phoneOTPErrorMessage),
       isResendOTPEnabled: isResendOTPEnabled ?? this.isResendOTPEnabled,
       resendOTPTimeLeft: resendOTPTimeLeft ?? this.resendOTPTimeLeft,
@@ -104,19 +105,19 @@ class PhoneNumberLoginState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        phoneInputHasFocus,
-        isPhoneNumValid,
-        countryCode,
-        phoneNumber,
-        phoneNumErrorMessage,
-        phoneOTPText,
-        phoneOTPErrorMessage,
-        isResendOTPEnabled,
-        resendOTPTimeLeft,
-      ];
+    phoneInputHasFocus,
+    isPhoneNumValid,
+    countryCode,
+    phoneNumber,
+    phoneNumErrorMessage,
+    phoneOTPText,
+    phoneOTPErrorMessage,
+    isResendOTPEnabled,
+    resendOTPTimeLeft,
+  ];
 }
 
 class FirebaseOTPAutoVerificationState extends PhoneNumberLoginState {
   FirebaseOTPAutoVerificationState(PhoneNumberLoginState state)
-      : super.copy(state.copyWith(phoneOTPText: state.phoneOTPText));
+    : super.copy(state.copyWith(phoneOTPText: state.phoneOTPText));
 }

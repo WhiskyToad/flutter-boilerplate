@@ -8,10 +8,7 @@ import 'package:skelter/utils/extensions/date_time_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class MessageDetails extends StatelessWidget {
-  const MessageDetails({
-    super.key,
-    required this.chatModel,
-  });
+  const MessageDetails({super.key, required this.chatModel});
 
   final ChatModel chatModel;
 
@@ -25,8 +22,9 @@ class MessageDetails extends StatelessWidget {
         if (chatModel.lastMessageTime != null)
           Text(
             chatModel.lastMessageTime!.timeAgo(context.localization),
-            style: AppTextStyles.p3Regular
-                .copyWith(color: context.currentTheme.textNeutralSecondary),
+            style: AppTextStyles.p3Regular.copyWith(
+              color: context.currentTheme.textNeutralSecondary,
+            ),
           ),
         const SizedBox(height: 12.0),
         if (unreadMessageCount > 0)
@@ -38,15 +36,13 @@ class MessageDetails extends StatelessWidget {
                 right: Radius.circular(8),
               ),
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 2,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
             child: Text(
               min(unreadMessageCount, 999).toString() +
                   (unreadMessageCount > 999 ? '+' : ''),
-              style: AppTextStyles.c2SemiBold
-                  .copyWith(color: context.currentTheme.strokeShadesWhite),
+              style: AppTextStyles.c2SemiBold.copyWith(
+                color: context.currentTheme.strokeShadesWhite,
+              ),
             ),
           ),
       ],

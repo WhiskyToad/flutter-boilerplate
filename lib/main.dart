@@ -20,6 +20,7 @@ import 'package:skelter/i18n/i18n.dart';
 import 'package:skelter/initialize_app.dart';
 import 'package:skelter/routes.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/dynamic_icon_service.dart';
 import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/services/theme_service.dart';
@@ -35,14 +36,17 @@ import 'package:skelter/widgets/styling/app_theme_data.dart';
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
-  runZonedGuarded(() async {
-    await initializeApp();
-    runApp(const MainApp());
-  }, (error, stack) {
-    if (!AppEnvironment.isTestEnvironment && !kIsWeb) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    }
-  });
+  runZonedGuarded(
+    () async {
+      await initializeApp();
+      runApp(const MainApp());
+    },
+    (error, stack) {
+      if (!AppEnvironment.isTestEnvironment && !kIsWeb) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      }
+    },
+  );
 }
 
 class MainApp extends StatefulWidget {
@@ -65,37 +69,36 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
     Prefs.init();
-    _connectivityHelper.onConnectivityChange
-        .addListener(handleConnectivityStatusChange);
+    _connectivityHelper.onConnectivityChange.addListener(
+      handleConnectivityStatusChange,
+    );
     _initializeClarity();
 
     final themeService = ThemeService();
     themeBloc = ThemeBloc(service: themeService)..add(const LoadTheme());
 
+    sl<DynamicIconService>().syncIconFromRemoteConfig();
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await sl<AppDeepLinkManager>().initializeDeepLink();
     });
 
-    _authSubscription = FirebaseAuth.instance.authStateChanges().listen(
-      (user) {
-        if (user != null) {
-          _initializeNotifications();
-        } else {
-          _cleanupNotifications();
-        }
-      },
-    );
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        _initializeNotifications();
+      } else {
+        _cleanupNotifications();
+      }
+    });
   }
 
   Future<void> _initializeNotifications() async {
     await NotificationService.instance.initialize();
 
-    _notificationSubscription =
-        NotificationService.instance.onNotificationTap.listen(
-      (payload) {
-        _handleNotificationTap(payload);
-      },
-    );
+    _notificationSubscription = NotificationService.instance.onNotificationTap
+        .listen((payload) {
+          _handleNotificationTap(payload);
+        });
 
     final initialPayload =
         NotificationService.instance.initialNotificationPayload;
@@ -217,9 +220,7 @@ class _MainAppState extends State<MainApp> {
                   GlobalWidgetsLocalizations.delegate,
                 ],
                 routerConfig: appRouter.config(
-                  navigatorObservers: () => [
-                    ClarityRouteObserver(),
-                  ],
+                  navigatorObservers: () => [ClarityRouteObserver()],
                 ),
                 theme: AppThemesData.themeData[AppThemeEnum.LightTheme]!,
                 darkTheme: AppThemesData.themeData[AppThemeEnum.DarkTheme]!,

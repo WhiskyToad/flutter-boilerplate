@@ -33,8 +33,8 @@ class ProductImage extends StatelessWidget {
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Shimmer.fromColors(
                   baseColor: context.currentTheme.bgNeutralLight100,
-                  highlightColor:
-                      context.currentTheme.bgNeutralLight100.withOpacity(0.6),
+                  highlightColor: context.currentTheme.bgNeutralLight100
+                      .withOpacity(0.6),
                   child: ColoredBox(
                     color: context.currentTheme.bgNeutralLight100,
                   ),

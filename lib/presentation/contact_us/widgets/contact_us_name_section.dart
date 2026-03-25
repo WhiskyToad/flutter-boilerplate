@@ -32,9 +32,9 @@ class _ContactUsNameSectionState extends State<ContactUsNameSection> {
     if (previousError != null && previousError.isNotEmpty) {
       context.read<ContactUsBloc>().add(const NameErrorEvent(error: ''));
     }
-    context
-        .read<ContactUsBloc>()
-        .add(NameChangedEvent(name: _nameController.text));
+    context.read<ContactUsBloc>().add(
+      NameChangedEvent(name: _nameController.text),
+    );
   }
 
   @override
@@ -68,8 +68,9 @@ class _ContactUsNameSectionState extends State<ContactUsNameSection> {
               filled: true,
               fillColor: context.currentTheme.bgSurfaceBase2,
               hintText: context.localization.enter_your_name,
-              hintStyle: AppTextStyles.p2Medium
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              hintStyle: AppTextStyles.p2Medium.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
               errorText: nameError.isNullOrEmpty() ? null : nameError,
               border: buildOutlineInputBorder(hasFocus: false),
               enabledBorder: buildOutlineInputBorder(hasFocus: false),
@@ -93,8 +94,8 @@ class _ContactUsNameSectionState extends State<ContactUsNameSection> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

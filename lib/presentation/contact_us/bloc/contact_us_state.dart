@@ -38,36 +38,36 @@ class ContactUsState with EquatableMixin {
   });
 
   ContactUsState.initial()
-      : name = '',
-        email = '',
-        description = '',
-        isSubmitting = false,
-        isSuccess = false,
-        isNameFocused = false,
-        isEmailFocused = false,
-        isMessageFocused = false,
-        nameError = null,
-        emailError = null,
-        descriptionError = null,
-        selectedImages = null,
-        pickedFilesErrorMessage = null,
-        selectedPdfs = null;
+    : name = '',
+      email = '',
+      description = '',
+      isSubmitting = false,
+      isSuccess = false,
+      isNameFocused = false,
+      isEmailFocused = false,
+      isMessageFocused = false,
+      nameError = null,
+      emailError = null,
+      descriptionError = null,
+      selectedImages = null,
+      pickedFilesErrorMessage = null,
+      selectedPdfs = null;
 
   ContactUsState.copy(ContactUsState state)
-      : name = state.name,
-        email = state.email,
-        description = state.description,
-        isSubmitting = state.isSubmitting,
-        isSuccess = state.isSuccess,
-        isNameFocused = state.isNameFocused,
-        isEmailFocused = state.isEmailFocused,
-        isMessageFocused = state.isMessageFocused,
-        nameError = state.nameError,
-        emailError = state.emailError,
-        descriptionError = state.descriptionError,
-        selectedImages = state.selectedImages,
-        pickedFilesErrorMessage = state.pickedFilesErrorMessage,
-        selectedPdfs = state.selectedPdfs;
+    : name = state.name,
+      email = state.email,
+      description = state.description,
+      isSubmitting = state.isSubmitting,
+      isSuccess = state.isSuccess,
+      isNameFocused = state.isNameFocused,
+      isEmailFocused = state.isEmailFocused,
+      isMessageFocused = state.isMessageFocused,
+      nameError = state.nameError,
+      emailError = state.emailError,
+      descriptionError = state.descriptionError,
+      selectedImages = state.selectedImages,
+      pickedFilesErrorMessage = state.pickedFilesErrorMessage,
+      selectedPdfs = state.selectedPdfs;
 
   ContactUsState copyWith({
     String? name,
@@ -100,7 +100,8 @@ class ContactUsState with EquatableMixin {
       emailError: emailError ?? this.emailError,
       descriptionError: descriptionError ?? this.descriptionError,
       selectedImages: selectedImages ?? this.selectedImages,
-      pickedFilesErrorMessage: pickedFilesErrorMessage ??
+      pickedFilesErrorMessage:
+          pickedFilesErrorMessage ??
           (resetPickedFilesError ? null : this.pickedFilesErrorMessage),
       selectedPdfs: selectedPdfs ?? this.selectedPdfs,
     );
@@ -122,38 +123,38 @@ class ContactUsState with EquatableMixin {
     List<XFile>? selectedImages,
     String? pickedFilesErrorMessage,
     List<File>? selectedPdfs,
-  })  : name = name ?? '',
-        email = email ?? '',
-        description = description ?? '',
-        isSubmitting = isSubmitting ?? false,
-        isSuccess = isSuccess ?? false,
-        isNameFocused = isNameFocused ?? false,
-        isEmailFocused = isEmailFocused ?? false,
-        isMessageFocused = isMessageFocused ?? false,
-        nameError = nameError ?? '',
-        emailError = emailError ?? '',
-        descriptionError = descriptionError ?? '',
-        selectedImages = selectedImages ?? [],
-        pickedFilesErrorMessage = pickedFilesErrorMessage ?? '',
-        selectedPdfs = selectedPdfs ?? [];
+  }) : name = name ?? '',
+       email = email ?? '',
+       description = description ?? '',
+       isSubmitting = isSubmitting ?? false,
+       isSuccess = isSuccess ?? false,
+       isNameFocused = isNameFocused ?? false,
+       isEmailFocused = isEmailFocused ?? false,
+       isMessageFocused = isMessageFocused ?? false,
+       nameError = nameError ?? '',
+       emailError = emailError ?? '',
+       descriptionError = descriptionError ?? '',
+       selectedImages = selectedImages ?? [],
+       pickedFilesErrorMessage = pickedFilesErrorMessage ?? '',
+       selectedPdfs = selectedPdfs ?? [];
 
   @override
   List<Object?> get props => [
-        name,
-        email,
-        description,
-        isSubmitting,
-        isSuccess,
-        isNameFocused,
-        isEmailFocused,
-        isMessageFocused,
-        nameError,
-        emailError,
-        descriptionError,
-        selectedImages,
-        pickedFilesErrorMessage,
-        selectedPdfs,
-      ];
+    name,
+    email,
+    description,
+    isSubmitting,
+    isSuccess,
+    isNameFocused,
+    isEmailFocused,
+    isMessageFocused,
+    nameError,
+    emailError,
+    descriptionError,
+    selectedImages,
+    pickedFilesErrorMessage,
+    selectedPdfs,
+  ];
 }
 
 class ContactUsSubmittedState extends ContactUsState {
@@ -162,10 +163,10 @@ class ContactUsSubmittedState extends ContactUsState {
 
 class PickedFilesErrorState extends ContactUsState {
   PickedFilesErrorState(ContactUsState state, {required String error})
-      : super.copy(state.copyWith(pickedFilesErrorMessage: error));
+    : super.copy(state.copyWith(pickedFilesErrorMessage: error));
 }
 
 class ResetPickedFilesErrorState extends ContactUsState {
   ResetPickedFilesErrorState(ContactUsState state)
-      : super.copy(state.copyWith(resetPickedFilesError: true));
+    : super.copy(state.copyWith(resetPickedFilesError: true));
 }

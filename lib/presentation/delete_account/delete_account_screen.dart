@@ -31,9 +31,7 @@ class DeleteAccountScreen extends StatelessWidget {
 
   void _listenStateChanged(BuildContext context, DeleteAccountState state) {
     if (state is DeleteAccountSuccessState) {
-      context.router.replace(
-        const AccountDeleteSuccessRoute(),
-      );
+      context.router.replace(const AccountDeleteSuccessRoute());
     } else if (state is DeleteAccountFailureState) {
       context.showSnackBar(
         state.errorMessage ?? context.localization.opps_something_went_wrong,

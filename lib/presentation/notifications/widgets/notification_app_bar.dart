@@ -16,8 +16,9 @@ class NotificationAppBar extends StatelessWidget
     return AppBar(
       title: Text(
         context.localization.notifications,
-        style: AppTextStyles.h6SemiBold
-            .copyWith(color: context.currentTheme.textNeutralPrimary),
+        style: AppTextStyles.h6SemiBold.copyWith(
+          color: context.currentTheme.textNeutralPrimary,
+        ),
       ),
       centerTitle: true,
       leading: AppButton.icon(

@@ -11,9 +11,7 @@ import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-  });
+  const LoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +22,21 @@ class LoginButton extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: AppTextStyles.p2Medium
-              .copyWith(color: context.currentTheme.textNeutralSecondary),
+          style: AppTextStyles.p2Medium.copyWith(
+            color: context.currentTheme.textNeutralSecondary,
+          ),
           children: [
-            TextSpan(
-              text: context.localization.already_have_account,
-            ),
+            TextSpan(text: context.localization.already_have_account),
             TextSpan(
               text: context.localization.login,
-              style: AppTextStyles.p2Bold
-                  .copyWith(color: context.currentTheme.textBrandSecondary),
+              style: AppTextStyles.p2Bold.copyWith(
+                color: context.currentTheme.textBrandSecondary,
+              ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  context
-                      .read<LoginBloc>()
-                      .add(EnableSignupModeEvent(isSignup: false));
+                  context.read<LoginBloc>().add(
+                    EnableSignupModeEvent(isSignup: false),
+                  );
                   await context.router.replace(LoginWithPhoneNumberRoute());
                 },
             ),

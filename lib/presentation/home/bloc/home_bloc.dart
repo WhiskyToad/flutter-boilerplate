@@ -9,10 +9,9 @@ import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({
-    required GetProducts getProducts,
-  })  : _getProducts = getProducts,
-        super(HomeState.initial()) {
+  HomeBloc({required GetProducts getProducts})
+    : _getProducts = getProducts,
+      super(HomeState.initial()) {
     _setupEventListener();
   }
 
@@ -81,10 +80,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) {
     final filteredProducts = state.topProducts.where((product) {
-      return product.title
-          .trim()
-          .toLowerCase()
-          .contains(event.searchQuery.toLowerCase());
+      return product.title.trim().toLowerCase().contains(
+        event.searchQuery.toLowerCase(),
+      );
     }).toList();
 
     emit(
@@ -120,10 +118,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         ),
         onResult: (result) {
           final filteredProducts = state.topProducts.where((product) {
-            return product.title
-                .trim()
-                .toLowerCase()
-                .contains(result.recognizedWords.trim().toLowerCase());
+            return product.title.trim().toLowerCase().contains(
+              result.recognizedWords.trim().toLowerCase(),
+            );
           }).toList();
 
           add(

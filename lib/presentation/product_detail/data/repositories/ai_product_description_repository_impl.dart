@@ -25,19 +25,9 @@ class AIProductDescriptionRepositoryImpl
 
       return Right(result);
     } on APIException catch (e) {
-      return Left(
-        APIFailure(
-          message: e.message,
-          statusCode: e.statusCode,
-        ),
-      );
+      return Left(APIFailure(message: e.message, statusCode: e.statusCode));
     } catch (e) {
-      return Left(
-        APIFailure(
-          message: e.toString(),
-          statusCode: 500,
-        ),
-      );
+      return Left(APIFailure(message: e.toString(), statusCode: 500));
     }
   }
 
@@ -56,20 +46,9 @@ class AIProductDescriptionRepositoryImpl
         yield Right(chunk);
       }
     } on APIException catch (e) {
-      yield Left(
-        APIFailure(
-          message: e.message,
-          statusCode: e.statusCode,
-        ),
-      );
+      yield Left(APIFailure(message: e.message, statusCode: e.statusCode));
     } catch (e) {
-      yield Left(
-        APIFailure(
-          message: e.toString(),
-          statusCode: 500,
-        ),
-      );
+      yield Left(APIFailure(message: e.toString(), statusCode: 500));
     }
   }
 }
-

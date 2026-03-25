@@ -7,9 +7,7 @@ import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/pa
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PasswordRequirementStats extends StatelessWidget {
-  const PasswordRequirementStats({
-    super.key,
-  });
+  const PasswordRequirementStats({super.key});
 
   @override
   Widget build(BuildContext context) {

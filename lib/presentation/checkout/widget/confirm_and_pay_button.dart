@@ -11,9 +11,7 @@ import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 
 class ConfirmAndPayButton extends StatelessWidget {
-  const ConfirmAndPayButton({
-    super.key,
-  });
+  const ConfirmAndPayButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +20,17 @@ class ConfirmAndPayButton extends StatelessWidget {
       foregroundColor: context.currentTheme.textNeutralLight,
       size: AppButtonSize.extraLarge,
       onPressed: () {
-        final currentStepperIndex =
-            context.read<CheckoutBloc>().state.stepperIndex;
+        final currentStepperIndex = context
+            .read<CheckoutBloc>()
+            .state
+            .stepperIndex;
 
         Clarity.sendCustomEvent(kClarityEventConfirmAndPayStepChecked);
 
         if (currentStepperIndex < CustomStepper.steps(context).length - 1) {
-          context
-              .read<CheckoutBloc>()
-              .add(StepperIndexUpdateEvent(index: currentStepperIndex + 1));
+          context.read<CheckoutBloc>().add(
+            StepperIndexUpdateEvent(index: currentStepperIndex + 1),
+          );
         }
       },
     );

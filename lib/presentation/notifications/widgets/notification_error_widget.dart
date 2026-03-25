@@ -16,9 +16,7 @@ class NotificationErrorWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(TablerIcons.info_circle, size: 50),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           Text(
             msg.isEmpty ? context.localization.opps_something_went_wrong : msg,
             style: AppTextStyles.p2Medium.copyWith(color: AppColors.errorColor),

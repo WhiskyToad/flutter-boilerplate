@@ -61,11 +61,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       await Prefs.clear();
       await sl<CacheManager>().clearCachedApiResponse();
       await FirebaseAuthService().signOut();
-      _performanceService.putAttribute(
-        kTraceSignOut,
-        kTraceAttrSuccess,
-        true,
-      );
+      _performanceService.putAttribute(kTraceSignOut, kTraceAttrSuccess, true);
       await HapticFeedbackUtil.light();
       emit(SignOutState());
     } catch (e) {

@@ -13,20 +13,14 @@ import 'package:skelter/widgets/styling/app_colors.dart';
 class SelectedProductImage extends StatelessWidget {
   final ProductDetail productDetail;
 
-  const SelectedProductImage({
-    super.key,
-    required this.productDetail,
-  });
+  const SelectedProductImage({super.key, required this.productDetail});
 
   @override
   Widget build(BuildContext context) {
     final int selectedImageIndex = context.select<ProductDetailBloc, int>(
       (bloc) => bloc.state.selectedImageIndex,
     );
-    final allImages = [
-      productDetail.image,
-      ...productDetail.productImages,
-    ];
+    final allImages = [productDetail.image, ...productDetail.productImages];
     final imageUrl = allImages[selectedImageIndex];
     final isFromTestEnvironment = AppEnvironment.isTestEnvironment;
 
@@ -36,10 +30,8 @@ class SelectedProductImage extends StatelessWidget {
         GestureDetector(
           onTap: () {
             context.read<ProductDetailBloc>().add(
-                  ProductImageSelectedEvent(
-                    selectedIndex: selectedImageIndex,
-                  ),
-                );
+              ProductImageSelectedEvent(selectedIndex: selectedImageIndex),
+            );
           },
           child: Container(
             height: 300,

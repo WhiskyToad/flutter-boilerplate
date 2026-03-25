@@ -1,4 +1,3 @@
-
 import 'package:skelter/core/usecase/usecase.dart';
 import 'package:skelter/utils/currency_converter/domain/entities/currency_rate.dart';
 import 'package:skelter/utils/currency_converter/domain/repositories/currency_converter_repository.dart';

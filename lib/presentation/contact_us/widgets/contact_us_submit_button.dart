@@ -14,10 +14,7 @@ class ContactUsSubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 24.0,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
       child: AppButton(
         label: context.localization.submit,
         foregroundColor: context.currentTheme.textNeutralLight,

@@ -107,9 +107,9 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                       Clarity.sendCustomEvent(
                         kClarityEventDeleteAccountConfirmed,
                       );
-                      context
-                          .read<DeleteAccountBloc>()
-                          .add(const DeleteAccountSubmittedEvent());
+                      context.read<DeleteAccountBloc>().add(
+                        const DeleteAccountSubmittedEvent(),
+                      );
                       context.router.pop();
                     },
                     label: context.localization.delete,

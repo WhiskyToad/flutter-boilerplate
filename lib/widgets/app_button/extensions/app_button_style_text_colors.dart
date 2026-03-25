@@ -29,7 +29,9 @@ extension AppButtonStyleTextColors on AppButtonStyle {
             AppColors.white;
       case AppButtonState.disabled:
         return rootNavigatorKey
-                .currentContext?.currentTheme.textNeutralDisable ??
+                .currentContext
+                ?.currentTheme
+                .textNeutralDisable ??
             AppColors.white;
     }
   }
@@ -40,11 +42,15 @@ extension AppButtonStyleTextColors on AppButtonStyle {
       case AppButtonState.hovered:
       case AppButtonState.focused:
         return rootNavigatorKey
-                .currentContext?.currentTheme.textBrandSecondary ??
+                .currentContext
+                ?.currentTheme
+                .textBrandSecondary ??
             AppColors.brand700;
       case AppButtonState.disabled:
         return rootNavigatorKey
-                .currentContext?.currentTheme.textNeutralDisable ??
+                .currentContext
+                ?.currentTheme
+                .textNeutralDisable ??
             AppColors.neutral400;
     }
   }
@@ -55,11 +61,15 @@ extension AppButtonStyleTextColors on AppButtonStyle {
       case AppButtonState.hovered:
       case AppButtonState.focused:
         return rootNavigatorKey
-                .currentContext?.currentTheme.textNeutralPrimary ??
+                .currentContext
+                ?.currentTheme
+                .textNeutralPrimary ??
             AppColors.neutral900;
       case AppButtonState.disabled:
         return rootNavigatorKey
-                .currentContext?.currentTheme.textNeutralDisable ??
+                .currentContext
+                ?.currentTheme
+                .textNeutralDisable ??
             AppColors.neutral400;
     }
   }
@@ -70,11 +80,15 @@ extension AppButtonStyleTextColors on AppButtonStyle {
       case AppButtonState.hovered:
       case AppButtonState.focused:
         return rootNavigatorKey
-                .currentContext?.currentTheme.textBrandSecondary ??
+                .currentContext
+                ?.currentTheme
+                .textBrandSecondary ??
             AppColors.brand700;
       case AppButtonState.disabled:
         return rootNavigatorKey
-                .currentContext?.currentTheme.textNeutralDisable ??
+                .currentContext
+                ?.currentTheme
+                .textNeutralDisable ??
             AppColors.neutral400;
     }
   }

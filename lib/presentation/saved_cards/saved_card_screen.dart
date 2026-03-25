@@ -8,8 +8,6 @@ class SavedCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: EmptySavedCardView(),
-    );
+    return const Scaffold(body: EmptySavedCardView());
   }
 }

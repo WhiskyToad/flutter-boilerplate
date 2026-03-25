@@ -50,12 +50,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       appBar: const LoginAppBar(),
       body: BlocProvider(
         create: (context) => VerifyEmailBloc(localizations: appLocalizations)
-          ..add(
-            InitialEvent(
-              email: widget.email,
-              isSignUp: widget.isSignUp,
-            ),
-          ),
+          ..add(InitialEvent(email: widget.email, isSignUp: widget.isSignUp)),
         child: _VerifyEmailScreenBody(
           email: widget.email,
           isSignUp: widget.isSignUp,
@@ -97,8 +92,8 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
         } else if (state is VerificationCodeFailedToSendState) {
           _resendVerificationMailTimer?.cancel();
           context.read<VerifyEmailBloc>().add(
-                const ResendVerificationEmailTimeLeftEvent(resendTimeLeft: 0),
-              );
+            const ResendVerificationEmailTimeLeftEvent(resendTimeLeft: 0),
+          );
         } else if (state is NavigateToHomeState) {
           await context.router.replace(const HomeRoute());
         }
@@ -132,9 +127,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
                 ),
                 const SizedBox(height: 18),
                 Text(
-                  context.localization.link_verify_info(
-                    widget.email,
-                  ),
+                  context.localization.link_verify_info(widget.email),
                   style: AppTextStyles.p2Medium.copyWith(
                     color: context.currentTheme.textNeutralSecondary,
                   ),
@@ -157,14 +150,14 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
     await _firebaseAuth.currentUser?.reload();
     if (_isEmailVerified()) {
       context.read<VerifyEmailBloc>().add(
-            const ChangeUserDetailsInputStatusEvent(
-              status: UserDetailsInputStatus.inProgress,
-            ),
-          );
+        const ChangeUserDetailsInputStatusEvent(
+          status: UserDetailsInputStatus.inProgress,
+        ),
+      );
       if (widget.isSignUp) {
         await context.read<VerifyEmailBloc>().storeLoginDetailsInPrefs(
-              _firebaseAuth.currentUser,
-            );
+          _firebaseAuth.currentUser,
+        );
         context.read<VerifyEmailBloc>().add(NavigateToHomeEvent());
       }
     } else {
@@ -173,24 +166,24 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
   }
 
   void _startTimerForVerificationListen() {
-    _verificationListenTimer =
-        Timer.periodic(const Duration(seconds: 5), (timer) {
+    _verificationListenTimer = Timer.periodic(const Duration(seconds: 5), (
+      timer,
+    ) {
       checkIfEmailVerified(context);
     });
   }
 
   void _startTimerForResendVerificationEmail() {
     if (!mounted) return;
-    _resendVerificationMailTimer =
-        Timer.periodic(const Duration(seconds: 1), (timer) {
+    _resendVerificationMailTimer = Timer.periodic(const Duration(seconds: 1), (
+      timer,
+    ) {
       final timeLeft =
           VerifyEmailScreen.kResendVerificationEmailMaxSeconds - timer.tick;
       if (timeLeft >= 0) {
         context.read<VerifyEmailBloc>().add(
-              ResendVerificationEmailTimeLeftEvent(
-                resendTimeLeft: timeLeft,
-              ),
-            );
+          ResendVerificationEmailTimeLeftEvent(resendTimeLeft: timeLeft),
+        );
       }
     });
   }

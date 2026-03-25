@@ -34,14 +34,14 @@ class EmailNextButton extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
         final String? emailError = isEmailValid(email, context);
         if (emailError != null) {
-          context
-              .read<SignupBloc>()
-              .add(SignupEmailErrorEvent(errorMessage: emailError));
+          context.read<SignupBloc>().add(
+            SignupEmailErrorEvent(errorMessage: emailError),
+          );
           return;
         }
         context.read<SignupBloc>().add(
-              CheckEmailAvailabilityEvent(email: email),
-            );
+          CheckEmailAvailabilityEvent(email: email),
+        );
       },
     );
   }
