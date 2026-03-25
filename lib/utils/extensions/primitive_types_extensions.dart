@@ -1,4 +1,9 @@
 // String Extensions
+extension StringTruncation on String {
+  String truncate(int maxLength) =>
+      length > maxLength ? substring(0, maxLength) : this;
+}
+
 extension RegexHelperExtension on String {
   bool hasLetterAndNumber() =>
       RegExp(r'^(?=.*[A-Za-z])(?=.*\d)').hasMatch(this);

@@ -15,8 +15,10 @@ import 'package:skelter/presentation/login/screens/login_with_phone_number/widge
 import 'package:skelter/presentation/login/screens/login_with_phone_number/widgets/phone_number_text_field.dart';
 import 'package:skelter/presentation/login/screens/login_with_phone_number/widgets/send_otp_button.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 
 import '../../../../integration_test/mock_firebase_auth.dart';
+import '../../../../integration_test/mock_firebase_performance.dart';
 import '../../../flutter_test_config.dart';
 import '../../../test_helpers.dart';
 
@@ -28,15 +30,21 @@ void main() {
 
   late MockFirebaseAuth mokFirebaseAuth;
   late FirebaseAuthService mockFirebaseAuthService;
+  late MockFirebasePerformance mockFirebasePerformance;
 
   setUp(() {
     mokFirebaseAuth = MockFirebaseAuth();
+    mockFirebasePerformance = MockFirebasePerformance();
     sl.allowReassignment = true;
     mockFirebaseAuthService = FirebaseAuthService(
       firebaseAuth: mokFirebaseAuth,
     );
     sl.registerLazySingleton<FirebaseAuthService>(
       () => mockFirebaseAuthService,
+    );
+    sl.allowReassignment = true;
+    sl.registerLazySingleton<PerformanceMonitoringService>(
+      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
     );
   });
 

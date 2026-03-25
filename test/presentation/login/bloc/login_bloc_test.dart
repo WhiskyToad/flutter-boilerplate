@@ -9,8 +9,10 @@ import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/presentation/login/enum/enum_login_type.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 
 import '../../../../integration_test/mock_firebase_auth.dart';
+import '../../../../integration_test/mock_firebase_performance.dart';
 
 class MockAppLocalizations extends Mock implements AppLocalizations {}
 
@@ -21,12 +23,14 @@ void main() {
   late MockGoogleSignIn mockGoogleSignIn;
   late MockAppLocalizations l10n;
   late FirebaseAuthService mockFirebaseAuthService;
+  late MockFirebasePerformance mockFirebasePerformance;
 
   setUp(() {
     l10n = MockAppLocalizations();
 
     mockFirebaseAuth = MockFirebaseAuth();
     mockGoogleSignIn = MockGoogleSignIn();
+    mockFirebasePerformance = MockFirebasePerformance();
     sl.allowReassignment = true;
     mockFirebaseAuthService = FirebaseAuthService(
       firebaseAuth: mockFirebaseAuth,
@@ -34,6 +38,10 @@ void main() {
     );
     sl.registerLazySingleton<FirebaseAuthService>(
       () => mockFirebaseAuthService,
+    );
+    sl.allowReassignment = true;
+    sl.registerLazySingleton<PerformanceMonitoringService>(
+      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
     );
   });
 
