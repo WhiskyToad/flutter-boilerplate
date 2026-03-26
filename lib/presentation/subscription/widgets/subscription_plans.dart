@@ -13,29 +13,26 @@ class SubscriptionPlans extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final packages =
-        context.select<SubscriptionBloc, List<SubscriptionPackageModel>>(
-      (bloc) {
-        final state = bloc.state;
-        if (state is FetchSubscriptionPlanLoadedState) return state.packages;
-        return const <SubscriptionPackageModel>[];
-      },
-    );
+    final packages = context
+        .select<SubscriptionBloc, List<SubscriptionPackageModel>>((bloc) {
+          final state = bloc.state;
+          if (state is FetchSubscriptionPlanLoadedState) return state.packages;
+          return const <SubscriptionPackageModel>[];
+        });
 
-    final selectedPlan =
-        context.select<SubscriptionBloc, SubscriptionPackageModel?>(
-      (bloc) {
-        final state = bloc.state;
-        return state is FetchSubscriptionPlanLoadedState
-            ? state.selectedPackage
-            : null;
-      },
-    );
+    final selectedPlan = context
+        .select<SubscriptionBloc, SubscriptionPackageModel?>((bloc) {
+          final state = bloc.state;
+          return state is FetchSubscriptionPlanLoadedState
+              ? state.selectedPackage
+              : null;
+        });
 
     return Column(
       children: packages.map((package) {
         final isMonthly = package.identifier.contains(revenueCatMonthly);
-        final isSelected = selectedPlan != null &&
+        final isSelected =
+            selectedPlan != null &&
             selectedPlan.identifier == package.identifier;
 
         return SubscriptionPlanCard(
@@ -51,11 +48,11 @@ class SubscriptionPlans extends StatelessWidget {
               : context.localization.yearly_renewal,
           isSelected: isSelected,
           onTap: () => context.read<SubscriptionBloc>().add(
-                SelectSubscriptionPlanEvent(
-                  packages: packages,
-                  selectedPackage: package,
-                ),
-              ),
+            SelectSubscriptionPlanEvent(
+              packages: packages,
+              selectedPackage: package,
+            ),
+          ),
         );
       }).toList(),
     );

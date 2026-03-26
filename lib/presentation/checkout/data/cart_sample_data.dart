@@ -103,11 +103,7 @@ final List<CartModel> validDeliveryDateTestCase = [
 ];
 
 final List<CartModel> noDeliveryDateTestCase = [
-  CartModel(
-    product: testProducts[10],
-    quantities: 1,
-    expectedDeliveryDate: '',
-  ),
+  CartModel(product: testProducts[10], quantities: 1, expectedDeliveryDate: ''),
 ];
 
 final List<CartModel> productCategoryWithLongTextTestCase = [

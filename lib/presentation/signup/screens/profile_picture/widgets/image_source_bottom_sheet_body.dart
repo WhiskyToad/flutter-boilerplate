@@ -90,10 +90,7 @@ class ImageSourceBottomSheetBody extends StatelessWidget {
     return await ImagePicker().pickImage(source: source);
   }
 
-  Future<void> _cropImage(
-    BuildContext context,
-    String path,
-  ) async {
+  Future<void> _cropImage(BuildContext context, String path) async {
     final CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: path,
       uiSettings: [
@@ -113,9 +110,7 @@ class ImageSourceBottomSheetBody extends StatelessWidget {
 }
 
 class _RemoveImage extends StatelessWidget {
-  const _RemoveImage({
-    required this.onImageRemoved,
-  });
+  const _RemoveImage({required this.onImageRemoved});
 
   final void Function() onImageRemoved;
 
@@ -146,9 +141,7 @@ class _RemoveImage extends StatelessWidget {
 }
 
 class _Gallery extends StatelessWidget {
-  const _Gallery({
-    required this.onGallerySelected,
-  });
+  const _Gallery({required this.onGallerySelected});
 
   final void Function() onGallerySelected;
 
@@ -179,9 +172,7 @@ class _Gallery extends StatelessWidget {
 }
 
 class _Camera extends StatelessWidget {
-  const _Camera({
-    required this.onCameraSelected,
-  });
+  const _Camera({required this.onCameraSelected});
 
   final void Function() onCameraSelected;
 

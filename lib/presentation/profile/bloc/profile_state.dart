@@ -19,15 +19,11 @@ class ProfileState with EquatableMixin {
   });
 
   ProfileState.copy(ProfileState state)
-      : name = state.name,
-        email = state.email,
-        isProUser = state.isProUser;
+    : name = state.name,
+      email = state.email,
+      isProUser = state.isProUser;
 
-  ProfileState copyWith({
-    String? name,
-    String? email,
-    bool? isProUser,
-  }) {
+  ProfileState copyWith({String? name, String? email, bool? isProUser}) {
     return ProfileState(
       name: name ?? this.name,
       email: email ?? this.email,
@@ -36,20 +32,13 @@ class ProfileState with EquatableMixin {
   }
 
   @visibleForTesting
-  ProfileState.test({
-    String? name,
-    String? email,
-    bool? isProUser,
-  })  : name = name ?? '',
-        email = email ?? '',
-        isProUser = isProUser ?? false;
+  ProfileState.test({String? name, String? email, bool? isProUser})
+    : name = name ?? '',
+      email = email ?? '',
+      isProUser = isProUser ?? false;
 
   @override
-  List<Object?> get props => [
-        name,
-        email,
-        isProUser,
-      ];
+  List<Object?> get props => [name, email, isProUser];
 }
 
 class SignOutState extends ProfileState {

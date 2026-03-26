@@ -53,8 +53,9 @@ class LoginWithEmailPasswordScreen extends StatelessWidget {
                       _showAuthenticationError(state, context);
                     } else if (state is NavigateToHomeScreenState) {
                       if (isFromDeleteAccount) {
-                        await context.router
-                            .replace(const DeleteAccountRoute());
+                        await context.router.replace(
+                          const DeleteAccountRoute(),
+                        );
                       } else {
                         context.router.popUntilRoot();
                       }

@@ -18,18 +18,18 @@ class HomeState with EquatableMixin {
   });
 
   HomeState.initial()
-      : currentBottomNavIndex = 0,
-        topProducts = const [],
-        filteredProducts = const [],
-        searchQuery = '',
-        shouldAnimateListenIcon = false;
+    : currentBottomNavIndex = 0,
+      topProducts = const [],
+      filteredProducts = const [],
+      searchQuery = '',
+      shouldAnimateListenIcon = false;
 
   HomeState.copy(HomeState state)
-      : currentBottomNavIndex = state.currentBottomNavIndex,
-        topProducts = state.topProducts,
-        filteredProducts = state.filteredProducts,
-        searchQuery = state.searchQuery,
-        shouldAnimateListenIcon = state.shouldAnimateListenIcon;
+    : currentBottomNavIndex = state.currentBottomNavIndex,
+      topProducts = state.topProducts,
+      filteredProducts = state.filteredProducts,
+      searchQuery = state.searchQuery,
+      shouldAnimateListenIcon = state.shouldAnimateListenIcon;
 
   HomeState copyWith({
     int? currentBottomNavIndex,
@@ -55,30 +55,30 @@ class HomeState with EquatableMixin {
     List<Product>? topProducts,
     List<Product>? filteredProducts,
     String? searchQuery,
-  })  : currentBottomNavIndex = currentBottomNavIndex ?? 0,
-        topProducts = topProducts ?? const [],
-        filteredProducts = filteredProducts ?? const [],
-        searchQuery = searchQuery ?? '',
-        shouldAnimateListenIcon = false;
+  }) : currentBottomNavIndex = currentBottomNavIndex ?? 0,
+       topProducts = topProducts ?? const [],
+       filteredProducts = filteredProducts ?? const [],
+       searchQuery = searchQuery ?? '',
+       shouldAnimateListenIcon = false;
 
   @override
   List<Object?> get props => [
-        currentBottomNavIndex,
-        topProducts,
-        filteredProducts,
-        searchQuery,
-        shouldAnimateListenIcon,
-      ];
+    currentBottomNavIndex,
+    topProducts,
+    filteredProducts,
+    searchQuery,
+    shouldAnimateListenIcon,
+  ];
 }
 
 class TopProductsLoadedState extends HomeState {
   TopProductsLoadedState(HomeState state, {required List<Product> topProducts})
-      : super.copy(state.copyWith(topProducts: topProducts));
+    : super.copy(state.copyWith(topProducts: topProducts));
 }
 
 class AuthenticationError extends HomeState {
   AuthenticationError(HomeState state, {required String errorMessage})
-      : super.copy(state.copyWith());
+    : super.copy(state.copyWith());
 }
 
 class MicrophoneVoiceInputtedState extends HomeState {
@@ -87,17 +87,14 @@ class MicrophoneVoiceInputtedState extends HomeState {
     required String searchQuery,
     required List<Product> filteredProducts,
   }) : super.copy(
-          state.copyWith(
-            searchQuery: searchQuery,
-            filteredProducts: filteredProducts,
-            shouldAnimateListenIcon: false,
-          ),
-        );
+         state.copyWith(
+           searchQuery: searchQuery,
+           filteredProducts: filteredProducts,
+           shouldAnimateListenIcon: false,
+         ),
+       );
 }
 
 class ProductLoadingState extends HomeState {
-  ProductLoadingState(HomeState state)
-      : super.copy(
-          state.copyWith(),
-        );
+  ProductLoadingState(HomeState state) : super.copy(state.copyWith());
 }

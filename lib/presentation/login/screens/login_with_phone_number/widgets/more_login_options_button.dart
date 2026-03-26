@@ -20,9 +20,7 @@ import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
 
 class MoreLoginOptionsButton extends StatelessWidget {
-  const MoreLoginOptionsButton({
-    super.key,
-  });
+  const MoreLoginOptionsButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +50,9 @@ class MoreLoginOptionsButton extends StatelessWidget {
               if (isSignup) {
                 context.pushRoute(SignupWithEmailPasswordRoute());
               } else {
-                context
-                    .read<LoginBloc>()
-                    .add(SelectLoginSignupTypeEvent(LoginType.EMAIL));
+                context.read<LoginBloc>().add(
+                  SelectLoginSignupTypeEvent(LoginType.EMAIL),
+                );
 
                 context.pushRoute(
                   LoginWithEmailPasswordRoute(
@@ -80,13 +78,14 @@ class MoreLoginOptionsButton extends StatelessWidget {
                   InternetConnectivityHelper().onConnectivityChange.value;
 
               if (!isConnected && context.mounted) {
-                context
-                    .showSnackBar(context.localization.no_internet_connection);
+                context.showSnackBar(
+                  context.localization.no_internet_connection,
+                );
                 return;
               }
-              context
-                  .read<LoginBloc>()
-                  .add(SelectLoginSignupTypeEvent(LoginType.GOOGLE));
+              context.read<LoginBloc>().add(
+                SelectLoginSignupTypeEvent(LoginType.GOOGLE),
+              );
               context.read<LoginBloc>().add(LoginWithGoogleEvent());
             },
           ),
@@ -110,9 +109,9 @@ class MoreLoginOptionsButton extends StatelessWidget {
                   );
                   return;
                 }
-                context
-                    .read<LoginBloc>()
-                    .add(SelectLoginSignupTypeEvent(LoginType.APPLE));
+                context.read<LoginBloc>().add(
+                  SelectLoginSignupTypeEvent(LoginType.APPLE),
+                );
                 context.read<LoginBloc>().add(LoginWithAppleEvent());
               },
             ),
@@ -128,9 +127,9 @@ class MoreLoginOptionsButton extends StatelessWidget {
             size: AppButtonSize.extraLarge,
             backgroundColor: context.currentTheme.bgSurfaceBase2,
             onPressed: () {
-              context
-                  .read<LoginBloc>()
-                  .add(EnableSignupModeEvent(isSignup: !isSignup));
+              context.read<LoginBloc>().add(
+                EnableSignupModeEvent(isSignup: !isSignup),
+              );
             },
           ),
         ],

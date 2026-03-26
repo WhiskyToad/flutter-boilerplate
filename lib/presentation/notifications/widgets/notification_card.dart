@@ -15,10 +15,7 @@ class NotificationCard extends StatelessWidget {
     return NotificationDismissibleWidget(
       notificationModel: notificationModel,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 8.0,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

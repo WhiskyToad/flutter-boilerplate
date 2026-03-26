@@ -39,8 +39,10 @@ class _StateDropdownState extends State<StateDropdown> {
             filled: true,
             fillColor: context.currentTheme.bgSurfaceBase2,
             hintText: context.localization.state,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 15.0,
+              horizontal: 10.0,
+            ),
             border: buildOutlineInputBorder(hasFocus: false),
             enabledBorder: buildOutlineInputBorder(hasFocus: false),
             focusedBorder: buildOutlineInputBorder(hasFocus: true),
@@ -50,8 +52,9 @@ class _StateDropdownState extends State<StateDropdown> {
           icon: const Icon(TablerIcons.chevron_down),
           hint: Text(
             context.localization.select_state,
-            style: AppTextStyles.p2Medium
-                .copyWith(color: context.currentTheme.textNeutralDisable),
+            style: AppTextStyles.p2Medium.copyWith(
+              color: context.currentTheme.textNeutralDisable,
+            ),
           ),
           dropdownColor: context.currentTheme.bgSurfaceBase2,
           items: _states.map((String state) {
@@ -93,8 +96,8 @@ class _StateDropdownState extends State<StateDropdown> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

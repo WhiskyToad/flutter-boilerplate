@@ -106,8 +106,8 @@ void _showImageSourceBottomSheet(BuildContext context) {
                 onPressed: () {
                   context.router.maybePop();
                   context.read<ContactUsBloc>().add(
-                        const AddImageEvent(source: ImageSource.camera),
-                      );
+                    const AddImageEvent(source: ImageSource.camera),
+                  );
                 },
               ),
               const SizedBox(height: 16.0),
@@ -122,8 +122,8 @@ void _showImageSourceBottomSheet(BuildContext context) {
                 onPressed: () {
                   context.router.maybePop();
                   context.read<ContactUsBloc>().add(
-                        const AddImageEvent(source: ImageSource.gallery),
-                      );
+                    const AddImageEvent(source: ImageSource.gallery),
+                  );
                 },
               ),
               const SizedBox(height: 16.0),

@@ -27,9 +27,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
   final PerformanceMonitoringService _performanceService = sl();
   final AppLocalizations localizations;
 
-  LoginBloc({
-    required this.localizations,
-  }) : super(LoginState.initial()) {
+  LoginBloc({required this.localizations}) : super(LoginState.initial()) {
     _setupEventListener();
   }
 
@@ -48,9 +46,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     on<NavigateToOtpEvent>(_onNavigateToOtpEvent);
     on<FirebasePhoneLoginEvent>(_onFirebasePhoneLoginEvent);
     on<FirebaseOTPVerificationEvent>(_onFirebaseOTPVerificationEvent);
-    on<FirebaseOTPAutoVerificationEvent>(
-      _onFirebaseOTPAutoVerificationEvent,
-    );
+    on<FirebaseOTPAutoVerificationEvent>(_onFirebaseOTPAutoVerificationEvent);
     on<NavigateToHomeScreenEvent>(_onNavigateToHomeScreenEvent);
     on<EmailChangeEvent>(_onEmailChangeEvent);
     on<EmailErrorEvent>(_onEmailErrorEvent);
@@ -77,9 +73,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
     on<VerificationCodeFailedToSendEvent>(_onVerificationCodeFailedToSendEvent);
     on<LoginWithPhoneNumEvent>(_onLoginWithPhoneNumEvent);
-    on<ChangeUserDetailsInputStatusEvent>(
-      _onChangeUserDetailsInputStatusEvent,
-    );
+    on<ChangeUserDetailsInputStatusEvent>(_onChangeUserDetailsInputStatusEvent);
     on<SelectLoginSignupTypeEvent>(_onSelectLoginSignupTypeEvent);
   }
 
@@ -87,11 +81,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     SelectLoginSignupTypeEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(
-        selectedLoginType: event.selectedType,
-      ),
-    );
+    emit(state.copyWith(selectedLoginType: event.selectedType));
   }
 
   void _onEnableSignupModeEvent(EnableSignupModeEvent event, Emitter emit) {
@@ -113,10 +103,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
   }
 
-  void _onUpdateIsPhoneNumValidEvent(
-    IsPhoneNumValidEvent event,
-    Emitter emit,
-  ) {
+  void _onUpdateIsPhoneNumValidEvent(IsPhoneNumValidEvent event, Emitter emit) {
     final PhoneNumberLoginState phoneNumberLoginState =
         state.phoneNumberLoginState ?? PhoneNumberLoginState.initial();
     emit(
@@ -167,10 +154,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
   }
 
-  void _onPhoneOtpTextChangeEvent(
-    PhoneOtpTextChangeEvent event,
-    Emitter emit,
-  ) {
+  void _onPhoneOtpTextChangeEvent(PhoneOtpTextChangeEvent event, Emitter emit) {
     final PhoneNumberLoginState phoneNumberLoginState =
         state.phoneNumberLoginState ?? PhoneNumberLoginState.initial();
     emit(
@@ -195,10 +179,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
   }
 
-  void _onIsResendOTPEnabledEvent(
-    IsResendOTPEnabledEvent event,
-    Emitter emit,
-  ) {
+  void _onIsResendOTPEnabledEvent(IsResendOTPEnabledEvent event, Emitter emit) {
     final PhoneNumberLoginState phoneNumberLoginState =
         state.phoneNumberLoginState ?? PhoneNumberLoginState.initial();
     emit(
@@ -210,10 +191,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
   }
 
-  void _onResendOTPTimeLeftEvent(
-    ResendOTPTimeLeftEvent event,
-    Emitter emit,
-  ) {
+  void _onResendOTPTimeLeftEvent(ResendOTPTimeLeftEvent event, Emitter emit) {
     final PhoneNumberLoginState phoneNumberLoginState =
         state.phoneNumberLoginState ?? PhoneNumberLoginState.initial();
     emit(
@@ -225,10 +203,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
   }
 
-  void _onNavigateToOtpEvent(
-    NavigateToOtpEvent event,
-    Emitter emit,
-  ) {
+  void _onNavigateToOtpEvent(NavigateToOtpEvent event, Emitter emit) {
     emit(
       NavigateToOTPScreenState(
         state,
@@ -406,9 +381,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
   void _onResetEmailStateEvent(ResetEmailStateEvent event, Emitter emit) {
     final EmailPasswordLoginState emailPasswordLoginState =
         EmailPasswordLoginState.initial();
-    emit(
-      state.copyWith(emailPasswordLoginState: emailPasswordLoginState),
-    );
+    emit(state.copyWith(emailPasswordLoginState: emailPasswordLoginState));
     emit(EmailLoginLoadingState(state, isLoading: false));
     emit(ClearLoginWithEmailControllerState(state));
   }
@@ -419,9 +392,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
   ) {
     final PhoneNumberLoginState phoneNumberLoginState =
         PhoneNumberLoginState.initial();
-    emit(
-      state.copyWith(phoneNumberLoginState: phoneNumberLoginState),
-    );
+    emit(state.copyWith(phoneNumberLoginState: phoneNumberLoginState));
     emit(PhoneNumLoginLoadingState(state, isLoading: false));
   }
 
@@ -543,19 +514,19 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       smsCode: state.phoneNumberLoginState?.phoneOTPText ?? '',
     );
 
-    final userCredential =
-        await _firebaseAuthService.signInWithPhoneAuthCredential(
-      credential,
-      onError: (error, {stackTrace}) {
-        _performanceService.putAttribute(
-          kTraceLoginPhone,
-          kTraceAttrError,
-          error.truncate(100),
+    final userCredential = await _firebaseAuthService
+        .signInWithPhoneAuthCredential(
+          credential,
+          onError: (error, {stackTrace}) {
+            _performanceService.putAttribute(
+              kTraceLoginPhone,
+              kTraceAttrError,
+              error.truncate(100),
+            );
+            add(PhoneNumLoginLoadingEvent(isLoading: false));
+            add(PhoneOtpErrorEvent(errorMessage: error));
+          },
         );
-        add(PhoneNumLoginLoadingEvent(isLoading: false));
-        add(PhoneOtpErrorEvent(errorMessage: error));
-      },
-    );
 
     if (userCredential != null && userCredential.user != null) {
       _performanceService.putAttribute(
@@ -586,20 +557,20 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     final email = state.emailPasswordLoginState?.email ?? '';
     final password = state.emailPasswordLoginState?.password ?? '';
 
-    final userCredential =
-        await _firebaseAuthService.signInWithEmailAndPassword(
-      email,
-      password,
-      onError: (error, {stackTrace}) {
-        _performanceService.putAttribute(
-          kTraceLoginEmailPassword,
-          kTraceAttrError,
-          error.truncate(100),
+    final userCredential = await _firebaseAuthService
+        .signInWithEmailAndPassword(
+          email,
+          password,
+          onError: (error, {stackTrace}) {
+            _performanceService.putAttribute(
+              kTraceLoginEmailPassword,
+              kTraceAttrError,
+              error.truncate(100),
+            );
+            add(EmailLoginLoadingEvent(isLoading: false));
+            add(AuthenticationExceptionEvent(errorMessage: error));
+          },
         );
-        add(EmailLoginLoadingEvent(isLoading: false));
-        add(AuthenticationExceptionEvent(errorMessage: error));
-      },
-    );
 
     if (userCredential != null) {
       _performanceService.putAttribute(

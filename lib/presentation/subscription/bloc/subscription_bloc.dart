@@ -17,9 +17,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   SubscriptionBloc({
     required AppLocalizations localization,
     required SubscriptionService subscriptionService,
-  })  : _localization = localization,
-        _subscriptionService = subscriptionService,
-        super(FetchSubscriptionPlanLoadingState()) {
+  }) : _localization = localization,
+       _subscriptionService = subscriptionService,
+       super(FetchSubscriptionPlanLoadingState()) {
     on<FetchSubscriptionPackagesEvent>(_onFetchSubscriptionPackagesEvent);
     on<PurchaseSubscriptionEvent>(_onPurchaseSubscriptionEvent);
     on<SelectSubscriptionPlanEvent>(_onSelectSubscriptionPlanEvent);

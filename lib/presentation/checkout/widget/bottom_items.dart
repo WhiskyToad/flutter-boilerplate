@@ -14,13 +14,7 @@ class BottomItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          TotalAmount(),
-          Spacer(),
-          GetCartActionButton(),
-        ],
-      ),
+      child: Row(children: [TotalAmount(), Spacer(), GetCartActionButton()]),
     );
   }
 }

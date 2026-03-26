@@ -33,18 +33,14 @@ class _ReminderScreenState extends State<ReminderScreen> {
             );
             context.read<ReminderBloc>().add(ClearReminderEvent());
           } else if (state is ReminderSchedulingFailedState) {
-            context.showSnackBar(
-              appLocalizations.reminder_schedule_failed,
-            );
+            context.showSnackBar(appLocalizations.reminder_schedule_failed);
           }
         },
         child: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: const Scaffold(
             appBar: ReminderAppbar(),
-            body: SingleChildScrollView(
-              child: ReminderScreenBody(),
-            ),
+            body: SingleChildScrollView(child: ReminderScreenBody()),
             bottomNavigationBar: ScheduleReminderButton(),
           ),
         ),

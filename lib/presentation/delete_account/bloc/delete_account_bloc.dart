@@ -74,45 +74,20 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
         if (error == kFirebaseAuthRequiresRecentLogin ||
             error == kEmailPasswordReAuthRequired) {
           if (providerList.contains(kProviderPassword)) {
-            emit(
-              state.copyWith(
-                isLoading: false,
-                errorMessage: error,
-              ),
-            );
+            emit(state.copyWith(isLoading: false, errorMessage: error));
             emit(DeleteAccountReAuthEmailPasswordRequiredState(state));
           } else if (providerList.contains(kProviderGoogle)) {
-            emit(
-              state.copyWith(
-                isLoading: false,
-                errorMessage: error,
-              ),
-            );
+            emit(state.copyWith(isLoading: false, errorMessage: error));
             emit(DeleteAccountReAuthGoogleRequiredState(state));
           } else {
-            emit(
-              state.copyWith(
-                isLoading: false,
-                errorMessage: error,
-              ),
-            );
+            emit(state.copyWith(isLoading: false, errorMessage: error));
             emit(DeleteAccountFailureState(state));
           }
         } else if (error == kPhoneAuthRequired) {
-          emit(
-            state.copyWith(
-              isLoading: false,
-              errorMessage: error,
-            ),
-          );
+          emit(state.copyWith(isLoading: false, errorMessage: error));
           emit(DeleteAccountReAuthPhoneRequiredState(state));
         } else {
-          emit(
-            state.copyWith(
-              isLoading: false,
-              errorMessage: error,
-            ),
-          );
+          emit(state.copyWith(isLoading: false, errorMessage: error));
           emit(DeleteAccountFailureState(state));
         }
       },

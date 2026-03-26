@@ -41,7 +41,8 @@ final List<NotificationModel> dummyNotifications = [
     id: '5',
     insertedOn: DateTime.now().subtract(const Duration(days: 10, hours: 50)),
     title: 'New Task',
-    message: "You've been assigned a new task "
+    message:
+        "You've been assigned a new task "
         'Lamp is not Working by Catherine James',
     isSeen: true,
     image:

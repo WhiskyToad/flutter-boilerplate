@@ -11,10 +11,7 @@ import 'package:skelter/presentation/chat/widgets/image_full_screen_view.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class MessageTypes extends StatelessWidget {
-  const MessageTypes({
-    super.key,
-    required this.message,
-  });
+  const MessageTypes({super.key, required this.message});
 
   final ChatMessage message;
 
@@ -83,9 +80,7 @@ class MessageTypes extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return ImageFullScreenView(
-            imagePathLists: [message.message],
-          );
+          return ImageFullScreenView(imagePathLists: [message.message]);
         },
       ),
     );

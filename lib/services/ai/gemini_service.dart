@@ -16,11 +16,11 @@ class GeminiService {
 
   GenerativeModel? _model;
   GenerativeModel? _visionModel;
-  
+
   void initialize() {
     try {
       debugPrint('[Gemini] Initializing Firebase AI Gemini Service...');
-      
+
       _model = FirebaseAI.googleAI().generativeModel(
         model: GeminiConstants.geminiProModel,
         generationConfig: GenerationConfig(
@@ -35,7 +35,7 @@ class GeminiService {
       debugPrint(
         '[Gemini] Text model initialized: ${GeminiConstants.geminiProModel}',
       );
-      
+
       _visionModel = FirebaseAI.googleAI().generativeModel(
         model: GeminiConstants.geminiProVisionModel,
         generationConfig: GenerationConfig(
@@ -107,9 +107,7 @@ class GeminiService {
 
     try {
       final content = <Content>[
-        Content.multi([
-          TextPart(prompt),
-        ]),
+        Content.multi([TextPart(prompt)]),
       ];
 
       final response = await _visionModel!

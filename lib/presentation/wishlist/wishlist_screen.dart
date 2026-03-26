@@ -9,9 +9,6 @@ class WishlistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: WishlistAppBar(),
-      body: EmptyWishlistView(),
-    );
+    return const Scaffold(appBar: WishlistAppBar(), body: EmptyWishlistView());
   }
 }

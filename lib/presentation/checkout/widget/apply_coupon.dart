@@ -31,9 +31,7 @@ class ApplyCoupon extends StatelessWidget {
         const SizedBox(height: 8),
         GestureDetector(
           onTap: () {
-            context.pushRoute(
-              const AvailableCouponsRoute(),
-            );
+            context.pushRoute(const AvailableCouponsRoute());
           },
           child: Container(
             width: double.infinity,
@@ -44,8 +42,9 @@ class ApplyCoupon extends StatelessWidget {
             ),
             child: Text(
               context.localization.coupon_message(couponCount),
-              style: AppTextStyles.p3SemiBold
-                  .copyWith(color: context.currentTheme.textBrandPrimary),
+              style: AppTextStyles.p3SemiBold.copyWith(
+                color: context.currentTheme.textBrandPrimary,
+              ),
             ),
           ),
         ),

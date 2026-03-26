@@ -32,9 +32,9 @@ class ProductRemoteDataSrcImpl implements ProductRemoteDatasource {
         );
       }
 
-      return List<DataMap>.from(response.data as List)
-          .map((userData) => ProductModel.fromMap(userData))
-          .toList();
+      return List<DataMap>.from(
+        response.data as List,
+      ).map((userData) => ProductModel.fromMap(userData)).toList();
     } on APIException {
       rethrow;
     } catch (e) {

@@ -18,12 +18,12 @@ class VerifyEmailState with EquatableMixin {
   });
 
   VerifyEmailState.copy(VerifyEmailState state)
-      : this(
-          isLoading: state.isLoading,
-          userDetailsInputStatus: state.userDetailsInputStatus,
-          email: state.email,
-          isSignUp: state.isSignUp,
-        );
+    : this(
+        isLoading: state.isLoading,
+        userDetailsInputStatus: state.userDetailsInputStatus,
+        email: state.email,
+        isSignUp: state.isSignUp,
+      );
 
   VerifyEmailState copyWith({
     UserDetailsInputStatus? userDetailsInputStatus,
@@ -43,8 +43,13 @@ class VerifyEmailState with EquatableMixin {
   }
 
   @override
-  List<Object?> get props =>
-      [userDetailsInputStatus, resendTimeLeft, isLoading, isSignUp, email];
+  List<Object?> get props => [
+    userDetailsInputStatus,
+    resendTimeLeft,
+    isLoading,
+    isSignUp,
+    email,
+  ];
 }
 
 class VerifyEmailInitialState extends VerifyEmailState {}

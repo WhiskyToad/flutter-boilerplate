@@ -37,10 +37,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       List<NotificationModel> notificationList = [];
       notificationList = List.of(dummyNotifications);
       emit(
-        NotificationDataLoadedState(
-          state,
-          notificationList: notificationList,
-        ),
+        NotificationDataLoadedState(state, notificationList: notificationList),
       );
     } catch (e) {
       add(NotificationErrorEvent(msg: e.toString()));
@@ -77,11 +74,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     NotificationErrorEvent event,
     Emitter emitter,
   ) {
-    emit(
-      NotificationErrorState(
-        state,
-        message: event.msg,
-      ),
-    );
+    emit(NotificationErrorState(state, message: event.msg));
   }
 }

@@ -14,10 +14,7 @@ class SubscriptionPlanFetchError extends StatelessWidget {
     );
 
     return Center(
-      child: Text(
-        errorMessage ?? '',
-        style: AppTextStyles.p1SemiBold,
-      ),
+      child: Text(errorMessage ?? '', style: AppTextStyles.p1SemiBold),
     );
   }
 }

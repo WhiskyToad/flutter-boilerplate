@@ -26,8 +26,10 @@ class _OtherReasonTextFieldState extends State<OtherReasonTextField> {
   void initState() {
     super.initState();
 
-    _otherReasonController.text =
-        context.read<DeleteAccountBloc>().state.otherReasonText;
+    _otherReasonController.text = context
+        .read<DeleteAccountBloc>()
+        .state
+        .otherReasonText;
 
     _otherReasonController.addListener(() {
       _debouncer.value = _otherReasonController.text.trim();
@@ -35,8 +37,8 @@ class _OtherReasonTextFieldState extends State<OtherReasonTextField> {
 
     _debouncer.values.listen((text) {
       context.read<DeleteAccountBloc>().add(
-            DeleteOtherReasonTextChangedEvent(text: text),
-          );
+        DeleteOtherReasonTextChangedEvent(text: text),
+      );
     });
   }
 
@@ -49,10 +51,10 @@ class _OtherReasonTextFieldState extends State<OtherReasonTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedReason =
-        context.select<DeleteAccountBloc, DeleteAccountReasons?>(
-      (bloc) => bloc.state.selectedReason,
-    );
+    final selectedReason = context
+        .select<DeleteAccountBloc, DeleteAccountReasons?>(
+          (bloc) => bloc.state.selectedReason,
+        );
 
     if (selectedReason != DeleteAccountReasons.other) {
       return const SizedBox.shrink();
@@ -61,8 +63,9 @@ class _OtherReasonTextFieldState extends State<OtherReasonTextField> {
     return TextField(
       controller: _otherReasonController,
       maxLines: 3,
-      style: AppTextStyles.p2Regular
-          .copyWith(color: context.currentTheme.textNeutralPrimary),
+      style: AppTextStyles.p2Regular.copyWith(
+        color: context.currentTheme.textNeutralPrimary,
+      ),
       decoration: InputDecoration(
         hintText: context.localization.specify_reason,
         border: buildOutlineInputBorder(hasFocus: false),
@@ -83,8 +86,8 @@ class _OtherReasonTextFieldState extends State<OtherReasonTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

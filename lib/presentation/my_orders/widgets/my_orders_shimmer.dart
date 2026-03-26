@@ -31,8 +31,9 @@ class MyOrdersShimmer extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              border:
-                  Border.all(color: context.currentTheme.strokeNeutralLight200),
+              border: Border.all(
+                color: context.currentTheme.strokeNeutralLight200,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -46,11 +47,7 @@ class MyOrdersShimmer extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.4,
                       radius: 4,
                     ),
-                    const ShimmerContent(
-                      height: 32,
-                      width: 80,
-                      radius: 8,
-                    ),
+                    const ShimmerContent(height: 32, width: 80, radius: 8),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -97,11 +94,7 @@ class MyOrdersShimmer extends StatelessWidget {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    const ShimmerContent(
-                      height: 24,
-                      width: 24,
-                      radius: 4,
-                    ),
+                    const ShimmerContent(height: 24, width: 24, radius: 4),
                     const SizedBox(width: 10),
                     ShimmerContent(
                       height: 16,

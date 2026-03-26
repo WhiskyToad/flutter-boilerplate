@@ -12,9 +12,7 @@ import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OTPCodeInputField extends StatefulWidget {
-  const OTPCodeInputField({
-    super.key,
-  });
+  const OTPCodeInputField({super.key});
 
   @override
   State<OTPCodeInputField> createState() => _OTPCodeInputFieldState();
@@ -31,7 +29,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
     _pinController = TextEditingController(
       text:
           context.read<LoginBloc>().state.phoneNumberLoginState?.phoneOTPText ??
-              '',
+          '',
     );
     super.initState();
     // TODO: prevent in test environment
@@ -70,20 +68,21 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
           }
           if (_pinController.text.isNotEmpty) {
             _pinController.text = '';
-            context
-                .read<LoginBloc>()
-                .add(PhoneOtpTextChangeEvent(phoneOtpText: ''));
+            context.read<LoginBloc>().add(
+              PhoneOtpTextChangeEvent(phoneOtpText: ''),
+            );
           }
-          final bool isResendOTPEnabled = context
+          final bool isResendOTPEnabled =
+              context
                   .read<LoginBloc>()
                   .state
                   .phoneNumberLoginState
                   ?.isResendOTPEnabled ??
               false;
           if (isResendOTPEnabled) {
-            context
-                .read<LoginBloc>()
-                .add(IsResendOTPEnabledEvent(isResendOTPEnabled: false));
+            context.read<LoginBloc>().add(
+              IsResendOTPEnabledEvent(isResendOTPEnabled: false),
+            );
           }
         },
         child: ClarityMask(
@@ -103,13 +102,13 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
             ),
             onChanged: (pin) {
               if (errorText.haveContent()) {
-                context
-                    .read<LoginBloc>()
-                    .add(PhoneOtpErrorEvent(errorMessage: ''));
+                context.read<LoginBloc>().add(
+                  PhoneOtpErrorEvent(errorMessage: ''),
+                );
               }
-              context
-                  .read<LoginBloc>()
-                  .add(PhoneOtpTextChangeEvent(phoneOtpText: pin));
+              context.read<LoginBloc>().add(
+                PhoneOtpTextChangeEvent(phoneOtpText: pin),
+              );
             },
             onCompleted: (phoneOtpText) {
               if (phoneOtpText.isNotEmpty && phoneOtpText.length == 6) {
@@ -127,8 +126,9 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
       width: pinWidth,
       height: pinHeight,
       decoration: _pinInputBoxDecoration(),
-      textStyle: AppTextStyles.h2Bold
-          .copyWith(color: context.currentTheme.textNeutralPrimary),
+      textStyle: AppTextStyles.h2Bold.copyWith(
+        color: context.currentTheme.textNeutralPrimary,
+      ),
     );
   }
 

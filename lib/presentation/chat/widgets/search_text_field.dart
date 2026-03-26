@@ -14,8 +14,10 @@ class SearchTextField extends StatefulWidget {
 
 class _SearchTextFieldState extends State<SearchTextField> {
   final TextEditingController _searchTextController = TextEditingController();
-  final debouncer =
-      Debouncer<String>(const Duration(milliseconds: 500), initialValue: '');
+  final debouncer = Debouncer<String>(
+    const Duration(milliseconds: 500),
+    initialValue: '',
+  );
 
   @override
   void initState() {
@@ -38,8 +40,9 @@ class _SearchTextFieldState extends State<SearchTextField> {
   Widget build(BuildContext context) {
     return TextField(
       controller: _searchTextController,
-      style: AppTextStyles.p3Medium
-          .copyWith(color: context.currentTheme.textNeutralPrimary),
+      style: AppTextStyles.p3Medium.copyWith(
+        color: context.currentTheme.textNeutralPrimary,
+      ),
       decoration: InputDecoration(
         hintText: context.localization.search,
         hintStyle: AppTextStyles.p3Medium.copyWith(
@@ -75,8 +78,8 @@ class _SearchTextFieldState extends State<SearchTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

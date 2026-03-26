@@ -1,6 +1,1 @@
-enum AppButtonState {
-  normal,
-  hovered,
-  focused,
-  disabled,
-}
+enum AppButtonState { normal, hovered, focused, disabled }

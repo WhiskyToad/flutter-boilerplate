@@ -10,6 +10,8 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 // Service to manage the app tour
 class AppTourService {
   static const String _tourCompletedKey = 'app_tour_completed';
+  static TutorialCoachMark? _activeTutorial;
+  static bool _isDismissing = false;
 
   static Future<bool> isTourCompleted() async {
     return await Prefs.getBool(_tourCompletedKey) ?? false;
@@ -17,6 +19,14 @@ class AppTourService {
 
   static Future<void> markTourAsCompleted() async {
     await Prefs.setBool(_tourCompletedKey, value: true);
+  }
+
+  /// Dismisses the currently active tour without marking it as completed.
+  static void dismissTour() {
+    _isDismissing = true;
+    _activeTutorial?.finish();
+    _activeTutorial = null;
+    _isDismissing = false;
   }
 
   // Create and show the app tour
@@ -35,13 +45,18 @@ class AppTourService {
       hideSkip: true,
       targets: targets,
       paddingFocus: 4,
-      onFinish: () => markTourAsCompleted(),
+      onFinish: () {
+        _activeTutorial = null;
+        if (!_isDismissing) markTourAsCompleted();
+      },
       onSkip: () {
-        markTourAsCompleted();
+        _activeTutorial = null;
+        if (!_isDismissing) markTourAsCompleted();
         return true;
       },
     );
 
+    _activeTutorial = tutorial;
     tutorial.show(context: context);
   }
 
@@ -68,8 +83,9 @@ class AppTourService {
                   children: [
                     Text(
                       context.localization.tour_search_title,
-                      style:
-                          AppTextStyles.h2Bold.copyWith(color: AppColors.white),
+                      style: AppTextStyles.h2Bold.copyWith(
+                        color: AppColors.white,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     Text(

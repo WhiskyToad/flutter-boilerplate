@@ -17,11 +17,7 @@ class EmptyWishlistView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            Assets.icons.emptyWishlist,
-            height: 195,
-            width: 195,
-          ),
+          SvgPicture.asset(Assets.icons.emptyWishlist, height: 195, width: 195),
           const SizedBox(height: 24),
           Text(
             context.localization.empty_wishlist_title,

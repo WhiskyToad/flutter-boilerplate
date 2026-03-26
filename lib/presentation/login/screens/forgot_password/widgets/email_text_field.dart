@@ -37,8 +37,8 @@ class _EmailTextFieldState extends State<EmailTextField> {
       context.read<LoginBloc>().add(EmailErrorEvent(errorMessage: ''));
     }
     context.read<LoginBloc>().add(
-          EmailChangeEvent(email: _emailController.text),
-        );
+      EmailChangeEvent(email: _emailController.text),
+    );
   }
 
   @override
@@ -58,8 +58,9 @@ class _EmailTextFieldState extends State<EmailTextField> {
       children: [
         Text(
           context.localization.email,
-          style: AppTextStyles.p3Medium
-              .copyWith(color: context.currentTheme.textNeutralPrimary),
+          style: AppTextStyles.p3Medium.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
         const SizedBox(height: 6),
         ClarityMask(
@@ -101,8 +102,8 @@ class _EmailTextFieldState extends State<EmailTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

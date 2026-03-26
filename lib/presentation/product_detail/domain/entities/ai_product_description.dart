@@ -15,11 +15,11 @@ class AIProductDescription extends Equatable {
 
   @override
   List<Object?> get props => [
-        productId,
-        generatedDescription,
-        generatedAt,
-        isPersonalized,
-      ];
+    productId,
+    generatedDescription,
+    generatedAt,
+    isPersonalized,
+  ];
 
   AIProductDescription copyWith({
     String? productId,
@@ -35,4 +35,3 @@ class AIProductDescription extends Equatable {
     );
   }
 }
-

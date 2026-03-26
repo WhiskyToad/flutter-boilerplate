@@ -6,14 +6,11 @@ class ThemeState with EquatableMixin {
 
   const ThemeState({this.themeMode = ThemeMode.system});
 
-  ThemeState copyWith({ThemeMode? themeMode}) => ThemeState(
-        themeMode: themeMode ?? this.themeMode,
-      );
+  ThemeState copyWith({ThemeMode? themeMode}) =>
+      ThemeState(themeMode: themeMode ?? this.themeMode);
 
   @visibleForTesting
-  const ThemeState.test({
-    this.themeMode = ThemeMode.system,
-  });
+  const ThemeState.test({this.themeMode = ThemeMode.system});
 
   @override
   List<Object?> get props => [themeMode];

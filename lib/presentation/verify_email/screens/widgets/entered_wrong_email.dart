@@ -24,12 +24,11 @@ class EnteredWrongEmail extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: AppTextStyles.p2Medium
-              .copyWith(color: context.currentTheme.textNeutralSecondary),
+          style: AppTextStyles.p2Medium.copyWith(
+            color: context.currentTheme.textNeutralSecondary,
+          ),
           children: [
-            TextSpan(
-              text: context.localization.entered_wrong_email,
-            ),
+            TextSpan(text: context.localization.entered_wrong_email),
             TextSpan(
               text: context.localization.change_email,
               style: AppTextStyles.p2Bold.copyWith(

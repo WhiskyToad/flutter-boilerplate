@@ -90,7 +90,8 @@ class AppButton extends StatelessWidget {
       isIconButton: true,
       iconPath: appIcon,
       onPressed: onPressed,
-      foregroundColor: iconOrTextColorOverride ??
+      foregroundColor:
+          iconOrTextColorOverride ??
           rootNavigatorKey.currentContext?.currentTheme.iconNeutralDefault,
       isAppBarAction: isAppBarAction,
       appBarActionRightPadding: appBarActionRightPadding,
@@ -125,12 +126,7 @@ class AppButton extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         _buildChild(),
-        if (isLoading)
-          AppButtonLoader(
-            style: style,
-            state: state,
-            size: size,
-          ),
+        if (isLoading) AppButtonLoader(style: style, state: state, size: size),
       ],
     );
 
@@ -144,8 +140,8 @@ class AppButton extends StatelessWidget {
         width: isIconButton
             ? size.height
             : shouldSetFullWidth
-                ? double.infinity
-                : null,
+            ? double.infinity
+            : null,
         padding: _resolvePadding(),
         decoration: style.toBoxDecoration(
           context,
@@ -219,8 +215,9 @@ class AppButton extends StatelessWidget {
 
   Widget _buildWithTrailingIcon() {
     return Row(
-      mainAxisSize:
-          isRightAppIconAttachedToText ? MainAxisSize.max : MainAxisSize.min,
+      mainAxisSize: isRightAppIconAttachedToText
+          ? MainAxisSize.max
+          : MainAxisSize.min,
       children: [
         const Spacer(),
         _buildLabel(),
@@ -242,7 +239,8 @@ class AppButton extends StatelessWidget {
       style: style,
       size: size,
       state: state,
-      foregroundColor: foregroundColor ??
+      foregroundColor:
+          foregroundColor ??
           rootNavigatorKey.currentContext?.currentTheme.textNeutralPrimary,
       isLoading: isLoading,
     );

@@ -6,10 +6,7 @@ import 'package:skelter/presentation/chat/model/chat_model.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class ChatContentPreview extends StatelessWidget {
-  const ChatContentPreview({
-    super.key,
-    required this.chatModel,
-  });
+  const ChatContentPreview({super.key, required this.chatModel});
 
   final ChatModel chatModel;
 

@@ -3,13 +3,12 @@ import 'package:skelter/presentation/force_update/bloc/force_update_event.dart';
 import 'package:skelter/presentation/force_update/bloc/force_update_state.dart';
 
 class ForceUpdateBloc extends Bloc<ForceUpdateEvent, ForceUpdateState> {
-  ForceUpdateBloc({
-    required bool isMandatoryUpdate,
-  }) : super(
-          const ForceUpdateState.initial().copyWith(
-            isMandatoryUpdate: isMandatoryUpdate,
-          ),
-        ) {
+  ForceUpdateBloc({required bool isMandatoryUpdate})
+    : super(
+        const ForceUpdateState.initial().copyWith(
+          isMandatoryUpdate: isMandatoryUpdate,
+        ),
+      ) {
     _setupEventListener();
   }
 

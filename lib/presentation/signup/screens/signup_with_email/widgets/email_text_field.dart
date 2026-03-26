@@ -19,8 +19,10 @@ class EmailTextField extends StatefulWidget {
 
 class _EmailTextFieldState extends State<EmailTextField> {
   final TextEditingController _emailController = TextEditingController();
-  final Debouncer<String> _debouncer =
-      Debouncer<String>(const Duration(milliseconds: 300), initialValue: '');
+  final Debouncer<String> _debouncer = Debouncer<String>(
+    const Duration(milliseconds: 300),
+    initialValue: '',
+  );
 
   @override
   void initState() {
@@ -33,8 +35,10 @@ class _EmailTextFieldState extends State<EmailTextField> {
     });
 
     _debouncer.values.listen((email) {
-      final previousErrorMessage =
-          context.read<SignupBloc>().state.emailErrorMessage;
+      final previousErrorMessage = context
+          .read<SignupBloc>()
+          .state
+          .emailErrorMessage;
 
       if (previousErrorMessage.haveContent()) {
         context.read<SignupBloc>().add(SignupEmailErrorEvent(errorMessage: ''));
@@ -64,18 +68,22 @@ class _EmailTextFieldState extends State<EmailTextField> {
           child: TextField(
             key: keys.signupPage.signupEmailTextField,
             controller: _emailController,
-            style: AppTextStyles.p3Medium
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
             decoration: InputDecoration(
               hintText: context.localization.email_hint,
-              hintStyle: AppTextStyles.p3Medium
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              hintStyle: AppTextStyles.p3Medium.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
               filled: true,
               fillColor: context.currentTheme.bgSurfaceBase2,
-              errorText:
-                  emailErrorMessage.isNullOrEmpty() ? null : emailErrorMessage,
-              errorStyle: AppTextStyles.p3Regular
-                  .copyWith(color: context.currentTheme.textErrorSecondary),
+              errorText: emailErrorMessage.isNullOrEmpty()
+                  ? null
+                  : emailErrorMessage,
+              errorStyle: AppTextStyles.p3Regular.copyWith(
+                color: context.currentTheme.textErrorSecondary,
+              ),
               border: buildOutlineInputBorder(),
               enabledBorder: buildOutlineInputBorder(),
               focusedBorder: buildOutlineInputBorder(hasFocus: true),
@@ -103,8 +111,8 @@ class _EmailTextFieldState extends State<EmailTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

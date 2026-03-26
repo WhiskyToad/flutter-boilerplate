@@ -25,9 +25,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final PerformanceMonitoringService _performanceService = sl();
   final AppLocalizations localizations;
 
-  SignupBloc({
-    required this.localizations,
-  }) : super(SignupState.initial()) {
+  SignupBloc({required this.localizations}) : super(SignupState.initial()) {
     _setupEventListener();
   }
 
@@ -58,9 +56,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<EmailSignUpLoadingEvent>(_onEmailSignUpLoadingEvent);
     on<CheckEmailAvailabilityEvent>(_onVerifyEmailAccountEvent);
     on<ResetPasswordStateEvent>(_onResetPasswordStateEvent);
-    on<ChangeUserDetailsInputStatusEvent>(
-      _onChangeUserDetailsInputStatusEvent,
-    );
+    on<ChangeUserDetailsInputStatusEvent>(_onChangeUserDetailsInputStatusEvent);
     on<SendEmailVerificationLinkEvent>(_onSendEmailVerificationLinkEvent);
     on<RestartVerificationMailResendTimerEvent>(
       _onRestartVerificationMailResendTimerEvent,
@@ -104,27 +100,21 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     SelectedProfilePictureEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(selectedProfilePicture: event.image),
-    );
+    emit(state.copyWith(selectedProfilePicture: event.image));
   }
 
   void _onRemoveProfilePictureEvent(
     RemoveProfilePictureEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(canSetProfilePictureToNull: true),
-    );
+    emit(state.copyWith(canSetProfilePictureToNull: true));
   }
 
   void _onProfilePictureDoneToggleEvent(
     ProfilePictureDoneToggleEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(isDoneProfilePicEditing: event.isDoneEditing),
-    );
+    emit(state.copyWith(isDoneProfilePicEditing: event.isDoneEditing));
   }
 
   void _resetSignUpStateOnScreenClosedEvent(
@@ -139,9 +129,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   void _onSignupEmailChangeEvent(SignupEmailChangeEvent event, Emitter emit) {
-    emit(
-      state.copyWith(email: event.email),
-    );
+    emit(state.copyWith(email: event.email));
   }
 
   void _onSignupEmailErrorEvent(SignupEmailErrorEvent event, Emitter emit) {
@@ -161,7 +149,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     final bool isLongEnough = password.length >= kMinimumPasswordLength;
     final bool hasLetterAndNumber = password.hasLetterAndNumber();
     final bool hasSpecialCharacter = password.hasSpecialCharacter();
-    final int passedCriteria = (isLongEnough ? 1 : 0) +
+    final int passedCriteria =
+        (isLongEnough ? 1 : 0) +
         (hasLetterAndNumber ? 1 : 0) +
         (hasSpecialCharacter ? 1 : 0);
 
@@ -180,9 +169,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     ConfirmPasswordChangeEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(confirmPassword: event.confirmPassword),
-    );
+    emit(state.copyWith(confirmPassword: event.confirmPassword));
   }
 
   void _onConfirmPasswordErrorEvent(
@@ -201,39 +188,24 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     TogglePasswordVisibilityEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(
-        isPasswordVisible: event.isVisible,
-      ),
-    );
+    emit(state.copyWith(isPasswordVisible: event.isVisible));
   }
 
   void _onToggleConfirmPasswordVisibilityEvent(
     ToggleConfirmPasswordVisibilityEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(
-        isConfirmPasswordVisible: event.isVisible,
-      ),
-    );
+    emit(state.copyWith(isConfirmPasswordVisible: event.isVisible));
   }
 
   void _onUpdatePasswordStrengthEvent(
     UpdatePasswordStrengthEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(
-        passwordStrengthLevel: event.passwordStrengthLevel,
-      ),
-    );
+    emit(state.copyWith(passwordStrengthLevel: event.passwordStrengthLevel));
   }
 
-  void _onSignupWithEmailEvent(
-    SignupWithEmailEvent event,
-    Emitter emit,
-  ) {
+  void _onSignupWithEmailEvent(SignupWithEmailEvent event, Emitter emit) {
     final String password = state.password;
     final String confirmPassword = state.confirmPassword;
     if (confirmPassword.isEmpty) {
@@ -258,11 +230,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     ResendVerificationEmailTimeLeftEvent event,
     Emitter emit,
   ) {
-    emit(
-      state.copyWith(
-        resendVerificationEmailTimeLeft: event.resendTimeLeft,
-      ),
-    );
+    emit(state.copyWith(resendVerificationEmailTimeLeft: event.resendTimeLeft));
   }
 
   void _onFinishProfilePictureEvent(
@@ -286,12 +254,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   void _onEmailSignUpLoadingEvent(EmailSignUpLoadingEvent event, Emitter emit) {
-    emit(
-      EmailSignUpLoadingState(
-        state,
-        isLoading: event.isLoading,
-      ),
-    );
+    emit(EmailSignUpLoadingState(state, isLoading: event.isLoading));
   }
 
   void _proceedSignUpDetailsUpload() async {
@@ -306,8 +269,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       );
       return;
     }
-    final String? token =
-        await FirebaseAuth.instance.currentUser!.getIdToken(true);
+    final String? token = await FirebaseAuth.instance.currentUser!.getIdToken(
+      true,
+    );
     if (token == null) {
       debugPrint('token == null');
       hideAllLoadingsAndShowError();
@@ -366,20 +330,20 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     final email = state.email;
     final password = state.password;
 
-    final userCredential =
-        await _firebaseAuthService.signupWithEmailAndPassword(
-      email,
-      password,
-      onError: (error, {stackTrace}) {
-        _performanceService.putAttribute(
-          kTraceSignupEmail,
-          kTraceAttrError,
-          error.truncate(100),
+    final userCredential = await _firebaseAuthService
+        .signupWithEmailAndPassword(
+          email,
+          password,
+          onError: (error, {stackTrace}) {
+            _performanceService.putAttribute(
+              kTraceSignupEmail,
+              kTraceAttrError,
+              error.truncate(100),
+            );
+            add(EmailSignUpLoadingEvent(isLoading: false));
+            add(AuthenticationExceptionEvent(errorMessage: error));
+          },
         );
-        add(EmailSignUpLoadingEvent(isLoading: false));
-        add(AuthenticationExceptionEvent(errorMessage: error));
-      },
-    );
 
     if (userCredential != null) {
       _performanceService.putAttribute(
@@ -454,7 +418,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   FutureOr<void> _onSendEmailVerificationLinkEvent(
-      SendEmailVerificationLinkEvent event,
+    SendEmailVerificationLinkEvent event,
     Emitter<SignupState> emit,
   ) async {
     add(EmailSignUpLoadingEvent(isLoading: true));

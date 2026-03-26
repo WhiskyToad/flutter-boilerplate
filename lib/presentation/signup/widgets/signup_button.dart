@@ -37,9 +37,9 @@ class SignupButton extends StatelessWidget {
             ),
             size: AppButtonSize.large,
             onPressed: () {
-              context
-                  .read<LoginBloc>()
-                  .add(SelectLoginSignupTypeEvent(LoginType.GOOGLE));
+              context.read<LoginBloc>().add(
+                SelectLoginSignupTypeEvent(LoginType.GOOGLE),
+              );
               context.read<LoginBloc>().add(LoginWithGoogleEvent());
             },
           ),
@@ -53,9 +53,9 @@ class SignupButton extends StatelessWidget {
               leftIconPath: Assets.icons.apple,
               size: AppButtonSize.large,
               onPressed: () {
-                context
-                    .read<LoginBloc>()
-                    .add(SelectLoginSignupTypeEvent(LoginType.APPLE));
+                context.read<LoginBloc>().add(
+                  SelectLoginSignupTypeEvent(LoginType.APPLE),
+                );
                 context.read<LoginBloc>().add(LoginWithAppleEvent());
               },
             ),
@@ -68,12 +68,10 @@ class SignupButton extends StatelessWidget {
             leftIcon: TablerIcons.device_mobile,
             size: AppButtonSize.large,
             onPressed: () {
-              context
-                  .read<LoginBloc>()
-                  .add(SelectLoginSignupTypeEvent(LoginType.PHONE));
-              context.pushRoute(
-                LoginWithPhoneNumberRoute(),
+              context.read<LoginBloc>().add(
+                SelectLoginSignupTypeEvent(LoginType.PHONE),
               );
+              context.pushRoute(LoginWithPhoneNumberRoute());
             },
           ),
           const SizedBox(height: 16),
@@ -84,9 +82,9 @@ class SignupButton extends StatelessWidget {
             leftIcon: TablerIcons.mail,
             size: AppButtonSize.large,
             onPressed: () {
-              context
-                  .read<LoginBloc>()
-                  .add(SelectLoginSignupTypeEvent(LoginType.EMAIL));
+              context.read<LoginBloc>().add(
+                SelectLoginSignupTypeEvent(LoginType.EMAIL),
+              );
               context.pushRoute(SignupWithEmailPasswordRoute());
             },
           ),

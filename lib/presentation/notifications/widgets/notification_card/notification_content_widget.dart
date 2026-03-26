@@ -18,8 +18,9 @@ class NotificationContentWidget extends StatelessWidget {
         children: [
           Text(
             notificationModel.title,
-            style: AppTextStyles.p2Medium
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p2Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
           const SizedBox(height: 4.0),
           Text(

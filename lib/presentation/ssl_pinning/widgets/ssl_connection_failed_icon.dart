@@ -7,10 +7,6 @@ class SslFailedIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      Assets.icons.lock,
-      height: 80,
-      width: 80,
-    );
+    return SvgPicture.asset(Assets.icons.lock, height: 80, width: 80);
   }
 }

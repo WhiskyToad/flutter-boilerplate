@@ -61,26 +61,26 @@ enum NotificationType {
   Icon? get getIcon {
     return switch (this) {
       NotificationType.shiftSchedule => Icon(
-          TablerIcons.calendar_check,
-          color:
-              rootNavigatorKey.currentContext?.currentTheme.strokeShadesWhite ??
-                  AppColors.white,
-          size: 20,
-        ),
+        TablerIcons.calendar_check,
+        color:
+            rootNavigatorKey.currentContext?.currentTheme.strokeShadesWhite ??
+            AppColors.white,
+        size: 20,
+      ),
       NotificationType.shiftFilled => Icon(
-          TablerIcons.calendar_check,
-          color:
-              rootNavigatorKey.currentContext?.currentTheme.strokeShadesWhite ??
-                  AppColors.white,
-          size: 20,
-        ),
+        TablerIcons.calendar_check,
+        color:
+            rootNavigatorKey.currentContext?.currentTheme.strokeShadesWhite ??
+            AppColors.white,
+        size: 20,
+      ),
       NotificationType.shiftCancel => Icon(
-          TablerIcons.calendar_x,
-          color:
-              rootNavigatorKey.currentContext?.currentTheme.strokeShadesWhite ??
-                  AppColors.white,
-          size: 20,
-        ),
+        TablerIcons.calendar_x,
+        color:
+            rootNavigatorKey.currentContext?.currentTheme.strokeShadesWhite ??
+            AppColors.white,
+        size: 20,
+      ),
       _ => null,
     };
   }
@@ -96,7 +96,7 @@ enum NotificationType {
       NotificationType.shiftFilled =>
         rootNavigatorKey.currentContext?.currentTheme.bgBrandDefault ??
             AppColors.brand600,
-      _ => null
+      _ => null,
     };
   }
 }

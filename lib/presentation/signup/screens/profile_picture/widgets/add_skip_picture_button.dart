@@ -31,12 +31,12 @@ class AddSkipPictureButton extends StatelessWidget {
               showImageSourceBottomSheet(
                 context,
                 onImageSelected: (File file) {
-                  context
-                      .read<LoginBloc>()
-                      .add(SelectedProfilePictureEvent(image: file));
-                  context
-                      .read<LoginBloc>()
-                      .add(ProfilePictureDoneToggleEvent(isDoneEditing: true));
+                  context.read<LoginBloc>().add(
+                    SelectedProfilePictureEvent(image: file),
+                  );
+                  context.read<LoginBloc>().add(
+                    ProfilePictureDoneToggleEvent(isDoneEditing: true),
+                  );
                 },
               );
             }

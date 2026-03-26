@@ -15,18 +15,18 @@ class BiometricAuthState with EquatableMixin {
   });
 
   const BiometricAuthState.initial()
-      : isBiometricEnrolled = false,
-        isBiometricSupported = false,
-        isLoading = false,
-        errorMessage = null;
+    : isBiometricEnrolled = false,
+      isBiometricSupported = false,
+      isLoading = false,
+      errorMessage = null;
 
   BiometricAuthState.copy(BiometricAuthState state)
-      : this(
-          isBiometricEnrolled: state.isBiometricEnrolled,
-          isBiometricSupported: state.isBiometricSupported,
-          isLoading: state.isLoading,
-          errorMessage: state.errorMessage,
-        );
+    : this(
+        isBiometricEnrolled: state.isBiometricEnrolled,
+        isBiometricSupported: state.isBiometricSupported,
+        isLoading: state.isLoading,
+        errorMessage: state.errorMessage,
+      );
 
   BiometricAuthState copyWith({
     bool? isBiometricEnrolled,
@@ -52,57 +52,43 @@ class BiometricAuthState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        isBiometricEnrolled,
-        isBiometricSupported,
-        isLoading,
-        errorMessage,
-      ];
+    isBiometricEnrolled,
+    isBiometricSupported,
+    isLoading,
+    errorMessage,
+  ];
 }
 
 class BiometricAuthSuccessState extends BiometricAuthState {
   BiometricAuthSuccessState(BiometricAuthState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class BiometricAuthFailureState extends BiometricAuthState {
   BiometricAuthFailureState(BiometricAuthState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class IsBiometricAuthNotSupportedState extends BiometricAuthState {
   IsBiometricAuthNotSupportedState(
     BiometricAuthState state, {
     required bool isBiometricSupported,
-  }) : super.copy(
-          state.copyWith(isBiometricSupported: isBiometricSupported),
-        );
+  }) : super.copy(state.copyWith(isBiometricSupported: isBiometricSupported));
 }
 
 class BiometricAuthNotEnrolledState extends BiometricAuthState {
   BiometricAuthNotEnrolledState(BiometricAuthState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class IsBiometricAuthEnabledState extends BiometricAuthState {
   IsBiometricAuthEnabledState(
     BiometricAuthState state, {
     required bool isBiometricEnrolled,
-  }) : super.copy(
-          state.copyWith(
-            isBiometricEnrolled: isBiometricEnrolled,
-          ),
-        );
+  }) : super.copy(state.copyWith(isBiometricEnrolled: isBiometricEnrolled));
 }
 
 class BioMetricsTooManyAttemptState extends BiometricAuthState {
   BioMetricsTooManyAttemptState(BiometricAuthState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }

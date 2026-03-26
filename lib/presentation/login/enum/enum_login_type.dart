@@ -1,9 +1,4 @@
-enum LoginType {
-  EMAIL,
-  PHONE,
-  GOOGLE,
-  APPLE,
-}
+enum LoginType { EMAIL, PHONE, GOOGLE, APPLE }
 
 extension ParseLoginType on LoginType {
   String toViewString() {

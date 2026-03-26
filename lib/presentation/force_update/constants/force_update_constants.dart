@@ -6,6 +6,7 @@ const String kPlayStoreBaseUrl =
 // Remote Config Keys
 const String kRemoteConfigAppLatestVersionKey = 'appLatestVersion';
 const String kRemoteConfigMandatoryAppVersionKey = 'mandatoryAppVersion';
+const String kRemoteConfigActiveAppIconKey = 'activeAppIcon';
 
 // Optional Update
 const String kLastShownUpdatePromptTimestamp =

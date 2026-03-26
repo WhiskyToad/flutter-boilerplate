@@ -14,9 +14,8 @@ import 'package:skelter/utils/image_picker_util.dart';
 class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
   final AppLocalizations localizations;
 
-  ContactUsBloc({
-    required this.localizations,
-  }) : super(ContactUsState.initial()) {
+  ContactUsBloc({required this.localizations})
+    : super(ContactUsState.initial()) {
     on<NameChangedEvent>(_onNameChangedEvent);
     on<EmailChangedEvent>(_onEmailChangedEvent);
     on<DescriptionChangedEvent>(_onDescriptionChangedEvent);
@@ -61,11 +60,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
 
     if (state.email.trim().isEmpty) {
       hasError = true;
-      add(
-        EmailErrorEvent(
-          error: localizations.email_cant_be_empty,
-        ),
-      );
+      add(EmailErrorEvent(error: localizations.email_cant_be_empty));
     } else if (!kEmailRegex.hasMatch(state.email)) {
       hasError = true;
       add(EmailErrorEvent(error: localizations.invalid_email));
@@ -83,15 +78,13 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
       );
     }
 
-    final areFilesMissing = (state.selectedPdfs?.isEmpty ?? true) &&
+    final areFilesMissing =
+        (state.selectedPdfs?.isEmpty ?? true) &&
         (state.selectedImages?.isEmpty ?? true);
     if (areFilesMissing) {
       hasError = true;
       emit(
-        PickedFilesErrorState(
-          state,
-          error: localizations.file_cannot_be_empty,
-        ),
+        PickedFilesErrorState(state, error: localizations.file_cannot_be_empty),
       );
     }
 
@@ -171,11 +164,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
 
       final updated = [...?state.selectedPdfs, ...result.validFiles];
       emit(ResetPickedFilesErrorState(state));
-      emit(
-        state.copyWith(
-          selectedPdfs: updated.take(kMaxFileLimit).toList(),
-        ),
-      );
+      emit(state.copyWith(selectedPdfs: updated.take(kMaxFileLimit).toList()));
     } catch (e) {
       debugPrint('Pdf picking error: $e');
       emit(PickedFilesErrorState(state, error: localizations.pick_pdf_error));

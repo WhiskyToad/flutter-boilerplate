@@ -16,11 +16,7 @@ class EmptyCartView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            Assets.icons.emptyCart,
-            height: 150,
-            width: 150,
-          ),
+          SvgPicture.asset(Assets.icons.emptyCart, height: 150, width: 150),
           const SizedBox(height: 24),
           Text(
             context.localization.your_cart_is_empty,

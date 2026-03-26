@@ -19,12 +19,12 @@ class UserPlaceholder extends StatelessWidget {
       onTap: () => AddSkipPictureButton.showImageSourceBottomSheet(
         context,
         onImageSelected: (File file) {
-          context
-              .read<LoginBloc>()
-              .add(SelectedProfilePictureEvent(image: file));
-          context
-              .read<LoginBloc>()
-              .add(ProfilePictureDoneToggleEvent(isDoneEditing: true));
+          context.read<LoginBloc>().add(
+            SelectedProfilePictureEvent(image: file),
+          );
+          context.read<LoginBloc>().add(
+            ProfilePictureDoneToggleEvent(isDoneEditing: true),
+          );
         },
       ),
       child: Container(
@@ -42,9 +42,7 @@ class UserPlaceholder extends StatelessWidget {
             ),
           ],
         ),
-        child: Center(
-          child: SvgPicture.asset(Assets.icons.userPlaceholder),
-        ),
+        child: Center(child: SvgPicture.asset(Assets.icons.userPlaceholder)),
       ),
     );
   }

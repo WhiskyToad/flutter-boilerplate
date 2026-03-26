@@ -60,8 +60,9 @@ class ForgotPasswordScreenBody extends StatelessWidget {
           Center(
             child: Text(
               context.localization.forgot_password,
-              style: AppTextStyles.h2Bold
-                  .copyWith(color: context.currentTheme.textNeutralPrimary),
+              style: AppTextStyles.h2Bold.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
             ),
           ),
           const SizedBox(height: 16),

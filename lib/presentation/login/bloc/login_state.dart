@@ -29,26 +29,26 @@ class LoginState with EquatableMixin {
   LoginState.initial({
     PhoneNumberLoginState? phoneNumberLoginState,
     EmailPasswordLoginState? emailPasswordLoginState,
-  })  : isSignup = false,
-        phoneNumberLoginState =
-            phoneNumberLoginState ?? PhoneNumberLoginState.initial(),
-        emailPasswordLoginState =
-            emailPasswordLoginState ?? EmailPasswordLoginState.initial(),
-        isLoading = false,
-        userDetailsInputStatus = UserDetailsInputStatus.none,
-        phoneOTPVerificationId = '',
-        selectedLoginType = LoginType.PHONE;
+  }) : isSignup = false,
+       phoneNumberLoginState =
+           phoneNumberLoginState ?? PhoneNumberLoginState.initial(),
+       emailPasswordLoginState =
+           emailPasswordLoginState ?? EmailPasswordLoginState.initial(),
+       isLoading = false,
+       userDetailsInputStatus = UserDetailsInputStatus.none,
+       phoneOTPVerificationId = '',
+       selectedLoginType = LoginType.PHONE;
 
   LoginState.copy(LoginState state)
-      : this(
-          isSignup: state.isSignup,
-          phoneNumberLoginState: state.phoneNumberLoginState,
-          emailPasswordLoginState: state.emailPasswordLoginState,
-          isLoading: state.isLoading,
-          userDetailsInputStatus: state.userDetailsInputStatus,
-          phoneOTPVerificationId: state.phoneOTPVerificationId,
-          selectedLoginType: state.selectedLoginType,
-        );
+    : this(
+        isSignup: state.isSignup,
+        phoneNumberLoginState: state.phoneNumberLoginState,
+        emailPasswordLoginState: state.emailPasswordLoginState,
+        isLoading: state.isLoading,
+        userDetailsInputStatus: state.userDetailsInputStatus,
+        phoneOTPVerificationId: state.phoneOTPVerificationId,
+        selectedLoginType: state.selectedLoginType,
+      );
 
   LoginState copyWith({
     bool? isSignup,
@@ -80,26 +80,26 @@ class LoginState with EquatableMixin {
     PhoneNumberLoginState? phoneNumberLoginState,
     EmailPasswordLoginState? emailPasswordLoginState,
     bool? isSignup,
-  })  : isSignup = isSignup ?? false,
-        phoneNumberLoginState =
-            phoneNumberLoginState ?? PhoneNumberLoginState.test(),
-        emailPasswordLoginState =
-            emailPasswordLoginState ?? EmailPasswordLoginState.test(),
-        isLoading = false,
-        userDetailsInputStatus = UserDetailsInputStatus.none,
-        phoneOTPVerificationId = '',
-        selectedLoginType = LoginType.PHONE;
+  }) : isSignup = isSignup ?? false,
+       phoneNumberLoginState =
+           phoneNumberLoginState ?? PhoneNumberLoginState.test(),
+       emailPasswordLoginState =
+           emailPasswordLoginState ?? EmailPasswordLoginState.test(),
+       isLoading = false,
+       userDetailsInputStatus = UserDetailsInputStatus.none,
+       phoneOTPVerificationId = '',
+       selectedLoginType = LoginType.PHONE;
 
   @override
   List<Object?> get props => [
-        isSignup,
-        phoneNumberLoginState,
-        emailPasswordLoginState,
-        isLoading,
-        userDetailsInputStatus,
-        phoneOTPVerificationId,
-        selectedLoginType,
-      ];
+    isSignup,
+    phoneNumberLoginState,
+    emailPasswordLoginState,
+    isLoading,
+    userDetailsInputStatus,
+    phoneOTPVerificationId,
+    selectedLoginType,
+  ];
 }
 
 class NavigateToOTPScreenState extends LoginState {
@@ -107,8 +107,8 @@ class NavigateToOTPScreenState extends LoginState {
     LoginState state, {
     required String phoneOTPVerificationId,
   }) : super.copy(
-          state.copyWith(phoneOTPVerificationId: phoneOTPVerificationId),
-        );
+         state.copyWith(phoneOTPVerificationId: phoneOTPVerificationId),
+       );
 }
 
 class NavigateToHomeScreenState extends LoginState {
@@ -125,12 +125,12 @@ class ResetPasswordLinkSentState extends LoginState {
 
 class PhoneNumLoginLoadingState extends LoginState {
   PhoneNumLoginLoadingState(LoginState state, {required bool isLoading})
-      : super.copy(state.copyWith(isLoading: isLoading));
+    : super.copy(state.copyWith(isLoading: isLoading));
 }
 
 class EmailLoginLoadingState extends LoginState {
   EmailLoginLoadingState(LoginState state, {required bool isLoading})
-      : super.copy(state.copyWith(isLoading: isLoading));
+    : super.copy(state.copyWith(isLoading: isLoading));
 }
 
 class NavigateToVerifiedScreenState extends LoginState {
@@ -143,7 +143,7 @@ class NavigateToEmailVerifyScreenState extends LoginState {
 
 class SignupLoadingState extends LoginState {
   SignupLoadingState(LoginState state, {required bool isLoading})
-      : super.copy(state.copyWith(isLoading: isLoading));
+    : super.copy(state.copyWith(isLoading: isLoading));
 }
 
 class RestartVerificationMailResendTimerState extends LoginState {

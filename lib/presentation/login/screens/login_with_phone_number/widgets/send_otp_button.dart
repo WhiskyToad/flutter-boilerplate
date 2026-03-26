@@ -39,8 +39,9 @@ class SendOTPButton extends StatelessWidget {
 
     return AppButton(
       key: keys.signInPage.sendOTPButton,
-      label:
-          isSignup ? context.localization.next : context.localization.send_otp,
+      label: isSignup
+          ? context.localization.next
+          : context.localization.send_otp,
       foregroundColor: context.currentTheme.textNeutralLight,
       shouldSetFullWidth: true,
       size: AppButtonSize.large,
@@ -59,12 +60,12 @@ class SendOTPButton extends StatelessWidget {
         }
 
         if (phoneNumberOnly.isNotEmpty) {
-          context
-              .read<LoginBloc>()
-              .add(SelectLoginSignupTypeEvent(LoginType.PHONE));
-          context
-              .read<LoginBloc>()
-              .add(LoginWithPhoneNumEvent(phoneNumWithCountryCode));
+          context.read<LoginBloc>().add(
+            SelectLoginSignupTypeEvent(LoginType.PHONE),
+          );
+          context.read<LoginBloc>().add(
+            LoginWithPhoneNumEvent(phoneNumWithCountryCode),
+          );
         }
       },
     );

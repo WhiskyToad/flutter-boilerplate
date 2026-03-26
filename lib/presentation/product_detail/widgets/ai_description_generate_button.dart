@@ -4,8 +4,10 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class AIDescriptionGenerateButton extends StatelessWidget {
-  const AIDescriptionGenerateButton({super.key,required this.onTap});
+  const AIDescriptionGenerateButton({super.key, required this.onTap});
+
   final void Function() onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -40,4 +42,3 @@ class AIDescriptionGenerateButton extends StatelessWidget {
     );
   }
 }
-

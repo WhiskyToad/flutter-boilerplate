@@ -9,9 +9,7 @@ class AIProductDescriptionModel extends AIProductDescription {
     super.isPersonalized,
   });
 
-  factory AIProductDescriptionModel.fromEntity(
-    AIProductDescription entity,
-  ) {
+  factory AIProductDescriptionModel.fromEntity(AIProductDescription entity) {
     return AIProductDescriptionModel(
       productId: entity.productId,
       generatedDescription: entity.generatedDescription,
@@ -60,4 +58,3 @@ class AIProductDescriptionModel extends AIProductDescription {
     );
   }
 }
-

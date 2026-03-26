@@ -36,11 +36,7 @@ class OrderDetailShimmer extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.4,
                         radius: 4,
                       ),
-                      const ShimmerContent(
-                        height: 32,
-                        width: 80,
-                        radius: 8,
-                      ),
+                      const ShimmerContent(height: 32, width: 80, radius: 8),
                     ],
                   ),
                   const SizedBox(height: 12),

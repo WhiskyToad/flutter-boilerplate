@@ -5,10 +5,7 @@ import 'package:skelter/presentation/chat/widgets/message_details.dart';
 import 'package:skelter/presentation/chat/widgets/user_avatar.dart';
 
 class ChatListTile extends StatelessWidget {
-  const ChatListTile({
-    super.key,
-    required this.chatModel,
-  });
+  const ChatListTile({super.key, required this.chatModel});
 
   final ChatModel chatModel;
 

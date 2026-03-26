@@ -41,9 +41,9 @@ class SubscriptionScreen extends StatelessWidget {
               if (state is FetchSubscriptionPlanLoadedState &&
                   state.restoreStatusMessage != null) {
                 context.showSnackBar(state.restoreStatusMessage!);
-                context
-                    .read<SubscriptionBloc>()
-                    .add(const ClearSnackBarMessageEvent());
+                context.read<SubscriptionBloc>().add(
+                  const ClearSnackBarMessageEvent(),
+                );
               }
             },
             child: BlocBuilder<SubscriptionBloc, SubscriptionState>(

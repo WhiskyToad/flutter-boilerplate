@@ -30,8 +30,9 @@ class OrderDetailSummary extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            border:
-                Border.all(color: context.currentTheme.strokeNeutralLight200),
+            border: Border.all(
+              color: context.currentTheme.strokeNeutralLight200,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
