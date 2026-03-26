@@ -83,7 +83,7 @@ dependencies:
   printing: ^5.14.0
   timezone: ^0.10.1
   firebase_ai: ^3.6.1
-  
+  cloud_firestore: ^6.1.1
 
 dev_dependencies:
   flutter_test:

@@ -2349,6 +2349,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No product selected'**
   String get no_product_selected;
+
+  /// No description provided for @feedback_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ FEEDBACK KEYS ================'**
+  String get feedback_keys;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @rate_your_experience.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate your experience'**
+  String get rate_your_experience;
+
+  /// No description provided for @your_feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Your feedback'**
+  String get your_feedback;
+
+  /// No description provided for @feedback_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what you think...'**
+  String get feedback_hint;
+
+  /// No description provided for @submit_feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Feedback'**
+  String get submit_feedback;
+
+  /// No description provided for @feedback_submitted_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you! Your feedback has been submitted.'**
+  String get feedback_submitted_success;
+
+  /// No description provided for @please_select_a_rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a rating to continue.'**
+  String get please_select_a_rating;
+
+  /// No description provided for @feedback_category_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a category'**
+  String get feedback_category_label;
+
+  /// No description provided for @feedback_category_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a category to continue.'**
+  String get feedback_category_required;
+
+  /// No description provided for @feedback_category_bug.
+  ///
+  /// In en, this message translates to:
+  /// **'Bug'**
+  String get feedback_category_bug;
+
+  /// No description provided for @feedback_category_suggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get feedback_category_suggestion;
+
+  /// No description provided for @feedback_category_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get feedback_category_content;
+
+  /// No description provided for @feedback_category_compliment.
+  ///
+  /// In en, this message translates to:
+  /// **'Compliment'**
+  String get feedback_category_compliment;
+
+  /// No description provided for @feedback_category_other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get feedback_category_other;
+
+  /// No description provided for @feedback_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your experience and help us improve. We value every word you share with us.'**
+  String get feedback_description;
 }
 
 class _AppLocalizationsDelegate
