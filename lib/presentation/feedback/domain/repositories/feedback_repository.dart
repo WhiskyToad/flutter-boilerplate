@@ -1,4 +1,4 @@
-import 'package:skelter/presentation/feedback/constants/feedback_constants.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 import 'package:skelter/utils/typedef.dart';
 
 mixin FeedbackRepository {

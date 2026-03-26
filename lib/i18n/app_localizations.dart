@@ -2362,6 +2362,12 @@ abstract class AppLocalizations {
   /// **'Feedback'**
   String get feedback;
 
+  /// No description provided for @please_share_your_thoughts.
+  ///
+  /// In en, this message translates to:
+  /// **'Please share your thoughts before submitting.'**
+  String get please_share_your_thoughts;
+
   /// No description provided for @rate_your_experience.
   ///
   /// In en, this message translates to:

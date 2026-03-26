@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:skelter/presentation/feedback/constants/feedback_constants.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 
 class FeedbackState with EquatableMixin {
   const FeedbackState({
@@ -15,26 +15,26 @@ class FeedbackState with EquatableMixin {
   });
 
   const FeedbackState.initial()
-      : rating = 0,
-        message = '',
-        isLoading = false,
-        category = null,
-        errorMessage = null,
-        categoryError = null,
-        messageError = null,
-        ratingError = null;
+    : rating = 0,
+      message = '',
+      isLoading = false,
+      category = null,
+      errorMessage = null,
+      categoryError = null,
+      messageError = null,
+      ratingError = null;
 
   FeedbackState.copy(FeedbackState state)
-      : this(
-          rating: state.rating,
-          message: state.message,
-          isLoading: state.isLoading,
-          category: state.category,
-          errorMessage: state.errorMessage,
-          categoryError: state.categoryError,
-          messageError: state.messageError,
-          ratingError: state.ratingError,
-        );
+    : this(
+        rating: state.rating,
+        message: state.message,
+        isLoading: state.isLoading,
+        category: state.category,
+        errorMessage: state.errorMessage,
+        categoryError: state.categoryError,
+        messageError: state.messageError,
+        ratingError: state.ratingError,
+      );
 
   final double rating;
   final String message;
@@ -81,15 +81,15 @@ class FeedbackState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        rating,
-        message,
-        isLoading,
-        category,
-        errorMessage,
-        categoryError,
-        messageError,
-        ratingError,
-      ];
+    rating,
+    message,
+    isLoading,
+    category,
+    errorMessage,
+    categoryError,
+    messageError,
+    ratingError,
+  ];
 }
 
 class FeedbackSubmittedSuccessState extends FeedbackState {

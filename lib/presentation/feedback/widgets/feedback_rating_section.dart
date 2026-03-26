@@ -36,14 +36,12 @@ class FeedbackRatingSection extends StatelessWidget {
             minRating: 1,
             glow: false,
             unratedColor: context.currentTheme.strokeNeutralLight200,
-            itemBuilder: (_, __) => const Icon(
-              Icons.star_rounded,
-              color: AppColors.yellow,
-            ),
+            itemBuilder: (_, _) =>
+                const Icon(Icons.star_rounded, color: AppColors.yellow),
             onRatingUpdate: (newRating) {
               context.read<FeedbackBloc>().add(
-                    FeedbackRatingChangedEvent(rating: newRating),
-                  );
+                FeedbackRatingChangedEvent(rating: newRating),
+              );
             },
           ),
         ),

@@ -19,29 +19,31 @@ class FeedbackSubmitButton extends StatelessWidget {
       (bloc) => bloc.state.isLoading,
     );
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-      child: AppButton(
-        label: context.localization.submit_feedback,
-        foregroundColor: context.currentTheme.textNeutralLight,
-        shouldSetFullWidth: true,
-        size: AppButtonSize.extraLarge,
-        isLoading: isLoading,
-        state: isLoading ? AppButtonState.disabled : AppButtonState.normal,
-        onPressed: isLoading
-            ? null
-            : () {
-                SystemChannels.textInput.invokeMethod('TextInput.hide');
-                final user = FirebaseAuth.instance.currentUser;
-                context.read<FeedbackBloc>().add(
-                      FeedbackSubmittedEvent(
-                        userId: user?.uid ?? '',
-                        name: user?.displayName ?? '',
-                        email: user?.email ?? '',
-                        phoneNumber: user?.phoneNumber ?? '',
-                      ),
-                    );
-              },
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+        child: AppButton(
+          label: context.localization.submit_feedback,
+          foregroundColor: context.currentTheme.textNeutralLight,
+          shouldSetFullWidth: true,
+          size: AppButtonSize.extraLarge,
+          isLoading: isLoading,
+          state: isLoading ? AppButtonState.disabled : AppButtonState.normal,
+          onPressed: isLoading
+              ? null
+              : () {
+                  SystemChannels.textInput.invokeMethod('TextInput.hide');
+                  final user = FirebaseAuth.instance.currentUser;
+                  context.read<FeedbackBloc>().add(
+                    FeedbackSubmittedEvent(
+                      userId: user?.uid ?? '',
+                      name: user?.displayName ?? '',
+                      email: user?.email ?? '',
+                      phoneNumber: user?.phoneNumber ?? '',
+                    ),
+                  );
+                },
+        ),
       ),
     );
   }

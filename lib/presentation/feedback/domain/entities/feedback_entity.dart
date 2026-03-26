@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:skelter/presentation/feedback/constants/feedback_constants.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 
 class FeedbackEntity extends Equatable {
   const FeedbackEntity({
@@ -25,6 +25,15 @@ class FeedbackEntity extends Equatable {
   final DateTime createdAt;
 
   @override
-  List<Object?> get props =>
-      [id, userId, name, email, phoneNumber, rating, category, message, createdAt];
+  List<Object?> get props => [
+    id,
+    userId,
+    name,
+    email,
+    phoneNumber,
+    rating,
+    category,
+    message,
+    createdAt,
+  ];
 }

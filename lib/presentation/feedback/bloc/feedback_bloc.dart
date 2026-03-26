@@ -7,23 +7,21 @@ import 'package:skelter/presentation/feedback/constants/feedback_constants.dart'
 import 'package:skelter/presentation/feedback/domain/usecases/submit_feedback.dart';
 
 class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
-  FeedbackBloc({
-    required this.submitFeedback,
-    required this.localizations,
-  }) : super(const FeedbackState.initial()) {
-    on<FeedbackRatingChangedEvent>(_onRatingChangedEvent);
-    on<FeedbackRatingErrorEvent>(_onRatingErrorEvent);
-    on<FeedbackCategoryChangedEvent>(_onCategoryChangedEvent);
-    on<FeedbackCategoryErrorEvent>(_onCategoryErrorEvent);
-    on<FeedbackMessageChangedEvent>(_onMessageChangedEvent);
-    on<FeedbackMessageErrorEvent>(_onMessageErrorEvent);
+  FeedbackBloc({required this.submitFeedback, required this.localizations})
+    : super(const FeedbackState.initial()) {
+    on<FeedbackRatingChangedEvent>(_onFeedbackRatingChangedEvent);
+    on<FeedbackRatingErrorEvent>(_onFeedbackRatingErrorEvent);
+    on<FeedbackCategoryChangedEvent>(_onFeedbackCategoryChangedEvent);
+    on<FeedbackCategoryErrorEvent>(_onFeedbackCategoryErrorEvent);
+    on<FeedbackMessageChangedEvent>(_onFeedbackMessageChangedEvent);
+    on<FeedbackMessageErrorEvent>(_onFeedbackMessageErrorEvent);
     on<FeedbackSubmittedEvent>(_onFeedbackSubmittedEvent);
   }
 
   final SubmitFeedback submitFeedback;
   final AppLocalizations localizations;
 
-  void _onRatingChangedEvent(
+  void _onFeedbackRatingChangedEvent(
     FeedbackRatingChangedEvent event,
     Emitter<FeedbackState> emit,
   ) {
@@ -34,14 +32,14 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
     emit(state.copyWith(rating: event.rating));
   }
 
-  void _onRatingErrorEvent(
+  void _onFeedbackRatingErrorEvent(
     FeedbackRatingErrorEvent event,
     Emitter<FeedbackState> emit,
   ) {
     emit(state.copyWith(ratingError: event.error));
   }
 
-  void _onCategoryChangedEvent(
+  void _onFeedbackCategoryChangedEvent(
     FeedbackCategoryChangedEvent event,
     Emitter<FeedbackState> emit,
   ) {
@@ -52,14 +50,14 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
     emit(state.copyWith(category: event.category));
   }
 
-  void _onCategoryErrorEvent(
+  void _onFeedbackCategoryErrorEvent(
     FeedbackCategoryErrorEvent event,
     Emitter<FeedbackState> emit,
   ) {
     emit(state.copyWith(categoryError: event.error));
   }
 
-  void _onMessageChangedEvent(
+  void _onFeedbackMessageChangedEvent(
     FeedbackMessageChangedEvent event,
     Emitter<FeedbackState> emit,
   ) {
@@ -70,7 +68,7 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
     emit(state.copyWith(message: event.message));
   }
 
-  void _onMessageErrorEvent(
+  void _onFeedbackMessageErrorEvent(
     FeedbackMessageErrorEvent event,
     Emitter<FeedbackState> emit,
   ) {
@@ -85,28 +83,34 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
 
     if (state.rating == 0) {
       hasError = true;
-      add(FeedbackRatingErrorEvent(
-        error: localizations.please_select_a_rating,
-      ));
+      add(
+        FeedbackRatingErrorEvent(error: localizations.please_select_a_rating),
+      );
     }
 
     if (state.category == null) {
       hasError = true;
-      add(FeedbackCategoryErrorEvent(
-        error: localizations.feedback_category_required,
-      ));
+      add(
+        FeedbackCategoryErrorEvent(
+          error: localizations.feedback_category_required,
+        ),
+      );
     }
 
     if (state.message.trim().isEmpty) {
       hasError = true;
-      add(FeedbackMessageErrorEvent(
-        error: localizations.message_cannot_be_empty,
-      ));
+      add(
+        FeedbackMessageErrorEvent(
+          error: localizations.please_share_your_thoughts,
+        ),
+      );
     } else if (state.message.trim().length > kFeedbackMessageMaxLength) {
       hasError = true;
-      add(FeedbackMessageErrorEvent(
-        error: localizations.messageTooLong(kFeedbackMessageMaxLength),
-      ));
+      add(
+        FeedbackMessageErrorEvent(
+          error: localizations.messageTooLong(kFeedbackMessageMaxLength),
+        ),
+      );
     }
 
     if (hasError) return;
@@ -130,10 +134,7 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
         debugPrint('[FeedbackBloc] submission failed: ${failure.errorMessage}');
         emit(
           FeedbackSubmittedFailureState(
-            state.copyWith(
-              isLoading: false,
-              errorMessage: failure.message,
-            ),
+            state.copyWith(isLoading: false, errorMessage: failure.message),
           ),
         );
       },

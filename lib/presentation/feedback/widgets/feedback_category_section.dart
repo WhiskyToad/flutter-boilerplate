@@ -5,7 +5,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/feedback/bloc/feedback_bloc.dart';
 import 'package:skelter/presentation/feedback/bloc/feedback_event.dart';
-import 'package:skelter/presentation/feedback/constants/feedback_constants.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class FeedbackCategorySection extends StatelessWidget {
@@ -35,8 +35,8 @@ class FeedbackCategorySection extends StatelessWidget {
             category: category,
             isSelected: selected == category,
             onTap: () => context.read<FeedbackBloc>().add(
-                  FeedbackCategoryChangedEvent(category: category),
-                ),
+              FeedbackCategoryChangedEvent(category: category),
+            ),
           ),
         ),
         if (categoryError != null && categoryError.isNotEmpty) ...[

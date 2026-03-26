@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/errors/exceptions.dart';
 import 'package:skelter/utils/typedef.dart';
 
 class FirestoreService {
   FirestoreService({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestore;
 
@@ -182,10 +183,10 @@ class FirestoreService {
       }
     }
     return query.snapshots().map(
-          (snap) => snap.docs
-              .map((doc) => <String, dynamic>{'id': doc.id, ...doc.data()})
-              .toList(),
-        );
+      (snap) => snap.docs
+          .map((doc) => <String, dynamic>{'id': doc.id, ...doc.data()})
+          .toList(),
+    );
   }
 
   CollectionReference<DataMap> _collectionRef(
@@ -222,36 +223,30 @@ class FirestoreService {
   }) {
     String errorMessage = 'An error occurred, please try again.';
     switch (e.code) {
-      case 'permission-denied':
+      case kFirestorePermissionDenied:
         errorMessage = "You don't have permission to perform this action.";
-      case 'not-found':
+      case kFirestoreNotFound:
         errorMessage = 'The requested document was not found.';
-      case 'already-exists':
+      case kFirestoreAlreadyExists:
         errorMessage = 'The document already exists.';
-      case 'resource-exhausted':
+      case kFirestoreResourceExhausted:
         errorMessage = 'Too many requests, please try again later.';
-      case 'unauthenticated':
+      case kFirestoreUnauthenticated:
         errorMessage = 'Authentication required. Please sign in.';
-      case 'unavailable':
+      case kFirestoreUnavailable:
         errorMessage = 'Service temporarily unavailable. Please try again.';
-      case 'cancelled':
+      case kFirestoreCancelled:
         errorMessage = 'The operation was cancelled.';
-      case 'deadline-exceeded':
+      case kFirestoreDeadlineExceeded:
         errorMessage = 'The request timed out. Please try again.';
-      case 'invalid-argument':
+      case kFirestoreInvalidArgument:
         errorMessage = 'Invalid data provided.';
-      case 'internal':
+      case kFirestoreInternal:
         errorMessage = 'An internal error occurred. Please try again.';
-      case 'data-loss':
+      case kFirestoreDataLoss:
         errorMessage = 'Unexpected data loss. Please try again.';
     }
     debugPrint('FirestoreService error: $errorMessage');
-    // TODO: uncomment to enable crashlytics
-    // FirebaseCrashlytics.instance.recordError(
-    //   e,
-    //   stackTrace ?? StackTrace.current,
-    //   reason: 'FirestoreService error',
-    // );
     throw APIException(
       message: errorMessage,
       statusCode: int.tryParse(e.code) ?? 500,

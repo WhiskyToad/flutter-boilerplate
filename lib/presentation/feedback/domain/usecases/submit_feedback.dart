@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:skelter/core/usecase/usecase.dart';
-import 'package:skelter/presentation/feedback/constants/feedback_constants.dart';
 import 'package:skelter/presentation/feedback/domain/repositories/feedback_repository.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 import 'package:skelter/utils/typedef.dart';
 
 class SubmitFeedback with UseCaseWithParams<void, SubmitFeedbackParams> {
@@ -11,14 +11,14 @@ class SubmitFeedback with UseCaseWithParams<void, SubmitFeedbackParams> {
 
   @override
   ResultVoid call(SubmitFeedbackParams params) => _repository.submitFeedback(
-        userId: params.userId,
-        name: params.name,
-        email: params.email,
-        phoneNumber: params.phoneNumber,
-        rating: params.rating,
-        category: params.category,
-        message: params.message,
-      );
+    userId: params.userId,
+    name: params.name,
+    email: params.email,
+    phoneNumber: params.phoneNumber,
+    rating: params.rating,
+    category: params.category,
+    message: params.message,
+  );
 }
 
 class SubmitFeedbackParams extends Equatable {
@@ -41,6 +41,13 @@ class SubmitFeedbackParams extends Equatable {
   final String message;
 
   @override
-  List<Object?> get props =>
-      [userId, name, email, phoneNumber, rating, category, message];
+  List<Object?> get props => [
+    userId,
+    name,
+    email,
+    phoneNumber,
+    rating,
+    category,
+    message,
+  ];
 }

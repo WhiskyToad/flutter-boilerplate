@@ -28,16 +28,18 @@ class _FeedbackMessageSectionState extends State<FeedbackMessageSection> {
   }
 
   void messageControllerListener() {
-    final String? previousError =
-        context.read<FeedbackBloc>().state.messageError;
-    if (previousError != null && previousError.isNotEmpty) {
-      context
-          .read<FeedbackBloc>()
-          .add(const FeedbackMessageErrorEvent(error: ''));
-    }
-    context
+    final String? previousError = context
         .read<FeedbackBloc>()
-        .add(FeedbackMessageChangedEvent(message: _messageController.text));
+        .state
+        .messageError;
+    if (previousError != null && previousError.isNotEmpty) {
+      context.read<FeedbackBloc>().add(
+        const FeedbackMessageErrorEvent(error: ''),
+      );
+    }
+    context.read<FeedbackBloc>().add(
+      FeedbackMessageChangedEvent(message: _messageController.text),
+    );
   }
 
   @override
@@ -75,14 +77,18 @@ class _FeedbackMessageSectionState extends State<FeedbackMessageSection> {
               filled: true,
               fillColor: context.currentTheme.bgSurfaceBase2,
               hintText: context.localization.feedback_hint,
-              hintStyle: AppTextStyles.p3Regular
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              hintStyle: AppTextStyles.p3Regular.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 16,
+              ),
               errorText: errorMessage.isNullOrEmpty() ? null : errorMessage,
               counterText: '${message.length}/$kFeedbackMessageMaxLength',
-              counterStyle: AppTextStyles.p4Regular
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              counterStyle: AppTextStyles.p4Regular.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
               border: buildOutlineInputBorder(hasFocus: false),
               enabledBorder: buildOutlineInputBorder(hasFocus: false),
               focusedBorder: buildOutlineInputBorder(hasFocus: true),
@@ -110,8 +116,8 @@ class _FeedbackMessageSectionState extends State<FeedbackMessageSection> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:skelter/presentation/feedback/constants/feedback_constants.dart';
 import 'package:skelter/presentation/feedback/domain/entities/feedback_entity.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 import 'package:skelter/utils/typedef.dart';
 
 class FeedbackModel extends FeedbackEntity {
@@ -17,7 +17,8 @@ class FeedbackModel extends FeedbackEntity {
   });
 
   factory FeedbackModel.fromMap(DataMap map, String id) {
-    final categoryStr = map['category'] as String? ?? FeedbackCategory.other.value;
+    final categoryStr =
+        map['category'] as String? ?? FeedbackCategory.other.value;
     final category = FeedbackCategory.values.firstWhere(
       (e) => e.value == categoryStr,
       orElse: () => FeedbackCategory.other,

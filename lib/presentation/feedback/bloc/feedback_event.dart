@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:skelter/presentation/feedback/constants/feedback_constants.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 
 abstract class FeedbackEvent with EquatableMixin {
   const FeedbackEvent();

@@ -6,6 +6,7 @@ import 'package:skelter/presentation/feedback/constants/feedback_constants.dart'
 import 'package:skelter/presentation/feedback/data/datasources/feedback_remote_datasource.dart';
 import 'package:skelter/presentation/feedback/data/models/feedback_model.dart';
 import 'package:skelter/presentation/feedback/domain/repositories/feedback_repository.dart';
+import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 import 'package:skelter/utils/typedef.dart';
 
 class FeedbackRepositoryImpl with FeedbackRepository {
@@ -43,7 +44,10 @@ class FeedbackRepositoryImpl with FeedbackRepository {
       debugPrint('[FeedbackRepository] unexpected error: $e');
       return Left(
         APIFailure.fromException(
-          const APIException(message: kFeedbackSubmissionFailed, statusCode: 500),
+          const APIException(
+            message: kFeedbackSubmissionFailed,
+            statusCode: 500,
+          ),
         ),
       );
     }

@@ -54,6 +54,19 @@ const kFirebaseAuthSessionExpiredException = 'session-expired';
 const kFirebaseAuthSessionEmailAlreadyInUse = 'email-already-in-use';
 const kFirebaseAuthRequiresRecentLogin = 'requires-recent-login';
 
+// Firestore exception codes
+const String kFirestorePermissionDenied = 'permission-denied';
+const String kFirestoreNotFound = 'not-found';
+const String kFirestoreAlreadyExists = 'already-exists';
+const String kFirestoreResourceExhausted = 'resource-exhausted';
+const String kFirestoreUnauthenticated = 'unauthenticated';
+const String kFirestoreUnavailable = 'unavailable';
+const String kFirestoreCancelled = 'cancelled';
+const String kFirestoreDeadlineExceeded = 'deadline-exceeded';
+const String kFirestoreInvalidArgument = 'invalid-argument';
+const String kFirestoreInternal = 'internal';
+const String kFirestoreDataLoss = 'data-loss';
+
 // Network/SSL pinning constants
 const String kConnectionIsNotSecureError = 'Connection is not secure';
 

@@ -24,20 +24,6 @@ class FeedbackScreen extends StatefulWidget {
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
-  late final ScrollController _scrollController;
-
-  @override
-  void initState() {
-    _scrollController = ScrollController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = context.localization;
@@ -50,26 +36,20 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         listener: (context, state) {
           if (state is FeedbackSubmittedSuccessState) {
             context.router.maybePop();
-            context.showSnackBar(
-              context.localization.feedback_submitted_success,
-            );
+            context.showSnackBar(appLocalizations.feedback_submitted_success);
           } else if (state is FeedbackSubmittedFailureState) {
             context.showSnackBar(
-              state.errorMessage ??
-                  context.localization.opps_something_went_wrong,
+              state.errorMessage ?? appLocalizations.opps_something_went_wrong,
               isDisplayingError: true,
             );
           }
         },
         child: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Scaffold(
-            appBar: const FeedbackAppBar(),
-            body: SingleChildScrollView(
-              controller: _scrollController,
-              child: const FeedbackScreenBody(),
-            ),
-            bottomNavigationBar: const FeedbackSubmitButton(),
+          child: const Scaffold(
+            appBar: FeedbackAppBar(),
+            body: FeedbackScreenBody(),
+            bottomNavigationBar: FeedbackSubmitButton(),
           ),
         ),
       ),
@@ -82,21 +62,23 @@ class FeedbackScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 30),
-          FeedbackDescription(),
-          SizedBox(height: 30),
-          FeedbackRatingSection(),
-          SizedBox(height: 24),
-          FeedbackCategorySection(),
-          SizedBox(height: 24),
-          FeedbackMessageSection(),
-          SizedBox(height: 24),
-        ],
+    return const SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 30),
+            FeedbackDescription(),
+            SizedBox(height: 30),
+            FeedbackRatingSection(),
+            SizedBox(height: 24),
+            FeedbackCategorySection(),
+            SizedBox(height: 24),
+            FeedbackMessageSection(),
+            SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }
