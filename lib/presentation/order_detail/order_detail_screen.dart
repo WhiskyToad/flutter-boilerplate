@@ -34,20 +34,20 @@ class OrderDetailScreen extends StatelessWidget {
       )..add(GetOrderProductDetailEvent(productId: productId)),
       child: BlocListener<MyOrderBloc, MyOrderState>(
         listenWhen: (previous, current) {
-          final invoiceGenerated = previous.generatedInvoicePdf == null &&
+          final invoiceGenerated =
+              previous.generatedInvoicePdf == null &&
               current.generatedInvoicePdf != null &&
               current.generatedInvoiceName != null;
 
-          final invoiceError = previous.invoiceGenerationError == null &&
+          final invoiceError =
+              previous.invoiceGenerationError == null &&
               current.invoiceGenerationError != null;
 
           return invoiceGenerated || invoiceError;
         },
         listener: (context, state) {
           if (state is ProductDetailErrorState) {
-            context.showSnackBar(
-              state.errorMessage,
-            );
+            context.showSnackBar(state.errorMessage);
           }
 
           if (state.generatedInvoicePdf != null &&
@@ -67,9 +67,9 @@ class OrderDetailScreen extends StatelessWidget {
               isDisplayingError: true,
             );
 
-            context
-                .read<MyOrderBloc>()
-                .add(const ClearInvoiceGenerationErrorEvent());
+            context.read<MyOrderBloc>().add(
+              const ClearInvoiceGenerationErrorEvent(),
+            );
           }
         },
         child: const OrderDetailBody(),
@@ -100,9 +100,7 @@ class OrderDetailBody extends StatelessWidget {
     return Scaffold(
       appBar: const OrderDetailsAppBar(),
       body: productDetail == null
-          ? Center(
-              child: Text(context.localization.opps_something_went_wrong),
-            )
+          ? Center(child: Text(context.localization.opps_something_went_wrong))
           : const SingleChildScrollView(
               padding: EdgeInsets.all(16),
               child: Column(

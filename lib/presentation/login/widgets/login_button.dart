@@ -16,9 +16,7 @@ import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-  });
+  const LoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +37,9 @@ class LoginButton extends StatelessWidget {
             ),
             size: AppButtonSize.large,
             onPressed: () {
-              context
-                  .read<LoginBloc>()
-                  .add(SelectLoginSignupTypeEvent(LoginType.GOOGLE));
+              context.read<LoginBloc>().add(
+                SelectLoginSignupTypeEvent(LoginType.GOOGLE),
+              );
               context.read<LoginBloc>().add(LoginWithGoogleEvent());
             },
           ),
@@ -55,9 +53,9 @@ class LoginButton extends StatelessWidget {
               leftIconPath: Assets.icons.apple,
               size: AppButtonSize.large,
               onPressed: () {
-                context
-                    .read<LoginBloc>()
-                    .add(SelectLoginSignupTypeEvent(LoginType.APPLE));
+                context.read<LoginBloc>().add(
+                  SelectLoginSignupTypeEvent(LoginType.APPLE),
+                );
                 context.read<LoginBloc>().add(LoginWithAppleEvent());
               },
             ),
@@ -70,12 +68,10 @@ class LoginButton extends StatelessWidget {
             leftIcon: TablerIcons.device_mobile,
             size: AppButtonSize.large,
             onPressed: () {
-              context
-                  .read<LoginBloc>()
-                  .add(SelectLoginSignupTypeEvent(LoginType.PHONE));
-              context.pushRoute(
-                LoginWithPhoneNumberRoute(),
+              context.read<LoginBloc>().add(
+                SelectLoginSignupTypeEvent(LoginType.PHONE),
               );
+              context.pushRoute(LoginWithPhoneNumberRoute());
             },
           ),
           const SizedBox(height: 16),
@@ -86,9 +82,9 @@ class LoginButton extends StatelessWidget {
             leftIcon: TablerIcons.mail,
             size: AppButtonSize.large,
             onPressed: () {
-              context
-                  .read<LoginBloc>()
-                  .add(SelectLoginSignupTypeEvent(LoginType.EMAIL));
+              context.read<LoginBloc>().add(
+                SelectLoginSignupTypeEvent(LoginType.EMAIL),
+              );
               context.pushRoute(
                 LoginWithEmailPasswordRoute(
                   loginBloc: context.read<LoginBloc>(),

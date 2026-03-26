@@ -9,20 +9,14 @@ import 'package:skelter/presentation/product_detail/widgets/photos_title.dart';
 class PhotosSection extends StatelessWidget {
   final ProductDetail productDetail;
 
-  const PhotosSection({
-    super.key,
-    required this.productDetail,
-  });
+  const PhotosSection({super.key, required this.productDetail});
 
   @override
   Widget build(BuildContext context) {
     final int selectedImageIndex = context.select<ProductDetailBloc, int>(
       (bloc) => bloc.state.selectedImageIndex,
     );
-    final photos = [
-      productDetail.image,
-      ...productDetail.productImages,
-    ];
+    final photos = [productDetail.image, ...productDetail.productImages];
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 25),
@@ -36,10 +30,8 @@ class PhotosSection extends StatelessWidget {
             selectedImageIndex: selectedImageIndex,
             onImageChanged: (index) {
               context.read<ProductDetailBloc>().add(
-                    ProductImageSelectedEvent(
-                      selectedIndex: index,
-                    ),
-                  );
+                ProductImageSelectedEvent(selectedIndex: index),
+              );
             },
           ),
         ],

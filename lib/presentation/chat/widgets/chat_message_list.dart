@@ -35,17 +35,9 @@ class _ChatMessageListState extends State<ChatMessageList>
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.05),
       end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    _fadeAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
 
     _controller.forward();
   }
@@ -67,7 +59,8 @@ class _ChatMessageListState extends State<ChatMessageList>
           itemCount: messages.length,
           itemBuilder: (context, index) {
             final message = messages[index];
-            final bool showDateSeparator = index == messages.length - 1 ||
+            final bool showDateSeparator =
+                index == messages.length - 1 ||
                 messages[index + 1].date.day != message.date.day;
             ChatMessage? repliedToMessage;
             final repliedToMessageId = message.replyingToId;
@@ -80,9 +73,7 @@ class _ChatMessageListState extends State<ChatMessageList>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (showDateSeparator)
-                  DateSeparatorText(
-                    date: _formatDate(context, message.date),
-                  ),
+                  DateSeparatorText(date: _formatDate(context, message.date)),
                 ChatConversationTile(
                   message: message,
                   repliedToMessage: repliedToMessage,

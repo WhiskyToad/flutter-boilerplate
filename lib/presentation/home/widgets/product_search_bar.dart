@@ -25,8 +25,10 @@ class ProductSearchBar extends StatefulWidget {
 
 class _ProductSearchBarState extends State<ProductSearchBar> {
   final TextEditingController searchController = TextEditingController();
-  final debouncer =
-      Debouncer<String>(const Duration(milliseconds: 500), initialValue: '');
+  final debouncer = Debouncer<String>(
+    const Duration(milliseconds: 500),
+    initialValue: '',
+  );
 
   @override
   void initState() {
@@ -41,8 +43,8 @@ class _ProductSearchBarState extends State<ProductSearchBar> {
         FocusManager.instance.primaryFocus?.unfocus();
       }
       context.read<HomeBloc>().add(
-            FilterProductsEvent(searchQuery: trimmedText),
-          );
+        FilterProductsEvent(searchQuery: trimmedText),
+      );
     });
   }
 
@@ -129,8 +131,8 @@ class _ProductSearchBarState extends State<ProductSearchBar> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

@@ -33,6 +33,9 @@ target 'Runner' do
   use_modular_headers!
     # This is just a temporary solution for https://github.com/natintosh/intl_phone_number_input/issues/441
     pod 'PhoneNumberKit', '3.8.0'
+    # Original SwiftTryCatch repo was deleted — use a mirror
+    # https://github.com/chandrabezzo/flutter_dynamic_icon_plus/issues/23
+    pod 'SwiftTryCatch', :git => 'https://github.com/williamFalcon/SwiftTryCatch.git', :commit => '6effaa3'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 

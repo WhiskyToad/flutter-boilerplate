@@ -7,9 +7,7 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class HeadingWelcomeWidget extends StatelessWidget {
-  const HeadingWelcomeWidget({
-    super.key,
-  });
+  const HeadingWelcomeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -15,9 +15,7 @@ import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PhoneNumberTextField extends StatefulWidget {
-  const PhoneNumberTextField({
-    super.key,
-  });
+  const PhoneNumberTextField({super.key});
 
   @override
   State<PhoneNumberTextField> createState() => _PhoneNumberTextFieldState();
@@ -28,8 +26,10 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
   final FocusNode _focusNode = FocusNode();
   final PhoneNumber phoneNumberData = PhoneNumber(isoCode: 'IN');
 
-  final Debouncer<String> _debouncer =
-      Debouncer<String>(const Duration(milliseconds: 500), initialValue: '');
+  final Debouncer<String> _debouncer = Debouncer<String>(
+    const Duration(milliseconds: 500),
+    initialValue: '',
+  );
 
   @override
   void initState() {
@@ -37,12 +37,12 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
     _phoneInputController = TextEditingController(
       text:
           context.read<LoginBloc>().state.phoneNumberLoginState?.phoneNumber ??
-              '',
+          '',
     );
     _focusNode.addListener(() {
-      context
-          .read<LoginBloc>()
-          .add(PhoneInputHasFocus(hasFocus: _focusNode.hasFocus));
+      context.read<LoginBloc>().add(
+        PhoneInputHasFocus(hasFocus: _focusNode.hasFocus),
+      );
     });
   }
 
@@ -55,11 +55,11 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
 
   void _updatePhoneNumberEvent(PhoneNumber number) {
     context.read<LoginBloc>().add(
-          CountryCodeChangeEvent(countryCode: number.dialCode ?? ''),
-        );
+      CountryCodeChangeEvent(countryCode: number.dialCode ?? ''),
+    );
     context.read<LoginBloc>().add(
-          PhoneNumChangeEvent(phoneNumber: number.phoneNumber ?? ''),
-        );
+      PhoneNumChangeEvent(phoneNumber: number.phoneNumber ?? ''),
+    );
     final String? previousError = context
         .read<LoginBloc>()
         .state
@@ -96,17 +96,21 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
               key: keys.signInPage.mobileNoTextField,
               textFieldController: _phoneInputController,
               focusNode: _focusNode,
-              textStyle: AppTextStyles.p3Medium
-                  .copyWith(color: context.currentTheme.textNeutralPrimary),
-              selectorTextStyle: AppTextStyles.p3Medium
-                  .copyWith(color: context.currentTheme.textNeutralPrimary),
+              textStyle: AppTextStyles.p3Medium.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
+              selectorTextStyle: AppTextStyles.p3Medium.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
               initialValue: phoneNumberData,
               inputDecoration: InputDecoration(
                 hintText: context.localization.enter_phone_number,
-                hintStyle: AppTextStyles.p3Medium
-                    .copyWith(color: context.currentTheme.textNeutralDisable),
-                errorStyle: AppTextStyles.p4Regular
-                    .copyWith(color: context.currentTheme.textErrorSecondary),
+                hintStyle: AppTextStyles.p3Medium.copyWith(
+                  color: context.currentTheme.textNeutralDisable,
+                ),
+                errorStyle: AppTextStyles.p4Regular.copyWith(
+                  color: context.currentTheme.textErrorSecondary,
+                ),
                 border: buildOutlineInputBorder(hasFocus: hasFocus),
                 enabledBorder: buildOutlineInputBorder(hasFocus: hasFocus),
                 focusedBorder: buildOutlineInputBorder(hasFocus: hasFocus),
@@ -148,8 +152,8 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }
@@ -161,8 +165,9 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
 
     return InputDecoration(
       hintText: context.localization.search_by_name_or_code,
-      hintStyle: AppTextStyles.p3Medium
-          .copyWith(color: context.currentTheme.textNeutralDisable),
+      hintStyle: AppTextStyles.p3Medium.copyWith(
+        color: context.currentTheme.textNeutralDisable,
+      ),
       border: buildOutlineInputBorder(),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       enabledBorder: buildOutlineInputBorder(),

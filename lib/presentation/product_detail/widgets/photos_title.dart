@@ -13,8 +13,9 @@ class PhotosTitle extends StatelessWidget {
       children: [
         Text(
           context.localization.product_photos,
-          style: AppTextStyles.p2SemiBold
-              .copyWith(color: context.currentTheme.textNeutralPrimary),
+          style: AppTextStyles.p2SemiBold.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
       ],
     );

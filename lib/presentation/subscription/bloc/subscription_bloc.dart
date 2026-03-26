@@ -1,21 +1,25 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/constants/constants.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/services/subscription_service.dart';
+import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 
 class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AppLocalizations _localization;
   final SubscriptionService _subscriptionService;
+  final PerformanceMonitoringService _performanceService = sl();
 
   SubscriptionBloc({
     required AppLocalizations localization,
     required SubscriptionService subscriptionService,
-  })  : _localization = localization,
-        _subscriptionService = subscriptionService,
-        super(FetchSubscriptionPlanLoadingState()) {
+  }) : _localization = localization,
+       _subscriptionService = subscriptionService,
+       super(FetchSubscriptionPlanLoadingState()) {
     on<FetchSubscriptionPackagesEvent>(_onFetchSubscriptionPackagesEvent);
     on<PurchaseSubscriptionEvent>(_onPurchaseSubscriptionEvent);
     on<SelectSubscriptionPlanEvent>(_onSelectSubscriptionPlanEvent);
@@ -27,12 +31,18 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     FetchSubscriptionPackagesEvent event,
     Emitter<SubscriptionState> emit,
   ) async {
+    _performanceService.startTrace(kTraceFetchSubscriptionPackages);
     emit(FetchSubscriptionPlanLoadingState());
 
     try {
       final availablePackages = await _subscriptionService.getPackages();
 
       if (availablePackages.isEmpty) {
+        _performanceService.putAttribute(
+          kTraceFetchSubscriptionPackages,
+          kTraceAttrError,
+          'no_packages_available',
+        );
         emit(
           FetchSubscriptionPlanFailureState(
             state,
@@ -46,6 +56,11 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         (pkg) => pkg.identifier == revenueCatMonthly,
       );
 
+      _performanceService.putAttribute(
+        kTraceFetchSubscriptionPackages,
+        kTraceAttrSuccess,
+        true,
+      );
       emit(
         FetchSubscriptionPlanLoadedState(
           state.copyWith(
@@ -55,13 +70,20 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ),
         ),
       );
-    } on Exception {
+    } on Exception catch (e) {
+      _performanceService.putAttribute(
+        kTraceFetchSubscriptionPackages,
+        kTraceAttrError,
+        e.toString().truncate(100),
+      );
       emit(
         FetchSubscriptionPlanFailureState(
           state,
           error: _localization.failed_to_load_subscriptions,
         ),
       );
+    } finally {
+      _performanceService.stopTrace(kTraceFetchSubscriptionPackages);
     }
   }
 
@@ -69,18 +91,30 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     PurchaseSubscriptionEvent event,
     Emitter<SubscriptionState> emit,
   ) async {
+    _performanceService.startTrace(kTracePurchaseSubscription);
     emit(SubscriptionPaymentProcessingState(state));
 
     final success = await _subscriptionService.purchasePackage(
       event.package,
       onError: (errorMessage, {stackTrace}) {
+        _performanceService.putAttribute(
+          kTracePurchaseSubscription,
+          kTraceAttrError,
+          errorMessage.truncate(100),
+        );
         emit(SubscriptionPaymentFailureState(state, error: errorMessage));
       },
     );
 
     if (success) {
+      _performanceService.putAttribute(
+        kTracePurchaseSubscription,
+        kTraceAttrSuccess,
+        true,
+      );
       emit(SubscriptionPaymentSuccessState(state));
     }
+    _performanceService.stopTrace(kTracePurchaseSubscription);
   }
 
   Future<void> _onSelectSubscriptionPlanEvent(
@@ -101,6 +135,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     RestoreSubscriptionEvent event,
     Emitter<SubscriptionState> emit,
   ) async {
+    _performanceService.startTrace(kTraceRestoreSubscription);
     emit(FetchSubscriptionPlanLoadedState(state.copyWith(isRestoring: true)));
 
     try {
@@ -109,12 +144,22 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ? _localization.restore_success
           : _localization.no_active_subscriptions;
 
+      _performanceService.putAttribute(
+        kTraceRestoreSubscription,
+        kTraceAttrSuccess,
+        isRestored,
+      );
       emit(
         FetchSubscriptionPlanLoadedState(
           state.copyWith(isRestoring: false, restoreStatusMessage: message),
         ),
       );
     } on PlatformException catch (e) {
+      _performanceService.putAttribute(
+        kTraceRestoreSubscription,
+        kTraceAttrError,
+        (e.message ?? e.toString()).truncate(100),
+      );
       emit(
         FetchSubscriptionPlanLoadedState(
           state.copyWith(
@@ -123,6 +168,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ),
         ),
       );
+    } finally {
+      _performanceService.stopTrace(kTraceRestoreSubscription);
     }
   }
 

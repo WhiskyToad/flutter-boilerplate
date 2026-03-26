@@ -24,8 +24,9 @@ class SupportSection extends StatelessWidget {
         const SizedBox(height: 12.0),
         Container(
           decoration: BoxDecoration(
-            border:
-                Border.all(color: context.currentTheme.strokeNeutralLight200),
+            border: Border.all(
+              color: context.currentTheme.strokeNeutralLight200,
+            ),
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: const Column(

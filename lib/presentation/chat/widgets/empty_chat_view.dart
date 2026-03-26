@@ -14,16 +14,9 @@ class EmptyChatView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            Assets.icons.noChats,
-            height: 150,
-            width: 150,
-          ),
+          SvgPicture.asset(Assets.icons.noChats, height: 150, width: 150),
           const SizedBox(height: 24),
-          Text(
-            context.localization.no_chats,
-            style: AppTextStyles.p1SemiBold,
-          ),
+          Text(context.localization.no_chats, style: AppTextStyles.p1SemiBold),
         ],
       ),
     );

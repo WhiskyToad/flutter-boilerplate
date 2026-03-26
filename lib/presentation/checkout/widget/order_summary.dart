@@ -50,14 +50,16 @@ class OrderSummary extends StatelessWidget {
             children: [
               Text(
                 context.localization.price_of_items(cartItemsCount),
-                style: AppTextStyles.p3Regular
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.p3Regular.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
               const Spacer(),
               Text(
                 '\$${totalPrice.toStringAsFixed(2)}',
-                style: AppTextStyles.p3Regular
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.p3Regular.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
             ],
           ),
@@ -66,8 +68,9 @@ class OrderSummary extends StatelessWidget {
             children: [
               Text(
                 context.localization.discount,
-                style: AppTextStyles.p3Regular
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.p3Regular.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
               const Spacer(),
               Text(
@@ -83,14 +86,16 @@ class OrderSummary extends StatelessWidget {
             children: [
               Text(
                 context.localization.delivery_charges,
-                style: AppTextStyles.p3Regular
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.p3Regular.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
               const Spacer(),
               Text(
                 '\$$deliveryCharges',
-                style: AppTextStyles.p3Regular
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.p3Regular.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
             ],
           ),
@@ -99,14 +104,16 @@ class OrderSummary extends StatelessWidget {
             children: [
               Text(
                 context.localization.total_amount,
-                style: AppTextStyles.h6Medium
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.h6Medium.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
               const Spacer(),
               Text(
                 '\$$finalAmount',
-                style: AppTextStyles.h6Bold
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.h6Bold.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
             ],
           ),

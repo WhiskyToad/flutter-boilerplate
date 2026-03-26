@@ -125,8 +125,7 @@ class FirebaseAuthService {
     try {
       await _firebaseAuth.signOut();
 
-      final GoogleSignInAccount googleUser = await _googleSignIn
-          .authenticate();
+      final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
 
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 

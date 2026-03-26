@@ -52,7 +52,7 @@ class SubscriptionService {
         debugPrint('RevenueCat API key is missing!');
         return;
       }
-      
+
       // We are bypassing RevenueCat initialization in release mode because
       // the production stores (App Store/Google Play) are not yet fully implemented.
       //

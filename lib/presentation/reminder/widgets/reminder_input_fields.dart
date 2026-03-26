@@ -23,26 +23,30 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
   void initState() {
     super.initState();
     _titleController.text = context.read<ReminderBloc>().state.title;
-    _descriptionController.text =
-        context.read<ReminderBloc>().state.description;
+    _descriptionController.text = context
+        .read<ReminderBloc>()
+        .state
+        .description;
 
     _titleController.addListener(() {
-      final String? previousError =
-          context.read<ReminderBloc>().state.titleError;
+      final String? previousError = context
+          .read<ReminderBloc>()
+          .state
+          .titleError;
       if (previousError != null && previousError.isNotEmpty) {
         context.read<ReminderBloc>().add(TitleErrorEvent(error: ''));
       }
-      context
-          .read<ReminderBloc>()
-          .add(TitleChangedEvent(title: _titleController.text.trim()));
+      context.read<ReminderBloc>().add(
+        TitleChangedEvent(title: _titleController.text.trim()),
+      );
     });
 
     _descriptionController.addListener(() {
       context.read<ReminderBloc>().add(
-            DescriptionChangedEvent(
-              description: _descriptionController.text.trim(),
-            ),
-          );
+        DescriptionChangedEvent(
+          description: _descriptionController.text.trim(),
+        ),
+      );
     });
   }
 
@@ -64,18 +68,21 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
         children: [
           Text(
             context.localization.reminder_title,
-            style: AppTextStyles.p3Medium
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _titleController,
-            style: AppTextStyles.p3Medium
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
             decoration: InputDecoration(
               hintText: context.localization.reminder_title_hint,
-              hintStyle: AppTextStyles.p2Medium
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              hintStyle: AppTextStyles.p2Medium.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
               errorText: titleError.isNullOrEmpty() ? null : titleError,
               filled: true,
               fillColor: context.currentTheme.bgSurfaceBase2,
@@ -89,18 +96,21 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
           const SizedBox(height: 20),
           Text(
             context.localization.reminder_description,
-            style: AppTextStyles.p3Medium
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _descriptionController,
-            style: AppTextStyles.p3Medium
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
             decoration: InputDecoration(
               hintText: context.localization.reminder_description_hint,
-              hintStyle: AppTextStyles.p2Medium
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              hintStyle: AppTextStyles.p2Medium.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
               filled: true,
               fillColor: context.currentTheme.bgSurfaceBase2,
               border: _buildOutlineInputBorder(hasFocus: false),
@@ -125,8 +135,8 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

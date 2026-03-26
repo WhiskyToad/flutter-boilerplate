@@ -28,14 +28,16 @@ class _ContactUsEmailSectionState extends State<ContactUsEmailSection> {
   }
 
   void _emailControllerListener() {
-    final String? previousError =
-        context.read<ContactUsBloc>().state.emailError;
+    final String? previousError = context
+        .read<ContactUsBloc>()
+        .state
+        .emailError;
     if (previousError != null && previousError.isNotEmpty) {
       context.read<ContactUsBloc>().add(const EmailErrorEvent(error: ''));
     }
-    context
-        .read<ContactUsBloc>()
-        .add(EmailChangedEvent(email: _emailController.text));
+    context.read<ContactUsBloc>().add(
+      EmailChangedEvent(email: _emailController.text),
+    );
   }
 
   @override
@@ -70,8 +72,9 @@ class _ContactUsEmailSectionState extends State<ContactUsEmailSection> {
               filled: true,
               fillColor: context.currentTheme.bgSurfaceBase2,
               hintText: context.localization.enter_your_email_id,
-              hintStyle: AppTextStyles.p2Medium
-                  .copyWith(color: context.currentTheme.textNeutralDisable),
+              hintStyle: AppTextStyles.p2Medium.copyWith(
+                color: context.currentTheme.textNeutralDisable,
+              ),
               errorText: emailError.isNullOrEmpty() ? null : emailError,
               border: buildOutlineInputBorder(hasFocus: false),
               enabledBorder: buildOutlineInputBorder(hasFocus: false),
@@ -96,8 +99,8 @@ class _ContactUsEmailSectionState extends State<ContactUsEmailSection> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

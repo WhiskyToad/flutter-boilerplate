@@ -5,10 +5,13 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_event.da
 import 'package:skelter/presentation/delete_account/bloc/delete_account_state.dart';
 import 'package:skelter/presentation/delete_account/constants/delete_account_constants.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:skelter/utils/haptic_feedback_util.dart';
 
 class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
   final FirebaseAuthService _firebaseAuthService = sl();
+  final PerformanceMonitoringService _performanceService = sl();
 
   DeleteAccountBloc() : super(const DeleteAccountState.initial()) {
     _setupEventListeners();
@@ -50,6 +53,7 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
     DeleteAccountSubmittedEvent event,
     Emitter<DeleteAccountState> emit,
   ) async {
+    _performanceService.startTrace(kTraceDeleteAccount);
     emit(state.copyWith(isLoading: true));
 
     var hasErrorOccurred = false;
@@ -57,6 +61,11 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
     await _firebaseAuthService.deleteCurrentUser(
       onError: (error, {stackTrace}) async {
         hasErrorOccurred = true;
+        _performanceService.putAttribute(
+          kTraceDeleteAccount,
+          kTraceAttrError,
+          error.truncate(100),
+        );
         await HapticFeedbackUtil.error();
         final user = _firebaseAuthService.getCurrentUser();
         final providerList =
@@ -65,54 +74,36 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
         if (error == kFirebaseAuthRequiresRecentLogin ||
             error == kEmailPasswordReAuthRequired) {
           if (providerList.contains(kProviderPassword)) {
-            emit(
-              state.copyWith(
-                isLoading: false,
-                errorMessage: error,
-              ),
-            );
+            emit(state.copyWith(isLoading: false, errorMessage: error));
             emit(DeleteAccountReAuthEmailPasswordRequiredState(state));
           } else if (providerList.contains(kProviderGoogle)) {
-            emit(
-              state.copyWith(
-                isLoading: false,
-                errorMessage: error,
-              ),
-            );
+            emit(state.copyWith(isLoading: false, errorMessage: error));
             emit(DeleteAccountReAuthGoogleRequiredState(state));
           } else {
-            emit(
-              state.copyWith(
-                isLoading: false,
-                errorMessage: error,
-              ),
-            );
+            emit(state.copyWith(isLoading: false, errorMessage: error));
             emit(DeleteAccountFailureState(state));
           }
         } else if (error == kPhoneAuthRequired) {
-          emit(
-            state.copyWith(
-              isLoading: false,
-              errorMessage: error,
-            ),
-          );
+          emit(state.copyWith(isLoading: false, errorMessage: error));
           emit(DeleteAccountReAuthPhoneRequiredState(state));
         } else {
-          emit(
-            state.copyWith(
-              isLoading: false,
-              errorMessage: error,
-            ),
-          );
+          emit(state.copyWith(isLoading: false, errorMessage: error));
           emit(DeleteAccountFailureState(state));
         }
       },
     );
 
     if (!hasErrorOccurred) {
+      _performanceService.putAttribute(
+        kTraceDeleteAccount,
+        kTraceAttrSuccess,
+        true,
+      );
       emit(state.copyWith(isLoading: false));
       await HapticFeedbackUtil.success();
       emit(DeleteAccountSuccessState(state));
     }
+
+    _performanceService.stopTrace(kTraceDeleteAccount);
   }
 }

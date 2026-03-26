@@ -54,18 +54,15 @@ class HomeScreenWrapperState extends State<HomeScreenWrapper> {
       canPop: currentIndex == 0,
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop && currentIndex != 0) {
-          context
-              .read<HomeBloc>()
-              .add(const BottomNavBarIndexChangedEvent(index: 0));
+          context.read<HomeBloc>().add(
+            const BottomNavBarIndexChangedEvent(index: 0),
+          );
         }
       },
       child: Scaffold(
         bottomNavigationBar: BottomNavBar(key: bottomNavKey),
         body: SafeArea(
-          child: IndexedStack(
-            index: currentIndex,
-            children: pages,
-          ),
+          child: IndexedStack(index: currentIndex, children: pages),
         ),
       ),
     );

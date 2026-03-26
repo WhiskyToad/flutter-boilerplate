@@ -13,9 +13,7 @@ import 'package:skelter/widgets/app_button/enums/app_button_state_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
 
 class OTPVerificationButton extends StatelessWidget {
-  const OTPVerificationButton({
-    super.key,
-  });
+  const OTPVerificationButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +83,8 @@ class _ResendOTPButtonState extends State<_ResendOTPButton> {
           bloc.state.phoneNumberLoginState?.isResendOTPEnabled ?? false,
     );
 
-    final String resendOTPText = '${context.localization.resend} '
+    final String resendOTPText =
+        '${context.localization.resend} '
         '${resendTimeLeft > 0 ? '($resendTimeLeft)' : ''}';
 
     return AppButton(
@@ -93,16 +92,17 @@ class _ResendOTPButtonState extends State<_ResendOTPButton> {
       shouldSetFullWidth: true,
       size: AppButtonSize.large,
       style: AppButtonStyle.textOrIcon,
-      state:
-          isResendOTPEnabled ? AppButtonState.normal : AppButtonState.disabled,
+      state: isResendOTPEnabled
+          ? AppButtonState.normal
+          : AppButtonState.disabled,
       onPressed: () {
         if (isResendOTPEnabled) {
-          context
-              .read<LoginBloc>()
-              .add(FirebasePhoneLoginEvent(isFromVerificationScreen: true));
-          context
-              .read<LoginBloc>()
-              .add(IsResendOTPEnabledEvent(isResendOTPEnabled: false));
+          context.read<LoginBloc>().add(
+            FirebasePhoneLoginEvent(isFromVerificationScreen: true),
+          );
+          context.read<LoginBloc>().add(
+            IsResendOTPEnabledEvent(isResendOTPEnabled: false),
+          );
           startTimer();
         }
       },
@@ -113,14 +113,14 @@ class _ResendOTPButtonState extends State<_ResendOTPButton> {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       final timeLeft = PhoneNumberOTPScreen.kResendOTPMaxSeconds - timer.tick;
       if (timeLeft >= 0) {
-        context
-            .read<LoginBloc>()
-            .add(ResendOTPTimeLeftEvent(resentOTPTimeLeft: timeLeft));
+        context.read<LoginBloc>().add(
+          ResendOTPTimeLeftEvent(resentOTPTimeLeft: timeLeft),
+        );
       } else {
         timer.cancel();
-        context
-            .read<LoginBloc>()
-            .add(IsResendOTPEnabledEvent(isResendOTPEnabled: true));
+        context.read<LoginBloc>().add(
+          IsResendOTPEnabledEvent(isResendOTPEnabled: true),
+        );
       }
     });
   }

@@ -17,11 +17,9 @@ class ReminderDateTimeSelector extends StatelessWidget {
     final dateTimeError = context.select<ReminderBloc, String?>(
       (bloc) => bloc.state.dateTimeError,
     );
-    final selectedDateTime = context.select<ReminderBloc, DateTime>(
-      (bloc) {
-        return bloc.state.selectedDateTime;
-      },
-    );
+    final selectedDateTime = context.select<ReminderBloc, DateTime>((bloc) {
+      return bloc.state.selectedDateTime;
+    });
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,8 +47,9 @@ class ReminderDateTimeSelector extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    DateFormat(kReminderDateTimeFormat)
-                        .format(selectedDateTime),
+                    DateFormat(
+                      kReminderDateTimeFormat,
+                    ).format(selectedDateTime),
                     style: AppTextStyles.p3Medium.copyWith(
                       color: context.currentTheme.textNeutralSecondary,
                     ),
@@ -105,8 +104,8 @@ class ReminderDateTimeSelector extends StatelessWidget {
         );
 
         context.read<ReminderBloc>().add(
-              DateTimeSelectedEvent(dateTime: selectedDateTime),
-            );
+          DateTimeSelectedEvent(dateTime: selectedDateTime),
+        );
       }
     }
   }

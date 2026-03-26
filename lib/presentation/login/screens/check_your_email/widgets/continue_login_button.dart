@@ -6,9 +6,7 @@ import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 
 class ContinueLoginButton extends StatelessWidget {
-  const ContinueLoginButton({
-    super.key,
-  });
+  const ContinueLoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {

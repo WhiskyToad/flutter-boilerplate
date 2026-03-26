@@ -23,8 +23,9 @@ class ChatConversationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment:
-          message.isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: message.isSentByMe
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Column(

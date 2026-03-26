@@ -36,8 +36,9 @@ class EmptySavedCardView extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 context.localization.empty_cards_list_message,
-                style: AppTextStyles.p3Regular
-                    .copyWith(color: context.currentTheme.textNeutralSecondary),
+                style: AppTextStyles.p3Regular.copyWith(
+                  color: context.currentTheme.textNeutralSecondary,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),

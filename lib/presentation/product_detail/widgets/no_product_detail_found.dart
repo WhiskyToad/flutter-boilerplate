@@ -23,8 +23,9 @@ class NoProductDetailFound extends StatelessWidget {
         ),
         title: Text(
           context.localization.product_details,
-          style: AppTextStyles.h6SemiBold
-              .copyWith(color: context.currentTheme.textNeutralPrimary),
+          style: AppTextStyles.h6SemiBold.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
         centerTitle: true,
       ),

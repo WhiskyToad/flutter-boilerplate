@@ -4,10 +4,7 @@ import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/shimmer/shimmer_text.dart';
 
 class NotificationShimmerCard extends StatelessWidget {
-  const NotificationShimmerCard({
-    super.key,
-    required this.showAnimation,
-  });
+  const NotificationShimmerCard({super.key, required this.showAnimation});
 
   final bool showAnimation;
 
@@ -18,10 +15,7 @@ class NotificationShimmerCard extends StatelessWidget {
       enabled: showAnimation,
       highlightColor: context.currentTheme.bgNeutralLight100,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 8.0,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,21 +23,15 @@ class NotificationShimmerCard extends StatelessWidget {
               backgroundColor: context.currentTheme.bgShadesWhite,
               radius: 16.0,
             ),
-            const SizedBox(
-              width: 12.0,
-            ),
+            const SizedBox(width: 12.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ShimmerText(width: MediaQuery.of(context).size.width * 0.3),
-                  const SizedBox(
-                    height: 4.0,
-                  ),
+                  const SizedBox(height: 4.0),
                   const ShimmerText(width: double.infinity),
-                  const SizedBox(
-                    height: 4.0,
-                  ),
+                  const SizedBox(height: 4.0),
                   ShimmerText(width: MediaQuery.of(context).size.width * 0.2),
                 ],
               ),

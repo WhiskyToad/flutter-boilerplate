@@ -18,24 +18,24 @@ class ReminderState with EquatableMixin {
   });
 
   ReminderState.initial()
-      : title = '',
-        description = '',
-        selectedDateTime = DateTime.now()
-            .add(const Duration(minutes: 1))
-            .copyWith(second: 0, millisecond: 0, microsecond: 0),
-        isLoading = false,
-        titleError = null,
-        dateTimeError = null;
+    : title = '',
+      description = '',
+      selectedDateTime = DateTime.now()
+          .add(const Duration(minutes: 1))
+          .copyWith(second: 0, millisecond: 0, microsecond: 0),
+      isLoading = false,
+      titleError = null,
+      dateTimeError = null;
 
   ReminderState.copy(ReminderState state)
-      : this(
-          title: state.title,
-          description: state.description,
-          selectedDateTime: state.selectedDateTime,
-          isLoading: state.isLoading,
-          titleError: state.titleError,
-          dateTimeError: state.dateTimeError,
-        );
+    : this(
+        title: state.title,
+        description: state.description,
+        selectedDateTime: state.selectedDateTime,
+        isLoading: state.isLoading,
+        titleError: state.titleError,
+        dateTimeError: state.dateTimeError,
+      );
 
   ReminderState copyWith({
     String? title,
@@ -57,13 +57,13 @@ class ReminderState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        title,
-        description,
-        selectedDateTime,
-        isLoading,
-        titleError,
-        dateTimeError,
-      ];
+    title,
+    description,
+    selectedDateTime,
+    isLoading,
+    titleError,
+    dateTimeError,
+  ];
 }
 
 class ReminderScheduledState extends ReminderState {

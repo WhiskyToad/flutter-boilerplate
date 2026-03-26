@@ -19,15 +19,20 @@ class GoogleBottomNavBar extends StatelessWidget {
 
     return GNav(
       onTabChange: (index) {
-        context
-            .read<HomeBloc>()
-            .add(BottomNavBarIndexChangedEvent(index: index));
+        context.read<HomeBloc>().add(
+          BottomNavBarIndexChangedEvent(index: index),
+        );
       },
-      tabMargin:
-          const EdgeInsets.only(bottom: 26, top: 21, left: 22, right: 22),
+      tabMargin: const EdgeInsets.only(
+        bottom: 26,
+        top: 21,
+        left: 22,
+        right: 22,
+      ),
       selectedIndex: currentIndex,
-      textStyle: AppTextStyles.p4Medium
-          .copyWith(color: context.currentTheme.textBrandSecondary),
+      textStyle: AppTextStyles.p4Medium.copyWith(
+        color: context.currentTheme.textBrandSecondary,
+      ),
       tabBorderRadius: 20,
       curve: Curves.easeOutExpo,
       duration: const Duration(milliseconds: 300),
@@ -38,22 +43,13 @@ class GoogleBottomNavBar extends StatelessWidget {
       tabBackgroundColor: context.currentTheme.bgBrandLight50,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       tabs: [
-        GButton(
-          icon: TablerIcons.smart_home,
-          text: context.localization.home,
-        ),
-        GButton(
-          icon: TablerIcons.search,
-          text: context.localization.search,
-        ),
+        GButton(icon: TablerIcons.smart_home, text: context.localization.home),
+        GButton(icon: TablerIcons.search, text: context.localization.search),
         GButton(
           icon: TablerIcons.shopping_cart,
           text: context.localization.cart,
         ),
-        GButton(
-          icon: TablerIcons.user,
-          text: context.localization.profile,
-        ),
+        GButton(icon: TablerIcons.user, text: context.localization.profile),
       ],
     );
   }

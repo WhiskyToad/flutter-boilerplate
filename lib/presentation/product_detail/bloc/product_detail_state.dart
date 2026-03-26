@@ -19,18 +19,18 @@ class ProductDetailState with EquatableMixin {
   });
 
   const ProductDetailState.initial()
-      : selectedImageIndex = 0,
-        productDetail = null,
-        errorMessage = null,
-        aiDescription = null,
-        isGeneratingAIDescription = false;
+    : selectedImageIndex = 0,
+      productDetail = null,
+      errorMessage = null,
+      aiDescription = null,
+      isGeneratingAIDescription = false;
 
   ProductDetailState.copy(ProductDetailState state)
-      : selectedImageIndex = state.selectedImageIndex,
-        productDetail = state.productDetail,
-        errorMessage = state.errorMessage,
-        aiDescription = state.aiDescription,
-        isGeneratingAIDescription = state.isGeneratingAIDescription;
+    : selectedImageIndex = state.selectedImageIndex,
+      productDetail = state.productDetail,
+      errorMessage = state.errorMessage,
+      aiDescription = state.aiDescription,
+      isGeneratingAIDescription = state.isGeneratingAIDescription;
 
   ProductDetailState copyWith({
     int? selectedImageIndex,
@@ -45,7 +45,7 @@ class ProductDetailState with EquatableMixin {
       errorMessage: errorMessage ?? this.errorMessage,
       aiDescription: aiDescription ?? this.aiDescription,
       isGeneratingAIDescription:
-      isGeneratingAIDescription ?? this.isGeneratingAIDescription,
+          isGeneratingAIDescription ?? this.isGeneratingAIDescription,
     );
   }
 
@@ -60,46 +60,35 @@ class ProductDetailState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        selectedImageIndex,
-        productDetail,
-        errorMessage,
-        aiDescription,
-        isGeneratingAIDescription,
-      ];
+    selectedImageIndex,
+    productDetail,
+    errorMessage,
+    aiDescription,
+    isGeneratingAIDescription,
+  ];
 }
 
 class ProductDetailLoading extends ProductDetailState {
-  ProductDetailLoading(ProductDetailState state)
-      : super.copy(
-          state.copyWith(),
-        );
+  ProductDetailLoading(ProductDetailState state) : super.copy(state.copyWith());
 }
 
 class ProductDetailLoadedState extends ProductDetailState {
   ProductDetailLoadedState(
     ProductDetailState state, {
     required ProductDetail productDetail,
-  }) : super.copy(
-          state.copyWith(
-            productDetail: productDetail,
-          ),
-        );
+  }) : super.copy(state.copyWith(productDetail: productDetail));
 }
 
 class ProductDetailErrorState extends ProductDetailState {
   ProductDetailErrorState(
     ProductDetailState state, {
     required String errorMessage,
-  }) : super.copy(
-          state.copyWith(errorMessage: errorMessage),
-        );
+  }) : super.copy(state.copyWith(errorMessage: errorMessage));
 }
 
 class AIDescriptionGenerating extends ProductDetailState {
   AIDescriptionGenerating(ProductDetailState state)
-      : super.copy(
-          state.copyWith(isGeneratingAIDescription: true),
-        );
+    : super.copy(state.copyWith(isGeneratingAIDescription: true));
 }
 
 class AIDescriptionGenerated extends ProductDetailState {
@@ -107,22 +96,19 @@ class AIDescriptionGenerated extends ProductDetailState {
     ProductDetailState state, {
     required AIProductDescription aiDescription,
   }) : super.copy(
-          state.copyWith(
-            aiDescription: aiDescription,
-            isGeneratingAIDescription: false,
-          ),
-        );
+         state.copyWith(
+           aiDescription: aiDescription,
+           isGeneratingAIDescription: false,
+         ),
+       );
 }
 
 class AIDescriptionError extends ProductDetailState {
-  AIDescriptionError(
-    ProductDetailState state, {
-    required String errorMessage,
-  }) : super.copy(
-          state.copyWith(
-            errorMessage: errorMessage,
-            isGeneratingAIDescription: false,
-          ),
-        );
+  AIDescriptionError(ProductDetailState state, {required String errorMessage})
+    : super.copy(
+        state.copyWith(
+          errorMessage: errorMessage,
+          isGeneratingAIDescription: false,
+        ),
+      );
 }
-

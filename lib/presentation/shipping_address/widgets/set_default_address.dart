@@ -13,9 +13,7 @@ class SetDefaultAddress extends StatelessWidget {
         Checkbox(
           onChanged: (value) {},
           value: true,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           side: BorderSide(
             color: context.currentTheme.strokeNeutralLight200,
             width: 2,

@@ -16,9 +16,7 @@ class ContactUsSubmittedScreen extends StatelessWidget {
       onPopInvoked: (didPop) {
         context.router.replaceAll([const HomeRoute()]);
       },
-      child: const Scaffold(
-        body: ContactUsSubmittedBody(),
-      ),
+      child: const Scaffold(body: ContactUsSubmittedBody()),
     );
   }
 }

@@ -21,24 +21,22 @@ class EmptySearchView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            Assets.icons.userNotFound,
-            height: 150,
-            width: 150,
-          ),
+          SvgPicture.asset(Assets.icons.userNotFound, height: 150, width: 150),
           const SizedBox(height: 24),
           Text(
             context.localization.no_result_for(searchQuery),
-            style: AppTextStyles.p1SemiBold
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p1SemiBold.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
             textAlign: TextAlign.center,
             maxLines: 2,
           ),
           const SizedBox(height: 8),
           Text(
             context.localization.no_search_result_message,
-            style: AppTextStyles.p2Regular
-                .copyWith(color: context.currentTheme.textNeutralSecondary),
+            style: AppTextStyles.p2Regular.copyWith(
+              color: context.currentTheme.textNeutralSecondary,
+            ),
             textAlign: TextAlign.center,
           ),
         ],

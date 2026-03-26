@@ -1,7 +1,1 @@
-enum AppButtonStyle {
-  primary,
-  secondary,
-  outline,
-  link,
-  textOrIcon,
-}
+enum AppButtonStyle { primary, secondary, outline, link, textOrIcon }

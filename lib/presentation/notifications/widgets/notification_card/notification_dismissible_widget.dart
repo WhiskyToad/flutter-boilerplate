@@ -24,20 +24,15 @@ class NotificationDismissibleWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Icon(
-              Icons.delete,
-              color: context.currentTheme.strokeShadesWhite,
-            ),
-            const SizedBox(
-              width: 16.0,
-            ),
+            Icon(Icons.delete, color: context.currentTheme.strokeShadesWhite),
+            const SizedBox(width: 16.0),
           ],
         ),
       ),
       onDismissed: (direction) {
         context.read<NotificationBloc>().add(
-              DeleteNotificationEvent(notificationId: notificationModel.id),
-            );
+          DeleteNotificationEvent(notificationId: notificationModel.id),
+        );
       },
       child: child,
     );

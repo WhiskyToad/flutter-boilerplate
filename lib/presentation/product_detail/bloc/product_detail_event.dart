@@ -35,4 +35,3 @@ class GenerateAIDescriptionEvent extends ProductDetailEvent {
   @override
   List<Object?> get props => [productDetail, userOrderHistory];
 }
-

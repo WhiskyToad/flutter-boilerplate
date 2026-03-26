@@ -15,7 +15,8 @@ extension AppButtonDecorationExtension on AppButtonStyle {
 
     switch (this) {
       case AppButtonStyle.primary:
-        final backgroundColor = bgColorOverride ??
+        final backgroundColor =
+            bgColorOverride ??
             AppButtonColor.resolvePrimaryBg(context, buttonState);
         return BoxDecoration(
           color: backgroundColor,
@@ -24,7 +25,8 @@ extension AppButtonDecorationExtension on AppButtonStyle {
         );
 
       case AppButtonStyle.secondary:
-        final backgroundColor = bgColorOverride ??
+        final backgroundColor =
+            bgColorOverride ??
             AppButtonColor.resolveSecondaryBg(context, buttonState);
         return BoxDecoration(
           color: backgroundColor,
@@ -34,10 +36,12 @@ extension AppButtonDecorationExtension on AppButtonStyle {
 
       case AppButtonStyle.outline:
         return BoxDecoration(
-          color: bgColorOverride ??
+          color:
+              bgColorOverride ??
               AppButtonColor.resolveOutlineBg(context, buttonState),
           border: Border.all(
-            color: borderColorOverride ??
+            color:
+                borderColorOverride ??
                 AppButtonColor.resolveOutlineBorder(context, buttonState),
           ),
           borderRadius: radius,

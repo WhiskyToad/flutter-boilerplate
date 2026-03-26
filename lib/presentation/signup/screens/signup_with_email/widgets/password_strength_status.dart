@@ -7,17 +7,17 @@ import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class PasswordStrengthStatus extends StatelessWidget {
-  const PasswordStrengthStatus({
-    super.key,
-  });
+  const PasswordStrengthStatus({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String password =
-        context.select<SignupBloc, String>((bloc) => bloc.state.password);
+    final String password = context.select<SignupBloc, String>(
+      (bloc) => bloc.state.password,
+    );
 
-    final int passwordStrengthLevel = context
-        .select<SignupBloc, int>((bloc) => bloc.state.passwordStrengthLevel);
+    final int passwordStrengthLevel = context.select<SignupBloc, int>(
+      (bloc) => bloc.state.passwordStrengthLevel,
+    );
 
     late final String strengthLabel;
 

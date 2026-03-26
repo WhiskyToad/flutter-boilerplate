@@ -13,9 +13,7 @@ import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_state_enum.dart';
 
 class LoginWithEmailPassButton extends StatelessWidget {
-  const LoginWithEmailPassButton({
-    super.key,
-  });
+  const LoginWithEmailPassButton({super.key});
 
   static const kMinimumPasswordLengthLogin = 3;
 
@@ -55,20 +53,23 @@ class LoginWithEmailPassButton extends StatelessWidget {
         bool shouldReturn = false;
         final String? emailError = isEmailValid(email, context);
         if (emailError != null) {
-          context
-              .read<LoginBloc>()
-              .add(EmailErrorEvent(errorMessage: emailError));
+          context.read<LoginBloc>().add(
+            EmailErrorEvent(errorMessage: emailError),
+          );
           shouldReturn = true;
         }
 
-        final String? password =
-            context.read<LoginBloc>().state.emailPasswordLoginState?.password;
+        final String? password = context
+            .read<LoginBloc>()
+            .state
+            .emailPasswordLoginState
+            ?.password;
         if (password == null || password.isEmpty) {
           context.read<LoginBloc>().add(
-                PasswordErrorEvent(
-                  errorMessage: context.localization.password_cant_be_empty,
-                ),
-              );
+            PasswordErrorEvent(
+              errorMessage: context.localization.password_cant_be_empty,
+            ),
+          );
           shouldReturn = true;
         }
         if (shouldReturn) return;

@@ -5,9 +5,7 @@ import 'package:skelter/presentation/login/screens/login_with_phone_number/login
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class LoginSignUpButtonDivider extends StatelessWidget {
-  const LoginSignUpButtonDivider({
-    super.key,
-  });
+  const LoginSignUpButtonDivider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +25,9 @@ class LoginSignUpButtonDivider extends StatelessWidget {
           const SizedBox(width: 20),
           Text(
             context.localization.or,
-            style: AppTextStyles.p2Regular
-                .copyWith(color: context.currentTheme.textNeutralSecondary),
+            style: AppTextStyles.p2Regular.copyWith(
+              color: context.currentTheme.textNeutralSecondary,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(

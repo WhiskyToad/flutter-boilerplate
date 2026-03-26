@@ -33,9 +33,8 @@ class InvoiceModel {
     required AppLocalizations localization,
   }) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final invoiceNumber = 'INV-${timestamp.toString().substring(
-          timestamp.toString().length - 8,
-        )}';
+    final invoiceNumber =
+        'INV-${timestamp.toString().substring(timestamp.toString().length - 8)}';
 
     const quantity = 1;
     const discountPercent = 0.10;

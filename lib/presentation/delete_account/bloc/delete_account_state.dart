@@ -16,18 +16,18 @@ class DeleteAccountState with EquatableMixin {
   });
 
   const DeleteAccountState.initial()
-      : selectedReason = null,
-        otherReasonText = '',
-        isLoading = false,
-        errorMessage = null;
+    : selectedReason = null,
+      otherReasonText = '',
+      isLoading = false,
+      errorMessage = null;
 
   DeleteAccountState.copy(DeleteAccountState state)
-      : this(
-          selectedReason: state.selectedReason,
-          otherReasonText: state.otherReasonText,
-          isLoading: state.isLoading,
-          errorMessage: state.errorMessage,
-        );
+    : this(
+        selectedReason: state.selectedReason,
+        otherReasonText: state.otherReasonText,
+        isLoading: state.isLoading,
+        errorMessage: state.errorMessage,
+      );
 
   DeleteAccountState copyWith({
     DeleteAccountReasons? selectedReason,
@@ -53,46 +53,36 @@ class DeleteAccountState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        selectedReason,
-        otherReasonText,
-        isLoading,
-        errorMessage,
-      ];
+    selectedReason,
+    otherReasonText,
+    isLoading,
+    errorMessage,
+  ];
 }
 
 class DeleteAccountSuccessState extends DeleteAccountState {
   DeleteAccountSuccessState(DeleteAccountState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class DeleteAccountFailureState extends DeleteAccountState {
   DeleteAccountFailureState(DeleteAccountState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class DeleteAccountReAuthGoogleRequiredState extends DeleteAccountState {
   DeleteAccountReAuthGoogleRequiredState(DeleteAccountState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class DeleteAccountReAuthPhoneRequiredState extends DeleteAccountState {
   DeleteAccountReAuthPhoneRequiredState(DeleteAccountState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class DeleteAccountReAuthEmailPasswordRequiredState extends DeleteAccountState {
   DeleteAccountReAuthEmailPasswordRequiredState(DeleteAccountState state)
-      : super.copy(
-          state.copyWith(),
-        );
+    : super.copy(state.copyWith());
 }
 
 class DeleteAccountInputUpdatedState extends DeleteAccountState {
@@ -101,9 +91,9 @@ class DeleteAccountInputUpdatedState extends DeleteAccountState {
     required DeleteAccountReasons? selectedReason,
     required String otherReasonText,
   }) : super.copy(
-          state.copyWith(
-            selectedReason: selectedReason,
-            otherReasonText: otherReasonText,
-          ),
-        );
+         state.copyWith(
+           selectedReason: selectedReason,
+           otherReasonText: otherReasonText,
+         ),
+       );
 }

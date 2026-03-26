@@ -29,22 +29,22 @@ class CurrencyRateModel extends CurrencyRate {
       CurrencyRateModel.fromMap(jsonDecode(source) as DataMap);
 
   factory CurrencyRateModel.fromMap(DataMap map) => CurrencyRateModel(
-        amount: (map['amount'] as num).toDouble(),
-        base: map['base'] as String,
-        date: map['date'] as String,
-        rates: Map<String, double>.from(
-          (map['rates'] as Map).map(
-            (key, value) => MapEntry(key.toString(), (value as num).toDouble()),
-          ),
-        ),
-      );
+    amount: (map['amount'] as num).toDouble(),
+    base: map['base'] as String,
+    date: map['date'] as String,
+    rates: Map<String, double>.from(
+      (map['rates'] as Map).map(
+        (key, value) => MapEntry(key.toString(), (value as num).toDouble()),
+      ),
+    ),
+  );
 
   DataMap toMap() => {
-        'amount': amount,
-        'base': base,
-        'date': date,
-        'rates': rates,
-      };
+    'amount': amount,
+    'base': base,
+    'date': date,
+    'rates': rates,
+  };
 
   String toJson() => jsonEncode(toMap());
 }

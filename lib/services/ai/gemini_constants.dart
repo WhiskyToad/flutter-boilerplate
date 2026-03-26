@@ -99,4 +99,3 @@ OUTPUT REQUIREMENTS:
   static const String productOriginalDescKey = '{PRODUCT_DESCRIPTION}';
   static const String userOrderHistoryKey = '{USER_ORDER_HISTORY}';
 }
-

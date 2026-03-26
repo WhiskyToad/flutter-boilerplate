@@ -31,17 +31,15 @@ class ProductDetailAppBar extends StatelessWidget
       ),
       title: Text(
         category,
-        style: AppTextStyles.h6SemiBold
-            .copyWith(color: context.currentTheme.textNeutralPrimary),
+        style: AppTextStyles.h6SemiBold.copyWith(
+          color: context.currentTheme.textNeutralPrimary,
+        ),
       ),
       centerTitle: true,
       actions: [
         IconButton(
           onPressed: () {
-            _shareProductLink(
-              context,
-              productId,
-            );
+            _shareProductLink(context, productId);
           },
           icon: Icon(
             TablerIcons.share,
@@ -52,10 +50,7 @@ class ProductDetailAppBar extends StatelessWidget
     );
   }
 
-  Future<void> _shareProductLink(
-    BuildContext context,
-    String productId,
-  ) async {
+  Future<void> _shareProductLink(BuildContext context, String productId) async {
     final productUrl = Uri.https(kHost, '$kProductDetailPath/$productId');
 
     final shareSubject = context.localization.share_product_subject;
@@ -63,10 +58,7 @@ class ProductDetailAppBar extends StatelessWidget
       productUrl.toString(),
     );
 
-    await Share.share(
-      shareMessage,
-      subject: shareSubject,
-    );
+    await Share.share(shareMessage, subject: shareSubject);
   }
 
   @override

@@ -29,14 +29,14 @@ class EmailPasswordLoginState with EquatableMixin {
   }
 
   EmailPasswordLoginState.copy(EmailPasswordLoginState state)
-      : this(
-          email: state.email,
-          password: state.password,
-          emailErrorMessage: state.emailErrorMessage,
-          passwordErrorMessage: state.passwordErrorMessage,
-          isPasswordVisible: state.isPasswordVisible,
-          authenticationErrorMessage: state.authenticationErrorMessage,
-        );
+    : this(
+        email: state.email,
+        password: state.password,
+        emailErrorMessage: state.emailErrorMessage,
+        passwordErrorMessage: state.passwordErrorMessage,
+        isPasswordVisible: state.isPasswordVisible,
+        authenticationErrorMessage: state.authenticationErrorMessage,
+      );
 
   EmailPasswordLoginState copyWith({
     String? email,
@@ -51,10 +51,12 @@ class EmailPasswordLoginState with EquatableMixin {
     return EmailPasswordLoginState(
       email: email ?? this.email,
       password: password ?? this.password,
-      emailErrorMessage: emailErrorMessage ??
+      emailErrorMessage:
+          emailErrorMessage ??
           (canSetEmailErrorMessageToNull ? null : this.emailErrorMessage),
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
-      passwordErrorMessage: passwordErrorMessage ??
+      passwordErrorMessage:
+          passwordErrorMessage ??
           (canSetPasswordErrorMessageToNull ? null : this.passwordErrorMessage),
       authenticationErrorMessage:
           authenticationErrorMessage ?? this.authenticationErrorMessage,
@@ -82,11 +84,11 @@ class EmailPasswordLoginState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        email,
-        password,
-        emailErrorMessage,
-        isPasswordVisible,
-        passwordErrorMessage,
-        authenticationErrorMessage,
-      ];
+    email,
+    password,
+    emailErrorMessage,
+    isPasswordVisible,
+    passwordErrorMessage,
+    authenticationErrorMessage,
+  ];
 }

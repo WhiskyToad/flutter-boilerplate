@@ -12,9 +12,7 @@ import 'package:skelter/widgets/app_button/enums/app_button_state_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
-  const ForgotPasswordButton({
-    super.key,
-  });
+  const ForgotPasswordButton({super.key});
 
   @override
   Widget build(BuildContext context) {

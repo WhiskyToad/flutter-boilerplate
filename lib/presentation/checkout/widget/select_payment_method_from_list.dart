@@ -55,8 +55,8 @@ class PaymentMethodOnline extends StatelessWidget {
           ),
         ),
         onTap: () => context.read<CheckoutBloc>().add(
-              const SelectPaymentMethodEvent(isPaymentMethodOnline: true),
-            ),
+          const SelectPaymentMethodEvent(isPaymentMethodOnline: true),
+        ),
       ),
     );
   }
@@ -92,8 +92,8 @@ class PaymentMethodCOD extends StatelessWidget {
           ),
         ),
         onTap: () => context.read<CheckoutBloc>().add(
-              const SelectPaymentMethodEvent(isPaymentMethodOnline: false),
-            ),
+          const SelectPaymentMethodEvent(isPaymentMethodOnline: false),
+        ),
       ),
     );
   }

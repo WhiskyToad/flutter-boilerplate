@@ -11,9 +11,7 @@ import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class CouponItem extends StatelessWidget {
-  const CouponItem({
-    super.key,
-  });
+  const CouponItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +20,7 @@ class CouponItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.currentTheme.bgSurfaceBase2,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: context.currentTheme.strokeNeutralLight200,
-        ),
+        border: Border.all(color: context.currentTheme.strokeNeutralLight200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,16 +31,15 @@ class CouponItem extends StatelessWidget {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset(
-                    Assets.icons.coupon,
-                  ),
+                  SvgPicture.asset(Assets.icons.coupon),
                   Positioned(
                     left: 20,
                     right: 20,
                     child: Text(
                       'FREEDELIVERY',
-                      style: AppTextStyles.p3Bold
-                          .copyWith(color: AppColors.shadesWhite),
+                      style: AppTextStyles.p3Bold.copyWith(
+                        color: AppColors.shadesWhite,
+                      ),
                       maxLines: 1,
                       textAlign: TextAlign.center,
                     ),
@@ -66,8 +61,9 @@ class CouponItem extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             'Get 10% off on orders above 200%',
-            style: AppTextStyles.p3SemiBold
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3SemiBold.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
           const SizedBox(height: 8),
           Text(

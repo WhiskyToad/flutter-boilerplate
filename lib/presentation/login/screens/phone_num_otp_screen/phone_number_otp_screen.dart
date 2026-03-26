@@ -37,8 +37,9 @@ class PhoneNumberOTPScreenState extends State<PhoneNumberOTPScreen> {
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) {
           widget.loginBloc.add(PhoneOtpTextChangeEvent(phoneOtpText: ''));
-          widget.loginBloc
-              .add(IsResendOTPEnabledEvent(isResendOTPEnabled: false));
+          widget.loginBloc.add(
+            IsResendOTPEnabledEvent(isResendOTPEnabled: false),
+          );
           widget.loginBloc.add(PhoneNumLoginLoadingEvent(isLoading: false));
         }
       },
@@ -62,9 +63,7 @@ class PhoneNumberOTPScreenState extends State<PhoneNumberOTPScreen> {
 }
 
 class _PhoneNumberOTPScreenBody extends StatelessWidget {
-  const _PhoneNumberOTPScreenBody({
-    required this.isFromDeleteAccount,
-  });
+  const _PhoneNumberOTPScreenBody({required this.isFromDeleteAccount});
 
   final bool isFromDeleteAccount;
 
@@ -72,11 +71,11 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final String phoneNumber =
         context.read<LoginBloc>().state.phoneNumberLoginState?.phoneNumber ??
-            '';
+        '';
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) async {
         if (state is NavigateToHomeScreenState) {
-// If user came from Delete Account flow, return them to DeleteAccountScreen
+          // If user came from Delete Account flow, return them to DeleteAccountScreen
           if (isFromDeleteAccount) {
             await context.router.replace(const DeleteAccountRoute());
           } else {
@@ -84,9 +83,9 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
             context.router.popUntilRoot();
           }
         } else if (state is NavigateToVerifiedScreenState) {
-          await context.router.replaceAll(
-            [PhoneNumberVerifiedRoute(loginBloc: context.read<LoginBloc>())],
-          );
+          await context.router.replaceAll([
+            PhoneNumberVerifiedRoute(loginBloc: context.read<LoginBloc>()),
+          ]);
         }
       },
       child: Column(

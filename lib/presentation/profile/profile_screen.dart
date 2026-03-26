@@ -92,10 +92,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
     );
   }
 
-  void _showSignOutError(
-    SignOutErrorState state,
-    BuildContext context,
-  ) {
+  void _showSignOutError(SignOutErrorState state, BuildContext context) {
     final String error = state.errorMessage;
     context.showSnackBar(
       error.isNullOrEmpty()
