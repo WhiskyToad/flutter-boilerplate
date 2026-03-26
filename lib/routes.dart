@@ -39,6 +39,9 @@ class AppRouter extends RootStackRouter {
       ContactUsRoute.page,
       ContactUsSubmittedRoute.page,
 
+      // Feedback
+      FeedbackRoute.page,
+
       // Chat
       ChatRoute.page,
       ChatConversationRoute.page,

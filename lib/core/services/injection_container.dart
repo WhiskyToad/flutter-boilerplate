@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:skelter/services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -8,6 +10,10 @@ import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
+import 'package:skelter/presentation/feedback/data/datasources/feedback_remote_datasource.dart';
+import 'package:skelter/presentation/feedback/data/repositories/feedback_repository_impl.dart';
+import 'package:skelter/presentation/feedback/domain/repositories/feedback_repository.dart';
+import 'package:skelter/presentation/feedback/domain/usecases/submit_feedback.dart';
 import 'package:skelter/main.dart';
 import 'package:skelter/presentation/home/data/datasources/product_remote_data_source.dart';
 import 'package:skelter/presentation/home/data/repositories/product_repository_impl.dart';
@@ -111,6 +117,19 @@ Future<void> configureDependencies({
     ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager())
     ..registerLazySingleton<LocalAuthService>(
       () => LocalAuthService(LocalAuthentication()),
+    )
+    ..registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance,
+    )
+    ..registerLazySingleton<FirestoreService>(
+      () => FirestoreService(firestore: sl<FirebaseFirestore>()),
+    )
+    ..registerLazySingleton(() => SubmitFeedback(sl()))
+    ..registerLazySingleton<FeedbackRepository>(
+      () => FeedbackRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton<FeedbackRemoteDatasource>(
+      () => FeedbackRemoteDatasourceImpl(sl<FirestoreService>()),
     );
 }
 
