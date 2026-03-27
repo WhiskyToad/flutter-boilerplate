@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/checkout/model/product_cart.dart';
 import 'package:skelter/presentation/home/data/models/product_model.dart';

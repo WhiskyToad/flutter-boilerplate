@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/foundation.dart';
 import 'package:vibration/vibration.dart';
 import 'package:vibration/vibration_presets.dart';
