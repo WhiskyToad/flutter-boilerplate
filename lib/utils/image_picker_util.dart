@@ -10,13 +10,18 @@ class ImagePickerUtil {
   Future<List<XFile>> pickImages({
     required ImageSource source,
     required int maxFileLimit,
+    int imageQuality = 100,
   }) async {
     try {
       if (source == ImageSource.gallery) {
-        return await _picker.pickMultiImage(limit: maxFileLimit);
+        return await _picker.pickMultiImage(
+          limit: maxFileLimit,
+          imageQuality: imageQuality,
+        );
       } else {
         final XFile? image = await _picker.pickImage(
           source: ImageSource.camera,
+          imageQuality: imageQuality,
         );
         return image != null ? [image] : [];
       }

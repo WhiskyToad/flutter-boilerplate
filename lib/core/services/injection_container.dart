@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_performance/firebase_performance.dart';
@@ -11,6 +12,10 @@ import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/app_tour_service.dart';
 import 'package:skelter/main.dart';
+import 'package:skelter/presentation/feedback/data/datasources/feedback_remote_datasource.dart';
+import 'package:skelter/presentation/feedback/data/repositories/feedback_repository_impl.dart';
+import 'package:skelter/presentation/feedback/domain/repositories/feedback_repository.dart';
+import 'package:skelter/presentation/feedback/domain/usecases/submit_feedback.dart';
 import 'package:skelter/presentation/home/data/datasources/product_remote_data_source.dart';
 import 'package:skelter/presentation/home/data/repositories/product_repository_impl.dart';
 import 'package:skelter/presentation/home/domain/repositories/product_repository.dart';
@@ -27,6 +32,7 @@ import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/dynamic_icon_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/firestore_service.dart';
 import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
@@ -127,6 +133,17 @@ Future<void> configureDependencies({
     )
     ..registerLazySingleton<DynamicIconService>(
       () => DynamicIconService(remoteConfigService: RemoteConfigService()),
+    )
+    ..registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance)
+    ..registerLazySingleton<FirestoreService>(
+      () => FirestoreService(firestore: sl<FirebaseFirestore>()),
+    )
+    ..registerLazySingleton(() => SubmitFeedback(sl()))
+    ..registerLazySingleton<FeedbackRepository>(
+      () => FeedbackRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton<FeedbackRemoteDatasource>(
+      () => FeedbackRemoteDatasourceImpl(sl<FirestoreService>()),
     );
 }
 

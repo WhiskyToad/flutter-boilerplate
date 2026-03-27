@@ -85,6 +85,7 @@ dependencies:
   timezone: ^0.10.1
   firebase_ai: ^3.6.1
   flutter_dynamic_icon_plus: ^1.4.0
+  cloud_firestore: ^6.1.1
 
 dev_dependencies:
   flutter_test:

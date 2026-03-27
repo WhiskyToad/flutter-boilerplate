@@ -75,7 +75,8 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) async {
         if (state is NavigateToHomeScreenState) {
-          // If user came from Delete Account flow, return them to DeleteAccountScreen
+          // If user came from Delete Account flow,
+          // return them to DeleteAccountScreen
           if (isFromDeleteAccount) {
             await context.router.replace(const DeleteAccountRoute());
           } else {

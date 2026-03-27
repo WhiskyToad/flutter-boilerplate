@@ -476,5 +476,22 @@
   "order_details": "Order Details",
   "cancel_order": "Cancel Order",
   "tracking_detail": "Tracking Details",
-  "no_product_selected": "No product selected"
+  "no_product_selected": "No product selected",
+  "feedback_keys": "================ FEEDBACK KEYS ================",
+  "feedback": "Feedback",
+  "please_share_your_thoughts":"Please share your thoughts before submitting.",
+  "rate_your_experience": "Rate your experience",
+  "your_feedback": "Your feedback",
+  "feedback_hint": "Tell us what you think...",
+  "submit_feedback": "Submit Feedback",
+  "feedback_submitted_success": "Thank you! Your feedback has been submitted.",
+  "please_select_a_rating": "Please select a rating to continue.",
+  "feedback_category_label": "Pick a category",
+  "feedback_category_required": "Please select a category to continue.",
+  "feedback_category_bug": "Bug",
+  "feedback_category_suggestion": "Suggestion",
+  "feedback_category_content": "Content",
+  "feedback_category_compliment": "Compliment",
+  "feedback_category_other": "Other",
+  "feedback_description": "Share your experience and help us improve. We value every word you share with us."
 }
