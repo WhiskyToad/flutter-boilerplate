@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/checkout/model/product_cart.dart';
 import 'package:skelter/presentation/home/data/models/product_model.dart';
@@ -35,9 +33,10 @@ class InvoiceModel {
     required AppLocalizations localization,
   }) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final invoiceNumber =
-        'INV-${timestamp.toString().substring(timestamp.toString().length - 8)}';
+    final timestampString = timestamp.toString();
 
+    final invoiceNumber =
+        'INV-${timestampString.substring(timestampString.length - 8)}';
     const quantity = 1;
     const discountPercent = 0.10;
     const deliveryCharges = 10.0;

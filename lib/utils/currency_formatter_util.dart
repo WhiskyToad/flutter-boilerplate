@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:intl/intl.dart';
 
 enum CompactFormatType {
@@ -142,7 +140,8 @@ class CurrencyFormatterUtil {
       final defaultGroupingSeparator = formatter.symbols.GROUP_SEP;
       final defaultDecimalSeparator = formatter.symbols.DECIMAL_SEP;
 
-      // Const placeholders ensure a safe swap of grouping and decimal separators.
+      // Const placeholders ensure a safe swap of grouping and
+      // decimal separators.
       // Direct replacement would turn "$1.234.56" into "$1,234,56"
       // when swapping ',' and '.'.
 

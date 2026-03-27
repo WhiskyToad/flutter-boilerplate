@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +75,8 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) async {
         if (state is NavigateToHomeScreenState) {
-          // If user came from Delete Account flow, return them to DeleteAccountScreen
+          // If user came from Delete Account flow,
+          // return them to DeleteAccountScreen
           if (isFromDeleteAccount) {
             await context.router.replace(const DeleteAccountRoute());
           } else {

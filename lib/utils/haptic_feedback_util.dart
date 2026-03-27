@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/foundation.dart';
 import 'package:vibration/vibration.dart';
 import 'package:vibration/vibration_presets.dart';
@@ -25,8 +23,10 @@ class HapticFeedbackUtil {
 
         await Vibration.vibrate(
           pattern: pattern,
-          // Note:It will use custom intensities if the device supports amplitude control.
-          // If not supported, the system will use the default vibration strength.
+          // Note:It will use custom intensities if the device
+          // supports amplitude control.
+          // If not supported, the system will use the default
+          // vibration strength.
           intensities: hasAmplitudeControl ? intensities : [],
           repeat: repeat,
         );
