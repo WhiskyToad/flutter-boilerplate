@@ -10,7 +10,7 @@ class FeedbackDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.localization.feedback_description,
-      style: AppTextStyles.p2Regular.copyWith(
+      style: AppTextStyles.p2Medium.copyWith(
         color: context.currentTheme.textNeutralPrimary,
       ),
     );

@@ -25,7 +25,7 @@ class FeedbackCategorySection extends StatelessWidget {
       children: [
         Text(
           context.localization.feedback_category_label,
-          style: AppTextStyles.p3Medium.copyWith(
+          style: AppTextStyles.p2SemiBold.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
         ),

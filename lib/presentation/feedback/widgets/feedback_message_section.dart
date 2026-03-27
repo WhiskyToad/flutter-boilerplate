@@ -62,7 +62,7 @@ class _FeedbackMessageSectionState extends State<FeedbackMessageSection> {
       children: [
         Text(
           context.localization.your_feedback,
-          style: AppTextStyles.p3Medium.copyWith(
+          style: AppTextStyles.p2SemiBold.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
         ),

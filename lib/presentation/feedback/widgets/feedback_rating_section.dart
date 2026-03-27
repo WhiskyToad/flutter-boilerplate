@@ -25,7 +25,7 @@ class FeedbackRatingSection extends StatelessWidget {
       children: [
         Text(
           context.localization.rate_your_experience,
-          style: AppTextStyles.p3Medium.copyWith(
+          style: AppTextStyles.p2SemiBold.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
         ),
