@@ -32,7 +32,7 @@ void main() {
       firebaseAuth: mokFirebaseAuth,
     );
     sl.registerLazySingleton<FirebaseAuthService>(
-          () => mockFirebaseAuthService,
+      () => mockFirebaseAuthService,
     );
   });
 
@@ -136,8 +136,9 @@ void main() {
             ),
             createTestScenario(
               name: 'error email state',
-              child:
-                  LoginWithEmailPasswordScreen(loginBloc: loginBlocEmailError),
+              child: LoginWithEmailPasswordScreen(
+                loginBloc: loginBlocEmailError,
+              ),
             ),
             createTestScenario(
               name: 'error password state',
@@ -147,8 +148,9 @@ void main() {
             ),
             createTestScenario(
               name: 'error both fields state',
-              child:
-                  LoginWithEmailPasswordScreen(loginBloc: loginBlocWithErrors),
+              child: LoginWithEmailPasswordScreen(
+                loginBloc: loginBlocWithErrors,
+              ),
             ),
           ],
         );
@@ -187,9 +189,7 @@ void main() {
               child: const LoginWithEmailPassButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocDisabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocDisabled),
               ],
             ),
             createTestScenario(
@@ -197,9 +197,7 @@ void main() {
               child: const LoginWithEmailPassButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocEnabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocEnabled),
               ],
             ),
           ],

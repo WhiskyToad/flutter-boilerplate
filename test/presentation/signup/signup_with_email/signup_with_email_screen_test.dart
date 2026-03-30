@@ -12,6 +12,7 @@ import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/em
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_text_field.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
+
 import '../../../../integration_test/mock_firebase_auth.dart';
 import '../../../../integration_test/mock_firebase_performance.dart';
 import '../../../flutter_test_config.dart';
@@ -46,9 +47,7 @@ void main() {
   // Widget tests
   group('Signup With Email Screen', () {
     testWidgets('Signup With Email Screen renders correctly', (tester) async {
-      await tester.runWidgetTest(
-        child: const SignupWithEmailPasswordScreen(),
-      );
+      await tester.runWidgetTest(child: const SignupWithEmailPasswordScreen());
       expect(find.byType(SignupWithEmailPasswordScreen), findsOneWidget);
       expect(find.byType(EmailTextField), findsOneWidget);
       expect(find.byType(EmailNextButton), findsOneWidget);
@@ -62,21 +61,18 @@ void main() {
       fileName: 'signup_with_email_screen',
       builder: () {
         final signupBlocDefault = MockSignupBloc();
-        when(() => signupBlocDefault.state).thenReturn(
-          SignupState.test(),
-        );
+        when(() => signupBlocDefault.state).thenReturn(SignupState.test());
 
         final signupBlocValidEmail = MockSignupBloc();
-        when(() => signupBlocValidEmail.state).thenReturn(
-          SignupState.test(
-            email: 'test@example.com',
-          ),
-        );
+        when(
+          () => signupBlocValidEmail.state,
+        ).thenReturn(SignupState.test(email: 'test@example.com'));
 
         final signupBlocLongEmail = MockSignupBloc();
         when(() => signupBlocLongEmail.state).thenReturn(
           SignupState.test(
-            email: 'verylongemailaddressfortestingpurposes'
+            email:
+                'verylongemailaddressfortestingpurposes'
                 '@verylongdomainnametotest.com',
           ),
         );
@@ -102,8 +98,9 @@ void main() {
           children: [
             createTestScenario(
               name: 'default email state',
-              child:
-                  SignupWithEmailPasswordScreen(signupBloc: signupBlocDefault),
+              child: SignupWithEmailPasswordScreen(
+                signupBloc: signupBlocDefault,
+              ),
             ),
             createTestScenario(
               name: 'valid email state',

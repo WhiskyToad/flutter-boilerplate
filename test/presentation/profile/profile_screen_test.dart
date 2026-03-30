@@ -45,17 +45,12 @@ void main() {
       //arrange
       final mockProfileBloc = MockProfileBloc();
       when(() => mockProfileBloc.state).thenReturn(
-        ProfileState.test(
-          name: 'Test User',
-          email: 'test@example.com',
-        ),
+        ProfileState.test(name: 'Test User', email: 'test@example.com'),
       );
 
       //act
       await tester.runWidgetTest(
-        providers: [
-          BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
-        ],
+        providers: [BlocProvider<ProfileBloc>.value(value: mockProfileBloc)],
         child: const ProfileScreenBody(), // Use ProfileScreenBody instead of
         // ProfileScreen to avoid duplicate BlocProvider
       );
@@ -67,71 +62,65 @@ void main() {
 
     // Golden tests
     testExecutable(() {
-      group(
-        'Profile Page UI test',
-        () {
-          goldenTest(
-            'Profile page',
-            fileName: 'profile_page',
-            pumpBeforeTest: precacheImages,
-            builder: () {
-              //arrange
+      group('Profile Page UI test', () {
+        goldenTest(
+          'Profile page',
+          fileName: 'profile_page',
+          pumpBeforeTest: precacheImages,
+          builder: () {
+            //arrange
 
-              final mockProfileBloc = MockProfileBloc();
-              when(() => mockProfileBloc.state).thenReturn(
-                ProfileState.test(
-                  name: 'Test User',
-                  email: 'x5t4T@example.com',
+            final mockProfileBloc = MockProfileBloc();
+            when(() => mockProfileBloc.state).thenReturn(
+              ProfileState.test(name: 'Test User', email: 'x5t4T@example.com'),
+            );
+
+            // act, assert
+            return GoldenTestGroup(
+              // Fixes "LayoutBuilder does not support returning
+              // intrinsic dimensions" error
+              columnWidthBuilder: (_) =>
+                  const FixedColumnWidth(pixel5DeviceWidth),
+              children: [
+                createTestScenario(
+                  name: 'Profile page Light Theme',
+                  child: const ProfileScreenBody(),
+                  addScaffold: true,
+                  providers: [
+                    BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
+                  ],
                 ),
-              );
-
-              // act, assert
-              return GoldenTestGroup(
-                // Fixes "LayoutBuilder does not support returning
-                // intrinsic dimensions" error
-                columnWidthBuilder: (_) =>
-                    const FixedColumnWidth(pixel5DeviceWidth),
-                children: [
-                  createTestScenario(
-                    name: 'Profile page Light Theme',
-                    child: const ProfileScreenBody(),
-                    addScaffold: true,
-                    providers: [
-                      BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
-                    ],
-                  ),
-                  createTestScenario(
-                    name: 'Profile page Dark Theme',
-                    child: const ProfileScreenBody(),
-                    addScaffold: true,
-                    theme: AppThemeEnum.DarkTheme,
-                    providers: [
-                      BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
-                    ],
-                  ),
-                  createTestScenario(
-                    name: 'Profile details Light Theme',
-                    child: const ProfileDetails(),
-                    addScaffold: true,
-                    providers: [
-                      BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
-                    ],
-                  ),
-                  createTestScenario(
-                    name: 'Profile details Dark Theme',
-                    child: const ProfileDetails(),
-                    addScaffold: true,
-                    theme: AppThemeEnum.DarkTheme,
-                    providers: [
-                      BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
-                    ],
-                  ),
-                ],
-              );
-            },
-          );
-        },
-      );
+                createTestScenario(
+                  name: 'Profile page Dark Theme',
+                  child: const ProfileScreenBody(),
+                  addScaffold: true,
+                  theme: AppThemeEnum.DarkTheme,
+                  providers: [
+                    BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
+                  ],
+                ),
+                createTestScenario(
+                  name: 'Profile details Light Theme',
+                  child: const ProfileDetails(),
+                  addScaffold: true,
+                  providers: [
+                    BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
+                  ],
+                ),
+                createTestScenario(
+                  name: 'Profile details Dark Theme',
+                  child: const ProfileDetails(),
+                  addScaffold: true,
+                  theme: AppThemeEnum.DarkTheme,
+                  providers: [
+                    BlocProvider<ProfileBloc>.value(value: mockProfileBloc),
+                  ],
+                ),
+              ],
+            );
+          },
+        );
+      });
     });
   });
 
@@ -158,18 +147,14 @@ void main() {
               name: 'Profile details with long name Light Theme',
               child: const ProfileDetails(),
               addScaffold: true,
-              providers: [
-                BlocProvider<ProfileBloc>.value(value: profileBloc),
-              ],
+              providers: [BlocProvider<ProfileBloc>.value(value: profileBloc)],
             ),
             createTestScenario(
               name: 'Profile details with long name Dark Theme',
               child: const ProfileDetails(),
               addScaffold: true,
               theme: AppThemeEnum.DarkTheme,
-              providers: [
-                BlocProvider<ProfileBloc>.value(value: profileBloc),
-              ],
+              providers: [BlocProvider<ProfileBloc>.value(value: profileBloc)],
             ),
           ],
         );
@@ -186,10 +171,7 @@ void main() {
         // arrange
         final profileBloc = MockProfileBloc();
         when(() => profileBloc.state).thenReturn(
-          ProfileState.test(
-            name: 'Test User',
-            email: 'x5t4T@example.com',
-          ),
+          ProfileState.test(name: 'Test User', email: 'x5t4T@example.com'),
         );
 
         // act, assert
@@ -200,18 +182,14 @@ void main() {
               name: 'Regular User Profile details Light Theme',
               child: const ProfileDetails(),
               addScaffold: true,
-              providers: [
-                BlocProvider<ProfileBloc>.value(value: profileBloc),
-              ],
+              providers: [BlocProvider<ProfileBloc>.value(value: profileBloc)],
             ),
             createTestScenario(
               name: 'Regular User Profile details Dark Theme',
               child: const ProfileDetails(),
               addScaffold: true,
               theme: AppThemeEnum.DarkTheme,
-              providers: [
-                BlocProvider<ProfileBloc>.value(value: profileBloc),
-              ],
+              providers: [BlocProvider<ProfileBloc>.value(value: profileBloc)],
             ),
           ],
         );

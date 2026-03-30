@@ -48,15 +48,11 @@ void main() {
     testWidgets('home page', (tester) async {
       //arrange
       final homeBloc = MockHomeBloc();
-      when(() => homeBloc.state).thenReturn(
-        HomeState.test(),
-      );
+      when(() => homeBloc.state).thenReturn(HomeState.test());
 
       //act
       await tester.runWidgetTest(
-        providers: [
-          BlocProvider<HomeBloc>.value(value: homeBloc),
-        ],
+        providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
         child: const HomeScreenWrapper(),
       );
 
@@ -87,16 +83,12 @@ void main() {
             children: [
               createTestScenario(
                 name: 'home_screen Light Theme',
-                providers: [
-                  BlocProvider<HomeBloc>.value(value: homeBloc),
-                ],
+                providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
                 child: const HomeScreenWrapper(),
               ),
               createTestScenario(
                 name: 'home_screen Dark Theme',
-                providers: [
-                  BlocProvider<HomeBloc>.value(value: homeBloc),
-                ],
+                providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
                 child: const HomeScreenWrapper(),
                 theme: AppThemeEnum.DarkTheme,
               ),

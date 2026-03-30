@@ -40,8 +40,9 @@ void main() {
 
   // Widget tests
   group('Create Your Password Screen', () {
-    testWidgets('Create Your Password Screen renders correctly',
-        (tester) async {
+    testWidgets('Create Your Password Screen renders correctly', (
+      tester,
+    ) async {
       final signupBloc = MockSignupBloc();
       when(() => signupBloc.state).thenReturn(SignupState.test());
 
