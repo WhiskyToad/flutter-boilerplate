@@ -62,6 +62,8 @@ extension ShowSnackbar on BuildContext {
     );
   }
 
+  double get bottomPadding => MediaQuery.of(this).padding.bottom;
+
   void hideSnackBar() {
     ScaffoldMessenger.of(this).hideCurrentSnackBar();
   }

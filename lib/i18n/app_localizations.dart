@@ -1789,7 +1789,7 @@ abstract class AppLocalizations {
   /// No description provided for @under_maintenance.
   ///
   /// In en, this message translates to:
-  /// **'App is Under Maintenance !'**
+  /// **'App is Under Maintenance'**
   String get under_maintenance;
 
   /// No description provided for @under_maintenance_message.
@@ -2451,6 +2451,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share your experience and help us improve. We value every word you share with us.'**
   String get feedback_description;
+
+  /// No description provided for @empty_views_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ EMPTY VIEWS KEYS ================'**
+  String get empty_views_keys;
+
+  /// No description provided for @empty_views.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty Views'**
+  String get empty_views;
+
+  /// No description provided for @empty_states.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty States'**
+  String get empty_states;
+
+  /// No description provided for @error_states.
+  ///
+  /// In en, this message translates to:
+  /// **'Error States'**
+  String get error_states;
+
+  /// No description provided for @utilities.
+  ///
+  /// In en, this message translates to:
+  /// **'Utilities'**
+  String get utilities;
 }
 
 class _AppLocalizationsDelegate
