@@ -25,7 +25,7 @@ class EmptyOrdersViewScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                Assets.icons.emptySavedCards,
+                Assets.icons.emptyCart,
                 height: 195,
                 width: 195,
               ),

@@ -21,7 +21,7 @@ class EmptySavedCardAppBar extends StatelessWidget
         onPressed: () => context.router.maybePop(),
       ),
       title: Text(
-        context.localization.empty_order_title,
+        context.localization.empty_cards_list_title,
         style: AppTextStyles.h6SemiBold.copyWith(
           color: context.currentTheme.textNeutralPrimary,
         ),
