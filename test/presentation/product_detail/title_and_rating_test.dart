@@ -38,9 +38,9 @@ void main() {
         pumpBeforeTest: precacheImages,
         builder: () {
           final productDetailBloc = MockProductDetailBloc();
-          when(() => productDetailBloc.state).thenReturn(
-            const ProductDetailState.test(),
-          );
+          when(
+            () => productDetailBloc.state,
+          ).thenReturn(const ProductDetailState.test());
 
           return GoldenTestGroup(
             columnWidthBuilder: (_) =>
@@ -82,10 +82,7 @@ void main() {
                     value: productDetailBloc,
                   ),
                 ],
-                child: const TitleAndRating(
-                  title: 'Pen',
-                  rating: 2.1,
-                ),
+                child: const TitleAndRating(title: 'Pen', rating: 2.1),
               ),
               createTestScenario(
                 name: 'Empty title fallback text',
@@ -95,10 +92,7 @@ void main() {
                     value: productDetailBloc,
                   ),
                 ],
-                child: const TitleAndRating(
-                  title: 'N/A',
-                  rating: 4.2,
-                ),
+                child: const TitleAndRating(title: 'N/A', rating: 4.2),
               ),
               createTestScenario(
                 name: 'Title with very long single word',

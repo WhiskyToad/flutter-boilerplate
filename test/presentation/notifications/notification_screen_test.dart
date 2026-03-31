@@ -35,62 +35,51 @@ void main() {
     );
   });
 
-  group(
-    'Notification Page UI Test',
-    () {
-      testWidgets('Notification Page', (tester) async {
-        await tester.runWidgetTest(
-          child: const NotificationsScreen(),
-        );
-        expect(find.byType(NotificationsScreen), findsOneWidget);
-        expect(find.text('Notifications'), findsOneWidget);
-      });
-      //golden test˚
-      testExecutable(
-        () {
-          goldenTest(
-            'NotificationsPage',
-            fileName: 'notifications_page',
-            builder: () {
-              final notificationBloc = NotificationBlocMock();
+  group('Notification Page UI Test', () {
+    testWidgets('Notification Page', (tester) async {
+      await tester.runWidgetTest(child: const NotificationsScreen());
+      expect(find.byType(NotificationsScreen), findsOneWidget);
+      expect(find.text('Notifications'), findsOneWidget);
+    });
+    //golden test˚
+    testExecutable(() {
+      goldenTest(
+        'NotificationsPage',
+        fileName: 'notifications_page',
+        builder: () {
+          final notificationBloc = NotificationBlocMock();
 
-              final testState = NotificationState.test().copyWith(
-                isLoading: false,
-                notificationList: dummyNotifications,
-              );
-              when(() => notificationBloc.state).thenReturn(testState);
+          final testState = NotificationState.test().copyWith(
+            isLoading: false,
+            notificationList: dummyNotifications,
+          );
+          when(() => notificationBloc.state).thenReturn(testState);
 
-              return GoldenTestGroup(
-                columnWidthBuilder: (_) =>
-                    const FixedColumnWidth(pixel5DeviceWidth),
-                children: [
-                  createTestScenario(
-                    name: 'Notification Page Light Theme',
-                    addScaffold: true,
-                    child: const NotificationScreenBody(),
-                    providers: [
-                      BlocProvider<NotificationBloc>.value(
-                        value: notificationBloc,
-                      ),
-                    ],
-                  ),
-                  createTestScenario(
-                    name: 'Notification Page Dark Theme',
-                    addScaffold: true,
-                    child: const NotificationScreenBody(),
-                    theme: AppThemeEnum.DarkTheme,
-                    providers: [
-                      BlocProvider<NotificationBloc>.value(
-                        value: notificationBloc,
-                      ),
-                    ],
-                  ),
+          return GoldenTestGroup(
+            columnWidthBuilder: (_) =>
+                const FixedColumnWidth(pixel5DeviceWidth),
+            children: [
+              createTestScenario(
+                name: 'Notification Page Light Theme',
+                addScaffold: true,
+                child: const NotificationScreenBody(),
+                providers: [
+                  BlocProvider<NotificationBloc>.value(value: notificationBloc),
                 ],
-              );
-            },
+              ),
+              createTestScenario(
+                name: 'Notification Page Dark Theme',
+                addScaffold: true,
+                child: const NotificationScreenBody(),
+                theme: AppThemeEnum.DarkTheme,
+                providers: [
+                  BlocProvider<NotificationBloc>.value(value: notificationBloc),
+                ],
+              ),
+            ],
           );
         },
       );
-    },
-  );
+    });
+  });
 }

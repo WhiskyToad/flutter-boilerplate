@@ -50,11 +50,10 @@ void main() {
 
   // Widget tests
   group('Login With Phone Number Screen', () {
-    testWidgets('Login With Phone Number Screen renders correctly',
-        (tester) async {
-      await tester.runWidgetTest(
-        child: const LoginWithPhoneNumberScreen(),
-      );
+    testWidgets('Login With Phone Number Screen renders correctly', (
+      tester,
+    ) async {
+      await tester.runWidgetTest(child: const LoginWithPhoneNumberScreen());
       expect(find.byType(LoginWithPhoneNumberScreen), findsOneWidget);
       expect(find.byType(HeadingWelcomeWidget), findsOneWidget);
       expect(find.byType(PhoneNumberTextField), findsOneWidget);
@@ -73,9 +72,7 @@ void main() {
       builder: () {
         final loginBlocEmpty = MockLoginBloc();
         when(() => loginBlocEmpty.state).thenReturn(
-          LoginState.test(
-            phoneNumberLoginState: PhoneNumberLoginState.test(),
-          ),
+          LoginState.test(phoneNumberLoginState: PhoneNumberLoginState.test()),
         );
 
         final loginBlocFilled = MockLoginBloc();
@@ -106,9 +103,7 @@ void main() {
               name: 'default phone number state',
               child: const LoginWithPhoneNumberBody(isFromDeleteAccount: false),
               addScaffold: true,
-              providers: [
-                BlocProvider<LoginBloc>.value(value: loginBlocEmpty),
-              ],
+              providers: [BlocProvider<LoginBloc>.value(value: loginBlocEmpty)],
             ),
             createTestScenario(
               name: 'valid phone number state',
@@ -141,9 +136,7 @@ void main() {
       builder: () {
         final loginBlocDisabled = MockLoginBloc();
         when(() => loginBlocDisabled.state).thenReturn(
-          LoginState.test(
-            phoneNumberLoginState: PhoneNumberLoginState.test(),
-          ),
+          LoginState.test(phoneNumberLoginState: PhoneNumberLoginState.test()),
         );
 
         final loginBlocEnabled = MockLoginBloc();
@@ -165,9 +158,7 @@ void main() {
               child: const SendOTPButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocDisabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocDisabled),
               ],
             ),
             createTestScenario(
@@ -175,9 +166,7 @@ void main() {
               child: const SendOTPButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocEnabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocEnabled),
               ],
             ),
           ],

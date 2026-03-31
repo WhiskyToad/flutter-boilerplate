@@ -15,9 +15,7 @@ Future<void> testExecutable(
       platformGoldensConfig: const PlatformGoldensConfig(
         enabled: !isRunningInCi,
       ),
-      ciGoldensConfig: const CiGoldensConfig(
-        enabled: isRunningInCi,
-      ),
+      ciGoldensConfig: const CiGoldensConfig(enabled: isRunningInCi),
     ),
     run: testMain,
   );

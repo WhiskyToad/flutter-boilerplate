@@ -31,8 +31,9 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should emit state with system theme mode when no saved preference',
       build: () {
-        when(() => mockThemeService.getThemeMode())
-            .thenAnswer((_) async => ThemeMode.system);
+        when(
+          () => mockThemeService.getThemeMode(),
+        ).thenAnswer((_) async => ThemeMode.system);
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) => bloc.add(const LoadTheme()),
@@ -48,8 +49,9 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should emit state with light theme mode when saved preference is light',
       build: () {
-        when(() => mockThemeService.getThemeMode())
-            .thenAnswer((_) async => ThemeMode.light);
+        when(
+          () => mockThemeService.getThemeMode(),
+        ).thenAnswer((_) async => ThemeMode.light);
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) => bloc.add(const LoadTheme()),
@@ -65,8 +67,9 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should emit state with dark theme mode when saved preference is dark',
       build: () {
-        when(() => mockThemeService.getThemeMode())
-            .thenAnswer((_) async => ThemeMode.dark);
+        when(
+          () => mockThemeService.getThemeMode(),
+        ).thenAnswer((_) async => ThemeMode.dark);
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) => bloc.add(const LoadTheme()),
@@ -84,8 +87,9 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should save and emit light theme mode',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.light))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.light),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) => bloc.add(const SetThemeModeEvent(mode: ThemeMode.light)),
@@ -101,8 +105,9 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should save and emit dark theme mode',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.dark))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.dark),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) => bloc.add(const SetThemeModeEvent(mode: ThemeMode.dark)),
@@ -118,8 +123,9 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should save and emit system theme mode',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.system))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.system),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) => bloc.add(const SetThemeModeEvent(mode: ThemeMode.system)),
@@ -137,8 +143,9 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should toggle from system to light theme mode',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.light))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.light),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) => bloc.add(const ToggleThemeModeEvent()),
@@ -154,10 +161,12 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should toggle from light to dark theme mode',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.light))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.dark))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.light),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.dark),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) {
@@ -181,10 +190,12 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should toggle from dark to system theme mode',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.dark))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.system))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.dark),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.system),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) {
@@ -210,12 +221,15 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should handle multiple SetThemeModeEvent calls',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.light))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.dark))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.system))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.light),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.dark),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.system),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) {
@@ -245,12 +259,15 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should handle multiple ToggleThemeModeEvent calls',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.light))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.dark))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.system))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.light),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.dark),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.system),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) {
@@ -280,10 +297,12 @@ void main() {
     blocTest<ThemeBloc, ThemeState>(
       'should handle LoadTheme followed by SetThemeModeEvent',
       build: () {
-        when(() => mockThemeService.getThemeMode())
-            .thenAnswer((_) async => ThemeMode.dark);
-        when(() => mockThemeService.saveThemeMode(ThemeMode.light))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.getThemeMode(),
+        ).thenAnswer((_) async => ThemeMode.dark);
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.light),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) {
@@ -310,8 +329,9 @@ void main() {
       'should emit ThemeMode.dark and keep it as the final state after '
       'SetThemeModeEvent',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.dark))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.dark),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) {
@@ -333,12 +353,15 @@ void main() {
       'should emit light, dark, and system theme mode in order and keep system '
       'as final state after repeated ToggleThemeModeEvent',
       build: () {
-        when(() => mockThemeService.saveThemeMode(ThemeMode.light))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.dark))
-            .thenAnswer((_) async => {});
-        when(() => mockThemeService.saveThemeMode(ThemeMode.system))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.light),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.dark),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockThemeService.saveThemeMode(ThemeMode.system),
+        ).thenAnswer((_) async => {});
         return ThemeBloc(service: mockThemeService);
       },
       act: (bloc) {

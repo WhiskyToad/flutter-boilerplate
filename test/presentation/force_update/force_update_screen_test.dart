@@ -34,94 +34,83 @@ void main() {
     );
   });
 
-  group(
-    'Force Update Screen',
-    () {
-      testExecutable(() {
-        goldenTest(
-          'Optional update (skip allowed)',
-          fileName: 'force_update_optional_screen',
-          builder: () {
-            final forceUpdateBloc = MockForceUpdateBloc();
+  group('Force Update Screen', () {
+    testExecutable(() {
+      goldenTest(
+        'Optional update (skip allowed)',
+        fileName: 'force_update_optional_screen',
+        builder: () {
+          final forceUpdateBloc = MockForceUpdateBloc();
 
-            const forceUpdateState = ForceUpdateState.test();
+          const forceUpdateState = ForceUpdateState.test();
 
-            when(() => forceUpdateBloc.state).thenReturn(forceUpdateState);
+          when(() => forceUpdateBloc.state).thenReturn(forceUpdateState);
 
-            return GoldenTestGroup(
-              columnWidthBuilder: (_) =>
-                  const FixedColumnWidth(pixel5DeviceWidth),
-              children: [
-                createTestScenario(
-                  name: 'Optional update (skip allowed) Light Theme',
-                  addScaffold: true,
-                  child: const ForceUpdateScreenBody(),
-                  providers: [
-                    BlocProvider<ForceUpdateBloc>.value(
-                      value: forceUpdateBloc,
-                    ),
-                  ],
-                ),
-                createTestScenario(
-                  name: 'Optional update (skip allowed) Dark Theme',
-                  addScaffold: true,
-                  theme: AppThemeEnum.DarkTheme,
-                  child: const ForceUpdateScreenBody(),
-                  providers: [
-                    BlocProvider<ForceUpdateBloc>.value(
-                      value: forceUpdateBloc,
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
-        );
-      });
+          return GoldenTestGroup(
+            columnWidthBuilder: (_) =>
+                const FixedColumnWidth(pixel5DeviceWidth),
+            children: [
+              createTestScenario(
+                name: 'Optional update (skip allowed) Light Theme',
+                addScaffold: true,
+                child: const ForceUpdateScreenBody(),
+                providers: [
+                  BlocProvider<ForceUpdateBloc>.value(value: forceUpdateBloc),
+                ],
+              ),
+              createTestScenario(
+                name: 'Optional update (skip allowed) Dark Theme',
+                addScaffold: true,
+                theme: AppThemeEnum.DarkTheme,
+                child: const ForceUpdateScreenBody(),
+                providers: [
+                  BlocProvider<ForceUpdateBloc>.value(value: forceUpdateBloc),
+                ],
+              ),
+            ],
+          );
+        },
+      );
+    });
 
-      testExecutable(() {
-        goldenTest(
-          'Mandatory update (no skip)',
-          fileName: 'force_update_mandatory_screen',
-          builder: () {
-            final mockBloc = MockForceUpdateBloc();
+    testExecutable(() {
+      goldenTest(
+        'Mandatory update (no skip)',
+        fileName: 'force_update_mandatory_screen',
+        builder: () {
+          final mockBloc = MockForceUpdateBloc();
 
-            const forceUpdateState = ForceUpdateState.test(
-              isMandatoryUpdate: true,
-            );
+          const forceUpdateState = ForceUpdateState.test(
+            isMandatoryUpdate: true,
+          );
 
-            when(() => mockBloc.state).thenReturn(forceUpdateState);
+          when(() => mockBloc.state).thenReturn(forceUpdateState);
 
-            return GoldenTestGroup(
-              columnWidthBuilder: (_) =>
-                  const FixedColumnWidth(pixel5DeviceWidth),
-              children: [
-                createTestScenario(
-                  name: 'Mandatory update (no skip) Light Theme',
-                  addScaffold: true,
-                  child: const ForceUpdateScreenBody(),
-                  providers: [
-                    BlocProvider<ForceUpdateBloc>.value(
-                      value: mockBloc,
-                    ),
-                  ],
-                ),
-                createTestScenario(
-                  name: 'Mandatory update (no skip) Dark Theme',
-                  addScaffold: true,
-                  theme: AppThemeEnum.DarkTheme,
-                  child: const ForceUpdateScreenBody(),
-                  providers: [
-                    BlocProvider<ForceUpdateBloc>.value(
-                      value: mockBloc,
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
-        );
-      });
-    },
-  );
+          return GoldenTestGroup(
+            columnWidthBuilder: (_) =>
+                const FixedColumnWidth(pixel5DeviceWidth),
+            children: [
+              createTestScenario(
+                name: 'Mandatory update (no skip) Light Theme',
+                addScaffold: true,
+                child: const ForceUpdateScreenBody(),
+                providers: [
+                  BlocProvider<ForceUpdateBloc>.value(value: mockBloc),
+                ],
+              ),
+              createTestScenario(
+                name: 'Mandatory update (no skip) Dark Theme',
+                addScaffold: true,
+                theme: AppThemeEnum.DarkTheme,
+                child: const ForceUpdateScreenBody(),
+                providers: [
+                  BlocProvider<ForceUpdateBloc>.value(value: mockBloc),
+                ],
+              ),
+            ],
+          );
+        },
+      );
+    });
+  });
 }
