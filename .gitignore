@@ -77,3 +77,6 @@ firebase.json
 
 # VS Code settings
 /.vscode/launch.json
+
+# Claude
+.claude/
