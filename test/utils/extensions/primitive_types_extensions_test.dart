@@ -4,23 +4,23 @@ import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 void main() {
   group('String Extensions', () {
     group('RegexHelperExtension', () {
-      test(
-          'hasLetterAndNumber returns true for strings with both letters and '
+      test('hasLetterAndNumber returns true for strings with both letters and '
           'numbers', () {
         expect('abc123'.hasLetterAndNumber(), isTrue);
         expect('123abc'.hasLetterAndNumber(), isTrue);
         expect('a1b2c3'.hasLetterAndNumber(), isTrue);
       });
 
-      test('hasLetterAndNumber returns false for letters only or numbers only',
-          () {
-        expect('abc'.hasLetterAndNumber(), isFalse);
-        expect('123'.hasLetterAndNumber(), isFalse);
-        expect(''.hasLetterAndNumber(), isFalse);
-      });
-
       test(
-          'hasSpecialCharacter returns true for strings with special '
+        'hasLetterAndNumber returns false for letters only or numbers only',
+        () {
+          expect('abc'.hasLetterAndNumber(), isFalse);
+          expect('123'.hasLetterAndNumber(), isFalse);
+          expect(''.hasLetterAndNumber(), isFalse);
+        },
+      );
+
+      test('hasSpecialCharacter returns true for strings with special '
           'characters', () {
         expect('hello!'.hasSpecialCharacter(), isTrue);
         expect('test@test.com'.hasSpecialCharacter(), isTrue);
@@ -28,8 +28,7 @@ void main() {
         expect('with spaces and !@#'.hasSpecialCharacter(), isTrue);
       });
 
-      test(
-          'hasSpecialCharacter returns false for strings without special '
+      test('hasSpecialCharacter returns false for strings without special '
           'characters', () {
         expect('hello'.hasSpecialCharacter(), isFalse);
         expect('test123'.hasSpecialCharacter(), isFalse);
@@ -88,28 +87,15 @@ void main() {
         expect(9.999.toPrecision(2), equals(10.0));
       });
 
-      test(
-          'isWithinRange returns true for values within range '
+      test('isWithinRange returns true for values within range '
           '(inclusive upper bound)', () {
         expect(5.5.isWithinRange(1.0, 10.0), isTrue);
         expect(1.1.isWithinRange(1.0, 2.0), isTrue);
 
-        expect(
-          10.0.isWithinRange(1.0, 10.0),
-          isTrue,
-        );
-        expect(
-          1.0.isWithinRange(1.0, 10.0),
-          isFalse,
-        );
-        expect(
-          1.0001.isWithinRange(1.0, 10.0),
-          isTrue,
-        );
-        expect(
-          0.9999.isWithinRange(1.0, 10.0),
-          isFalse,
-        );
+        expect(10.0.isWithinRange(1.0, 10.0), isTrue);
+        expect(1.0.isWithinRange(1.0, 10.0), isFalse);
+        expect(1.0001.isWithinRange(1.0, 10.0), isTrue);
+        expect(0.9999.isWithinRange(1.0, 10.0), isFalse);
       });
 
       test('isWithinRange returns false for values outside range', () {

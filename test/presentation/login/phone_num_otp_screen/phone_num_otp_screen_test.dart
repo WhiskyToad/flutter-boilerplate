@@ -37,17 +37,16 @@ void main() {
     );
     // Mock sms_autofill plugin
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(
-      const MethodChannel('sms_autofill'),
-      (MethodCall methodCall) async {
-        if (methodCall.method == 'listenForCode') {
+        .setMockMethodCallHandler(const MethodChannel('sms_autofill'), (
+          MethodCall methodCall,
+        ) async {
+          if (methodCall.method == 'listenForCode') {
+            return null;
+          } else if (methodCall.method == 'unregisterListener') {
+            return null;
+          }
           return null;
-        } else if (methodCall.method == 'unregisterListener') {
-          return null;
-        }
-        return null;
-      },
-    );
+        });
   });
 
   // Widget tests
@@ -183,9 +182,7 @@ void main() {
               child: const OTPVerificationButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocDisabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocDisabled),
               ],
             ),
             createTestScenario(
@@ -193,9 +190,7 @@ void main() {
               child: const OTPVerificationButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocEnabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocEnabled),
               ],
             ),
           ],

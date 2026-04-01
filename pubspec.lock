@@ -834,10 +834,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_exit_app
-      sha256: eab798043a563ae416406896d7b779f8919f6335418952b550efbe43017afabf
+      sha256: "254bb19c1cee21d9e0588c585fdc8e1546b8551d3e8d4c207235b1491de96f51"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.1"
   flutter_fgbg:
     dependency: "direct main"
     description:

@@ -29,9 +29,7 @@ void main() {
 
       await tester.runWidgetTest(
         providers: [
-          BlocProvider<ProductDetailBloc>.value(
-            value: productDetailBloc,
-          ),
+          BlocProvider<ProductDetailBloc>.value(value: productDetailBloc),
         ],
         child: const ProductDetailBody(),
       );

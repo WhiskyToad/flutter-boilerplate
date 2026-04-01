@@ -30,8 +30,9 @@ void main() {
       );
     });
 
-    testWidgets('showSnackBar displays with default parameters',
-        (tester) async {
+    testWidgets('showSnackBar displays with default parameters', (
+      tester,
+    ) async {
       await tester.pumpWidget(testWidget);
 
       await tester.tap(find.text('Show Snackbar'));
@@ -75,10 +76,8 @@ void main() {
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
-                onPressed: () => context.showSnackBar(
-                  'Custom duration',
-                  millis: 5000,
-                ),
+                onPressed: () =>
+                    context.showSnackBar('Custom duration', millis: 5000),
                 child: const Text('Show Snackbar'),
               ),
             ),
@@ -147,10 +146,8 @@ void main() {
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
-                onPressed: () => context.showSnackBar(
-                  'Loading',
-                  showTrailingLoader: true,
-                ),
+                onPressed: () =>
+                    context.showSnackBar('Loading', showTrailingLoader: true),
                 child: const Text('Show Snackbar'),
               ),
             ),

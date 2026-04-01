@@ -23,17 +23,15 @@ void main() {
   group('PhotosSection', () {
     testWidgets('PhotosSection', (tester) async {
       final productDetailBloc = MockProductDetailBloc();
-      when(() => productDetailBloc.state).thenReturn(
-        const ProductDetailState.test(),
-      );
+      when(
+        () => productDetailBloc.state,
+      ).thenReturn(const ProductDetailState.test());
 
       await tester.runWidgetTest(
         providers: [
           BlocProvider<ProductDetailBloc>.value(value: productDetailBloc),
         ],
-        child: const PhotosSection(
-          productDetail: sampleProductDetailData,
-        ),
+        child: const PhotosSection(productDetail: sampleProductDetailData),
       );
       expect(find.byType(PhotosSection), findsOneWidget);
     });
@@ -45,9 +43,9 @@ void main() {
         pumpBeforeTest: precacheImages,
         builder: () {
           final productDetailBloc = MockProductDetailBloc();
-          when(() => productDetailBloc.state).thenReturn(
-            const ProductDetailState.test(),
-          );
+          when(
+            () => productDetailBloc.state,
+          ).thenReturn(const ProductDetailState.test());
 
           return GoldenTestGroup(
             columnWidthBuilder: (_) =>

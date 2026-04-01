@@ -32,17 +32,13 @@ extension WidgetTestHelper on WidgetTester {
         builder: (context, orientation, screenType) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider<ThemeBloc>(
-                create: (context) => themeBloc,
-              ),
+              BlocProvider<ThemeBloc>(create: (context) => themeBloc),
               ...providers,
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: AppThemesData.themeData[theme],
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-              ],
+              localizationsDelegates: const [AppLocalizations.delegate],
               home: child,
             ),
           );
@@ -83,17 +79,13 @@ GoldenTestScenario createTestScenario({
 
         return MultiBlocProvider(
           providers: [
-            BlocProvider<ThemeBloc>(
-              create: (context) => themeBloc,
-            ),
+            BlocProvider<ThemeBloc>(create: (context) => themeBloc),
             ...providers,
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppThemesData.themeData[theme],
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-            ],
+            localizationsDelegates: const [AppLocalizations.delegate],
             home: childWithDeviceSize,
           ),
         );

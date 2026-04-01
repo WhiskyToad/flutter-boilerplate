@@ -21,9 +21,7 @@ void main() {
 
   group('Price', () {
     testWidgets('display price correctly', (tester) async {
-      await tester.runWidgetTest(
-        child: const Price(price: 99.99),
-      );
+      await tester.runWidgetTest(child: const Price(price: 99.99));
       expect(find.textContaining('99.99'), findsOneWidget);
     });
 
@@ -34,9 +32,9 @@ void main() {
         pumpBeforeTest: precacheImages,
         builder: () {
           final productDetailBloc = MockProductDetailBloc();
-          when(() => productDetailBloc.state).thenReturn(
-            const ProductDetailState.test(),
-          );
+          when(
+            () => productDetailBloc.state,
+          ).thenReturn(const ProductDetailState.test());
 
           return GoldenTestGroup(
             columnWidthBuilder: (_) =>

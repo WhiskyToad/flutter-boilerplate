@@ -37,8 +37,9 @@ void main() {
 
   // Widget tests
   group('Phone Number Verified Screen', () {
-    testWidgets('Phone Number Verified Screen renders correctly',
-        (tester) async {
+    testWidgets('Phone Number Verified Screen renders correctly', (
+      tester,
+    ) async {
       final loginBloc = MockLoginBloc();
       when(() => loginBloc.state).thenReturn(LoginState.test());
 

@@ -4,6 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:skelter/core/errors/failure.dart';
 import 'package:skelter/utils/currency_converter/currency_converter_util.dart';
 import 'package:skelter/utils/currency_converter/domain/usecases/get_exchange_rate.dart';
+
 import 'data/currency_converter_sample_data.dart';
 
 class MockGetExchangeRate extends Mock implements GetExchangeRate {}
@@ -18,10 +19,7 @@ void main() {
     mockGetExchangeRate = MockGetExchangeRate();
     currencyConverterUtil = CurrencyConverterUtil(mockGetExchangeRate);
     registerFallbackValue(
-      const ExchangeRateParams(
-        fromCurrency: 'USD',
-        toCurrency: 'INR',
-      ),
+      const ExchangeRateParams(fromCurrency: 'USD', toCurrency: 'INR'),
     );
   });
 
@@ -41,8 +39,7 @@ void main() {
   final double rateUSDToSouthKoreanWon = sampleCurrencyRateData.rates['KRW']!;
 
   group('CurrencyConverterUtil Tests', () {
-    test(
-        'should return original amount when fromCurrency '
+    test('should return original amount when fromCurrency '
         'and toCurrency are the '
         'same (e.g. USD to USD)', () async {
       final result = await currencyConverterUtil.convert(
@@ -57,9 +54,9 @@ void main() {
 
     group('Top 15 Country Conversions', () {
       test('should correctly convert USD to INR', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -77,9 +74,9 @@ void main() {
           specificRates: {'USD': rateIndianRupeeToUSD},
         );
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => Right(mockData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => Right(mockData));
 
         final result = await currencyConverterUtil.convert(
           amount: 5000,
@@ -87,16 +84,13 @@ void main() {
           toCurrency: 'USD',
         );
 
-        expect(
-          result,
-          closeTo(5000 * rateIndianRupeeToUSD, 0.000001),
-        );
+        expect(result, closeTo(5000 * rateIndianRupeeToUSD, 0.000001));
       });
 
       test('should correctly convert USD to GBP', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -114,9 +108,9 @@ void main() {
           specificRates: {'USD': rateBritishPoundToUSD},
         );
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => Right(mockData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => Right(mockData));
 
         final result = await currencyConverterUtil.convert(
           amount: 50,
@@ -124,16 +118,13 @@ void main() {
           toCurrency: 'USD',
         );
 
-        expect(
-          result,
-          closeTo(50 * rateBritishPoundToUSD, 0.000001),
-        );
+        expect(result, closeTo(50 * rateBritishPoundToUSD, 0.000001));
       });
 
       test('should correctly convert USD to JPY', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -151,9 +142,9 @@ void main() {
           specificRates: {'USD': rateJapaneseYenToUSD},
         );
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => Right(mockData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => Right(mockData));
 
         final result = await currencyConverterUtil.convert(
           amount: 10000,
@@ -161,16 +152,13 @@ void main() {
           toCurrency: 'USD',
         );
 
-        expect(
-          result,
-          closeTo(10000 * rateJapaneseYenToUSD, 0.000001),
-        );
+        expect(result, closeTo(10000 * rateJapaneseYenToUSD, 0.000001));
       });
 
       test('should correctly convert USD to AUD', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -178,10 +166,7 @@ void main() {
           toCurrency: 'AUD',
         );
 
-        expect(
-          result,
-          equals(testAmountValue * rateUSDToAustralianDollar),
-        );
+        expect(result, equals(testAmountValue * rateUSDToAustralianDollar));
       });
 
       test('should correctly convert AUD to USD', () async {
@@ -191,9 +176,9 @@ void main() {
           specificRates: {'USD': rateAustralianDollarToUSD},
         );
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => Right(mockData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => Right(mockData));
 
         final result = await currencyConverterUtil.convert(
           amount: 150,
@@ -201,16 +186,13 @@ void main() {
           toCurrency: 'USD',
         );
 
-        expect(
-          result,
-          closeTo(150 * rateAustralianDollarToUSD, 0.000001),
-        );
+        expect(result, closeTo(150 * rateAustralianDollarToUSD, 0.000001));
       });
 
       test('should correctly convert USD to CAD', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -218,16 +200,13 @@ void main() {
           toCurrency: 'CAD',
         );
 
-        expect(
-          result,
-          equals(testAmountValue * rateUSDToCanadianDollar),
-        );
+        expect(result, equals(testAmountValue * rateUSDToCanadianDollar));
       });
 
       test('should correctly convert USD to CNY', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -239,9 +218,9 @@ void main() {
       });
 
       test('should correctly convert USD to SGD', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -249,16 +228,13 @@ void main() {
           toCurrency: 'SGD',
         );
 
-        expect(
-          result,
-          equals(testAmountValue * rateUSDToSingaporeDollar),
-        );
+        expect(result, equals(testAmountValue * rateUSDToSingaporeDollar));
       });
 
       test('should correctly convert USD to CHF', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -270,9 +246,9 @@ void main() {
       });
 
       test('should correctly convert USD to HKD', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -280,16 +256,13 @@ void main() {
           toCurrency: 'HKD',
         );
 
-        expect(
-          result,
-          equals(testAmountValue * rateUSDToHongKongDollar),
-        );
+        expect(result, equals(testAmountValue * rateUSDToHongKongDollar));
       });
 
       test('should correctly convert USD to KRW', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,
@@ -297,10 +270,7 @@ void main() {
           toCurrency: 'KRW',
         );
 
-        expect(
-          result,
-          equals(testAmountValue * rateUSDToSouthKoreanWon),
-        );
+        expect(result, equals(testAmountValue * rateUSDToSouthKoreanWon));
       });
 
       // Mixed: MXN -> BRL (Cross-rate logic depends on implementation, but
@@ -314,9 +284,9 @@ void main() {
           specificRates: {'BRL': rateMXNToBRL},
         );
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => Right(mockData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => Right(mockData));
 
         final result = await currencyConverterUtil.convert(
           amount: 100,
@@ -330,9 +300,9 @@ void main() {
 
     group('Edge Cases', () {
       test('should return 0.0 when converting amount of 0', () async {
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: 0,
@@ -343,32 +313,31 @@ void main() {
         expect(result, equals(0.0));
       });
 
-      test('should return negative result when converting negative amount',
-          () async {
-        const negativeAmount = -100.0;
+      test(
+        'should return negative result when converting negative amount',
+        () async {
+          const negativeAmount = -100.0;
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+          when(
+            () => mockGetExchangeRate(any()),
+          ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
-        final result = await currencyConverterUtil.convert(
-          amount: negativeAmount,
-          fromCurrency: 'USD',
-          toCurrency: 'INR',
-        );
+          final result = await currencyConverterUtil.convert(
+            amount: negativeAmount,
+            fromCurrency: 'USD',
+            toCurrency: 'INR',
+          );
 
-        expect(
-          result,
-          equals(negativeAmount * rateUSDToIndianRupee),
-        );
-      });
+          expect(result, equals(negativeAmount * rateUSDToIndianRupee));
+        },
+      );
 
       test('should handle very small amounts (precision check)', () async {
         const smallAmount = 0.000001;
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: smallAmount,
@@ -378,19 +347,16 @@ void main() {
 
         expect(
           result,
-          closeTo(
-            smallAmount * rateUSDToIndianRupee,
-            0.000000001,
-          ),
+          closeTo(smallAmount * rateUSDToIndianRupee, 0.000000001),
         );
       });
 
       test('should handle very large amounts (billions)', () async {
         const largeAmount = 1000000000.0;
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => const Right(sampleCurrencyRateData),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => const Right(sampleCurrencyRateData));
 
         final result = await currencyConverterUtil.convert(
           amount: largeAmount,
@@ -398,10 +364,7 @@ void main() {
           toCurrency: 'INR',
         );
 
-        expect(
-          result,
-          equals(largeAmount * rateUSDToIndianRupee),
-        );
+        expect(result, equals(largeAmount * rateUSDToIndianRupee));
       });
     });
 
@@ -422,14 +385,13 @@ void main() {
         expect(result, equals(0.0));
       });
 
-      test(
-          'should return 0.0 when the returned exchange rates do not'
+      test('should return 0.0 when the returned exchange rates do not'
           ' include the target currency', () async {
         final tEmptyRate = getSampleCurrencyRate(specificRates: {});
 
-        when(() => mockGetExchangeRate(any())).thenAnswer(
-          (_) async => Right(tEmptyRate),
-        );
+        when(
+          () => mockGetExchangeRate(any()),
+        ).thenAnswer((_) async => Right(tEmptyRate));
 
         final result = await currencyConverterUtil.convert(
           amount: testAmountValue,

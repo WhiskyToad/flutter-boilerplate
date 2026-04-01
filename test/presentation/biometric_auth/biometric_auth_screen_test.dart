@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,7 @@ import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
+
 import '../../../integration_test/mock_firebase_auth.dart';
 import '../../flutter_test_config.dart';
 import '../../test_helpers.dart';
