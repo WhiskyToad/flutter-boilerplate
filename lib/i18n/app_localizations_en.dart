@@ -940,7 +940,7 @@ class AppLocalizationsEn extends AppLocalizations {
       '================ UNDER MAINTENANCE KEYS ================';
 
   @override
-  String get under_maintenance => 'App is Under Maintenance !';
+  String get under_maintenance => 'App is Under Maintenance';
 
   @override
   String get under_maintenance_message =>
@@ -1302,4 +1302,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get feedback_description =>
       'Share your experience and help us improve. We value every word you share with us.';
+
+  @override
+  String get empty_views_keys =>
+      '================ EMPTY VIEWS KEYS ================';
+
+  @override
+  String get empty_views => 'Empty Views';
+
+  @override
+  String get empty_states => 'Empty States';
+
+  @override
+  String get error_states => 'Error States';
+
+  @override
+  String get utilities => 'Utilities';
 }

@@ -371,7 +371,7 @@
   "update_now": "Update Now",
   "update_required_description": "The version you are using is old, to continue using you need to update the latest version in order to experience new features.",
   "under_maintenance_keys": "================ UNDER MAINTENANCE KEYS ================",
-  "under_maintenance": "App is Under Maintenance !",
+  "under_maintenance": "App is Under Maintenance",
   "under_maintenance_message": "App is currently under maintenance. We will notify you once we are done. Try again later.",
   "no_internet_keys": "================ NO INTERNET KEYS ================",
   "lost_connection": "You Lost Connection",
@@ -493,5 +493,11 @@
   "feedback_category_content": "Content",
   "feedback_category_compliment": "Compliment",
   "feedback_category_other": "Other",
-  "feedback_description": "Share your experience and help us improve. We value every word you share with us."
+  "feedback_description": "Share your experience and help us improve. We value every word you share with us.",
+
+  "empty_views_keys": "================ EMPTY VIEWS KEYS ================",
+  "empty_views": "Empty Views",
+  "empty_states": "Empty States",
+  "error_states": "Error States",
+  "utilities": "Utilities"
 }
