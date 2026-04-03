@@ -67,7 +67,7 @@ class EmptyViewsScreen extends StatelessWidget {
                     context,
                     icon: TablerIcons.credit_card,
                     label: context.localization.empty_cards_list_title,
-                    onTap: () => context.pushRoute(const SavedCardRoute()),
+                    onTap: () => context.pushRoute(const EmptySavedCardRoute()),
                     isLast: true,
                   ),
                 ],
