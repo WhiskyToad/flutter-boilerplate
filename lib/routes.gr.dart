@@ -23,48 +23,48 @@ import 'package:skelter/presentation/chat/chat_conversations.dart' as _i7;
 import 'package:skelter/presentation/chat/chat_screen.dart' as _i8;
 import 'package:skelter/presentation/chat/model/chat_model.dart' as _i47;
 import 'package:skelter/presentation/checkout/invoice_preview_screen.dart'
-    as _i22;
+    as _i23;
 import 'package:skelter/presentation/contact_us/contact_us_screen.dart' as _i10;
 import 'package:skelter/presentation/contact_us/contact_us_submitted_screen.dart'
     as _i11;
 import 'package:skelter/presentation/coupons/available_coupons.dart' as _i4;
 import 'package:skelter/presentation/delete_account/delete_account_screen.dart'
     as _i13;
-import 'package:skelter/presentation/empty_screens/empty_view_screens.dart'
+import 'package:skelter/presentation/empty_saved_cards/empty_saved_card_screen.dart'
     as _i16;
-import 'package:skelter/presentation/feedback/screens/feedback_screen.dart'
+import 'package:skelter/presentation/empty_screens/empty_view_screens.dart'
     as _i17;
-import 'package:skelter/presentation/force_update/force_update_screen.dart'
+import 'package:skelter/presentation/feedback/screens/feedback_screen.dart'
     as _i18;
-import 'package:skelter/presentation/home/home_screen.dart' as _i20;
-import 'package:skelter/presentation/initial/initial_screen.dart' as _i21;
+import 'package:skelter/presentation/force_update/force_update_screen.dart'
+    as _i19;
+import 'package:skelter/presentation/home/home_screen.dart' as _i21;
+import 'package:skelter/presentation/initial/initial_screen.dart' as _i22;
 import 'package:skelter/presentation/login/bloc/login_bloc.dart' as _i46;
 import 'package:skelter/presentation/login/screens/check_your_email/check_your_email_screen.dart'
     as _i9;
 import 'package:skelter/presentation/login/screens/forgot_password/forgot_password_screen.dart'
-    as _i19;
+    as _i20;
 import 'package:skelter/presentation/login/screens/login_with_email/login_with_email_password_screen.dart'
-    as _i23;
-import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart'
     as _i24;
-import 'package:skelter/presentation/login/screens/phone_num_otp_screen/phone_number_otp_screen.dart'
-    as _i31;
-import 'package:skelter/presentation/manage_subscription/manage_subscription.dart'
+import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart'
     as _i25;
-import 'package:skelter/presentation/my_orders/my_orders_screen.dart' as _i26;
+import 'package:skelter/presentation/login/screens/phone_num_otp_screen/phone_number_otp_screen.dart'
+    as _i32;
+import 'package:skelter/presentation/manage_subscription/manage_subscription.dart'
+    as _i26;
+import 'package:skelter/presentation/my_orders/my_orders_screen.dart' as _i27;
 import 'package:skelter/presentation/my_orders/widgets/empty_orders_view.dart'
     as _i15;
 import 'package:skelter/presentation/no_internet/no_internet_screen.dart'
-    as _i28;
-import 'package:skelter/presentation/notifications/notifications_screen.dart'
     as _i29;
-import 'package:skelter/presentation/order_detail/order_detail_screen.dart'
+import 'package:skelter/presentation/notifications/notifications_screen.dart'
     as _i30;
+import 'package:skelter/presentation/order_detail/order_detail_screen.dart'
+    as _i31;
 import 'package:skelter/presentation/product_detail/product_detail_screen.dart'
-    as _i33;
-import 'package:skelter/presentation/reminder/reminder_screen.dart' as _i34;
-import 'package:skelter/presentation/saved_cards/saved_card_screen.dart'
-    as _i35;
+    as _i34;
+import 'package:skelter/presentation/reminder/reminder_screen.dart' as _i35;
 import 'package:skelter/presentation/server_error/server_error_screen.dart'
     as _i36;
 import 'package:skelter/presentation/settings/settings_screen.dart' as _i37;
@@ -73,7 +73,7 @@ import 'package:skelter/presentation/shipping_address/edit_address.dart'
     as _i14;
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart' as _i48;
 import 'package:skelter/presentation/signup/screens/phone_num_verified_page/phone_number_verified_screen.dart'
-    as _i32;
+    as _i33;
 import 'package:skelter/presentation/signup/screens/profile_picture/add_profile_picture_screen.dart'
     as _i3;
 import 'package:skelter/presentation/signup/screens/signup_with_email/create_your_password_screen.dart'
@@ -89,7 +89,7 @@ import 'package:skelter/presentation/under_maintainace/under_maintenance_screen.
 import 'package:skelter/presentation/verify_email/screens/verify_email_screen.dart'
     as _i42;
 import 'package:skelter/presentation/wishlist/wishlist_screen.dart' as _i43;
-import 'package:skelter/widgets/attachment_view.dart' as _i27;
+import 'package:skelter/widgets/attachment_view.dart' as _i28;
 
 /// generated route for
 /// [_i1.AccountDeleteSuccessScreen]
@@ -465,7 +465,23 @@ class EmptyOrdersViewRoute extends _i44.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.EmptyViewsScreen]
+/// [_i16.EmptySavedCardScreen]
+class EmptySavedCardRoute extends _i44.PageRouteInfo<void> {
+  const EmptySavedCardRoute({List<_i44.PageRouteInfo>? children})
+    : super(EmptySavedCardRoute.name, initialChildren: children);
+
+  static const String name = 'EmptySavedCardRoute';
+
+  static _i44.PageInfo page = _i44.PageInfo(
+    name,
+    builder: (data) {
+      return const _i16.EmptySavedCardScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i17.EmptyViewsScreen]
 class EmptyViewsRoute extends _i44.PageRouteInfo<void> {
   const EmptyViewsRoute({List<_i44.PageRouteInfo>? children})
     : super(EmptyViewsRoute.name, initialChildren: children);
@@ -475,13 +491,13 @@ class EmptyViewsRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i16.EmptyViewsScreen();
+      return const _i17.EmptyViewsScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i17.FeedbackScreen]
+/// [_i18.FeedbackScreen]
 class FeedbackRoute extends _i44.PageRouteInfo<void> {
   const FeedbackRoute({List<_i44.PageRouteInfo>? children})
     : super(FeedbackRoute.name, initialChildren: children);
@@ -491,13 +507,13 @@ class FeedbackRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i17.FeedbackScreen();
+      return const _i18.FeedbackScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i18.ForceUpdateScreen]
+/// [_i19.ForceUpdateScreen]
 class ForceUpdateRoute extends _i44.PageRouteInfo<ForceUpdateRouteArgs> {
   ForceUpdateRoute({
     _i45.Key? key,
@@ -518,7 +534,7 @@ class ForceUpdateRoute extends _i44.PageRouteInfo<ForceUpdateRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ForceUpdateRouteArgs>();
-      return _i18.ForceUpdateScreen(
+      return _i19.ForceUpdateScreen(
         key: args.key,
         isMandatoryUpdate: args.isMandatoryUpdate,
       );
@@ -550,7 +566,7 @@ class ForceUpdateRouteArgs {
 }
 
 /// generated route for
-/// [_i19.ForgotPasswordScreen]
+/// [_i20.ForgotPasswordScreen]
 class ForgotPasswordRoute extends _i44.PageRouteInfo<ForgotPasswordRouteArgs> {
   ForgotPasswordRoute({
     _i45.Key? key,
@@ -568,7 +584,7 @@ class ForgotPasswordRoute extends _i44.PageRouteInfo<ForgotPasswordRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ForgotPasswordRouteArgs>();
-      return _i19.ForgotPasswordScreen(
+      return _i20.ForgotPasswordScreen(
         key: args.key,
         loginBloc: args.loginBloc,
       );
@@ -600,7 +616,7 @@ class ForgotPasswordRouteArgs {
 }
 
 /// generated route for
-/// [_i20.HomeScreen]
+/// [_i21.HomeScreen]
 class HomeRoute extends _i44.PageRouteInfo<void> {
   const HomeRoute({List<_i44.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
@@ -610,13 +626,13 @@ class HomeRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i20.HomeScreen();
+      return const _i21.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i21.InitialScreen]
+/// [_i22.InitialScreen]
 class InitialRoute extends _i44.PageRouteInfo<void> {
   const InitialRoute({List<_i44.PageRouteInfo>? children})
     : super(InitialRoute.name, initialChildren: children);
@@ -626,13 +642,13 @@ class InitialRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i21.InitialScreen();
+      return const _i22.InitialScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i22.InvoicePreviewScreen]
+/// [_i23.InvoicePreviewScreen]
 class InvoicePreviewRoute extends _i44.PageRouteInfo<InvoicePreviewRouteArgs> {
   InvoicePreviewRoute({
     required _i49.Uint8List pdfBytes,
@@ -655,7 +671,7 @@ class InvoicePreviewRoute extends _i44.PageRouteInfo<InvoicePreviewRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<InvoicePreviewRouteArgs>();
-      return _i22.InvoicePreviewScreen(
+      return _i23.InvoicePreviewScreen(
         pdfBytes: args.pdfBytes,
         fileName: args.fileName,
         key: args.key,
@@ -696,7 +712,7 @@ class InvoicePreviewRouteArgs {
 }
 
 /// generated route for
-/// [_i23.LoginWithEmailPasswordScreen]
+/// [_i24.LoginWithEmailPasswordScreen]
 class LoginWithEmailPasswordRoute
     extends _i44.PageRouteInfo<LoginWithEmailPasswordRouteArgs> {
   LoginWithEmailPasswordRoute({
@@ -720,7 +736,7 @@ class LoginWithEmailPasswordRoute
     name,
     builder: (data) {
       final args = data.argsAs<LoginWithEmailPasswordRouteArgs>();
-      return _i23.LoginWithEmailPasswordScreen(
+      return _i24.LoginWithEmailPasswordScreen(
         key: args.key,
         loginBloc: args.loginBloc,
         isFromDeleteAccount: args.isFromDeleteAccount,
@@ -762,7 +778,7 @@ class LoginWithEmailPasswordRouteArgs {
 }
 
 /// generated route for
-/// [_i24.LoginWithPhoneNumberScreen]
+/// [_i25.LoginWithPhoneNumberScreen]
 class LoginWithPhoneNumberRoute
     extends _i44.PageRouteInfo<LoginWithPhoneNumberRouteArgs> {
   LoginWithPhoneNumberRoute({
@@ -786,7 +802,7 @@ class LoginWithPhoneNumberRoute
       final args = data.argsAs<LoginWithPhoneNumberRouteArgs>(
         orElse: () => const LoginWithPhoneNumberRouteArgs(),
       );
-      return _i24.LoginWithPhoneNumberScreen(
+      return _i25.LoginWithPhoneNumberScreen(
         key: args.key,
         isFromDeleteAccount: args.isFromDeleteAccount,
       );
@@ -821,7 +837,7 @@ class LoginWithPhoneNumberRouteArgs {
 }
 
 /// generated route for
-/// [_i25.ManageSubscriptionScreen]
+/// [_i26.ManageSubscriptionScreen]
 class ManageSubscriptionRoute extends _i44.PageRouteInfo<void> {
   const ManageSubscriptionRoute({List<_i44.PageRouteInfo>? children})
     : super(ManageSubscriptionRoute.name, initialChildren: children);
@@ -831,13 +847,13 @@ class ManageSubscriptionRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i25.ManageSubscriptionScreen();
+      return const _i26.ManageSubscriptionScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i26.MyOrdersScreen]
+/// [_i27.MyOrdersScreen]
 class MyOrdersRoute extends _i44.PageRouteInfo<void> {
   const MyOrdersRoute({List<_i44.PageRouteInfo>? children})
     : super(MyOrdersRoute.name, initialChildren: children);
@@ -847,13 +863,13 @@ class MyOrdersRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i26.MyOrdersScreen();
+      return const _i27.MyOrdersScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i27.NetworkImageScreen]
+/// [_i28.NetworkImageScreen]
 class NetworkImageRoute extends _i44.PageRouteInfo<NetworkImageRouteArgs> {
   NetworkImageRoute({
     _i45.Key? key,
@@ -871,7 +887,7 @@ class NetworkImageRoute extends _i44.PageRouteInfo<NetworkImageRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<NetworkImageRouteArgs>();
-      return _i27.NetworkImageScreen(key: args.key, link: args.link);
+      return _i28.NetworkImageScreen(key: args.key, link: args.link);
     },
   );
 }
@@ -900,7 +916,7 @@ class NetworkImageRouteArgs {
 }
 
 /// generated route for
-/// [_i28.NoInternetScreen]
+/// [_i29.NoInternetScreen]
 class NoInternetRoute extends _i44.PageRouteInfo<void> {
   const NoInternetRoute({List<_i44.PageRouteInfo>? children})
     : super(NoInternetRoute.name, initialChildren: children);
@@ -910,13 +926,13 @@ class NoInternetRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i28.NoInternetScreen();
+      return const _i29.NoInternetScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i29.NotificationsScreen]
+/// [_i30.NotificationsScreen]
 class NotificationsRoute extends _i44.PageRouteInfo<void> {
   const NotificationsRoute({List<_i44.PageRouteInfo>? children})
     : super(NotificationsRoute.name, initialChildren: children);
@@ -926,13 +942,13 @@ class NotificationsRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i29.NotificationsScreen();
+      return const _i30.NotificationsScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i30.OrderDetailScreen]
+/// [_i31.OrderDetailScreen]
 class OrderDetailRoute extends _i44.PageRouteInfo<OrderDetailRouteArgs> {
   OrderDetailRoute({
     _i45.Key? key,
@@ -950,7 +966,7 @@ class OrderDetailRoute extends _i44.PageRouteInfo<OrderDetailRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<OrderDetailRouteArgs>();
-      return _i30.OrderDetailScreen(key: args.key, productId: args.productId);
+      return _i31.OrderDetailScreen(key: args.key, productId: args.productId);
     },
   );
 }
@@ -979,7 +995,7 @@ class OrderDetailRouteArgs {
 }
 
 /// generated route for
-/// [_i31.PhoneNumberOTPScreen]
+/// [_i32.PhoneNumberOTPScreen]
 class PhoneNumberOTPRoute extends _i44.PageRouteInfo<PhoneNumberOTPRouteArgs> {
   PhoneNumberOTPRoute({
     _i45.Key? key,
@@ -1002,7 +1018,7 @@ class PhoneNumberOTPRoute extends _i44.PageRouteInfo<PhoneNumberOTPRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<PhoneNumberOTPRouteArgs>();
-      return _i31.PhoneNumberOTPScreen(
+      return _i32.PhoneNumberOTPScreen(
         key: args.key,
         loginBloc: args.loginBloc,
         isFromDeleteAccount: args.isFromDeleteAccount,
@@ -1044,7 +1060,7 @@ class PhoneNumberOTPRouteArgs {
 }
 
 /// generated route for
-/// [_i32.PhoneNumberVerifiedScreen]
+/// [_i33.PhoneNumberVerifiedScreen]
 class PhoneNumberVerifiedRoute
     extends _i44.PageRouteInfo<PhoneNumberVerifiedRouteArgs> {
   PhoneNumberVerifiedRoute({
@@ -1063,7 +1079,7 @@ class PhoneNumberVerifiedRoute
     name,
     builder: (data) {
       final args = data.argsAs<PhoneNumberVerifiedRouteArgs>();
-      return _i32.PhoneNumberVerifiedScreen(
+      return _i33.PhoneNumberVerifiedScreen(
         key: args.key,
         loginBloc: args.loginBloc,
       );
@@ -1095,7 +1111,7 @@ class PhoneNumberVerifiedRouteArgs {
 }
 
 /// generated route for
-/// [_i33.ProductDetailScreen]
+/// [_i34.ProductDetailScreen]
 class ProductDetailRoute extends _i44.PageRouteInfo<ProductDetailRouteArgs> {
   ProductDetailRoute({
     _i45.Key? key,
@@ -1113,7 +1129,7 @@ class ProductDetailRoute extends _i44.PageRouteInfo<ProductDetailRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ProductDetailRouteArgs>();
-      return _i33.ProductDetailScreen(key: args.key, productId: args.productId);
+      return _i34.ProductDetailScreen(key: args.key, productId: args.productId);
     },
   );
 }
@@ -1142,7 +1158,7 @@ class ProductDetailRouteArgs {
 }
 
 /// generated route for
-/// [_i34.ReminderScreen]
+/// [_i35.ReminderScreen]
 class ReminderRoute extends _i44.PageRouteInfo<void> {
   const ReminderRoute({List<_i44.PageRouteInfo>? children})
     : super(ReminderRoute.name, initialChildren: children);
@@ -1152,23 +1168,7 @@ class ReminderRoute extends _i44.PageRouteInfo<void> {
   static _i44.PageInfo page = _i44.PageInfo(
     name,
     builder: (data) {
-      return const _i34.ReminderScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i35.SavedCardScreen]
-class SavedCardRoute extends _i44.PageRouteInfo<void> {
-  const SavedCardRoute({List<_i44.PageRouteInfo>? children})
-    : super(SavedCardRoute.name, initialChildren: children);
-
-  static const String name = 'SavedCardRoute';
-
-  static _i44.PageInfo page = _i44.PageInfo(
-    name,
-    builder: (data) {
-      return const _i35.SavedCardScreen();
+      return const _i35.ReminderScreen();
     },
   );
 }

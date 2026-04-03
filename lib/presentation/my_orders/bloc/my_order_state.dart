@@ -71,6 +71,17 @@ class MyOrderState extends Equatable {
     );
   }
 
+  @visibleForTesting
+  const MyOrderState.test({
+    this.products = const [],
+    this.selectedProductDetail,
+    this.isProductDetailLoading = false,
+    this.isGeneratingInvoice = false,
+    this.invoiceGenerationError,
+    this.generatedInvoicePdf,
+    this.generatedInvoiceName,
+  });
+
   @override
   List<Object?> get props => [
     products,
