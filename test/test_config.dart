@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   return AlchemistConfig.runWithConfig(
     config: const AlchemistConfig(
-      platformGoldensConfig: PlatformGoldensConfig(enabled: true),
+      platformGoldensConfig: PlatformGoldensConfig(),
       ciGoldensConfig: CiGoldensConfig(enabled: false),
     ),
     run: () async {
