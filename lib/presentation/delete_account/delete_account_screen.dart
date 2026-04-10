@@ -61,28 +61,31 @@ class DeleteAccountBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const DeleteAccountAppbar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            const Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DeleteAccountReasonOptions(),
-                    DeleteAccountDivider(),
-                    DeleteAccountWarnings(),
-                  ],
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: const DeleteAccountAppbar(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DeleteAccountReasonOptions(),
+                      DeleteAccountDivider(),
+                      DeleteAccountWarnings(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const DeleteAccountButton(),
-            SizedBox(height: 16 + context.bottomPadding),
-          ],
+              const DeleteAccountButton(),
+              SizedBox(height: 16 + context.bottomPadding),
+            ],
+          ),
         ),
       ),
     );

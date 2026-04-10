@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/presentation/chat/model/chat_model.dart';
+import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class UserAvatar extends StatelessWidget {
@@ -18,15 +21,23 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isFromTestEnvironment = AppEnvironment.isTestEnvironment;
     return Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular((profileImageSize / 2).w),
-          child: CachedNetworkImage(
-            imageUrl: chatModel.profilePicture,
-            height: profileImageSize.w,
-            width: profileImageSize.w,
-          ),
+          child: isFromTestEnvironment
+              ? SvgPicture.asset(
+                  Assets.icons.userPlaceholder,
+                  height: profileImageSize.w,
+                  width: profileImageSize.w,
+                  fit: BoxFit.cover,
+                )
+              : CachedNetworkImage(
+                  imageUrl: chatModel.profilePicture,
+                  height: profileImageSize.w,
+                  width: profileImageSize.w,
+                ),
         ),
         if (chatModel.isOnline && showStatus)
           Positioned(

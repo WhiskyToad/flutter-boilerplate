@@ -8,6 +8,7 @@ import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/presentation/chat/enum/message_type_enum.dart';
 import 'package:skelter/presentation/chat/model/chat_message_model.dart';
 import 'package:skelter/presentation/chat/widgets/image_full_screen_view.dart';
+import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class MessageTypes extends StatelessWidget {
@@ -41,10 +42,15 @@ class MessageTypes extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
                   child: Hero(
                     tag: kHeroAnimationPrefix,
-                    child: CachedNetworkImage(
-                      imageUrl: message.message,
-                      fit: BoxFit.cover,
-                    ),
+                    child: AppEnvironment.isTestEnvironment
+                        ? SvgPicture.asset(
+                            Assets.icons.userPlaceholder,
+                            fit: BoxFit.cover,
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: message.message,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
               ),
