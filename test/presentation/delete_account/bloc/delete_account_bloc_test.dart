@@ -146,7 +146,7 @@ void main() {
           ).thenAnswer((_) async {});
           return bloc;
         },
-        act: (bloc) => bloc.add(DeleteAccountSubmittedEvent()),
+        act: (bloc) => bloc.add(const DeleteAccountSubmittedEvent()),
         expect: () => [
           isA<DeleteAccountState>().having(
             (s) => s.isLoading,

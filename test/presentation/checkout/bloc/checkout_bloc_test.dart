@@ -70,7 +70,8 @@ void main() {
       );
 
       blocTest<CheckoutBloc, CheckoutState>(
-        'should compute finalAmount as (totalPrice - discount) + deliveryCharges',
+        'should compute finalAmount as (totalPrice - discount) + '
+        'deliveryCharges',
         build: () => checkoutBloc,
         act: (bloc) => bloc.add(const InitialCalculationEvent()),
         verify: (bloc) {

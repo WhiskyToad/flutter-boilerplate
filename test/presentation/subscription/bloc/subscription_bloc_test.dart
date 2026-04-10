@@ -77,7 +77,7 @@ void main() {
           ).thenAnswer((_) async => []);
           return bloc;
         },
-        act: (bloc) => bloc.add(FetchSubscriptionPackagesEvent()),
+        act: (bloc) => bloc.add(const FetchSubscriptionPackagesEvent()),
         expect: () => [
           isA<FetchSubscriptionPlanLoadingState>(),
           isA<FetchSubscriptionPlanFailureState>(),
@@ -92,7 +92,7 @@ void main() {
           ).thenThrow(Exception('Network error'));
           return bloc;
         },
-        act: (bloc) => bloc.add(FetchSubscriptionPackagesEvent()),
+        act: (bloc) => bloc.add(const FetchSubscriptionPackagesEvent()),
         expect: () => [
           isA<FetchSubscriptionPlanLoadingState>(),
           isA<FetchSubscriptionPlanFailureState>(),
@@ -104,7 +104,7 @@ void main() {
       blocTest<SubscriptionBloc, SubscriptionState>(
         'should emit loaded state with cleared snackbar',
         build: () => bloc,
-        act: (bloc) => bloc.add(ClearSnackBarMessageEvent()),
+        act: (bloc) => bloc.add(const ClearSnackBarMessageEvent()),
         expect: () => [isA<FetchSubscriptionPlanLoadedState>()],
       );
     });
@@ -118,7 +118,7 @@ void main() {
           ).thenAnswer((_) async => true);
           return bloc;
         },
-        act: (bloc) => bloc.add(RestoreSubscriptionEvent()),
+        act: (bloc) => bloc.add(const RestoreSubscriptionEvent()),
         expect: () => [
           isA<FetchSubscriptionPlanLoadedState>().having(
             (s) => s.isRestoring,
@@ -143,7 +143,7 @@ void main() {
           ).thenAnswer((_) async => false);
           return bloc;
         },
-        act: (bloc) => bloc.add(RestoreSubscriptionEvent()),
+        act: (bloc) => bloc.add(const RestoreSubscriptionEvent()),
         expect: () => [
           isA<FetchSubscriptionPlanLoadedState>().having(
             (s) => s.isRestoring,

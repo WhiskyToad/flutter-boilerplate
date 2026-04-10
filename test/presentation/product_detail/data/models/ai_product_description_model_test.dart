@@ -70,7 +70,6 @@ void main() {
           productId: 'prod-2',
           generatedDescription: 'Entity description',
           generatedAt: tGeneratedAt,
-          isPersonalized: false,
         );
 
         final result = AIProductDescriptionModel.fromEntity(entity);

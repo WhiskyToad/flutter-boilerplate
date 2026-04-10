@@ -50,7 +50,6 @@ void main() {
     productId: '1',
     generatedDescription: 'AI generated',
     generatedAt: DateTime(2024, 1, 15),
-    isPersonalized: false,
   );
 
   group('generateProductDescription', () {

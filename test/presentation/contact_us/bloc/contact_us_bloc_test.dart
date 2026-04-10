@@ -57,7 +57,7 @@ void main() {
       blocTest<ContactUsBloc, ContactUsState>(
         'should update name',
         build: () => bloc,
-        act: (bloc) => bloc.add(NameChangedEvent(name: 'John Doe')),
+        act: (bloc) => bloc.add(const NameChangedEvent(name: 'John Doe')),
         expect: () => [
           isA<ContactUsState>().having((s) => s.name, 'name', 'John Doe'),
         ],
@@ -68,7 +68,8 @@ void main() {
       blocTest<ContactUsBloc, ContactUsState>(
         'should update email',
         build: () => bloc,
-        act: (bloc) => bloc.add(EmailChangedEvent(email: 'john@test.com')),
+        act: (bloc) =>
+            bloc.add(const EmailChangedEvent(email: 'john@test.com')),
         expect: () => [
           isA<ContactUsState>().having(
             (s) => s.email,
@@ -99,7 +100,7 @@ void main() {
       blocTest<ContactUsBloc, ContactUsState>(
         'should set email error',
         build: () => bloc,
-        act: (bloc) => bloc.add(EmailErrorEvent(error: 'Invalid email')),
+        act: (bloc) => bloc.add(const EmailErrorEvent(error: 'Invalid email')),
         expect: () => [
           isA<ContactUsState>().having(
             (s) => s.emailError,
@@ -114,7 +115,7 @@ void main() {
       blocTest<ContactUsBloc, ContactUsState>(
         'should set name error',
         build: () => bloc,
-        act: (bloc) => bloc.add(NameErrorEvent(error: 'Name required')),
+        act: (bloc) => bloc.add(const NameErrorEvent(error: 'Name required')),
         expect: () => [
           isA<ContactUsState>().having(
             (s) => s.nameError,
@@ -146,7 +147,7 @@ void main() {
       blocTest<ContactUsBloc, ContactUsState>(
         'should emit PickedFilesErrorState when all fields empty',
         build: () => bloc,
-        act: (bloc) => bloc.add(SubmitFormEvent()),
+        act: (bloc) => bloc.add(const SubmitFormEvent()),
         wait: const Duration(milliseconds: 100),
         expect: () => [
           isA<PickedFilesErrorState>(),

@@ -110,7 +110,7 @@ void main() {
           ).thenAnswer((_) async => const Right(tProducts));
           return bloc;
         },
-        act: (bloc) => bloc.add(GetMyOrderProductsEvent()),
+        act: (bloc) => bloc.add(const GetMyOrderProductsEvent()),
         expect: () => [
           isA<MyOrderLoadingState>(),
           isA<MyOrderLoadedState>().having(
@@ -130,7 +130,7 @@ void main() {
           );
           return bloc;
         },
-        act: (bloc) => bloc.add(GetMyOrderProductsEvent()),
+        act: (bloc) => bloc.add(const GetMyOrderProductsEvent()),
         expect: () => [isA<MyOrderLoadingState>(), isA<MyOrderErrorState>()],
       );
     });
@@ -144,7 +144,8 @@ void main() {
           ).thenAnswer((_) async => const Right(tProductDetail));
           return bloc;
         },
-        act: (bloc) => bloc.add(GetOrderProductDetailEvent(productId: '1')),
+        act: (bloc) =>
+            bloc.add(const GetOrderProductDetailEvent(productId: '1')),
         expect: () => [
           isA<ProductDetailLoadingState>(),
           isA<ProductDetailLoadedState>().having(
@@ -164,7 +165,8 @@ void main() {
           );
           return bloc;
         },
-        act: (bloc) => bloc.add(GetOrderProductDetailEvent(productId: '999')),
+        act: (bloc) =>
+            bloc.add(const GetOrderProductDetailEvent(productId: '999')),
         expect: () => [
           isA<ProductDetailLoadingState>(),
           isA<ProductDetailErrorState>(),
@@ -176,7 +178,7 @@ void main() {
       blocTest<MyOrderBloc, MyOrderState>(
         'should emit error when no product detail selected',
         build: () => bloc,
-        act: (bloc) => bloc.add(GenerateInvoiceEvent()),
+        act: (bloc) => bloc.add(const GenerateInvoiceEvent()),
         expect: () => [
           isA<MyOrderState>().having(
             (s) => s.invoiceGenerationError,
@@ -191,7 +193,7 @@ void main() {
       blocTest<MyOrderBloc, MyOrderState>(
         'should clear invoice generation error',
         build: () => bloc,
-        act: (bloc) => bloc.add(ClearInvoiceGenerationErrorEvent()),
+        act: (bloc) => bloc.add(const ClearInvoiceGenerationErrorEvent()),
         expect: () => [isA<MyOrderState>()],
       );
     });

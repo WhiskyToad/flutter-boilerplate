@@ -87,7 +87,7 @@ void main() {
         final description2 = AIProductDescription(
           productId: 'prod-2',
           generatedDescription: 'Different',
-          generatedAt: DateTime(2025, 1, 1),
+          generatedAt: DateTime(2025),
         );
 
         expect(tDescription, isNot(equals(description2)));
