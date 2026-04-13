@@ -15,8 +15,8 @@ class ProductDetailRepositoryImpl with ProductDetailRepository {
   @override
   ResultFuture<ProductDetail> getProductDetail({required String id}) async {
     try {
-      final ProductDetailModel result =
-          await _remoteDatasource.getProductDetail(id: id);
+      final ProductDetailModel result = await _remoteDatasource
+          .getProductDetail(id: id);
       return Right(result);
     } on APIException catch (e) {
       return Left(APIFailure.fromException(e));

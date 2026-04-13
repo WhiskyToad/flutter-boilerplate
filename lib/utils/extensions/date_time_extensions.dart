@@ -5,9 +5,7 @@ import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/utils/app_environment.dart';
 
 extension DateTimeExtensions on DateTime {
-  String format({
-    String pattern = kDefaultDateFormat,
-  }) {
+  String format({String pattern = kDefaultDateFormat}) {
     try {
       return DateFormat(pattern).format(this);
     } catch (_) {

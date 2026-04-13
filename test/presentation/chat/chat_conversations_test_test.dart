@@ -43,15 +43,11 @@ void main() {
           children: [
             createTestScenario(
               name: 'Chat conversation page Light Theme',
-              child: ChatConversationScreen(
-                chatUser: sampleData[0],
-              ),
+              child: ChatConversationScreen(chatUser: sampleData[0]),
             ),
             createTestScenario(
               name: 'Chat conversation page Dark Theme',
-              child: ChatConversationScreen(
-                chatUser: sampleData[0],
-              ),
+              child: ChatConversationScreen(chatUser: sampleData[0]),
               theme: AppThemeEnum.DarkTheme,
             ),
           ],

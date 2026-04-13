@@ -18,9 +18,9 @@ class RetryPaymentButton extends StatelessWidget {
       backgroundColor: context.currentTheme.bgBrandDefault,
       foregroundColor: context.currentTheme.textNeutralLight,
       size: AppButtonSize.extraLarge,
-      onPressed: () => context
-          .read<SubscriptionBloc>()
-          .add(const FetchSubscriptionPackagesEvent()),
+      onPressed: () => context.read<SubscriptionBloc>().add(
+        const FetchSubscriptionPackagesEvent(),
+      ),
     );
   }
 }

@@ -18,8 +18,8 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: currentIndex,
       onTap: (value) => context.read<HomeBloc>().add(
-            BottomNavBarIndexChangedEvent(index: value),
-          ),
+        BottomNavBarIndexChangedEvent(index: value),
+      ),
       selectedItemColor: context.currentTheme.iconBrandHover,
       unselectedItemColor: context.currentTheme.strokeNeutralDefault,
       showUnselectedLabels: true,

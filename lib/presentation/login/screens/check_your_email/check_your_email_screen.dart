@@ -32,9 +32,7 @@ class CheckYourEmailScreen extends StatelessWidget {
 }
 
 class CheckYourEmailScreenBody extends StatelessWidget {
-  const CheckYourEmailScreenBody({
-    super.key,
-  });
+  const CheckYourEmailScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {

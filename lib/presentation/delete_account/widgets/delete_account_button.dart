@@ -33,8 +33,9 @@ class DeleteAccountButton extends StatelessWidget {
           : () async {
               FocusManager.instance.primaryFocus?.unfocus();
 
-              final deleteAccountState =
-                  context.read<DeleteAccountBloc>().state;
+              final deleteAccountState = context
+                  .read<DeleteAccountBloc>()
+                  .state;
               final selectedReason = deleteAccountState.selectedReason;
 
               if (selectedReason == null) {

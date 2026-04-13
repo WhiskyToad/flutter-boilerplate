@@ -7,11 +7,7 @@ class TitleAndRating extends StatelessWidget {
   final String title;
   final double rating;
 
-  const TitleAndRating({
-    super.key,
-    required this.title,
-    required this.rating,
-  });
+  const TitleAndRating({super.key, required this.title, required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +17,9 @@ class TitleAndRating extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: AppTextStyles.p3SemiBold
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3SemiBold.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -36,8 +33,9 @@ class TitleAndRating extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               rating.toString(),
-              style: AppTextStyles.p4Medium
-                  .copyWith(color: context.currentTheme.textNeutralSecondary),
+              style: AppTextStyles.p4Medium.copyWith(
+                color: context.currentTheme.textNeutralSecondary,
+              ),
             ),
           ],
         ),

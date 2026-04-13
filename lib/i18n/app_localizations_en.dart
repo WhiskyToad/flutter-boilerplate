@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -939,7 +940,7 @@ class AppLocalizationsEn extends AppLocalizations {
       '================ UNDER MAINTENANCE KEYS ================';
 
   @override
-  String get under_maintenance => 'App is Under Maintenance !';
+  String get under_maintenance => 'App is Under Maintenance';
 
   @override
   String get under_maintenance_message =>
@@ -1246,4 +1247,75 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_product_selected => 'No product selected';
+
+  @override
+  String get feedback_keys => '================ FEEDBACK KEYS ================';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get please_share_your_thoughts =>
+      'Please share your thoughts before submitting.';
+
+  @override
+  String get rate_your_experience => 'Rate your experience';
+
+  @override
+  String get your_feedback => 'Your feedback';
+
+  @override
+  String get feedback_hint => 'Tell us what you think...';
+
+  @override
+  String get submit_feedback => 'Submit Feedback';
+
+  @override
+  String get feedback_submitted_success =>
+      'Thank you! Your feedback has been submitted.';
+
+  @override
+  String get please_select_a_rating => 'Please select a rating to continue.';
+
+  @override
+  String get feedback_category_label => 'Pick a category';
+
+  @override
+  String get feedback_category_required =>
+      'Please select a category to continue.';
+
+  @override
+  String get feedback_category_bug => 'Bug';
+
+  @override
+  String get feedback_category_suggestion => 'Suggestion';
+
+  @override
+  String get feedback_category_content => 'Content';
+
+  @override
+  String get feedback_category_compliment => 'Compliment';
+
+  @override
+  String get feedback_category_other => 'Other';
+
+  @override
+  String get feedback_description =>
+      'Share your experience and help us improve. We value every word you share with us.';
+
+  @override
+  String get empty_views_keys =>
+      '================ EMPTY VIEWS KEYS ================';
+
+  @override
+  String get empty_views => 'Empty Views';
+
+  @override
+  String get empty_states => 'Empty States';
+
+  @override
+  String get error_states => 'Error States';
+
+  @override
+  String get utilities => 'Utilities';
 }

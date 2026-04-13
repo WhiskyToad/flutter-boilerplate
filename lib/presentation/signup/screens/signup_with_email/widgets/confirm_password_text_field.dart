@@ -21,8 +21,10 @@ class ConfirmPasswordTextField extends StatefulWidget {
 
 class _ConfirmPasswordTextFieldState extends State<ConfirmPasswordTextField> {
   final TextEditingController _passwordController = TextEditingController();
-  final Debouncer<String> _debouncer =
-      Debouncer<String>(const Duration(milliseconds: 500), initialValue: '');
+  final Debouncer<String> _debouncer = Debouncer<String>(
+    const Duration(milliseconds: 500),
+    initialValue: '',
+  );
 
   @override
   void initState() {
@@ -35,20 +37,20 @@ class _ConfirmPasswordTextFieldState extends State<ConfirmPasswordTextField> {
 
   void _passwordControllerListener() {
     _debouncer.value = _passwordController.text;
-    final String? previousErrorMessage =
-        context.read<SignupBloc>().state.confirmPasswordErrorMessage;
+    final String? previousErrorMessage = context
+        .read<SignupBloc>()
+        .state
+        .confirmPasswordErrorMessage;
     if (previousErrorMessage.haveContent()) {
-      context
-          .read<SignupBloc>()
-          .add(ConfirmPasswordErrorEvent(errorMessage: ''));
+      context.read<SignupBloc>().add(
+        ConfirmPasswordErrorEvent(errorMessage: ''),
+      );
     }
 
     _debouncer.values.listen((text) {
       context.read<SignupBloc>().add(
-            ConfirmPasswordChangeEvent(
-              confirmPassword: _passwordController.text,
-            ),
-          );
+        ConfirmPasswordChangeEvent(confirmPassword: _passwordController.text),
+      );
     });
   }
 
@@ -107,10 +109,10 @@ class _ConfirmPasswordTextFieldState extends State<ConfirmPasswordTextField> {
                 ),
                 onPressed: () {
                   context.read<SignupBloc>().add(
-                        ToggleConfirmPasswordVisibilityEvent(
-                          isVisible: !isPasswordVisible,
-                        ),
-                      );
+                    ToggleConfirmPasswordVisibilityEvent(
+                      isVisible: !isPasswordVisible,
+                    ),
+                  );
                 },
               ),
             ),
@@ -131,8 +133,8 @@ class _ConfirmPasswordTextFieldState extends State<ConfirmPasswordTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

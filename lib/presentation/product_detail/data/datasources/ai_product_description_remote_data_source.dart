@@ -10,7 +10,6 @@ abstract class AIProductDescriptionRemoteDataSource {
     List<String>? userOrderHistory,
   });
 
-
   Stream<String> generateProductDescriptionStream({
     required ProductDetail productDetail,
     List<String>? userOrderHistory,

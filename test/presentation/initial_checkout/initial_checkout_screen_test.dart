@@ -33,9 +33,7 @@ void main() {
 
   group('Checkout initial Page', () {
     testWidgets('Checkout initial Page', (tester) async {
-      await tester.runWidgetTest(
-        child: const InitialCheckoutScreen(),
-      );
+      await tester.runWidgetTest(child: const InitialCheckoutScreen());
       expect(find.byType(InitialCheckoutScreen), findsOneWidget);
     });
   });
@@ -89,8 +87,9 @@ void main() {
       fileName: 'empty_cart_view',
       builder: () {
         final checkoutBlocEmptyCart = MockCheckoutBloc();
-        when(() => checkoutBlocEmptyCart.state)
-            .thenReturn(CheckoutState.test());
+        when(
+          () => checkoutBlocEmptyCart.state,
+        ).thenReturn(CheckoutState.test());
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -124,8 +123,9 @@ void main() {
       fileName: 'cart_details_app_bar',
       builder: () {
         final checkoutBlocCartDetailsAppBar = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsAppBar.state)
-            .thenReturn(CheckoutState.test(stepperIndex: 0));
+        when(
+          () => checkoutBlocCartDetailsAppBar.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 0));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -163,9 +163,9 @@ void main() {
       fileName: 'cart_details_custom_stepper',
       builder: () {
         final checkoutBlocCartDetailsStepper = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsStepper.state).thenReturn(
-          CheckoutState.test(stepperIndex: 0),
-        );
+        when(
+          () => checkoutBlocCartDetailsStepper.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 0));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -204,59 +204,60 @@ void main() {
       pumpBeforeTest: precacheImages,
       builder: () {
         final checkoutBlocCartDetailsShortTitle = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsShortTitle.state).thenReturn(
-          CheckoutState.test(cartData: shortTitleTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsShortTitle.state,
+        ).thenReturn(CheckoutState.test(cartData: shortTitleTestCase));
 
         final checkoutBlocCartDetailsLongTitle = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsLongTitle.state).thenReturn(
-          CheckoutState.test(cartData: longTitleTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsLongTitle.state,
+        ).thenReturn(CheckoutState.test(cartData: longTitleTestCase));
 
         final checkoutBlocCartDetailsNoRating = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsNoRating.state).thenReturn(
-          CheckoutState.test(cartData: noRatingTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsNoRating.state,
+        ).thenReturn(CheckoutState.test(cartData: noRatingTestCase));
 
         final checkoutBlocCartDetailsThreeStarRating = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsThreeStarRating.state).thenReturn(
-          CheckoutState.test(cartData: threeStarRatingTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsThreeStarRating.state,
+        ).thenReturn(CheckoutState.test(cartData: threeStarRatingTestCase));
 
         final checkoutBlocCartDetailsPriceNoDecimals = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsPriceNoDecimals.state).thenReturn(
-          CheckoutState.test(cartData: priceNoDecimalsTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsPriceNoDecimals.state,
+        ).thenReturn(CheckoutState.test(cartData: priceNoDecimalsTestCase));
 
         final checkoutBlocCartDetailsPriceWithDecimals = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsPriceWithDecimals.state).thenReturn(
-          CheckoutState.test(cartData: priceWithDecimalsTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsPriceWithDecimals.state,
+        ).thenReturn(CheckoutState.test(cartData: priceWithDecimalsTestCase));
 
         final checkoutBlocCartDetailsQuantityOne = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsQuantityOne.state).thenReturn(
-          CheckoutState.test(cartData: quantityOneTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsQuantityOne.state,
+        ).thenReturn(CheckoutState.test(cartData: quantityOneTestCase));
 
         final checkoutBlocCartDetailsQuantityHundred = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsQuantityHundred.state).thenReturn(
-          CheckoutState.test(cartData: quantityHundredTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsQuantityHundred.state,
+        ).thenReturn(CheckoutState.test(cartData: quantityHundredTestCase));
 
         final checkoutBlocCartDetailsValidDeliveryDate = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsValidDeliveryDate.state).thenReturn(
-          CheckoutState.test(cartData: validDeliveryDateTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsValidDeliveryDate.state,
+        ).thenReturn(CheckoutState.test(cartData: validDeliveryDateTestCase));
 
         final checkoutBlocCartDetailsNoDeliveryDate = MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsNoDeliveryDate.state).thenReturn(
-          CheckoutState.test(cartData: noDeliveryDateTestCase),
-        );
+        when(
+          () => checkoutBlocCartDetailsNoDeliveryDate.state,
+        ).thenReturn(CheckoutState.test(cartData: noDeliveryDateTestCase));
 
         final checkoutBlocCartDetailsProductCategoryWithLongText =
             MockCheckoutBloc();
-        when(() => checkoutBlocCartDetailsProductCategoryWithLongText.state)
-            .thenReturn(
+        when(
+          () => checkoutBlocCartDetailsProductCategoryWithLongText.state,
+        ).thenReturn(
           CheckoutState.test(cartData: productCategoryWithLongTextTestCase),
         );
 
@@ -715,8 +716,9 @@ void main() {
       fileName: 'shipping_detail_app_bar',
       builder: () {
         final checkoutBlocShippingDetailAppBar = MockCheckoutBloc();
-        when(() => checkoutBlocShippingDetailAppBar.state)
-            .thenReturn(CheckoutState.test(stepperIndex: 1));
+        when(
+          () => checkoutBlocShippingDetailAppBar.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 1));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -754,9 +756,9 @@ void main() {
       fileName: 'shipping_details_custom_stepper',
       builder: () {
         final checkoutBlocShippingDetailStepper = MockCheckoutBloc();
-        when(() => checkoutBlocShippingDetailStepper.state).thenReturn(
-          CheckoutState.test(stepperIndex: 1),
-        );
+        when(
+          () => checkoutBlocShippingDetailStepper.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 1));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -796,8 +798,9 @@ void main() {
       builder: () {
         // Short user name with short address
         final checkoutBlocWithShortUserNameAndShortAddress = MockCheckoutBloc();
-        when(() => checkoutBlocWithShortUserNameAndShortAddress.state)
-            .thenReturn(
+        when(
+          () => checkoutBlocWithShortUserNameAndShortAddress.state,
+        ).thenReturn(
           CheckoutState.test(userName: 'john doe', address: '123 Main St'),
         );
 
@@ -805,30 +808,36 @@ void main() {
         final checkoutBlocWithLongUserNameAndLongAddress = MockCheckoutBloc();
         when(() => checkoutBlocWithLongUserNameAndLongAddress.state).thenReturn(
           CheckoutState.test(
-            userName: 'Johnathan Alexander Doe the Third of the Royal House of '
+            userName:
+                'Johnathan Alexander Doe the Third of the Royal House of '
                 'Windermere and Heir to the Northern Highlands',
-            address: '1234 Elm Street, Apartment 56B, Springfield Heights, '
+            address:
+                '1234 Elm Street, Apartment 56B, Springfield Heights, '
                 'Springfield, Illinois, 62701, United States of America',
           ),
         );
 
         // Short user name with long address
         final checkoutBlocWithShortUserNameAndLongAddress = MockCheckoutBloc();
-        when(() => checkoutBlocWithShortUserNameAndLongAddress.state)
-            .thenReturn(
+        when(
+          () => checkoutBlocWithShortUserNameAndLongAddress.state,
+        ).thenReturn(
           CheckoutState.test(
             userName: 'Johnathan Alexander Doe',
-            address: '1234 Elm Street, Apartment 56B, Springfield Heights, '
+            address:
+                '1234 Elm Street, Apartment 56B, Springfield Heights, '
                 'Springfield, Illinois, 62701, United States of America',
           ),
         );
 
         // Long user name with short address
         final checkoutBlocWithLongUserNameAndShortAddress = MockCheckoutBloc();
-        when(() => checkoutBlocWithLongUserNameAndShortAddress.state)
-            .thenReturn(
+        when(
+          () => checkoutBlocWithLongUserNameAndShortAddress.state,
+        ).thenReturn(
           CheckoutState.test(
-            userName: 'Johnathan Alexander Doe the Third of '
+            userName:
+                'Johnathan Alexander Doe the Third of '
                 'the Royal House of Windermere',
             address: '123 Main St',
           ),
@@ -993,8 +1002,9 @@ void main() {
       fileName: 'payment_app_bar',
       builder: () {
         final checkoutBlocPaymentAppBar = MockCheckoutBloc();
-        when(() => checkoutBlocPaymentAppBar.state)
-            .thenReturn(CheckoutState.test(stepperIndex: 2));
+        when(
+          () => checkoutBlocPaymentAppBar.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 2));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -1032,9 +1042,9 @@ void main() {
       fileName: 'payment_custom_stepper',
       builder: () {
         final checkoutBlocPaymentStepper = MockCheckoutBloc();
-        when(() => checkoutBlocPaymentStepper.state).thenReturn(
-          CheckoutState.test(stepperIndex: 2),
-        );
+        when(
+          () => checkoutBlocPaymentStepper.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 2));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -1180,9 +1190,9 @@ void main() {
       pumpBeforeTest: precacheImages,
       builder: () {
         final checkoutBlocPaymentOneCoupon = MockCheckoutBloc();
-        when(() => checkoutBlocPaymentOneCoupon.state).thenReturn(
-          CheckoutState.test(stepperIndex: 2),
-        );
+        when(
+          () => checkoutBlocPaymentOneCoupon.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 2));
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
           children: [
@@ -1269,8 +1279,9 @@ void main() {
       fileName: 'order_review_app_bar',
       builder: () {
         final checkoutBlocOrderReviewAppBar = MockCheckoutBloc();
-        when(() => checkoutBlocOrderReviewAppBar.state)
-            .thenReturn(CheckoutState.test(stepperIndex: 3));
+        when(
+          () => checkoutBlocOrderReviewAppBar.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 3));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
@@ -1308,9 +1319,9 @@ void main() {
       fileName: 'order_review_custom_stepper',
       builder: () {
         final checkoutBlocOrderReviewStepper = MockCheckoutBloc();
-        when(() => checkoutBlocOrderReviewStepper.state).thenReturn(
-          CheckoutState.test(stepperIndex: 3),
-        );
+        when(
+          () => checkoutBlocOrderReviewStepper.state,
+        ).thenReturn(CheckoutState.test(stepperIndex: 3));
 
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),

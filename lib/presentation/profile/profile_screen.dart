@@ -59,7 +59,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Profile',
+            context.localization.profile,
             style: AppTextStyles.h6Bold.copyWith(
               color: context.currentTheme.textNeutralPrimary,
             ),
@@ -92,10 +92,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
     );
   }
 
-  void _showSignOutError(
-    SignOutErrorState state,
-    BuildContext context,
-  ) {
+  void _showSignOutError(SignOutErrorState state, BuildContext context) {
     final String error = state.errorMessage;
     context.showSnackBar(
       error.isNullOrEmpty()

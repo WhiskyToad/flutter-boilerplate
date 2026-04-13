@@ -12,18 +12,19 @@ class ResendVerificationMailButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int resendEmailVerificationTimeLeft =
-        context.select<VerifyEmailBloc, int>(
-      (VerifyEmailBloc bloc) => bloc.state.resendTimeLeft,
-    );
+    final int resendEmailVerificationTimeLeft = context
+        .select<VerifyEmailBloc, int>(
+          (VerifyEmailBloc bloc) => bloc.state.resendTimeLeft,
+        );
 
-    final bool isLoading =
-        context.select<VerifyEmailBloc, bool>((bloc) => bloc.state.isLoading);
+    final bool isLoading = context.select<VerifyEmailBloc, bool>(
+      (bloc) => bloc.state.isLoading,
+    );
 
     final String resendLinkText =
         '${context.localization.resend_verification_email} '
         '${resendEmailVerificationTimeLeft > 0 ? ''
-            '($resendEmailVerificationTimeLeft)' : ''}';
+                  '($resendEmailVerificationTimeLeft)' : ''}';
 
     return AppButton(
       label: resendLinkText,

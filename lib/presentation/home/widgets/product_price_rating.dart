@@ -27,11 +27,7 @@ class ProductPriceRating extends StatelessWidget {
             ),
           ),
         ),
-        Icon(
-          Icons.star,
-          color: context.currentTheme.bgWarningHover,
-          size: 16,
-        ),
+        Icon(Icons.star, color: context.currentTheme.bgWarningHover, size: 16),
         const SizedBox(width: 4),
         Text(
           product.rating.toString(),

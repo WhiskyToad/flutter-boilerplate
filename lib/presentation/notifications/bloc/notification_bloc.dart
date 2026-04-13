@@ -31,16 +31,13 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       final isFromTestEnvironment = AppEnvironment.isTestEnvironment;
       if (!isFromTestEnvironment) {
-        await Future.delayed(const Duration(seconds: 3));
+        await Future.delayed(const Duration(seconds: 1));
       }
       if (isClosed) return;
       List<NotificationModel> notificationList = [];
       notificationList = List.of(dummyNotifications);
       emit(
-        NotificationDataLoadedState(
-          state,
-          notificationList: notificationList,
-        ),
+        NotificationDataLoadedState(state, notificationList: notificationList),
       );
     } catch (e) {
       add(NotificationErrorEvent(msg: e.toString()));
@@ -77,11 +74,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     NotificationErrorEvent event,
     Emitter emitter,
   ) {
-    emit(
-      NotificationErrorState(
-        state,
-        message: event.msg,
-      ),
-    );
+    emit(NotificationErrorState(state, message: event.msg));
   }
 }

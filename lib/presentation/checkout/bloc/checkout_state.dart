@@ -29,28 +29,28 @@ class CheckoutState with EquatableMixin {
   });
 
   CheckoutState.initial()
-      : stepperIndex = 0,
-        totalPrice = 0.0,
-        discount = 0.0,
-        deliveryCharges = 0.0,
-        finalAmount = 0.0,
-        cartData = cartSampleData,
-        userName = 'Roz Cooper',
-        address = '2118 Thornridge Cir. Syracuse, Connecticut 35624',
-        isPaymentMethodOnline = true,
-        couponCount = 1;
+    : stepperIndex = 0,
+      totalPrice = 0.0,
+      discount = 0.0,
+      deliveryCharges = 0.0,
+      finalAmount = 0.0,
+      cartData = cartSampleData,
+      userName = 'Roz Cooper',
+      address = '2118 Thornridge Cir. Syracuse, Connecticut 35624',
+      isPaymentMethodOnline = true,
+      couponCount = 1;
 
   CheckoutState.copy(CheckoutState state)
-      : stepperIndex = state.stepperIndex,
-        totalPrice = state.totalPrice,
-        discount = state.discount,
-        deliveryCharges = state.deliveryCharges,
-        finalAmount = state.finalAmount,
-        cartData = state.cartData,
-        userName = state.userName,
-        address = state.address,
-        isPaymentMethodOnline = state.isPaymentMethodOnline,
-        couponCount = state.couponCount;
+    : stepperIndex = state.stepperIndex,
+      totalPrice = state.totalPrice,
+      discount = state.discount,
+      deliveryCharges = state.deliveryCharges,
+      finalAmount = state.finalAmount,
+      cartData = state.cartData,
+      userName = state.userName,
+      address = state.address,
+      isPaymentMethodOnline = state.isPaymentMethodOnline,
+      couponCount = state.couponCount;
 
   CheckoutState copyWith({
     int? stepperIndex,
@@ -91,35 +91,33 @@ class CheckoutState with EquatableMixin {
     String? address,
     bool? isPaymentMethodOnline,
     int? couponCount,
-  })  : stepperIndex = stepperIndex ?? 0,
-        totalPrice = totalPrice ?? 0.0,
-        discount = discount ?? 0.0,
-        deliveryCharges = deliveryCharges ?? 0.0,
-        finalAmount = finalAmount ?? 0.0,
-        cartData = cartData ?? cartSampleData,
-        userName = userName ?? '',
-        address = address ?? '',
-        isPaymentMethodOnline = isPaymentMethodOnline ?? true,
-        couponCount = couponCount ?? 1;
+  }) : stepperIndex = stepperIndex ?? 0,
+       totalPrice = totalPrice ?? 0.0,
+       discount = discount ?? 0.0,
+       deliveryCharges = deliveryCharges ?? 0.0,
+       finalAmount = finalAmount ?? 0.0,
+       cartData = cartData ?? cartSampleData,
+       userName = userName ?? '',
+       address = address ?? '',
+       isPaymentMethodOnline = isPaymentMethodOnline ?? true,
+       couponCount = couponCount ?? 1;
 
   @override
   List<Object?> get props => [
-        stepperIndex,
-        totalPrice,
-        discount,
-        deliveryCharges,
-        finalAmount,
-        cartData,
-        userName,
-        address,
-        isPaymentMethodOnline,
-        couponCount,
-      ];
+    stepperIndex,
+    totalPrice,
+    discount,
+    deliveryCharges,
+    finalAmount,
+    cartData,
+    userName,
+    address,
+    isPaymentMethodOnline,
+    couponCount,
+  ];
 }
 
 class StepperIndexUpdateState extends CheckoutState {
-  StepperIndexUpdateState(
-    CheckoutState state, {
-    required int index,
-  }) : super.copy(state.copyWith(stepperIndex: index));
+  StepperIndexUpdateState(CheckoutState state, {required int index})
+    : super.copy(state.copyWith(stepperIndex: index));
 }

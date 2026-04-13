@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,7 +10,12 @@ import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
+import 'package:skelter/core/services/app_tour_service.dart';
 import 'package:skelter/main.dart';
+import 'package:skelter/presentation/feedback/data/datasources/feedback_remote_datasource.dart';
+import 'package:skelter/presentation/feedback/data/repositories/feedback_repository_impl.dart';
+import 'package:skelter/presentation/feedback/domain/repositories/feedback_repository.dart';
+import 'package:skelter/presentation/feedback/domain/usecases/submit_feedback.dart';
 import 'package:skelter/presentation/home/data/datasources/product_remote_data_source.dart';
 import 'package:skelter/presentation/home/data/repositories/product_repository_impl.dart';
 import 'package:skelter/presentation/home/domain/repositories/product_repository.dart';
@@ -23,8 +30,12 @@ import 'package:skelter/presentation/product_detail/domain/usecases/generate_ai_
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/ai/gemini_service.dart';
+import 'package:skelter/services/dynamic_icon_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/firestore_service.dart';
 import 'package:skelter/services/local_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/services/remote_config_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
@@ -64,7 +75,8 @@ Future<void> configureDependencies({
   await cacheManager.initialize();
   sl.registerSingleton<CacheManager>(cacheManager);
 
-  final pinnedDio = dio ??
+  final pinnedDio =
+      dio ??
       Dio(
         BaseOptions(
           baseUrl: AppConfig.baseUrl,
@@ -99,6 +111,13 @@ Future<void> configureDependencies({
       () => AIProductDescriptionRemoteDataSourceImpl(sl()),
     )
     ..registerLazySingleton(() => GeminiService())
+    ..registerLazySingleton<FirebasePerformance>(
+      () => FirebasePerformance.instance,
+    )
+    ..registerLazySingleton(
+      () =>
+          PerformanceMonitoringService(performance: sl<FirebasePerformance>()),
+    )
     ..registerLazySingleton(() => GetExchangeRate(sl()))
     ..registerLazySingleton<CurrencyConverterRepository>(
       () => CurrencyConverterRepositoryImpl(sl()),
@@ -111,6 +130,20 @@ Future<void> configureDependencies({
     ..registerLazySingleton<AppDeepLinkManager>(() => AppDeepLinkManager())
     ..registerLazySingleton<LocalAuthService>(
       () => LocalAuthService(LocalAuthentication()),
+    )
+    ..registerLazySingleton<DynamicIconService>(
+      () => DynamicIconService(remoteConfigService: RemoteConfigService()),
+    )
+    ..registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance)
+    ..registerLazySingleton<FirestoreService>(
+      () => FirestoreService(firestore: sl<FirebaseFirestore>()),
+    )
+    ..registerLazySingleton(() => SubmitFeedback(sl()))
+    ..registerLazySingleton<FeedbackRepository>(
+      () => FeedbackRepositoryImpl(sl()),
+    )
+    ..registerLazySingleton<FeedbackRemoteDatasource>(
+      () => FeedbackRemoteDatasourceImpl(sl<FirestoreService>()),
     );
 }
 
@@ -132,8 +165,10 @@ InterceptorsWrapper get _sslPinningErrorInterceptor {
       if (dioError.error.toString().contains(kConnectionIsNotSecureError)) {
         debugPrint('[SSL Pinning] Connection is not secure!');
 
-        await rootNavigatorKey.currentContext!.router
-            .replaceAll([const SslConnectionFailedRoute()]);
+        AppTourService.dismissTour();
+        await rootNavigatorKey.currentContext!.router.replaceAll([
+          const SslConnectionFailedRoute(),
+        ]);
       }
 
       handler.next(dioError);
@@ -142,54 +177,52 @@ InterceptorsWrapper get _sslPinningErrorInterceptor {
 }
 
 InterceptorsWrapper _authErrorInterceptor() => InterceptorsWrapper(
-      onError: (DioException dioError, ErrorInterceptorHandler handler) async {
-        final statusCode = dioError.response?.statusCode ?? 0;
+  onError: (DioException dioError, ErrorInterceptorHandler handler) async {
+    final statusCode = dioError.response?.statusCode ?? 0;
 
-        debugPrint(
-          '[AuthErrorInterceptor] status: $statusCode',
-        );
+    debugPrint('[AuthErrorInterceptor] status: $statusCode');
 
-        final shouldLogout =
-            !_isForceLoggingOutUser && (statusCode == 401 || statusCode == 403);
+    final shouldLogout =
+        !_isForceLoggingOutUser && (statusCode == 401 || statusCode == 403);
 
-        if (shouldLogout) {
-          _isForceLoggingOutUser = true;
-          try {
-            await Prefs.clear();
-            await sl<CacheManager>().clearCachedApiResponse();
-            await sl<FirebaseAuthService>().signOut();
+    if (shouldLogout) {
+      _isForceLoggingOutUser = true;
+      try {
+        await Prefs.clear();
+        await sl<CacheManager>().clearCachedApiResponse();
+        await sl<FirebaseAuthService>().signOut();
 
-            final currentContext = rootNavigatorKey.currentContext;
-            if (currentContext != null) {
-              await currentContext.router
-                  .replaceAll([LoginWithPhoneNumberRoute()]);
-            } else {
-              debugPrint(
-                '[AuthErrorInterceptor] No navigator context available',
-              );
-            }
-          } catch (e) {
-            debugPrint('[AuthErrorInterceptor] Logout failed: $e');
-          } finally {
-            _isForceLoggingOutUser = false;
-          }
+        final currentContext = rootNavigatorKey.currentContext;
+        if (currentContext != null) {
+          await currentContext.router.replaceAll([LoginWithPhoneNumberRoute()]);
+        } else {
+          debugPrint('[AuthErrorInterceptor] No navigator context available');
         }
+      } catch (e) {
+        debugPrint('[AuthErrorInterceptor] Logout failed: $e');
+      } finally {
+        _isForceLoggingOutUser = false;
+      }
+    }
 
-        handler.next(dioError);
-      },
-    );
+    handler.next(dioError);
+  },
+);
 
 String _getCertHash() {
   final certificateHash = AppConfig.getDioCertHash();
   if (certificateHash.isEmpty) {
-    throw Exception('[SSL Pinning] Missing certificate hash for: '
-        '${AppConfig.appFlavor.name}');
+    throw Exception(
+      '[SSL Pinning] Missing certificate hash for: '
+      '${AppConfig.appFlavor.name}',
+    );
   }
 
   if (certificateHash.length != 64) {
     throw Exception(
-        '[SSL Pinning] Certificate hash length is not 64 characters. '
-        'Current length: ${certificateHash.length}');
+      '[SSL Pinning] Certificate hash length is not 64 characters. '
+      'Current length: ${certificateHash.length}',
+    );
   }
 
   debugPrint('[SSL Pinning] Using SHA-256 certHash: "$certificateHash"');

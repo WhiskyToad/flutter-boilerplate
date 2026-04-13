@@ -26,8 +26,10 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
   @override
   void initState() {
     super.initState();
-    final emailPasswordLoginState =
-        context.read<LoginBloc>().state.emailPasswordLoginState;
+    final emailPasswordLoginState = context
+        .read<LoginBloc>()
+        .state
+        .emailPasswordLoginState;
 
     _emailController.text = emailPasswordLoginState?.email ?? '';
     _passwordController.text = emailPasswordLoginState?.password ?? '';
@@ -63,16 +65,18 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
         children: [
           Text(
             context.localization.email,
-            style: AppTextStyles.p3Medium
-                .copyWith(color: context.currentTheme.textNeutralPrimary),
+            style: AppTextStyles.p3Medium.copyWith(
+              color: context.currentTheme.textNeutralPrimary,
+            ),
           ),
           const SizedBox(height: 6),
           ClarityMask(
             child: TextField(
               key: keys.signInPage.emailTextField,
               controller: _emailController,
-              style: AppTextStyles.p3Medium
-                  .copyWith(color: context.currentTheme.textNeutralPrimary),
+              style: AppTextStyles.p3Medium.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
               decoration: InputDecoration(
                 hintText: context.localization.email_hint,
                 hintStyle: AppTextStyles.p3Medium.copyWith(
@@ -93,18 +97,16 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            context.localization.password,
-            style: AppTextStyles.p3Medium,
-          ),
+          Text(context.localization.password, style: AppTextStyles.p3Medium),
           const SizedBox(height: 6),
           ClarityMask(
             child: TextField(
               key: keys.signInPage.passwordTextField,
               controller: _passwordController,
               obscureText: !isPasswordVisible,
-              style: AppTextStyles.p3Medium
-                  .copyWith(color: context.currentTheme.textNeutralPrimary),
+              style: AppTextStyles.p3Medium.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
               decoration: InputDecoration(
                 hintText: context.localization.password_hint,
                 hintStyle: AppTextStyles.p3Medium.copyWith(
@@ -127,10 +129,10 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
                   ),
                   onPressed: () {
                     context.read<LoginBloc>().add(
-                          IsPasswordVisibleEvent(
-                            isPasswordVisible: !isPasswordVisible,
-                          ),
-                        );
+                      IsPasswordVisibleEvent(
+                        isPasswordVisible: !isPasswordVisible,
+                      ),
+                    );
                   },
                 ),
               ),
@@ -152,8 +154,8 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
       context.read<LoginBloc>().add(EmailErrorEvent(errorMessage: ''));
     }
     context.read<LoginBloc>().add(
-          EmailChangeEvent(email: _emailController.text),
-        );
+      EmailChangeEvent(email: _emailController.text),
+    );
   }
 
   void _passwordControllerListener() {
@@ -166,8 +168,8 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
       context.read<LoginBloc>().add(PasswordErrorEvent(errorMessage: ''));
     }
     context.read<LoginBloc>().add(
-          PasswordChangeEvent(password: _passwordController.text),
-        );
+      PasswordChangeEvent(password: _passwordController.text),
+    );
   }
 
   OutlineInputBorder buildOutlineInputBorder({
@@ -180,8 +182,8 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

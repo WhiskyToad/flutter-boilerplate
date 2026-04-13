@@ -42,10 +42,12 @@ class EmailPasswordSignUpState with EquatableMixin {
     return EmailPasswordSignUpState(
       email: email ?? this.email,
       password: password ?? this.password,
-      emailErrorMessage: emailErrorMessage ??
+      emailErrorMessage:
+          emailErrorMessage ??
           (canSetEmailErrorMessageToNull ? null : this.emailErrorMessage),
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
-      passwordErrorMessage: passwordErrorMessage ??
+      passwordErrorMessage:
+          passwordErrorMessage ??
           (canSetPasswordErrorMessageToNull ? null : this.passwordErrorMessage),
       authenticationErrorMessage:
           authenticationErrorMessage ?? this.authenticationErrorMessage,
@@ -73,11 +75,11 @@ class EmailPasswordSignUpState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        email,
-        password,
-        emailErrorMessage,
-        isPasswordVisible,
-        passwordErrorMessage,
-        authenticationErrorMessage,
-      ];
+    email,
+    password,
+    emailErrorMessage,
+    isPasswordVisible,
+    passwordErrorMessage,
+    authenticationErrorMessage,
+  ];
 }

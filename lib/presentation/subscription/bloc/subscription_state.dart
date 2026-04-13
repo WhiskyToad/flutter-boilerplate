@@ -22,22 +22,22 @@ class SubscriptionState with EquatableMixin {
   });
 
   SubscriptionState.initial()
-      : packages = [],
-        selectedPackage = null,
-        isLoadingPackages = true,
-        isProcessingPayment = false,
-        isRestoring = false,
-        errorMessage = null,
-        restoreStatusMessage = null;
+    : packages = [],
+      selectedPackage = null,
+      isLoadingPackages = true,
+      isProcessingPayment = false,
+      isRestoring = false,
+      errorMessage = null,
+      restoreStatusMessage = null;
 
   SubscriptionState.copy(SubscriptionState state)
-      : packages = state.packages,
-        selectedPackage = state.selectedPackage,
-        isLoadingPackages = state.isLoadingPackages,
-        isProcessingPayment = state.isProcessingPayment,
-        isRestoring = state.isRestoring,
-        errorMessage = state.errorMessage,
-        restoreStatusMessage = state.restoreStatusMessage;
+    : packages = state.packages,
+      selectedPackage = state.selectedPackage,
+      isLoadingPackages = state.isLoadingPackages,
+      isProcessingPayment = state.isProcessingPayment,
+      isRestoring = state.isRestoring,
+      errorMessage = state.errorMessage,
+      restoreStatusMessage = state.restoreStatusMessage;
 
   SubscriptionState copyWith({
     List<SubscriptionPackageModel>? packages,
@@ -75,14 +75,14 @@ class SubscriptionState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        packages,
-        selectedPackage,
-        isLoadingPackages,
-        isProcessingPayment,
-        isRestoring,
-        errorMessage,
-        restoreStatusMessage,
-      ];
+    packages,
+    selectedPackage,
+    isLoadingPackages,
+    isProcessingPayment,
+    isRestoring,
+    errorMessage,
+    restoreStatusMessage,
+  ];
 }
 
 class FetchSubscriptionPlanLoadingState extends SubscriptionState {
@@ -98,18 +98,18 @@ class FetchSubscriptionPlanFailureState extends SubscriptionState {
     SubscriptionState state, {
     required String error,
   }) : super.copy(
-          state.copyWith(errorMessage: error, isLoadingPackages: false),
-        );
+         state.copyWith(errorMessage: error, isLoadingPackages: false),
+       );
 }
 
 class SubscriptionPaymentProcessingState extends SubscriptionState {
   SubscriptionPaymentProcessingState(SubscriptionState state)
-      : super.copy(state.copyWith(isProcessingPayment: true));
+    : super.copy(state.copyWith(isProcessingPayment: true));
 }
 
 class SubscriptionPaymentSuccessState extends SubscriptionState {
   SubscriptionPaymentSuccessState(SubscriptionState state)
-      : super.copy(state.copyWith(isProcessingPayment: false));
+    : super.copy(state.copyWith(isProcessingPayment: false));
 }
 
 class SubscriptionPaymentFailureState extends SubscriptionState {
@@ -117,6 +117,6 @@ class SubscriptionPaymentFailureState extends SubscriptionState {
     SubscriptionState state, {
     required String error,
   }) : super.copy(
-          state.copyWith(errorMessage: error, isProcessingPayment: false),
-        );
+         state.copyWith(errorMessage: error, isProcessingPayment: false),
+       );
 }

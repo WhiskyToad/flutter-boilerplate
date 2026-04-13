@@ -10,8 +10,9 @@ class ContactUsDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.localization.contact_us_message,
-      style: AppTextStyles.p2Regular
-          .copyWith(color: context.currentTheme.textNeutralPrimary),
+      style: AppTextStyles.p2Regular.copyWith(
+        color: context.currentTheme.textNeutralPrimary,
+      ),
     );
   }
 }

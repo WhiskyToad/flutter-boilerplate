@@ -36,8 +36,9 @@ class _NewMessageTextFieldState extends State<NewMessageTextField> {
           Expanded(
             child: TextField(
               controller: _fullNameController,
-              style: AppTextStyles.p3Medium
-                  .copyWith(color: context.currentTheme.textNeutralPrimary),
+              style: AppTextStyles.p3Medium.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
               decoration: InputDecoration(
                 hintText: context.localization.send_a_new_message,
                 hintStyle: AppTextStyles.p3Medium.copyWith(
@@ -56,18 +57,21 @@ class _NewMessageTextFieldState extends State<NewMessageTextField> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide:
-                      BorderSide(color: context.currentTheme.textNeutralLight),
+                  borderSide: BorderSide(
+                    color: context.currentTheme.textNeutralLight,
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide:
-                      BorderSide(color: context.currentTheme.textNeutralLight),
+                  borderSide: BorderSide(
+                    color: context.currentTheme.textNeutralLight,
+                  ),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide:
-                      BorderSide(color: context.currentTheme.textErrorLight),
+                  borderSide: BorderSide(
+                    color: context.currentTheme.textErrorLight,
+                  ),
                 ),
               ),
               textInputAction: TextInputAction.send,

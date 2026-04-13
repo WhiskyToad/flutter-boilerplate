@@ -21,9 +21,7 @@ class Price extends StatelessWidget {
           color: context.currentTheme.textBrandPrimary,
         ),
         children: <InlineSpan>[
-          const WidgetSpan(
-            child: SizedBox(width: 5),
-          ),
+          const WidgetSpan(child: SizedBox(width: 5)),
           TextSpan(
             text: context.localization.inclusive_of_taxes,
             style: AppTextStyles.p3Medium.copyWith(

@@ -57,8 +57,9 @@ class LocalAuthService {
 
   Future<bool> hasRecentMultipleAuthAttempts() async {
     final currentLocalAuthTime = getCurrentDateTime();
-    final lastAuthTimestampMillis =
-        await Prefs.getInt(PrefKeys.kLastLocalAuthTimestamp);
+    final lastAuthTimestampMillis = await Prefs.getInt(
+      PrefKeys.kLastLocalAuthTimestamp,
+    );
 
     final lastLocalAuthTime = lastAuthTimestampMillis != null
         ? DateTime.fromMillisecondsSinceEpoch(lastAuthTimestampMillis)

@@ -27,6 +27,7 @@ class RemoteConfigService {
       await FirebaseRemoteConfig.instance.setDefaults(const {
         kRemoteConfigAppLatestVersionKey: '1.0.0',
         kRemoteConfigMandatoryAppVersionKey: '1.0.0',
+        kRemoteConfigActiveAppIconKey: 'default',
       });
 
       final activated = await FirebaseRemoteConfig.instance.fetchAndActivate();
@@ -56,10 +57,14 @@ class RemoteConfigService {
   }
 
   void _logCurrentValues() {
-    debugPrint('[RemoteConfig] MandatoryAppVersion: '
-        '${getString(kRemoteConfigMandatoryAppVersionKey)}');
+    debugPrint(
+      '[RemoteConfig] MandatoryAppVersion: '
+      '${getString(kRemoteConfigMandatoryAppVersionKey)}',
+    );
 
-    debugPrint('[RemoteConfig] AppLatestVersion: '
-        '${getString(kRemoteConfigAppLatestVersionKey)}');
+    debugPrint(
+      '[RemoteConfig] AppLatestVersion: '
+      '${getString(kRemoteConfigAppLatestVersionKey)}',
+    );
   }
 }

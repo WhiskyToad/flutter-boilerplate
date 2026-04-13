@@ -11,9 +11,9 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
   final AppLocalizations _localizations;
 
   ReminderBloc({required AppLocalizations localizations})
-      : _localizations = localizations,
-        _notificationService = NotificationService.instance,
-        super(ReminderState.initial()) {
+    : _localizations = localizations,
+      _notificationService = NotificationService.instance,
+      super(ReminderState.initial()) {
     _setupEventListeners();
   }
 
@@ -48,10 +48,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     emit(state.copyWith(selectedDateTime: event.dateTime));
   }
 
-  void _onTitleErrorEvent(
-    TitleErrorEvent event,
-    Emitter<ReminderState> emit,
-  ) {
+  void _onTitleErrorEvent(TitleErrorEvent event, Emitter<ReminderState> emit) {
     emit(state.copyWith(titleError: event.error));
   }
 
@@ -95,17 +92,11 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       if (success) {
         emit(ReminderScheduledState(ReminderState.initial()));
       } else {
-        emit(
-          ReminderSchedulingFailedState(
-            state.copyWith(isLoading: false),
-          ),
-        );
+        emit(ReminderSchedulingFailedState(state.copyWith(isLoading: false)));
       }
     } catch (e) {
       debugPrint('Error scheduling reminder: $e');
-      emit(
-        ReminderSchedulingFailedState(state.copyWith(isLoading: false)),
-      );
+      emit(ReminderSchedulingFailedState(state.copyWith(isLoading: false)));
     }
   }
 

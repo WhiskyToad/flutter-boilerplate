@@ -6,12 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   return AlchemistConfig.runWithConfig(
     config: const AlchemistConfig(
-      platformGoldensConfig: PlatformGoldensConfig(
-        enabled: true,
-      ),
-      ciGoldensConfig: CiGoldensConfig(
-        enabled: false,
-      ),
+      platformGoldensConfig: PlatformGoldensConfig(),
+      ciGoldensConfig: CiGoldensConfig(enabled: false),
     ),
     run: () async {
       TestWidgetsFlutterBinding.ensureInitialized();

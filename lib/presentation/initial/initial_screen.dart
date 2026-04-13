@@ -78,8 +78,9 @@ class _InitialScreenState extends State<InitialScreen> {
       if (!mounted) return;
 
       if (deepLinkManager.hasPendingDeepLink) {
-        final isDeepLinkHandled =
-            await deepLinkManager.handlePendingDeepLink(context);
+        final isDeepLinkHandled = await deepLinkManager.handlePendingDeepLink(
+          context,
+        );
 
         // Case 1: Deep link exists -> try handling it; if invalid,
         // navigate to Home.
@@ -95,20 +96,20 @@ class _InitialScreenState extends State<InitialScreen> {
     }
   }
 
-  Future<void> showOptionalUpdate({
-    required BuildContext context,
-  }) async {
+  Future<void> showOptionalUpdate({required BuildContext context}) async {
     final dateTimeNow = DateTime.now();
 
-    final lastShownUpdatePromptTimeStamp =
-        await Prefs.getInt(kLastShownUpdatePromptTimestamp);
+    final lastShownUpdatePromptTimeStamp = await Prefs.getInt(
+      kLastShownUpdatePromptTimestamp,
+    );
 
     final lastShownUpdateTime = lastShownUpdatePromptTimeStamp != null
         ? DateTime.fromMillisecondsSinceEpoch(lastShownUpdatePromptTimeStamp)
         : null;
 
     final hasNeverBeenShown = lastShownUpdateTime == null;
-    final cooldownTimePassed = lastShownUpdateTime != null &&
+    final cooldownTimePassed =
+        lastShownUpdateTime != null &&
         dateTimeNow.difference(lastShownUpdateTime) >=
             kOptionalUpdateCooldownTime;
 
@@ -120,9 +121,7 @@ class _InitialScreenState extends State<InitialScreen> {
         dateTimeNow.millisecondsSinceEpoch,
       );
 
-      await context.router.push(
-        ForceUpdateRoute(isMandatoryUpdate: false),
-      );
+      await context.router.push(ForceUpdateRoute(isMandatoryUpdate: false));
     }
   }
 
@@ -137,8 +136,9 @@ class _InitialScreenState extends State<InitialScreen> {
       return;
     }
 
-    final biometricAuthStatus =
-        await localAuthService.authenticate(context.localization);
+    final biometricAuthStatus = await localAuthService.authenticate(
+      context.localization,
+    );
 
     switch (biometricAuthStatus) {
       case BiometricAuthStatus.success:

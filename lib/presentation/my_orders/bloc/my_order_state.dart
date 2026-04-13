@@ -23,22 +23,22 @@ class MyOrderState extends Equatable {
   final String? generatedInvoiceName;
 
   const MyOrderState.initial()
-      : products = const [],
-        selectedProductDetail = null,
-        isProductDetailLoading = false,
-        isGeneratingInvoice = false,
-        invoiceGenerationError = null,
-        generatedInvoicePdf = null,
-        generatedInvoiceName = null;
+    : products = const [],
+      selectedProductDetail = null,
+      isProductDetailLoading = false,
+      isGeneratingInvoice = false,
+      invoiceGenerationError = null,
+      generatedInvoicePdf = null,
+      generatedInvoiceName = null;
 
   MyOrderState.copy(MyOrderState state)
-      : products = state.products,
-        selectedProductDetail = state.selectedProductDetail,
-        isProductDetailLoading = state.isProductDetailLoading,
-        isGeneratingInvoice = state.isGeneratingInvoice,
-        invoiceGenerationError = state.invoiceGenerationError,
-        generatedInvoicePdf = state.generatedInvoicePdf,
-        generatedInvoiceName = state.generatedInvoiceName;
+    : products = state.products,
+      selectedProductDetail = state.selectedProductDetail,
+      isProductDetailLoading = state.isProductDetailLoading,
+      isGeneratingInvoice = state.isGeneratingInvoice,
+      invoiceGenerationError = state.invoiceGenerationError,
+      generatedInvoicePdf = state.generatedInvoicePdf,
+      generatedInvoiceName = state.generatedInvoiceName;
 
   MyOrderState copyWith({
     List<Product>? products,
@@ -71,16 +71,27 @@ class MyOrderState extends Equatable {
     );
   }
 
+  @visibleForTesting
+  const MyOrderState.test({
+    this.products = const [],
+    this.selectedProductDetail,
+    this.isProductDetailLoading = false,
+    this.isGeneratingInvoice = false,
+    this.invoiceGenerationError,
+    this.generatedInvoicePdf,
+    this.generatedInvoiceName,
+  });
+
   @override
   List<Object?> get props => [
-        products,
-        selectedProductDetail,
-        isProductDetailLoading,
-        isGeneratingInvoice,
-        invoiceGenerationError,
-        generatedInvoicePdf,
-        generatedInvoiceName,
-      ];
+    products,
+    selectedProductDetail,
+    isProductDetailLoading,
+    isGeneratingInvoice,
+    invoiceGenerationError,
+    generatedInvoicePdf,
+    generatedInvoiceName,
+  ];
 }
 
 class MyOrderLoadingState extends MyOrderState {
@@ -89,7 +100,7 @@ class MyOrderLoadingState extends MyOrderState {
 
 class MyOrderLoadedState extends MyOrderState {
   MyOrderLoadedState(MyOrderState state, {required List<Product> products})
-      : super.copy(state.copyWith(products: products));
+    : super.copy(state.copyWith(products: products));
 }
 
 class MyOrderErrorState extends MyOrderState {
@@ -100,7 +111,7 @@ class MyOrderErrorState extends MyOrderState {
 
 class ProductDetailLoadingState extends MyOrderState {
   ProductDetailLoadingState(MyOrderState state)
-      : super.copy(state.copyWith(isProductDetailLoading: true));
+    : super.copy(state.copyWith(isProductDetailLoading: true));
 }
 
 class ProductDetailLoadedState extends MyOrderState {
@@ -108,16 +119,16 @@ class ProductDetailLoadedState extends MyOrderState {
     MyOrderState state, {
     required ProductDetail productDetail,
   }) : super.copy(
-          state.copyWith(
-            selectedProductDetail: productDetail,
-            isProductDetailLoading: false,
-          ),
-        );
+         state.copyWith(
+           selectedProductDetail: productDetail,
+           isProductDetailLoading: false,
+         ),
+       );
 }
 
 class ProductDetailErrorState extends MyOrderState {
   final String errorMessage;
 
   ProductDetailErrorState(MyOrderState state, {required this.errorMessage})
-      : super.copy(state.copyWith(isProductDetailLoading: false));
+    : super.copy(state.copyWith(isProductDetailLoading: false));
 }

@@ -56,8 +56,9 @@ class ThemeListOptions extends StatelessWidget {
             Expanded(
               child: Text(
                 themeMode,
-                style: AppTextStyles.p2Medium
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.p2Medium.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
               ),
             ),
           ],

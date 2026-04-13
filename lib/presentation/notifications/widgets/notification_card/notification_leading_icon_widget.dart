@@ -21,9 +21,7 @@ class NotificationLeadingIconWidget extends StatelessWidget {
           child: notificationModel.notificationType.getIcon,
         ),
         if (!notificationModel.isSeen) ...[
-          const SizedBox(
-            height: 8.0,
-          ),
+          const SizedBox(height: 8.0),
           Container(
             height: 8.0,
             width: 8.0,

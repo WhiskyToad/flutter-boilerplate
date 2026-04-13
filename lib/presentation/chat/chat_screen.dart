@@ -43,9 +43,7 @@ class ChatScreen extends StatelessWidget {
 }
 
 class ShimmerLoadingView extends StatelessWidget {
-  const ShimmerLoadingView({
-    super.key,
-  });
+  const ShimmerLoadingView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +60,7 @@ class ShimmerLoadingView extends StatelessWidget {
 }
 
 class ChatMessages extends StatelessWidget {
-  const ChatMessages({
-    super.key,
-  });
+  const ChatMessages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +72,9 @@ class ChatMessages extends StatelessWidget {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  context.router
-                      .push(ChatConversationRoute(chatUser: sampleData[index]));
+                  context.router.push(
+                    ChatConversationRoute(chatUser: sampleData[index]),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),

@@ -31,8 +31,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   void _passwordControllerListener() {
     // TODO: add a debouncer
     context.read<SignupBloc>().add(
-          SignupPasswordChangeEvent(password: _passwordController.text),
-        );
+      SignupPasswordChangeEvent(password: _passwordController.text),
+    );
   }
 
   @override
@@ -83,10 +83,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 ),
                 onPressed: () {
                   context.read<SignupBloc>().add(
-                        TogglePasswordVisibilityEvent(
-                          isVisible: !isPasswordVisible,
-                        ),
-                      );
+                    TogglePasswordVisibilityEvent(
+                      isVisible: !isPasswordVisible,
+                    ),
+                  );
                 },
               ),
             ),
@@ -107,8 +107,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

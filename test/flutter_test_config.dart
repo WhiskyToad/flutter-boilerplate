@@ -13,11 +13,9 @@ Future<void> testExecutable(
       theme: AppThemesData.themeData[AppThemeEnum.LightTheme],
       forceUpdateGoldenFiles: forceUpdateGoldenFiles,
       platformGoldensConfig: const PlatformGoldensConfig(
-        enabled: !isRunningInCi,
+        enabled: !isRunningInCi, // ignore: avoid_redundant_argument_values
       ),
-      ciGoldensConfig: const CiGoldensConfig(
-        enabled: isRunningInCi,
-      ),
+      ciGoldensConfig: const CiGoldensConfig(enabled: isRunningInCi),
     ),
     run: testMain,
   );

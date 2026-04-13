@@ -42,7 +42,7 @@ class LoginAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {},
             )
           : null,
-      actions: [if (rightAction != null) rightAction!],
+      actions: [?rightAction],
       centerTitle: true,
       elevation: 0.01,
       shadowColor: context.currentTheme.strokeNeutralLight50,

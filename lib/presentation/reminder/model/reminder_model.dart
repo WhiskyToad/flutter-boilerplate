@@ -14,10 +14,5 @@ class ReminderModel extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        title,
-        description,
-        scheduledDateTime,
-      ];
+  List<Object?> get props => [id, title, description, scheduledDateTime];
 }

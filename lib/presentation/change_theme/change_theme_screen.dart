@@ -62,9 +62,9 @@ class _ChangeThemeScreenBody extends StatelessWidget {
               child: ThemeListOptions(
                 themeMode: themeMode.name.toLowerCase().capitalizeFirst,
                 isSelected: selectedThemeMode == themeMode,
-                onSelected: () => context
-                    .read<ThemeBloc>()
-                    .add(SetThemeModeEvent(mode: themeMode)),
+                onSelected: () => context.read<ThemeBloc>().add(
+                  SetThemeModeEvent(mode: themeMode),
+                ),
               ),
             );
           }).toList(),

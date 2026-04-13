@@ -25,9 +25,7 @@ class BiometricAuthToggleTile extends StatelessWidget {
       height: 57,
       decoration: BoxDecoration(
         color: context.currentTheme.bgSurfaceBase2,
-        border: Border.all(
-          color: context.currentTheme.strokeNeutralLight200,
-        ),
+        border: Border.all(color: context.currentTheme.strokeNeutralLight200),
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
@@ -49,8 +47,8 @@ class BiometricAuthToggleTile extends StatelessWidget {
             onChanged: isBiometricSupported
                 ? (value) {
                     context.read<BiometricAuthBloc>().add(
-                          BiometricAuthToggleEvent(isBiometricEnabled: value),
-                        );
+                      BiometricAuthToggleEvent(isBiometricEnabled: value),
+                    );
                   }
                 : null,
             activeColor: context.currentTheme.bgBrandDefault,

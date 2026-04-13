@@ -24,8 +24,8 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     );
     const discount = 25.9;
     const deliveryCharges = 10.0;
-    final finalAmount =
-        ((totalPrice - discount) + deliveryCharges).toStringAsFixed(2);
+    final finalAmount = ((totalPrice - discount) + deliveryCharges)
+        .toStringAsFixed(2);
 
     emit(
       state.copyWith(
@@ -48,8 +48,6 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     SelectPaymentMethodEvent event,
     Emitter<CheckoutState> emit,
   ) {
-    emit(
-      state.copyWith(isPaymentMethodOnline: event.isPaymentMethodOnline),
-    );
+    emit(state.copyWith(isPaymentMethodOnline: event.isPaymentMethodOnline));
   }
 }

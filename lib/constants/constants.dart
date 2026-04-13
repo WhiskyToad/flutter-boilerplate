@@ -54,6 +54,19 @@ const kFirebaseAuthSessionExpiredException = 'session-expired';
 const kFirebaseAuthSessionEmailAlreadyInUse = 'email-already-in-use';
 const kFirebaseAuthRequiresRecentLogin = 'requires-recent-login';
 
+// Firestore exception codes
+const String kFirestorePermissionDenied = 'permission-denied';
+const String kFirestoreNotFound = 'not-found';
+const String kFirestoreAlreadyExists = 'already-exists';
+const String kFirestoreResourceExhausted = 'resource-exhausted';
+const String kFirestoreUnauthenticated = 'unauthenticated';
+const String kFirestoreUnavailable = 'unavailable';
+const String kFirestoreCancelled = 'cancelled';
+const String kFirestoreDeadlineExceeded = 'deadline-exceeded';
+const String kFirestoreInvalidArgument = 'invalid-argument';
+const String kFirestoreInternal = 'internal';
+const String kFirestoreDataLoss = 'data-loss';
+
 // Network/SSL pinning constants
 const String kConnectionIsNotSecureError = 'Connection is not secure';
 
@@ -73,3 +86,25 @@ const revenueCatMonthly = 'monthly';
 // Invoice constants
 const String expectedDeliveryDate = '9:00 am, Sat, 15 Apr';
 const String paymentMethodAxis = 'Axis Bank **** **** **** 8395';
+
+// Performance Monitoring Traces
+const String kTraceApiGetProducts = 'api_get_products';
+const String kTraceLoginEmailPassword = 'login_email_password';
+const String kTraceLoginGoogle = 'login_google';
+const String kTraceLoginApple = 'login_apple';
+const String kTraceLoginPhone = 'login_phone';
+const String kTraceSignupEmail = 'signup_email';
+const String kTraceApiGetProductDetail = 'api_get_product_detail';
+const String kTraceAIDescriptionGeneration = 'ai_description_generation';
+const String kTraceAIVisionGeneration = 'ai_vision_generation';
+const String kTraceCheckoutProcess = 'checkout_process';
+const String kTraceDeleteAccount = 'delete_account';
+const String kTraceSignOut = 'sign_out';
+const String kTraceFetchSubscriptionPackages = 'fetch_subscription_packages';
+const String kTracePurchaseSubscription = 'purchase_subscription';
+const String kTraceRestoreSubscription = 'restore_subscription';
+const String kTraceApiGetOrders = 'api_get_orders';
+
+// Performance Monitoring Trace Attribute Keys
+const String kTraceAttrSuccess = 'success';
+const String kTraceAttrError = 'error';

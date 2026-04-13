@@ -71,8 +71,8 @@ class _NameTextFieldState extends State<NameTextField> {
         color: isErrorBorder ?? false
             ? context.currentTheme.strokeErrorDefault
             : hasFocus ?? false
-                ? context.currentTheme.strokeBrandHover
-                : context.currentTheme.strokeNeutralLight200,
+            ? context.currentTheme.strokeBrandHover
+            : context.currentTheme.strokeNeutralLight200,
       ),
     );
   }

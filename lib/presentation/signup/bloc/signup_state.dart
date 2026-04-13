@@ -84,31 +84,30 @@ class SignupState with EquatableMixin {
   }
 
   SignupState.copy(SignupState state)
-      : this(
-          handle: state.handle,
-          handleErrorMessage: state.handleErrorMessage,
-          handleNameStatus: state.handleNameStatus,
-          shouldShowHandleInputSuffix: state.shouldShowHandleInputSuffix,
-          isLoading: state.isLoading,
-          isDoneProfilePicEditing: state.isDoneProfilePicEditing,
-          selectedProfilePicture: state.selectedProfilePicture,
-          selectedLoginSignupType: state.selectedLoginSignupType,
-          email: state.email,
-          password: state.password,
-          confirmPassword: state.confirmPassword,
-          confirmPasswordErrorMessage: state.confirmPasswordErrorMessage,
-          emailErrorMessage: state.emailErrorMessage,
-          isPasswordVisible: state.isPasswordVisible,
-          isConfirmPasswordVisible: state.isConfirmPasswordVisible,
-          passwordStrengthLevel: state.passwordStrengthLevel,
-          isPasswordLongEnough: state.isPasswordLongEnough,
-          hasLetterAndNumberInPassword: state.hasLetterAndNumberInPassword,
-          hasSpecialCharacterInPassword: state.hasSpecialCharacterInPassword,
-          resendVerificationEmailTimeLeft:
-              state.resendVerificationEmailTimeLeft,
-          userDetailsInputStatus: state.userDetailsInputStatus,
-          authenticationErrorMessage: state.authenticationErrorMessage,
-        );
+    : this(
+        handle: state.handle,
+        handleErrorMessage: state.handleErrorMessage,
+        handleNameStatus: state.handleNameStatus,
+        shouldShowHandleInputSuffix: state.shouldShowHandleInputSuffix,
+        isLoading: state.isLoading,
+        isDoneProfilePicEditing: state.isDoneProfilePicEditing,
+        selectedProfilePicture: state.selectedProfilePicture,
+        selectedLoginSignupType: state.selectedLoginSignupType,
+        email: state.email,
+        password: state.password,
+        confirmPassword: state.confirmPassword,
+        confirmPasswordErrorMessage: state.confirmPasswordErrorMessage,
+        emailErrorMessage: state.emailErrorMessage,
+        isPasswordVisible: state.isPasswordVisible,
+        isConfirmPasswordVisible: state.isConfirmPasswordVisible,
+        passwordStrengthLevel: state.passwordStrengthLevel,
+        isPasswordLongEnough: state.isPasswordLongEnough,
+        hasLetterAndNumberInPassword: state.hasLetterAndNumberInPassword,
+        hasSpecialCharacterInPassword: state.hasSpecialCharacterInPassword,
+        resendVerificationEmailTimeLeft: state.resendVerificationEmailTimeLeft,
+        userDetailsInputStatus: state.userDetailsInputStatus,
+        authenticationErrorMessage: state.authenticationErrorMessage,
+      );
 
   SignupState copyWith({
     String? handle,
@@ -140,7 +139,8 @@ class SignupState with EquatableMixin {
   }) {
     return SignupState(
       handle: handle ?? this.handle,
-      handleErrorMessage: handleErrorMessage ??
+      handleErrorMessage:
+          handleErrorMessage ??
           (canSetHandleErrorMessageToNull ? null : this.handleErrorMessage),
       handleNameStatus: handleNameStatus ?? this.handleNameStatus,
       shouldShowHandleInputSuffix:
@@ -148,18 +148,21 @@ class SignupState with EquatableMixin {
       isDoneProfilePicEditing:
           isDoneProfilePicEditing ?? this.isDoneProfilePicEditing,
       isLoading: isLoading ?? this.isLoading,
-      selectedProfilePicture: selectedProfilePicture ??
+      selectedProfilePicture:
+          selectedProfilePicture ??
           (canSetProfilePictureToNull ? null : this.selectedProfilePicture),
       selectedLoginSignupType:
           selectedLoginSignupType ?? this.selectedLoginSignupType,
       email: email ?? this.email,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
-      confirmPasswordErrorMessage: confirmPasswordErrorMessage ??
+      confirmPasswordErrorMessage:
+          confirmPasswordErrorMessage ??
           (canSetConfirmPasswordMessageToNull
               ? null
               : this.confirmPasswordErrorMessage),
-      emailErrorMessage: emailErrorMessage ??
+      emailErrorMessage:
+          emailErrorMessage ??
           (canSetEmailErrorMessageToNull ? null : this.emailErrorMessage),
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
       isConfirmPasswordVisible:
@@ -171,7 +174,8 @@ class SignupState with EquatableMixin {
           hasLetterAndNumberInPassword ?? this.hasLetterAndNumberInPassword,
       hasSpecialCharacterInPassword:
           hasSpecialCharacterInPassword ?? this.hasSpecialCharacterInPassword,
-      resendVerificationEmailTimeLeft: resendVerificationEmailTimeLeft ??
+      resendVerificationEmailTimeLeft:
+          resendVerificationEmailTimeLeft ??
           this.resendVerificationEmailTimeLeft,
       userDetailsInputStatus:
           userDetailsInputStatus ?? this.userDetailsInputStatus,
@@ -225,7 +229,8 @@ class SignupState with EquatableMixin {
       isPasswordLongEnough: isPasswordLongEnough ?? false,
       hasLetterAndNumberInPassword: hasLetterAndNumberInPassword ?? false,
       hasSpecialCharacterInPassword: hasSpecialCharacterInPassword ?? false,
-      resendVerificationEmailTimeLeft: resendVerificationEmailTimeLeft ??
+      resendVerificationEmailTimeLeft:
+          resendVerificationEmailTimeLeft ??
           VerifyEmailScreen.kResendVerificationEmailMaxSeconds,
       userDetailsInputStatus:
           userDetailsInputStatus ?? UserDetailsInputStatus.none,
@@ -235,29 +240,29 @@ class SignupState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        handle,
-        handleErrorMessage,
-        handleNameStatus,
-        shouldShowHandleInputSuffix,
-        isDoneProfilePicEditing,
-        selectedProfilePicture,
-        selectedLoginSignupType,
-        email,
-        password,
-        confirmPassword,
-        confirmPasswordErrorMessage,
-        emailErrorMessage,
-        isPasswordVisible,
-        isConfirmPasswordVisible,
-        passwordStrengthLevel,
-        isPasswordLongEnough,
-        hasLetterAndNumberInPassword,
-        hasSpecialCharacterInPassword,
-        resendVerificationEmailTimeLeft,
-        userDetailsInputStatus,
-        isLoading,
-        authenticationErrorMessage,
-      ];
+    handle,
+    handleErrorMessage,
+    handleNameStatus,
+    shouldShowHandleInputSuffix,
+    isDoneProfilePicEditing,
+    selectedProfilePicture,
+    selectedLoginSignupType,
+    email,
+    password,
+    confirmPassword,
+    confirmPasswordErrorMessage,
+    emailErrorMessage,
+    isPasswordVisible,
+    isConfirmPasswordVisible,
+    passwordStrengthLevel,
+    isPasswordLongEnough,
+    hasLetterAndNumberInPassword,
+    hasSpecialCharacterInPassword,
+    resendVerificationEmailTimeLeft,
+    userDetailsInputStatus,
+    isLoading,
+    authenticationErrorMessage,
+  ];
 }
 
 class NavigateToEmailVerifyScreenState extends SignupState {
@@ -278,21 +283,16 @@ class AuthenticationExceptionState extends SignupState {
 
 class SignupLoadingState extends SignupState {
   SignupLoadingState(SignupState state, {required bool isLoading})
-      : super.copy(state.copyWith(isLoading: isLoading));
+    : super.copy(state.copyWith(isLoading: isLoading));
 }
 
 class EmailSignUpLoadingState extends SignupState {
   EmailSignUpLoadingState(SignupState state, {required bool isLoading})
-      : super.copy(state.copyWith(isLoading: isLoading));
+    : super.copy(state.copyWith(isLoading: isLoading));
 }
 
 class RestartVerificationMailResendTimerState extends SignupState {
   RestartVerificationMailResendTimerState(super.state) : super.copy();
 }
 
-enum HandleNameStatus {
-  checking,
-  doesExist,
-  valid,
-  unknown,
-}
+enum HandleNameStatus { checking, doesExist, valid, unknown }

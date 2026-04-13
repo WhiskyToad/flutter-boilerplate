@@ -15,8 +15,10 @@ import 'package:skelter/presentation/login/screens/login_with_phone_number/widge
 import 'package:skelter/presentation/login/screens/login_with_phone_number/widgets/phone_number_text_field.dart';
 import 'package:skelter/presentation/login/screens/login_with_phone_number/widgets/send_otp_button.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 
 import '../../../../integration_test/mock_firebase_auth.dart';
+import '../../../../integration_test/mock_firebase_performance.dart';
 import '../../../flutter_test_config.dart';
 import '../../../test_helpers.dart';
 
@@ -28,9 +30,11 @@ void main() {
 
   late MockFirebaseAuth mokFirebaseAuth;
   late FirebaseAuthService mockFirebaseAuthService;
+  late MockFirebasePerformance mockFirebasePerformance;
 
   setUp(() {
     mokFirebaseAuth = MockFirebaseAuth();
+    mockFirebasePerformance = MockFirebasePerformance();
     sl.allowReassignment = true;
     mockFirebaseAuthService = FirebaseAuthService(
       firebaseAuth: mokFirebaseAuth,
@@ -38,15 +42,18 @@ void main() {
     sl.registerLazySingleton<FirebaseAuthService>(
       () => mockFirebaseAuthService,
     );
+    sl.allowReassignment = true;
+    sl.registerLazySingleton<PerformanceMonitoringService>(
+      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
+    );
   });
 
   // Widget tests
   group('Login With Phone Number Screen', () {
-    testWidgets('Login With Phone Number Screen renders correctly',
-        (tester) async {
-      await tester.runWidgetTest(
-        child: const LoginWithPhoneNumberScreen(),
-      );
+    testWidgets('Login With Phone Number Screen renders correctly', (
+      tester,
+    ) async {
+      await tester.runWidgetTest(child: const LoginWithPhoneNumberScreen());
       expect(find.byType(LoginWithPhoneNumberScreen), findsOneWidget);
       expect(find.byType(HeadingWelcomeWidget), findsOneWidget);
       expect(find.byType(PhoneNumberTextField), findsOneWidget);
@@ -65,9 +72,7 @@ void main() {
       builder: () {
         final loginBlocEmpty = MockLoginBloc();
         when(() => loginBlocEmpty.state).thenReturn(
-          LoginState.test(
-            phoneNumberLoginState: PhoneNumberLoginState.test(),
-          ),
+          LoginState.test(phoneNumberLoginState: PhoneNumberLoginState.test()),
         );
 
         final loginBlocFilled = MockLoginBloc();
@@ -98,9 +103,7 @@ void main() {
               name: 'default phone number state',
               child: const LoginWithPhoneNumberBody(isFromDeleteAccount: false),
               addScaffold: true,
-              providers: [
-                BlocProvider<LoginBloc>.value(value: loginBlocEmpty),
-              ],
+              providers: [BlocProvider<LoginBloc>.value(value: loginBlocEmpty)],
             ),
             createTestScenario(
               name: 'valid phone number state',
@@ -133,9 +136,7 @@ void main() {
       builder: () {
         final loginBlocDisabled = MockLoginBloc();
         when(() => loginBlocDisabled.state).thenReturn(
-          LoginState.test(
-            phoneNumberLoginState: PhoneNumberLoginState.test(),
-          ),
+          LoginState.test(phoneNumberLoginState: PhoneNumberLoginState.test()),
         );
 
         final loginBlocEnabled = MockLoginBloc();
@@ -157,9 +158,7 @@ void main() {
               child: const SendOTPButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocDisabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocDisabled),
               ],
             ),
             createTestScenario(
@@ -167,9 +166,7 @@ void main() {
               child: const SendOTPButton(),
               addScaffold: true,
               providers: [
-                BlocProvider<LoginBloc>.value(
-                  value: loginBlocEnabled,
-                ),
+                BlocProvider<LoginBloc>.value(value: loginBlocEnabled),
               ],
             ),
           ],

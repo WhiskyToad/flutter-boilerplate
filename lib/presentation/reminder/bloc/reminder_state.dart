@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 class ReminderState with EquatableMixin {
   final String title;
@@ -18,24 +19,24 @@ class ReminderState with EquatableMixin {
   });
 
   ReminderState.initial()
-      : title = '',
-        description = '',
-        selectedDateTime = DateTime.now()
-            .add(const Duration(minutes: 1))
-            .copyWith(second: 0, millisecond: 0, microsecond: 0),
-        isLoading = false,
-        titleError = null,
-        dateTimeError = null;
+    : title = '',
+      description = '',
+      selectedDateTime = DateTime.now()
+          .add(const Duration(minutes: 1))
+          .copyWith(second: 0, millisecond: 0, microsecond: 0),
+      isLoading = false,
+      titleError = null,
+      dateTimeError = null;
 
   ReminderState.copy(ReminderState state)
-      : this(
-          title: state.title,
-          description: state.description,
-          selectedDateTime: state.selectedDateTime,
-          isLoading: state.isLoading,
-          titleError: state.titleError,
-          dateTimeError: state.dateTimeError,
-        );
+    : this(
+        title: state.title,
+        description: state.description,
+        selectedDateTime: state.selectedDateTime,
+        isLoading: state.isLoading,
+        titleError: state.titleError,
+        dateTimeError: state.dateTimeError,
+      );
 
   ReminderState copyWith({
     String? title,
@@ -55,15 +56,28 @@ class ReminderState with EquatableMixin {
     );
   }
 
+  @visibleForTesting
+  ReminderState.test({
+    String? title,
+    String? description,
+    DateTime? selectedDateTime,
+    bool? isLoading,
+    this.titleError,
+    this.dateTimeError,
+  }) : title = title ?? '',
+       description = description ?? '',
+       selectedDateTime = selectedDateTime ?? DateTime(2025, 1, 1, 12),
+       isLoading = isLoading ?? false;
+
   @override
   List<Object?> get props => [
-        title,
-        description,
-        selectedDateTime,
-        isLoading,
-        titleError,
-        dateTimeError,
-      ];
+    title,
+    description,
+    selectedDateTime,
+    isLoading,
+    titleError,
+    dateTimeError,
+  ];
 }
 
 class ReminderScheduledState extends ReminderState {

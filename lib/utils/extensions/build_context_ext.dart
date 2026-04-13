@@ -49,7 +49,8 @@ extension ShowSnackbar on BuildContext {
     }
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
-        backgroundColor: color ??
+        backgroundColor:
+            color ??
             (isDisplayingError
                 ? AppColors.snackBarErrorColor
                 : AppColors.snackBarBGColor),
@@ -60,6 +61,8 @@ extension ShowSnackbar on BuildContext {
       ),
     );
   }
+
+  double get bottomPadding => MediaQuery.of(this).padding.bottom;
 
   void hideSnackBar() {
     ScaffoldMessenger.of(this).hideCurrentSnackBar();

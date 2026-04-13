@@ -56,36 +56,32 @@ class NotificationService {
   }
 
   Future<void> _initializeAwesomeNotifications() async {
-    await _awesomeNotifications.initialize(
-      appIcon,
-      [
-        NotificationChannel(
-          channelKey: basicChannel,
-          channelName: basicChannelName,
-          channelDescription: basicChannelDescription,
-          ledColor: AppColors.white,
-          defaultColor: AppColors.brand500,
-          importance: NotificationImportance.High,
-          channelShowBadge: true,
-          playSound: true,
-          soundSource: basicChannelSound,
-          enableVibration: true,
-        ),
-        NotificationChannel(
-          channelKey: reminderChannel,
-          channelName: reminderChannelName,
-          channelDescription: reminderChannelDescription,
-          ledColor: AppColors.white,
-          defaultColor: AppColors.brand500,
-          importance: NotificationImportance.High,
-          channelShowBadge: true,
-          playSound: true,
-          soundSource: reminderChannelSound,
-          enableVibration: true,
-        ),
-      ],
-      debug: kDebugMode,
-    );
+    await _awesomeNotifications.initialize(appIcon, [
+      NotificationChannel(
+        channelKey: basicChannel,
+        channelName: basicChannelName,
+        channelDescription: basicChannelDescription,
+        ledColor: AppColors.white,
+        defaultColor: AppColors.brand500,
+        importance: NotificationImportance.High,
+        channelShowBadge: true,
+        playSound: true,
+        soundSource: basicChannelSound,
+        enableVibration: true,
+      ),
+      NotificationChannel(
+        channelKey: reminderChannel,
+        channelName: reminderChannelName,
+        channelDescription: reminderChannelDescription,
+        ledColor: AppColors.white,
+        defaultColor: AppColors.brand500,
+        importance: NotificationImportance.High,
+        channelShowBadge: true,
+        playSound: true,
+        soundSource: reminderChannelSound,
+        enableVibration: true,
+      ),
+    ], debug: kDebugMode);
 
     await _awesomeNotifications.setListeners(
       onActionReceivedMethod: _onActionReceivedMethod,
@@ -106,10 +102,11 @@ class NotificationService {
   }
 
   Future<void> _setupFCMListeners() async {
-    _onMessageSubscription =
-        FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
-    _onMessageOpenedAppSubscription =
-        FirebaseMessaging.onMessageOpenedApp.listen(_handleMessageOpenedApp);
+    _onMessageSubscription = FirebaseMessaging.onMessage.listen(
+      _handleForegroundMessage,
+    );
+    _onMessageOpenedAppSubscription = FirebaseMessaging.onMessageOpenedApp
+        .listen(_handleMessageOpenedApp);
 
     _initialMessage = await _firebaseMessaging.getInitialMessage();
   }
@@ -150,11 +147,11 @@ class NotificationService {
       final token = await _firebaseMessaging.getToken();
       debugPrint('FCM Token: $token');
 
-      _onTokenRefreshSubscription = _firebaseMessaging.onTokenRefresh.listen(
-        (newToken) {
-          debugPrint('FCM Token refreshed: $newToken');
-        },
-      );
+      _onTokenRefreshSubscription = _firebaseMessaging.onTokenRefresh.listen((
+        newToken,
+      ) {
+        debugPrint('FCM Token refreshed: $newToken');
+      });
 
       return token;
     } catch (e) {

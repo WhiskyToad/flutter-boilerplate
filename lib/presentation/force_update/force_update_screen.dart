@@ -15,19 +15,14 @@ import 'package:skelter/utils/theme/extention/theme_extension.dart';
 class ForceUpdateScreen extends StatelessWidget {
   final bool isMandatoryUpdate;
 
-  const ForceUpdateScreen({
-    super.key,
-    required this.isMandatoryUpdate,
-  });
+  const ForceUpdateScreen({super.key, required this.isMandatoryUpdate});
 
   static const kHorizontalPadding = 16.0;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ForceUpdateBloc>(
-      create: (_) => ForceUpdateBloc(
-        isMandatoryUpdate: isMandatoryUpdate,
-      ),
+      create: (_) => ForceUpdateBloc(isMandatoryUpdate: isMandatoryUpdate),
       child: BlocListener<ForceUpdateBloc, ForceUpdateState>(
         listener: (context, state) => _listenStateChanged(context, state),
         child: const ForceUpdateScreenBody(),
@@ -65,15 +60,17 @@ class ForceUpdateScreenBody extends StatelessWidget {
               const SizedBox(height: 24),
               Text(
                 context.localization.its_time_to_update,
-                style: AppTextStyles.p1SemiBold
-                    .copyWith(color: context.currentTheme.textNeutralPrimary),
+                style: AppTextStyles.p1SemiBold.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
               Text(
                 context.localization.update_required_description,
-                style: AppTextStyles.p3Regular
-                    .copyWith(color: context.currentTheme.textNeutralSecondary),
+                style: AppTextStyles.p3Regular.copyWith(
+                  color: context.currentTheme.textNeutralSecondary,
+                ),
                 textAlign: TextAlign.center,
               ),
               const Spacer(),

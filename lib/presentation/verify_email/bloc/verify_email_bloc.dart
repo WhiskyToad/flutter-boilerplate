@@ -20,7 +20,7 @@ class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
   final FirebaseAuthService _firebaseAuthService = sl();
 
   VerifyEmailBloc({required this.localizations})
-      : super(VerifyEmailInitialState()) {
+    : super(VerifyEmailInitialState()) {
     on<InitialEvent>(_onInitialEvent);
     on<SendEmailVerificationLinkEvent>(_onSendEmailVerificationLinkEvent);
     on<RestartVerificationMailResendTimerEvent>(
@@ -34,10 +34,7 @@ class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
     on<NavigateToHomeEvent>(_onNavigateToHomeEvent);
   }
 
-  void _onInitialEvent(
-    InitialEvent event,
-    Emitter<VerifyEmailState> emit,
-  ) {
+  void _onInitialEvent(InitialEvent event, Emitter<VerifyEmailState> emit) {
     emit(state.copyWith(isSignUp: event.isSignUp, email: event.email));
   }
 

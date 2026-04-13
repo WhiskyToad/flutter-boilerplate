@@ -1,4 +1,1 @@
-enum BiometricEnrollmentResult {
-  cancel,
-  settings,
-}
+enum BiometricEnrollmentResult { cancel, settings }

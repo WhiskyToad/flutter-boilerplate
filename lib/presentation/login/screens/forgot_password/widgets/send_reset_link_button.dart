@@ -11,9 +11,7 @@ import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_state_enum.dart';
 
 class SendResetLinkButton extends StatelessWidget {
-  const SendResetLinkButton({
-    super.key,
-  });
+  const SendResetLinkButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +32,9 @@ class SendResetLinkButton extends StatelessWidget {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         final String? emailError = isEmailValid(email, context);
         if (emailError != null) {
-          context
-              .read<LoginBloc>()
-              .add(EmailErrorEvent(errorMessage: emailError));
+          context.read<LoginBloc>().add(
+            EmailErrorEvent(errorMessage: emailError),
+          );
           return;
         }
         context.read<LoginBloc>().add(ForgotPasswordEvent());

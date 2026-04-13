@@ -23,8 +23,10 @@ class HapticFeedbackUtil {
 
         await Vibration.vibrate(
           pattern: pattern,
-// Note:It will use custom intensities if the device supports amplitude control.
-// If not supported, the system will use the default vibration strength.
+          // Note:It will use custom intensities if the device
+          // supports amplitude control.
+          // If not supported, the system will use the default
+          // vibration strength.
           intensities: hasAmplitudeControl ? intensities : [],
           repeat: repeat,
         );
@@ -45,60 +47,58 @@ class HapticFeedbackUtil {
   /// ---------------------------- Basic Haptic Feedback -----------------------
 
   static Future<void> light() => _vibrate(
-        pattern: [0, 12, 30, 14],
-        intensities: [0, 60, 0, 60],
-        fallbackDuration: 15,
-      );
+    pattern: [0, 12, 30, 14],
+    intensities: [0, 60, 0, 60],
+    fallbackDuration: 15,
+  );
 
-  static Future<void> medium() => _vibrate(
-        pattern: [0, 16, 40, 16],
-        intensities: [0, 120, 0, 120],
-      );
+  static Future<void> medium() =>
+      _vibrate(pattern: [0, 16, 40, 16], intensities: [0, 120, 0, 120]);
 
   static Future<void> heavy() => _vibrate(
-        pattern: [0, 20, 50, 20],
-        intensities: [0, 200, 0, 200],
-        fallbackDuration: 18,
-      );
+    pattern: [0, 20, 50, 20],
+    intensities: [0, 200, 0, 200],
+    fallbackDuration: 18,
+  );
 
   static Future<void> tap() => _vibrate(
-        pattern: [0, 10, 20, 10],
-        intensities: [0, 80, 0, 80],
-        fallbackDuration: 12,
-      );
+    pattern: [0, 10, 20, 10],
+    intensities: [0, 80, 0, 80],
+    fallbackDuration: 12,
+  );
 
   static Future<void> vibrate() => heavy();
 
   /// -------------------------- SEMANTIC FEEDBACK -----------------------------
 
   static Future<void> success() => _vibrate(
-        pattern: [0, 18, 40, 18, 60, 25],
-        intensities: [0, 150, 0, 200, 0, 255],
-      );
+    pattern: [0, 18, 40, 18, 60, 25],
+    intensities: [0, 150, 0, 200, 0, 255],
+  );
 
   static Future<void> error() => _vibrate(
-        pattern: [0, 30, 50, 20, 30, 20],
-        intensities: [0, 255, 0, 180, 0, 180],
-        fallbackDuration: 30,
-      );
+    pattern: [0, 30, 50, 20, 30, 20],
+    intensities: [0, 255, 0, 180, 0, 180],
+    fallbackDuration: 30,
+  );
 
   static Future<void> warning() => _vibrate(
-        pattern: [0, 25, 40, 25, 40, 25],
-        intensities: [0, 200, 0, 200, 0, 200],
-        fallbackDuration: 40,
-      );
+    pattern: [0, 25, 40, 25, 40, 25],
+    intensities: [0, 200, 0, 200, 0, 200],
+    fallbackDuration: 40,
+  );
 
   static Future<void> doubleTap() => _vibrate(
-        pattern: [0, 30, 50, 30, 50, 30],
-        intensities: [0, 128, 0, 128],
-        fallbackDuration: 35,
-      );
+    pattern: [0, 30, 50, 30, 50, 30],
+    intensities: [0, 128, 0, 128],
+    fallbackDuration: 35,
+  );
 
   static Future<void> tripleTap() => _vibrate(
-        pattern: [0, 30, 40, 30, 40, 30],
-        intensities: [0, 128, 0, 128, 0, 128],
-        fallbackDuration: 40,
-      );
+    pattern: [0, 30, 40, 30, 40, 30],
+    intensities: [0, 128, 0, 128, 0, 128],
+    fallbackDuration: 40,
+  );
 
   static Future<void> presetSuccess() async {
     if (!await hasVibrator) return;
@@ -134,10 +134,5 @@ class HapticFeedbackUtil {
     required List<int> pattern,
     List<int> intensities = const [],
     int repeat = -1,
-  }) =>
-      _vibrate(
-        pattern: pattern,
-        intensities: intensities,
-        repeat: repeat,
-      );
+  }) => _vibrate(pattern: pattern, intensities: intensities, repeat: repeat);
 }

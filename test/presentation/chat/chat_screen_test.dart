@@ -31,44 +31,37 @@ void main() {
     PathProviderPlatform.instance = FakePathProviderPlatform();
   });
 
-  testExecutable(
-    () {
-      goldenTest(
-        'Chat page',
-        fileName: 'chat_page',
-        builder: () {
-          return GoldenTestGroup(
-            columnWidthBuilder: (_) =>
-                const FixedColumnWidth(pixel5DeviceWidth),
-            children: [
-              createTestScenario(
-                name: 'Chat page Light Theme',
-                child: const ChatScreen(),
-              ),
-              createTestScenario(
-                name: 'Chat page Dark Theme',
-                child: const ChatScreen(),
-                theme: AppThemeEnum.DarkTheme,
-              ),
-              createTestScenario(
-                name: 'Chat shimmer Light Theme',
-                addScaffold: true,
-                child: const ChatShimmer(
-                  showAnimation: false,
-                ),
-              ),
-              createTestScenario(
-                name: 'Chat shimmer Dark Theme',
-                addScaffold: true,
-                child: const ChatShimmer(
-                  showAnimation: false,
-                ),
-                theme: AppThemeEnum.DarkTheme,
-              ),
-            ],
-          );
-        },
-      );
-    },
-  );
+  testExecutable(() {
+    goldenTest(
+      'Chat page',
+      fileName: 'chat_page',
+      builder: () {
+        return GoldenTestGroup(
+          columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),
+          children: [
+            createTestScenario(
+              name: 'Chat page Light Theme',
+              child: const ChatScreen(),
+            ),
+            createTestScenario(
+              name: 'Chat page Dark Theme',
+              child: const ChatScreen(),
+              theme: AppThemeEnum.DarkTheme,
+            ),
+            createTestScenario(
+              name: 'Chat shimmer Light Theme',
+              addScaffold: true,
+              child: const ChatShimmer(showAnimation: false),
+            ),
+            createTestScenario(
+              name: 'Chat shimmer Dark Theme',
+              addScaffold: true,
+              child: const ChatShimmer(showAnimation: false),
+              theme: AppThemeEnum.DarkTheme,
+            ),
+          ],
+        );
+      },
+    );
+  });
 }

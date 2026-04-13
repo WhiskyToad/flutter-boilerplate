@@ -12,9 +12,7 @@ void main() {
 
   group('SettingsScreen Widget Test', () {
     testWidgets('renders correctly', (tester) async {
-      await tester.runWidgetTest(
-        child: const SettingsScreen(),
-      );
+      await tester.runWidgetTest(child: const SettingsScreen());
 
       expect(find.byType(SettingsScreen), findsOneWidget);
       expect(find.byType(SettingsScreenBody), findsOneWidget);

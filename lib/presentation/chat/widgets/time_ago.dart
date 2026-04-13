@@ -5,10 +5,7 @@ import 'package:skelter/utils/extensions/date_time_extensions.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 
 class TimeAgo extends StatelessWidget {
-  const TimeAgo({
-    super.key,
-    required this.message,
-  });
+  const TimeAgo({super.key, required this.message});
 
   final ChatMessage message;
 
@@ -19,9 +16,10 @@ class TimeAgo extends StatelessWidget {
         const SizedBox(height: 5),
         Text(
           '${message.date.to12HourFormat()}${message.isSentByMe ? ' '
-              '• ${message.status}' : ''}',
-          style: AppTextStyles.c2Medium
-              .copyWith(color: context.currentTheme.textNeutralSecondary),
+                    '• ${message.status}' : ''}',
+          style: AppTextStyles.c2Medium.copyWith(
+            color: context.currentTheme.textNeutralSecondary,
+          ),
         ),
       ],
     );

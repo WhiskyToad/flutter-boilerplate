@@ -25,9 +25,9 @@ class RestoreSubscription extends StatelessWidget {
       size: AppButtonSize.extraLarge,
       onPressed: isRestoring
           ? null
-          : () => context
-              .read<SubscriptionBloc>()
-              .add(const RestoreSubscriptionEvent()),
+          : () => context.read<SubscriptionBloc>().add(
+              const RestoreSubscriptionEvent(),
+            ),
     );
   }
 }

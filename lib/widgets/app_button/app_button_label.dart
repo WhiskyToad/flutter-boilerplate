@@ -33,12 +33,13 @@ class AppButtonLabel extends StatelessWidget {
         color: isLoading
             ? Colors.transparent
             : state == AppButtonState.disabled
-                ? context.currentTheme.textNeutralDisable
-                : foregroundColor ?? style.getTextColor(state),
+            ? context.currentTheme.textNeutralDisable
+            : foregroundColor ?? style.getTextColor(state),
         fontWeight: size.textStyle.fontWeight,
         height: 0,
-        decoration:
-            style == AppButtonStyle.link ? TextDecoration.underline : null,
+        decoration: style == AppButtonStyle.link
+            ? TextDecoration.underline
+            : null,
       ),
     );
   }

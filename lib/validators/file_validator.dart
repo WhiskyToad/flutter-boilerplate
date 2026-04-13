@@ -17,8 +17,10 @@ class FileValidator {
 
   static Future<bool> isValidByMimeAndExtension(File file) async {
     try {
-      final extension =
-          path.extension(file.path).toLowerCase().replaceFirst('.', '');
+      final extension = path
+          .extension(file.path)
+          .toLowerCase()
+          .replaceFirst('.', '');
       final allowedMime = kAllowedFileTypes[extension];
       if (allowedMime == null) {
         return false;

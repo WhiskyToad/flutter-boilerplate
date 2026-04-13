@@ -49,10 +49,7 @@ class UserAvatar extends StatelessWidget {
 }
 
 class ChatAvatarSmall extends StatelessWidget {
-  const ChatAvatarSmall({
-    super.key,
-    required this.chatModel,
-  });
+  const ChatAvatarSmall({super.key, required this.chatModel});
 
   final ChatModel chatModel;
 

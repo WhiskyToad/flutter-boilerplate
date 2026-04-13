@@ -35,7 +35,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
       if (!tourCompleted && mounted) {
         await Future.delayed(const Duration(milliseconds: 300));
 
-        if (_searchBarKey.currentContext != null) {
+        if (mounted && _searchBarKey.currentContext != null) {
           AppTourService.showTour(
             context: context,
             searchBarKey: _searchBarKey,

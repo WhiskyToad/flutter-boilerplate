@@ -27,8 +27,8 @@ class CheckoutAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 if (canGoBack) {
                   context.read<CheckoutBloc>().add(
-                        StepperIndexUpdateEvent(index: currentStepperIndex - 1),
-                      );
+                    StepperIndexUpdateEvent(index: currentStepperIndex - 1),
+                  );
                 }
               },
             )

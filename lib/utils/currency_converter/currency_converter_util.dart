@@ -34,22 +34,16 @@ class CurrencyConverterUtil {
 
     try {
       final result = await _getExchangeRate(
-        ExchangeRateParams(
-          fromCurrency: fromCurrency,
-          toCurrency: toCurrency,
-        ),
+        ExchangeRateParams(fromCurrency: fromCurrency, toCurrency: toCurrency),
       );
 
-      return result.fold(
-        (failure) => 0.0,
-        (rate) {
-          final exchangeRate = rate.rates[toCurrency];
-          if (exchangeRate == null) {
-            return 0.0;
-          }
-          return amount * exchangeRate;
-        },
-      );
+      return result.fold((failure) => 0.0, (rate) {
+        final exchangeRate = rate.rates[toCurrency];
+        if (exchangeRate == null) {
+          return 0.0;
+        }
+        return amount * exchangeRate;
+      });
     } catch (_) {
       return 0.0;
     }

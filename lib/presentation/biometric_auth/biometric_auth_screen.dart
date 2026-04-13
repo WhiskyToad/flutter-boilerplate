@@ -18,10 +18,9 @@ class BiometricAuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BiometricAuthBloc>(
-      create: (_) => BiometricAuthBloc(localizations: context.localization)
-        ..add(
-          const GetBiometricEnrolledStatusEvent(),
-        ),
+      create: (_) =>
+          BiometricAuthBloc(localizations: context.localization)
+            ..add(const GetBiometricEnrolledStatusEvent()),
       child: BlocListener<BiometricAuthBloc, BiometricAuthState>(
         listener: (context, state) => _listenStateChanged(context, state),
         child: const BiometricAuthBody(),
@@ -31,17 +30,13 @@ class BiometricAuthScreen extends StatelessWidget {
 
   void _listenStateChanged(BuildContext context, BiometricAuthState state) {
     if (state is BiometricAuthSuccessState) {
-      context.showSnackBar(
-        context.localization.biometric_auth_enabled_success,
-      );
+      context.showSnackBar(context.localization.biometric_auth_enabled_success);
     } else if (state is BiometricAuthFailureState) {
       context.showSnackBar(
         state.errorMessage ?? context.localization.auth_failed,
       );
     } else if (state is IsBiometricAuthNotSupportedState) {
-      context.showSnackBar(
-        context.localization.biometric_auth_not_available,
-      );
+      context.showSnackBar(context.localization.biometric_auth_not_available);
     } else if (state is BiometricAuthNotEnrolledState) {
       showBiometricSetupEnrollmentBottomSheet(context);
     } else if (state is BioMetricsTooManyAttemptState) {

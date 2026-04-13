@@ -67,7 +67,8 @@ class CurrencyFormatterUtil {
       final resolvedCurrencyCode =
           currencyCode ?? _getCurrencyCodeForLocale(locale);
 
-      final useCustomFormatting = groupingSeparator != null ||
+      final useCustomFormatting =
+          groupingSeparator != null ||
           decimalSeparator != null ||
           symbolSeparator != null;
 
@@ -125,8 +126,10 @@ class CurrencyFormatterUtil {
       name: currencyCode,
       symbol: shouldShowSymbol
           ? (symbolOverride ??
-              NumberFormat.simpleCurrency(locale: locale, name: currencyCode)
-                  .currencySymbol)
+                NumberFormat.simpleCurrency(
+                  locale: locale,
+                  name: currencyCode,
+                ).currencySymbol)
           : '',
       decimalDigits: decimalDigits,
     );
@@ -137,11 +140,12 @@ class CurrencyFormatterUtil {
       final defaultGroupingSeparator = formatter.symbols.GROUP_SEP;
       final defaultDecimalSeparator = formatter.symbols.DECIMAL_SEP;
 
-// Const placeholders ensure a safe swap of grouping and decimal separators.
-// Direct replacement would turn "$1.234.56" into "$1,234,56"
-// when swapping ',' and '.'.
+      // Const placeholders ensure a safe swap of grouping and
+      // decimal separators.
+      // Direct replacement would turn "$1.234.56" into "$1,234,56"
+      // when swapping ',' and '.'.
 
-// Using these placeholders prevents that conflict.
+      // Using these placeholders prevents that conflict.
       const groupingPlaceholder = '##GROUP##';
       const decimalPlaceholder = '##DECIMAL##';
 
@@ -165,16 +169,21 @@ class CurrencyFormatterUtil {
         );
       }
       if (decimalSeparator != null && defaultDecimalSeparator.isNotEmpty) {
-        formattedCurrency =
-            formattedCurrency.replaceAll(decimalPlaceholder, decimalSeparator);
+        formattedCurrency = formattedCurrency.replaceAll(
+          decimalPlaceholder,
+          decimalSeparator,
+        );
       }
     }
 
     // Add symbol separator if provided
     if (symbolSeparator != null && shouldShowSymbol) {
-      final currencySymbol = symbolOverride ??
-          NumberFormat.simpleCurrency(locale: locale, name: currencyCode)
-              .currencySymbol;
+      final currencySymbol =
+          symbolOverride ??
+          NumberFormat.simpleCurrency(
+            locale: locale,
+            name: currencyCode,
+          ).currencySymbol;
 
       if (currencySymbol.isNotEmpty) {
         if (formattedCurrency.trim().startsWith(currencySymbol)) {
@@ -184,7 +193,8 @@ class CurrencyFormatterUtil {
           );
         } else if (formattedCurrency.trim().endsWith(currencySymbol)) {
           final symbolLastIndex = formattedCurrency.lastIndexOf(currencySymbol);
-          formattedCurrency = formattedCurrency.substring(0, symbolLastIndex) +
+          formattedCurrency =
+              formattedCurrency.substring(0, symbolLastIndex) +
               symbolSeparator +
               formattedCurrency.substring(symbolLastIndex);
         }
@@ -204,8 +214,10 @@ class CurrencyFormatterUtil {
   }) {
     final resolvedSymbol = shouldShowSymbol
         ? symbolOverride ??
-            NumberFormat.simpleCurrency(locale: locale, name: currencyCode)
-                .currencySymbol
+              NumberFormat.simpleCurrency(
+                locale: locale,
+                name: currencyCode,
+              ).currencySymbol
         : '';
 
     switch (compactFormatType) {

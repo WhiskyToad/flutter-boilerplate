@@ -16,18 +16,19 @@ class DeleteAccountReasonOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     const reasons = DeleteAccountReasons.values;
 
-    final selectedReason =
-        context.select<DeleteAccountBloc, DeleteAccountReasons?>(
-      (bloc) => bloc.state.selectedReason,
-    );
+    final selectedReason = context
+        .select<DeleteAccountBloc, DeleteAccountReasons?>(
+          (bloc) => bloc.state.selectedReason,
+        );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           context.localization.delete_reason_title,
-          style: AppTextStyles.p1Medium
-              .copyWith(color: context.currentTheme.textNeutralPrimary),
+          style: AppTextStyles.p1Medium.copyWith(
+            color: context.currentTheme.textNeutralPrimary,
+          ),
         ),
         const SizedBox(height: 24),
         ...reasons.map((reason) {
@@ -38,8 +39,8 @@ class DeleteAccountReasonOptions extends StatelessWidget {
               isSelected: selectedReason == reason,
               onSelected: () {
                 context.read<DeleteAccountBloc>().add(
-                      DeleteReasonSelectedEvent(reason: reason),
-                    );
+                  DeleteReasonSelectedEvent(reason: reason),
+                );
               },
             ),
           );

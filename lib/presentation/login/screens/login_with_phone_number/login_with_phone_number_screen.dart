@@ -38,9 +38,7 @@ class _LoginWithPhoneNumberScreenState
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(
-        localizations: appLocalizations,
-      ),
+      create: (context) => LoginBloc(localizations: appLocalizations),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(

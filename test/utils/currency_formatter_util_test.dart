@@ -232,11 +232,7 @@ void main() {
 
       test('1 digit decimal', () {
         expect(
-          CurrencyFormatterUtil.format(
-            1.5,
-            locale: 'en_US',
-            decimalDigits: 1,
-          ),
+          CurrencyFormatterUtil.format(1.5, locale: 'en_US', decimalDigits: 1),
           equals(r'$1.5'),
         );
       });
@@ -436,10 +432,7 @@ void main() {
 
       test('small decimal rounding', () {
         expect(
-          CurrencyFormatterUtil.format(
-            0.0049,
-            locale: 'en_US',
-          ),
+          CurrencyFormatterUtil.format(0.0049, locale: 'en_US'),
           equals(r'$0.00'),
         );
       });

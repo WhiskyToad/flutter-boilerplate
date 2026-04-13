@@ -6,13 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/presentation/home/bloc/home_bloc.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
 import 'package:skelter/presentation/home/bloc/home_state.dart';
 import 'package:skelter/presentation/home/data/dummy_product_data.dart';
 import 'package:skelter/presentation/home/home_screen.dart';
+import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/widgets/styling/app_theme_data.dart';
 
+import '../../../integration_test/mock_firebase_performance.dart';
 import '../../flutter_test_config.dart';
 import '../../test_helpers.dart';
 
@@ -20,7 +23,14 @@ class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  late MockFirebasePerformance mockFirebasePerformance;
+
   setUpAll(() async {
+    mockFirebasePerformance = MockFirebasePerformance();
+    sl.allowReassignment = true;
+    sl.registerLazySingleton<PerformanceMonitoringService>(
+      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
+    );
     setupFirebaseCoreMocks();
     await Firebase.initializeApp(
       name: 'tenantIdTest',
@@ -38,15 +48,11 @@ void main() {
     testWidgets('home page', (tester) async {
       //arrange
       final homeBloc = MockHomeBloc();
-      when(() => homeBloc.state).thenReturn(
-        HomeState.test(),
-      );
+      when(() => homeBloc.state).thenReturn(HomeState.test());
 
       //act
       await tester.runWidgetTest(
-        providers: [
-          BlocProvider<HomeBloc>.value(value: homeBloc),
-        ],
+        providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
         child: const HomeScreenWrapper(),
       );
 
@@ -77,16 +83,12 @@ void main() {
             children: [
               createTestScenario(
                 name: 'home_screen Light Theme',
-                providers: [
-                  BlocProvider<HomeBloc>.value(value: homeBloc),
-                ],
+                providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
                 child: const HomeScreenWrapper(),
               ),
               createTestScenario(
                 name: 'home_screen Dark Theme',
-                providers: [
-                  BlocProvider<HomeBloc>.value(value: homeBloc),
-                ],
+                providers: [BlocProvider<HomeBloc>.value(value: homeBloc)],
                 child: const HomeScreenWrapper(),
                 theme: AppThemeEnum.DarkTheme,
               ),

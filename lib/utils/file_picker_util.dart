@@ -59,9 +59,7 @@ class FilePickerUtil {
         files.add(file);
       }
 
-      return ValidatedFileResult(
-        validFiles: files.take(maxFiles).toList(),
-      );
+      return ValidatedFileResult(validFiles: files.take(maxFiles).toList());
     } catch (_) {
       return ValidatedFileResult(
         validFiles: [],

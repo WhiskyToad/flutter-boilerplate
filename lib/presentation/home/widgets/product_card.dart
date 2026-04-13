@@ -17,9 +17,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.router.push(
-        ProductDetailRoute(productId: product.id),
-      ),
+      onTap: () =>
+          context.router.push(ProductDetailRoute(productId: product.id)),
       child: Container(
         decoration: BoxDecoration(
           color: context.currentTheme.bgSurfaceBase2,
@@ -38,8 +37,10 @@ class ProductCard extends StatelessWidget {
             ProductImage(imageUrl: product.image),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 12,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
