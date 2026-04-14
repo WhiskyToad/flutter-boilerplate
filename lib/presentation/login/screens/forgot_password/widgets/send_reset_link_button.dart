@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/login/bloc/login_bloc.dart';
@@ -29,7 +28,7 @@ class SendResetLinkButton extends StatelessWidget {
       state: email.isNotEmpty ? AppButtonState.normal : AppButtonState.disabled,
       isLoading: isLoading,
       onPressed: () {
-        SystemChannels.textInput.invokeMethod('TextInput.hide');
+        FocusManager.instance.primaryFocus?.unfocus();
         final String? emailError = isEmailValid(email, context);
         if (emailError != null) {
           context.read<LoginBloc>().add(

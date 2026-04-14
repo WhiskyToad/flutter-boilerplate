@@ -23,11 +23,11 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
     isScrollControlled: true,
     builder: (ctx) {
       return Container(
-        padding: const EdgeInsets.only(
+        padding: EdgeInsets.only(
           top: 20,
           left: 16,
           right: 16,
-          bottom: 16,
+          bottom: 16 + ctx.bottomPadding,
         ),
         decoration: BoxDecoration(
           color: context.currentTheme.bgSurfaceBase2,
@@ -120,7 +120,6 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
           ],
         ),
       );

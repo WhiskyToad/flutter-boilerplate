@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_bloc.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_event.dart';
+import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/theme/extention/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
@@ -14,14 +14,19 @@ class ContactUsSubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+      padding: EdgeInsets.only(
+        left: 16.0,
+        right: 16.0,
+        top: 16,
+        bottom: 16 + context.bottomPadding,
+      ),
       child: AppButton(
         label: context.localization.submit,
         foregroundColor: context.currentTheme.textNeutralLight,
         shouldSetFullWidth: true,
         size: AppButtonSize.extraLarge,
         onPressed: () {
-          SystemChannels.textInput.invokeMethod('TextInput.hide');
+          FocusManager.instance.primaryFocus?.unfocus();
           context.read<ContactUsBloc>().add(const SubmitFormEvent());
         },
       ),

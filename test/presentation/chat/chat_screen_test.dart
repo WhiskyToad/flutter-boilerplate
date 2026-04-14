@@ -35,6 +35,7 @@ void main() {
     goldenTest(
       'Chat page',
       fileName: 'chat_page',
+      pumpBeforeTest: precacheImages,
       builder: () {
         return GoldenTestGroup(
           columnWidthBuilder: (_) => const FixedColumnWidth(pixel5DeviceWidth),

@@ -17,25 +17,27 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ChatListAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            const SearchTextField(),
-            const SizedBox(height: 24.0),
-            Expanded(
-              child: FutureBuilder(
-                future: Future.delayed(const Duration(seconds: 2)),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return const ChatMessages();
-                  } else {
-                    return const ShimmerLoadingView();
-                  }
-                },
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Column(
+            children: [
+              const SearchTextField(),
+              const SizedBox(height: 24.0),
+              Expanded(
+                child: FutureBuilder(
+                  future: Future.delayed(const Duration(seconds: 2)),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return const ChatMessages();
+                    } else {
+                      return const ShimmerLoadingView();
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

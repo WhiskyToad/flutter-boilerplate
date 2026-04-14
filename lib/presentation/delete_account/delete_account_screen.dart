@@ -61,15 +61,16 @@ class DeleteAccountBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: DeleteAccountAppbar(),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: const DeleteAccountAppbar(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(height: 16),
-              Expanded(
+              const SizedBox(height: 16),
+              const Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,8 +82,8 @@ class DeleteAccountBody extends StatelessWidget {
                   ),
                 ),
               ),
-              DeleteAccountButton(),
-              SizedBox(height: 32),
+              const DeleteAccountButton(),
+              SizedBox(height: 16 + context.bottomPadding),
             ],
           ),
         ),
