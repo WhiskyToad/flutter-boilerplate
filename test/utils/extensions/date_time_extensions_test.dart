@@ -13,48 +13,48 @@ void main() {
   group('DateTimeExtensions Tests', () {
     final testCurrentDate = DateTime(2025, 9, 22, 12);
 
-    test('isFuture returns true for a date after now', () {
+    test('should return true for a date after now', () {
       final now = DateTime(2025, 9, 20);
       final futureDate = now.add(const Duration(days: 5));
 
       expect(futureDate.isFuture(now), true);
     });
 
-    test('isPast returns true for a date before now', () {
+    test('should return true for a date before now', () {
       final now = DateTime(2025, 9, 20);
       final pastDate = now.subtract(const Duration(days: 5));
 
       expect(pastDate.isPast(now), true);
     });
 
-    test('format returns correctly formatted date string', () {
+    test('should return correctly formatted date string', () {
       expect(testCurrentDate.format(pattern: 'yyyy-MM-dd'), '2025-09-22');
       expect(testCurrentDate.format(pattern: 'MM/dd/yyyy'), '09/22/2025');
     });
 
-    test('isSameDay returns true when two dates fall on the same day', () {
+    test('should return true when two dates fall on the same day', () {
       final sameDayDate = DateTime(2025, 9, 22, 23, 59);
       expect(testCurrentDate.isSameDay(sameDayDate), true);
     });
 
-    test('isSameDay returns false for different days', () {
+    test('should return false for different days', () {
       final differentDayDate = DateTime(2025, 9, 23);
       expect(testCurrentDate.isSameDay(differentDayDate), false);
     });
 
-    test('isInRange returns true when date is within a start-end range', () {
+    test('should return true when date is within a start-end range', () {
       final rangeStart = testCurrentDate.subtract(const Duration(days: 1));
       final rangeEnd = testCurrentDate.add(const Duration(days: 1));
       expect(testCurrentDate.isInRange(rangeStart, rangeEnd), true);
     });
 
-    test('isInRange returns false when date is outside the range', () {
+    test('should return false when date is outside the range', () {
       final rangeStart = testCurrentDate.add(const Duration(days: 1));
       final rangeEnd = testCurrentDate.add(const Duration(days: 2));
       expect(testCurrentDate.isInRange(rangeStart, rangeEnd), false);
     });
 
-    test('to12HourFormat formats time correctly in 12-hour format', () {
+    test('should format time correctly in 12-hour format', () {
       final testTimeMorning = DateTime(2025, 9, 22, 9, 15);
       final testTimeEvening = DateTime(2025, 9, 22, 21, 45);
 
@@ -63,7 +63,7 @@ void main() {
     });
 
     testWidgets(
-      'timeAgo returns correct localized strings for different ranges',
+      'should return correct localized strings for different time ranges',
       (tester) async {
         final mockLocalizations = MockAppLocalizations();
 

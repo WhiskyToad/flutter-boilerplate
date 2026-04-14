@@ -4,28 +4,28 @@ import 'package:skelter/utils/currency_formatter_util.dart';
 void main() {
   group('CurrencyFormatter Util Tests', () {
     group('Basic Formatting', () {
-      test('formats positive numbers with default setup', () {
+      test('should format positive numbers with default setup', () {
         expect(
           CurrencyFormatterUtil.format(1234.56, locale: 'en_US'),
           equals(r'$1,234.56'),
         );
       });
 
-      test('formats zero', () {
+      test('should format zero', () {
         expect(
           CurrencyFormatterUtil.format(0, locale: 'en_US'),
           equals(r'$0.00'),
         );
       });
 
-      test('formats negative numbers', () {
+      test('should format negative numbers', () {
         expect(
           CurrencyFormatterUtil.format(-50.25, locale: 'en_US'),
           equals(r'-$50.25'),
         );
       });
 
-      test('formats large numbers', () {
+      test('should format large numbers', () {
         expect(
           CurrencyFormatterUtil.format(1000000, locale: 'en_US'),
           equals(r'$1,000,000.00'),
@@ -34,7 +34,7 @@ void main() {
     });
 
     group('Currency Code Support', () {
-      test('formatCurrency displays USD symbol for United States', () {
+      test('should display USD symbol for United States', () {
         expect(
           CurrencyFormatterUtil.format(
             1250.99,
@@ -45,7 +45,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays EUR symbol for Euro', () {
+      test('should display EUR symbol for Euro', () {
         expect(
           CurrencyFormatterUtil.format(
             100.00,
@@ -56,7 +56,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays GBP symbol for British Pound', () {
+      test('should display GBP symbol for British Pound', () {
         expect(
           CurrencyFormatterUtil.format(
             500.50,
@@ -67,7 +67,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays JPY symbol for Japanese Yen', () {
+      test('should display JPY symbol for Japanese Yen', () {
         expect(
           CurrencyFormatterUtil.format(
             100000,
@@ -78,7 +78,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays CHF symbol for Swiss Franc', () {
+      test('should display CHF symbol for Swiss Franc', () {
         expect(
           CurrencyFormatterUtil.format(
             250.75,
@@ -89,7 +89,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays CAD symbol for Canadian Dollar', () {
+      test('should display CAD symbol for Canadian Dollar', () {
         expect(
           CurrencyFormatterUtil.format(
             350.25,
@@ -100,7 +100,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays AUD symbol for Australian Dollar', () {
+      test('should display AUD symbol for Australian Dollar', () {
         expect(
           CurrencyFormatterUtil.format(
             450.00,
@@ -111,7 +111,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays CNY symbol for Chinese Yuan', () {
+      test('should display CNY symbol for Chinese Yuan', () {
         expect(
           CurrencyFormatterUtil.format(
             600.50,
@@ -122,7 +122,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays INR symbol for Indian Rupee', () {
+      test('should display INR symbol for Indian Rupee', () {
         expect(
           CurrencyFormatterUtil.format(
             5000.00,
@@ -133,7 +133,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays SGD symbol for Singapore Dollar', () {
+      test('should display SGD symbol for Singapore Dollar', () {
         expect(
           CurrencyFormatterUtil.format(
             150.75,
@@ -144,7 +144,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays HKD symbol for Hong Kong Dollar', () {
+      test('should display HKD symbol for Hong Kong Dollar', () {
         expect(
           CurrencyFormatterUtil.format(
             800.25,
@@ -155,7 +155,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays MXN symbol for Mexican Peso', () {
+      test('should display MXN symbol for Mexican Peso', () {
         expect(
           CurrencyFormatterUtil.format(
             2000.50,
@@ -166,7 +166,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays BRL symbol for Brazilian Real', () {
+      test('should display BRL symbol for Brazilian Real', () {
         expect(
           CurrencyFormatterUtil.format(
             1500.75,
@@ -177,7 +177,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays KRW symbol for South Korean Won', () {
+      test('should display KRW symbol for South Korean Won', () {
         expect(
           CurrencyFormatterUtil.format(
             50000.00,
@@ -188,7 +188,7 @@ void main() {
         );
       });
 
-      test('formatCurrency displays THB symbol for Thai Baht', () {
+      test('should display THB symbol for Thai Baht', () {
         expect(
           CurrencyFormatterUtil.format(
             8000.50,
@@ -201,14 +201,14 @@ void main() {
     });
 
     group('Decimal Digits', () {
-      test('default 2 decimals', () {
+      test('should use default 2 decimals', () {
         expect(
           CurrencyFormatterUtil.format(1234.56789, locale: 'en_US'),
           equals(r'$1,234.57'),
         );
       });
 
-      test('0 decimals rounding', () {
+      test('should round with 0 decimals', () {
         expect(
           CurrencyFormatterUtil.format(
             1234.56789,
@@ -219,7 +219,7 @@ void main() {
         );
       });
 
-      test('3 decimals', () {
+      test('should format with 3 decimals', () {
         expect(
           CurrencyFormatterUtil.format(
             1234.56789,
@@ -230,7 +230,7 @@ void main() {
         );
       });
 
-      test('1 digit decimal', () {
+      test('should format with 1 digit decimal', () {
         expect(
           CurrencyFormatterUtil.format(1.5, locale: 'en_US', decimalDigits: 1),
           equals(r'$1.5'),
@@ -239,7 +239,7 @@ void main() {
     });
 
     group('Symbol Options', () {
-      test('hide symbol', () {
+      test('should hide symbol', () {
         expect(
           CurrencyFormatterUtil.format(
             99.99,
@@ -250,7 +250,7 @@ void main() {
         );
       });
 
-      test('custom symbol override', () {
+      test('should apply custom symbol override', () {
         expect(
           CurrencyFormatterUtil.format(
             99.99,
@@ -261,7 +261,7 @@ void main() {
         );
       });
 
-      test('symbol override with pound', () {
+      test('should apply symbol override with pound', () {
         expect(
           CurrencyFormatterUtil.format(
             50,
@@ -274,7 +274,7 @@ void main() {
     });
 
     group('Custom Separators', () {
-      test('custom grouping . and decimal ,', () {
+      test('should apply custom grouping . and decimal ,', () {
         expect(
           CurrencyFormatterUtil.format(
             1234567.89,
@@ -286,7 +286,7 @@ void main() {
         );
       });
 
-      test('custom grouping # and 0 decimals', () {
+      test('should apply custom grouping # and 0 decimals', () {
         expect(
           CurrencyFormatterUtil.format(
             1234567.89,
@@ -298,7 +298,7 @@ void main() {
         );
       });
 
-      test('custom symbol separator', () {
+      test('should apply custom symbol separator', () {
         expect(
           CurrencyFormatterUtil.format(
             1234.56,
@@ -311,7 +311,7 @@ void main() {
     });
 
     group('Compact Format', () {
-      test('short format for millions', () {
+      test('should apply short format for millions', () {
         expect(
           CurrencyFormatterUtil.format(
             1500000,
@@ -322,7 +322,7 @@ void main() {
         );
       });
 
-      test('short format for billions', () {
+      test('should apply short format for billions', () {
         expect(
           CurrencyFormatterUtil.format(
             1500000000,
@@ -333,7 +333,7 @@ void main() {
         );
       });
 
-      test('long format for millions', () {
+      test('should apply long format for millions', () {
         final result = CurrencyFormatterUtil.format(
           1200000,
           locale: 'en_US',
@@ -343,7 +343,7 @@ void main() {
         expect(result, contains('1.2'));
       });
 
-      test('long format for billions', () {
+      test('should apply long format for billions', () {
         final result = CurrencyFormatterUtil.format(
           1200000000,
           locale: 'en_US',
@@ -353,7 +353,7 @@ void main() {
         expect(result, contains('1.2'));
       });
 
-      test('compact with custom symbol for millions', () {
+      test('should apply compact format with custom symbol for millions', () {
         final result = CurrencyFormatterUtil.format(
           1500000,
           locale: 'en_US',
@@ -364,7 +364,7 @@ void main() {
         expect(result, contains('1.5M'));
       });
 
-      test('compact with custom symbol for billions', () {
+      test('should apply compact format with custom symbol for billions', () {
         final result = CurrencyFormatterUtil.format(
           1500000000,
           locale: 'en_US',
@@ -377,49 +377,49 @@ void main() {
     });
 
     group('Input Types & Edge Cases', () {
-      test('string numeric input', () {
+      test('should handle string numeric input', () {
         expect(
           CurrencyFormatterUtil.format('123.45', locale: 'en_US'),
           equals(r'$123.45'),
         );
       });
 
-      test('int input', () {
+      test('should handle int input', () {
         expect(
           CurrencyFormatterUtil.format(100, locale: 'en_US'),
           equals(r'$100.00'),
         );
       });
 
-      test('null input fallback', () {
+      test('should use fallback for null input', () {
         expect(
           CurrencyFormatterUtil.format(null, locale: 'en_US'),
           equals('0.00'),
         );
       });
 
-      test('invalid string fallback', () {
+      test('should use fallback for invalid string', () {
         expect(
           CurrencyFormatterUtil.format('abc', locale: 'en_US'),
           equals('0.00'),
         );
       });
 
-      test('decimal rounding edge', () {
+      test('should handle decimal rounding edge case', () {
         expect(
           CurrencyFormatterUtil.format(99.999, locale: 'en_US'),
           equals(r'$100.00'),
         );
       });
 
-      test('negative zero', () {
+      test('should handle negative zero', () {
         expect(
           CurrencyFormatterUtil.format(-0, locale: 'en_US'),
           equals(r'$0.00'),
         );
       });
 
-      test('large number with decimals', () {
+      test('should format large number with decimals', () {
         expect(
           CurrencyFormatterUtil.format(
             1234567890.123,
@@ -430,7 +430,7 @@ void main() {
         );
       });
 
-      test('small decimal rounding', () {
+      test('should handle small decimal rounding', () {
         expect(
           CurrencyFormatterUtil.format(0.0049, locale: 'en_US'),
           equals(r'$0.00'),
@@ -439,7 +439,7 @@ void main() {
     });
 
     group('Fallback Behavior', () {
-      test('uses fallback value when amount is null', () {
+      test('should use fallback value when amount is null', () {
         expect(
           CurrencyFormatterUtil.format(
             null,
@@ -450,7 +450,7 @@ void main() {
         );
       });
 
-      test('uses custom fallback value for invalid input', () {
+      test('should use custom fallback value for invalid input', () {
         expect(
           CurrencyFormatterUtil.format(
             'invalid',
