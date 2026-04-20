@@ -1303,6 +1303,53 @@ class AppLocalizationsEn extends AppLocalizations {
       'Share your experience and help us improve. We value every word you share with us.';
 
   @override
+  String get ai_chat_keys => '================ AI CHAT KEYS ================';
+
+  @override
+  String get ai_assistant => 'Skelter Assistant';
+
+  @override
+  String get ai_chat_how_can_i_help => 'How can I help you?';
+
+  @override
+  String get ai_chat_ask_me_anything => 'Ask me anything...';
+
+  @override
+  String get ai_chat_description =>
+      'Ask me about products, orders, or anything else.';
+
+  @override
+  String get ai_chat_suggestion_cart => 'What\'s in my cart?';
+
+  @override
+  String get ai_chat_suggestion_deals => 'Show products under \$50';
+
+  @override
+  String get ai_chat_suggestion_coupon => 'Any coupons available?';
+
+  @override
+  String get ai_chat_view_cart => 'View Cart';
+
+  @override
+  String get ai_chat_error_no_response =>
+      'No response received. Please try again.';
+
+  @override
+  String get ai_chat_error_quota =>
+      'AI assistant is temporarily unavailable due to high usage. Please try again in a minute.';
+
+  @override
+  String get ai_chat_error_timeout =>
+      'Response took too long. Please try again.';
+
+  @override
+  String get ai_chat_error_network =>
+      'No internet connection. Please check your network and try again.';
+
+  @override
+  String get ai_chat_error_generic => 'Something went wrong. Please try again.';
+
+  @override
   String get empty_views_keys =>
       '================ EMPTY VIEWS KEYS ================';
 

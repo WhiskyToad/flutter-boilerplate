@@ -3,6 +3,7 @@ import 'package:clarity_flutter/clarity_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/core/services/injection_container.dart';
+import 'package:skelter/presentation/ai_chat/widgets/ai_chat_fab.dart';
 import 'package:skelter/presentation/checkout/initial_checkout_screen.dart';
 import 'package:skelter/presentation/home/bloc/home_bloc.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
@@ -61,6 +62,7 @@ class HomeScreenWrapperState extends State<HomeScreenWrapper> {
       },
       child: Scaffold(
         bottomNavigationBar: BottomNavBar(key: bottomNavKey),
+        floatingActionButton: const AiChatFab(),
         body: SafeArea(
           child: IndexedStack(index: currentIndex, children: pages),
         ),

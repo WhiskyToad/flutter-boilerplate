@@ -110,7 +110,14 @@ Future<void> configureDependencies({
     ..registerLazySingleton<AIProductDescriptionRemoteDataSource>(
       () => AIProductDescriptionRemoteDataSourceImpl(sl()),
     )
-    ..registerLazySingleton(() => GeminiService())
+    ..registerLazySingleton(
+      () {
+        final service = GeminiService();
+        service.initialize();
+        return service;
+      },
+      dispose: (service) => service.dispose(),
+    )
     ..registerLazySingleton<FirebasePerformance>(
       () => FirebasePerformance.instance,
     )

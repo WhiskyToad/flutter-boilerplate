@@ -2452,6 +2452,90 @@ abstract class AppLocalizations {
   /// **'Share your experience and help us improve. We value every word you share with us.'**
   String get feedback_description;
 
+  /// No description provided for @ai_chat_keys.
+  ///
+  /// In en, this message translates to:
+  /// **'================ AI CHAT KEYS ================'**
+  String get ai_chat_keys;
+
+  /// No description provided for @ai_assistant.
+  ///
+  /// In en, this message translates to:
+  /// **'Skelter Assistant'**
+  String get ai_assistant;
+
+  /// No description provided for @ai_chat_how_can_i_help.
+  ///
+  /// In en, this message translates to:
+  /// **'How can I help you?'**
+  String get ai_chat_how_can_i_help;
+
+  /// No description provided for @ai_chat_ask_me_anything.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask me anything...'**
+  String get ai_chat_ask_me_anything;
+
+  /// No description provided for @ai_chat_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask me about products, orders, or anything else.'**
+  String get ai_chat_description;
+
+  /// No description provided for @ai_chat_suggestion_cart.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s in my cart?'**
+  String get ai_chat_suggestion_cart;
+
+  /// No description provided for @ai_chat_suggestion_deals.
+  ///
+  /// In en, this message translates to:
+  /// **'Show products under \$50'**
+  String get ai_chat_suggestion_deals;
+
+  /// No description provided for @ai_chat_suggestion_coupon.
+  ///
+  /// In en, this message translates to:
+  /// **'Any coupons available?'**
+  String get ai_chat_suggestion_coupon;
+
+  /// No description provided for @ai_chat_view_cart.
+  ///
+  /// In en, this message translates to:
+  /// **'View Cart'**
+  String get ai_chat_view_cart;
+
+  /// No description provided for @ai_chat_error_no_response.
+  ///
+  /// In en, this message translates to:
+  /// **'No response received. Please try again.'**
+  String get ai_chat_error_no_response;
+
+  /// No description provided for @ai_chat_error_quota.
+  ///
+  /// In en, this message translates to:
+  /// **'AI assistant is temporarily unavailable due to high usage. Please try again in a minute.'**
+  String get ai_chat_error_quota;
+
+  /// No description provided for @ai_chat_error_timeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Response took too long. Please try again.'**
+  String get ai_chat_error_timeout;
+
+  /// No description provided for @ai_chat_error_network.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection. Please check your network and try again.'**
+  String get ai_chat_error_network;
+
+  /// No description provided for @ai_chat_error_generic.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get ai_chat_error_generic;
+
   /// No description provided for @empty_views_keys.
   ///
   /// In en, this message translates to:
