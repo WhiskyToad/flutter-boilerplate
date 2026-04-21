@@ -341,17 +341,17 @@ class _AiChatMessageListState extends State<_AiChatMessageList> {
       ),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             TablerIcons.alert_circle,
             size: 16,
-            color: context.currentTheme.iconErrorDefault,
+            color: AppColors.redError900,
           ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               errorMessage,
               style: AppTextStyles.p4Regular.copyWith(
-                color: context.currentTheme.textErrorPrimary,
+                color: AppColors.redError900,
               ),
             ),
           ),
