@@ -2461,7 +2461,7 @@ abstract class AppLocalizations {
   /// No description provided for @ai_assistant.
   ///
   /// In en, this message translates to:
-  /// **'Skelter Assistant'**
+  /// **'AI Assistant'**
   String get ai_assistant;
 
   /// No description provided for @ai_chat_how_can_i_help.

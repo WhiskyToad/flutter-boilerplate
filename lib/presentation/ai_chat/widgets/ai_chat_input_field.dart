@@ -43,57 +43,68 @@ class _AiChatInputFieldState extends State<AiChatInputField> {
       padding: EdgeInsets.only(
         left: 12,
         right: 12,
-        bottom: 8 + context.bottomPadding,
+        bottom: 12 + context.bottomPadding,
       ),
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              enabled: widget.isEnabled,
-              style: AppTextStyles.p3Medium.copyWith(
-                color: context.currentTheme.textNeutralPrimary,
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF181B25).withOpacity(0.04),
+                    offset: const Offset(0, 1),
+                    blurRadius: 2,
+                  ),
+                ],
               ),
-              decoration: InputDecoration(
-                hintText: context.localization.ai_chat_ask_me_anything,
-                hintStyle: AppTextStyles.p3Medium.copyWith(
-                  color: context.currentTheme.textNeutralDisable,
+              child: TextField(
+                controller: _controller,
+                focusNode: _focusNode,
+                enabled: widget.isEnabled,
+                style: AppTextStyles.p3Medium.copyWith(
+                  color: context.currentTheme.textNeutralPrimary,
                 ),
-                counterText: '',
-                fillColor: context.currentTheme.bgNeutralLight50,
-                filled: true,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide(
-                    color: context.currentTheme.strokeNeutralDefault,
+                decoration: InputDecoration(
+                  hintText: context.localization.ai_chat_ask_me_anything,
+                  hintStyle: AppTextStyles.p3Medium.copyWith(
+                    color: context.currentTheme.textNeutralDisable,
+                  ),
+                  counterText: '',
+                  fillColor: context.currentTheme.bgSurfaceBase2,
+                  filled: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: context.currentTheme.strokeNeutralLight200,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: context.currentTheme.strokeNeutralLight200,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: context.currentTheme.strokeNeutralLight200,
+                    ),
+                  ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: context.currentTheme.strokeNeutralLight200,
+                    ),
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide(
-                    color: context.currentTheme.strokeNeutralLight100,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide(
-                    color: context.currentTheme.strokeBrandDefault,
-                  ),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide(
-                    color: context.currentTheme.strokeNeutralLight100,
-                  ),
-                ),
+                textInputAction: TextInputAction.send,
+                onSubmitted: (_) => _handleSend(),
               ),
-              textInputAction: TextInputAction.send,
-              onSubmitted: (_) => _handleSend(),
             ),
           ),
           const SizedBox(width: 8),
@@ -142,25 +153,15 @@ class _SendButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: canSend
+      child: SvgPicture.asset(
+        Assets.icons.send,
+        width: 24,
+        height: 24,
+        colorFilter: ColorFilter.mode(
+          canSend
               ? context.currentTheme.bgBrandDefault
               : context.currentTheme.bgBrandDisabled,
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: SvgPicture.asset(
-            Assets.icons.send,
-            width: 20,
-            height: 20,
-            colorFilter: ColorFilter.mode(
-              context.currentTheme.textNeutralLight,
-              BlendMode.srcIn,
-            ),
-          ),
+          BlendMode.srcIn,
         ),
       ),
     );

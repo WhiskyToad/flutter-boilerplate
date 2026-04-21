@@ -102,7 +102,7 @@ class AiChatMessageBubble extends StatelessWidget {
             height: 28,
             margin: const EdgeInsets.only(top: 2),
             decoration: BoxDecoration(
-              color: context.currentTheme.bgBrandLight100,
+              color: context.currentTheme.bgBrandLight50,
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -123,7 +123,7 @@ class AiChatMessageBubble extends StatelessWidget {
                     vertical: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: context.currentTheme.bgNeutralLight100,
+                    color: context.currentTheme.bgBrandLight50,
                     borderRadius: BorderRadius.circular(18),
                   ),
                   child: AnimatedSwitcher(

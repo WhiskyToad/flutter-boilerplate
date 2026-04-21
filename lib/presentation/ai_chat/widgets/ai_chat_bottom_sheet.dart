@@ -77,7 +77,12 @@ class _AiChatSheetContent extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             _buildSuggestionRow(context),
-            const SizedBox(height: 4),
+            const SizedBox(height: 12),
+            Divider(
+              height: 1,
+              color: context.currentTheme.strokeNeutralLight200,
+            ),
+            const SizedBox(height: 10),
             _buildInputSection(context),
           ],
         ),
@@ -108,7 +113,7 @@ class _AiChatSheetContent extends StatelessWidget {
             width: 36,
             height: 36,
             decoration: BoxDecoration(
-              color: context.currentTheme.bgBrandLight100,
+              color: context.currentTheme.bgBrandLight50,
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -206,10 +211,10 @@ class _AiChatSheetContent extends StatelessWidget {
                   ),
                   child: Text(
                     suggestions[index],
-                    style: AppTextStyles.p4Medium.copyWith(
+                    style: AppTextStyles.p3Medium.copyWith(
                       color: state.isGenerating
                           ? context.currentTheme.textNeutralSecondary
-                          : context.currentTheme.textBrandPrimary,
+                          : context.currentTheme.textBrandSecondary,
                     ),
                   ),
                 ),
@@ -228,12 +233,11 @@ class _AiChatSheetContent extends StatelessWidget {
       builder: (context, state) {
         return AiChatInputField(
           isEnabled: !state.isGenerating,
-          onSend: (message) {
-            context.read<AiChatBloc>().add(SendMessageEvent(message: message));
-          },
-          onStop: () {
-            context.read<AiChatBloc>().add(const StopGenerationEvent());
-          },
+          onSend: (message) => context.read<AiChatBloc>().add(
+            SendMessageEvent(message: message),
+          ),
+          onStop: () =>
+              context.read<AiChatBloc>().add(const StopGenerationEvent()),
         );
       },
     );
@@ -303,17 +307,17 @@ class _AiChatMessageListState extends State<_AiChatMessageList> {
           children: [
             Icon(
               TablerIcons.message_chatbot,
-              size: 48,
-              color: context.currentTheme.iconNeutralDisabled,
+              size: 40,
+              color: context.currentTheme.strokeNeutralHover,
             ),
             const SizedBox(height: 16),
             Text(
               context.localization.ai_chat_how_can_i_help,
-              style: AppTextStyles.p1SemiBold.copyWith(
+              style: AppTextStyles.h6SemiBold.copyWith(
                 color: context.currentTheme.textNeutralPrimary,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             Text(
               context.localization.ai_chat_description,
               textAlign: TextAlign.center,

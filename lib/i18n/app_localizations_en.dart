@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -1306,7 +1307,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ai_chat_keys => '================ AI CHAT KEYS ================';
 
   @override
-  String get ai_assistant => 'Skelter Assistant';
+  String get ai_assistant => 'AI Assistant';
 
   @override
   String get ai_chat_how_can_i_help => 'How can I help you?';
