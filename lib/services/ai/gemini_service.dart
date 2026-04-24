@@ -4,15 +4,23 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
 import 'package:skelter/services/ai/gemini_constants.dart';
 
-class GeminiService {
-  factory GeminiService() {
-    _instance ??= GeminiService._();
-    return _instance!;
+/// Thin wrapper around [ChatSession] to keep firebase_ai types out of the BLoC.
+class GeminiChatSession {
+  GeminiChatSession._(this._session);
+
+  final ChatSession _session;
+
+  Stream<String> sendMessage(String message) async* {
+    final responses = _session.sendMessageStream(Content.text(message));
+    await for (final response in responses) {
+      final text = response.text;
+      if (text != null && text.isNotEmpty) yield text;
+    }
   }
+}
 
-  GeminiService._();
-
-  static GeminiService? _instance;
+class GeminiService {
+  GeminiService();
 
   GenerativeModel? _model;
   GenerativeModel? _visionModel;
@@ -146,9 +154,22 @@ class GeminiService {
     }
   }
 
+  GeminiChatSession createChatSession(String systemInstruction) {
+    final model = FirebaseAI.googleAI().generativeModel(
+      model: GeminiConstants.geminiProModel,
+      systemInstruction: Content.system(systemInstruction),
+      generationConfig: GenerationConfig(
+        temperature: GeminiConstants.temperature,
+        maxOutputTokens: GeminiConstants.maxOutputTokens,
+        topP: GeminiConstants.topP,
+        topK: GeminiConstants.topK,
+      ),
+    );
+    return GeminiChatSession._(model.startChat());
+  }
+
   void dispose() {
     _model = null;
     _visionModel = null;
-    _instance = null;
   }
 }
