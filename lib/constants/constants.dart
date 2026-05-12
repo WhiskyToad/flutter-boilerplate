@@ -1,5 +1,14 @@
 const String kLogFileName = 'app.log';
 
+/// Play Store applicationId of the published Android app.
+/// Used by the in-app review flow to deep-link to the store listing.
+const String kGooglePlayIdentifier = 'com.solguruz.skelter';
+
+/// Numeric App Store ID from App Store Connect (e.g. `'1234567890'`).
+/// Placeholder — replace before iOS release. Not read by the native review
+/// dialog (StoreKit uses bundle id); only consumed by `launchStore()`.
+const String kAppStoreIdentifier = '0000000000';
+
 const kMimeTypeVideo = 'video/';
 const kMimeTypeImage = 'image/';
 const kSVGWithDot = '.svg';

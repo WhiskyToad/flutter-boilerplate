@@ -11,6 +11,8 @@ import 'package:skelter/presentation/home/widgets/bottom_nav_bar.dart';
 import 'package:skelter/presentation/home/widgets/home_screen_body.dart';
 import 'package:skelter/presentation/profile/profile_screen.dart';
 import 'package:skelter/presentation/search/search_screen.dart';
+import 'package:skelter/services/in_app_review_service.dart';
+import 'package:skelter/utils/app_environment.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -35,6 +37,15 @@ class HomeScreenWrapper extends StatefulWidget {
 
 class HomeScreenWrapperState extends State<HomeScreenWrapper> {
   final GlobalKey bottomNavKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    if (AppEnvironment.isTestEnvironment) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      sl<InAppReviewService>().requestReviewIfEligible();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
