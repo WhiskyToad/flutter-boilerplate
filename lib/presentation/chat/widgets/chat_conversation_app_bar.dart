@@ -17,43 +17,43 @@ class ChatConversationAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      titleSpacing: 0,
       leading: AppButton.icon(
         iconData: TablerIcons.arrow_left,
         iconOrTextColorOverride: context.currentTheme.iconNeutralDefault,
         size: AppButtonSize.extraLarge,
-        onPressed: () {
-          context.router.maybePop();
-        },
+        onPressed: () => context.router.maybePop(),
       ),
       title: Row(
         children: [
-          ChatAvatarSmall(chatModel: chatUser),
-          const SizedBox(width: 16),
+          UserAvatar(
+            chatModel: chatUser,
+            profileImageSize: 40,
+            showStatus: false,
+          ),
+          const SizedBox(width: 6),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  chatUser.name,
-                  style: AppTextStyles.p3SemiBold.copyWith(
-                    color: context.currentTheme.textNeutralPrimary,
-                  ),
-                ),
-                Text(
-                  'Last seen 04:00 pm',
-                  style: AppTextStyles.p4Medium.copyWith(
-                    color: context.currentTheme.textNeutralSecondary,
-                  ),
-                ),
-              ],
+            child: Text(
+              chatUser.name,
+              style: AppTextStyles.p3SemiBold.copyWith(
+                color: context.currentTheme.textNeutralPrimary,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
         ],
       ),
-      centerTitle: false,
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(1),
+        child: Container(
+          height: 1,
+          color: context.currentTheme.strokeNeutralLight200,
+        ),
+      ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 1);
 }
