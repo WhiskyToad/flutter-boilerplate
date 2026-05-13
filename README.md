@@ -86,7 +86,7 @@ flutter build ipa --export-method=ad-hoc --flavor prod --dart-define=APP_FLAVOR=
 Follow these steps to configure SSL pinning in your Flutter project.
 
 1. **Add Certificate Hash Variables to `.env`**  
-   Add the SHA-256 SSL public key fingerprints for each flavor:
+   Add the SHA-256 certificate fingerprints (hex, lowercase, no separators) for each flavor:
 
    ```
    CERT_HASH_DEV="add_your_dev_hash_here"
@@ -95,14 +95,17 @@ Follow these steps to configure SSL pinning in your Flutter project.
    ```
 
 2. **Get Your Certificate Hash**  
-   Run the following command (replace `yourdomain.com` with your API domain):
+   Run the following command (replace `yourdomain.com` with your API domain).
+   The `http_certificate_pinning` package expects the SHA-256 of the leaf
+   certificate, encoded as a 64-character lowercase hex string with no
+   separators:
 
    ```bash
-   openssl s_client -connect yourdomain.com:443 -servername yourdomain.com </dev/null 2>/dev/null \
-     | openssl x509 -pubkey -noout \
-     | openssl pkey -pubin -outform DER \
-     | openssl dgst -sha256 -binary \
-     | openssl enc -base64
+   echo | openssl s_client -servername yourdomain.com -connect yourdomain.com:443 2>/dev/null \
+     | openssl x509 -fingerprint -sha256 -noout \
+     | cut -d'=' -f2 \
+     | tr -d ':' \
+     | tr 'A-Z' 'a-z'
    ```
 
    **Example output:**
@@ -110,6 +113,8 @@ Follow these steps to configure SSL pinning in your Flutter project.
    406f8ac14c60a793be7aa284fc61a3cdcdbd79aa8c59cef535baffefd7278a5d
    ```
    Copy this value into the matching `CERT_HASH_*` variable in your `.env` file.
+
+   > **Note:** This pins the leaf certificate. Public certificates (e.g. Let's Encrypt) rotate every 60–90 days, after which you must regenerate the hash. For longer-lived pinning, consider hashing an intermediate CA certificate instead.
 
 3. **Use the Certificate Hash in Code**  
    Add a method to fetch the correct hash for the current flavor:

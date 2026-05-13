@@ -86,6 +86,7 @@ dependencies:
   firebase_ai: ^3.6.1
   flutter_dynamic_icon_plus: ^1.4.0
   cloud_firestore: ^6.1.1
+  rate_my_app: ^2.3.2
 
 dev_dependencies:
   flutter_test:
