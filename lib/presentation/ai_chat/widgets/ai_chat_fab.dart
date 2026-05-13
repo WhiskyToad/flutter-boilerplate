@@ -8,7 +8,7 @@ import 'package:skelter/presentation/ai_chat/widgets/ai_chat_bottom_sheet.dart';
 import 'package:skelter/presentation/checkout/data/cart_sample_data.dart';
 import 'package:skelter/presentation/home/bloc/home_bloc.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class AiChatFab extends StatefulWidget {
   const AiChatFab({super.key});

@@ -7,7 +7,7 @@ import 'package:skelter/presentation/product_detail/bloc/product_detail_bloc.dar
 import 'package:skelter/presentation/product_detail/bloc/product_detail_event.dart';
 import 'package:skelter/presentation/product_detail/domain/entities/product_detail.dart';
 import 'package:skelter/utils/app_environment.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class SelectedProductImage extends StatelessWidget {

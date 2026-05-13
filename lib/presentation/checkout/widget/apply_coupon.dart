@@ -6,7 +6,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/app_environment.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ApplyCoupon extends StatelessWidget {
   const ApplyCoupon({super.key});

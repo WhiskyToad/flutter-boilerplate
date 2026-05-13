@@ -6,7 +6,7 @@ import 'package:skelter/presentation/delete_account/enum/delete_account_reasons.
 import 'package:skelter/presentation/delete_account/widgets/delete_account_alert_bottom_sheet.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/haptic_feedback_util.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_state_enum.dart';
