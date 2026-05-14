@@ -33,6 +33,7 @@ import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/dynamic_icon_service.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/firestore_service.dart';
+import 'package:skelter/services/in_app_review_service.dart';
 import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
@@ -110,7 +111,11 @@ Future<void> configureDependencies({
     ..registerLazySingleton<AIProductDescriptionRemoteDataSource>(
       () => AIProductDescriptionRemoteDataSourceImpl(sl()),
     )
-    ..registerLazySingleton(() => GeminiService())
+    ..registerLazySingleton(() {
+      final service = GeminiService();
+      service.initialize();
+      return service;
+    }, dispose: (service) => service.dispose())
     ..registerLazySingleton<FirebasePerformance>(
       () => FirebasePerformance.instance,
     )
@@ -134,6 +139,7 @@ Future<void> configureDependencies({
     ..registerLazySingleton<DynamicIconService>(
       () => DynamicIconService(remoteConfigService: RemoteConfigService()),
     )
+    ..registerLazySingleton<InAppReviewService>(() => InAppReviewService())
     ..registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance)
     ..registerLazySingleton<FirestoreService>(
       () => FirestoreService(firestore: sl<FirebaseFirestore>()),
