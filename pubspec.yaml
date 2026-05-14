@@ -87,6 +87,7 @@ dependencies:
   flutter_dynamic_icon_plus: ^1.4.0
   cloud_firestore: ^6.1.1
   rate_my_app: ^2.3.2
+  liquid_glass_widgets: ^0.5.0
 
 dev_dependencies:
   flutter_test:
