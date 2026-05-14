@@ -21,7 +21,7 @@ import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/entered_wrong_email.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/resend_verification_mail_button.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class VerifyEmailScreen extends StatefulWidget {

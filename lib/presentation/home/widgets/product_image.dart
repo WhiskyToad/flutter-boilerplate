@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/utils/app_environment.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ProductImage extends StatelessWidget {
   final String imageUrl;

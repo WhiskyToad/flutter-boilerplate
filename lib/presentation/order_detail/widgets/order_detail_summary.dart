@@ -4,7 +4,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/my_orders/bloc/my_order_bloc.dart';
 import 'package:skelter/presentation/product_detail/domain/entities/product_detail.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class OrderDetailSummary extends StatelessWidget {
   const OrderDetailSummary({super.key});

@@ -9,7 +9,7 @@ import 'package:skelter/presentation/chat/enum/message_type_enum.dart';
 import 'package:skelter/presentation/chat/model/chat_message_model.dart';
 import 'package:skelter/presentation/chat/widgets/image_full_screen_view.dart';
 import 'package:skelter/utils/app_environment.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class MessageTypes extends StatelessWidget {
   const MessageTypes({super.key, required this.message});
