@@ -5,8 +5,8 @@
 ![Quality gate](https://sonarqube.solz.me/api/project_badges/quality_gate?project=Skelter-Flutter&token=sqb_85d4c55a7bc25fe595483b116c4cf8f58723cb10)
 <br/>
 
-![Flutter](https://img.shields.io/badge/Flutter-v3.35.7-blue?logo=flutter)
-![Dart](https://img.shields.io/badge/Dart-3.9.2-blue?logo=dart)
+![Flutter](https://img.shields.io/badge/Flutter-v3.41.9-blue?logo=flutter)
+![Dart](https://img.shields.io/badge/Dart-3.11.5-blue?logo=dart)
 ![Version](https://img.shields.io/badge/Version-1.0.4-blue)
 ![Apache](https://img.shields.io/badge/license-Apache-purple.svg)
 <br/>
@@ -32,8 +32,8 @@ boiler plate code for rapid application development.
 
 ## Technology Stack
 
-- **Flutter Version:** ^3.35.7
-- **Dart SDK:** ^3.9.2
+- **Flutter Version:** ^3.41.9
+- **Dart SDK:** ^3.11.5
 - **State Management:** BLoC
 - **Navigation:** Auto Route
 - **Backend Integration:** Firebase (Core, Analytics, Crashlytics, Auth)
