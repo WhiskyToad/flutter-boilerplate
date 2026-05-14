@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -648,6 +647,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_chats => 'No Chats';
+
+  @override
+  String get no_users_to_chat_with => 'No users to chat with yet';
+
+  @override
+  String get no_users_match_search => 'No matching users';
+
+  @override
+  String get no_messages_yet => 'No messages yet';
+
+  @override
+  String get failed_to_load_chats => 'Failed to load chats';
 
   @override
   String get send_a_new_message => 'Send a new message';

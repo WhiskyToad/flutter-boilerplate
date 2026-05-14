@@ -96,6 +96,11 @@ class _MainAppState extends State<MainApp> {
   Future<void> _initializeNotifications() async {
     await NotificationService.instance.initialize();
 
+    // `authStateChanges()` can fire repeatedly for the same user (token
+    // refresh, re-auth, hot restart). Cancel the previous subscription before
+    // resubscribing, otherwise the single-subscription `onNotificationTap`
+    // stream throws "Stream has already been listened to".
+    await _notificationSubscription?.cancel();
     _notificationSubscription = NotificationService.instance.onNotificationTap
         .listen((payload) {
           _handleNotificationTap(payload);

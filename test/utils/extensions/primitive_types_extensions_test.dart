@@ -4,43 +4,31 @@ import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 void main() {
   group('String Extensions', () {
     group('RegexHelperExtension', () {
-      test(
-        'should return true for strings with both letters and numbers',
-        () {
-          expect('abc123'.hasLetterAndNumber(), isTrue);
-          expect('123abc'.hasLetterAndNumber(), isTrue);
-          expect('a1b2c3'.hasLetterAndNumber(), isTrue);
-        },
-      );
+      test('should return true for strings with both letters and numbers', () {
+        expect('abc123'.hasLetterAndNumber(), isTrue);
+        expect('123abc'.hasLetterAndNumber(), isTrue);
+        expect('a1b2c3'.hasLetterAndNumber(), isTrue);
+      });
 
-      test(
-        'should return false for letters only or numbers only',
-        () {
-          expect('abc'.hasLetterAndNumber(), isFalse);
-          expect('123'.hasLetterAndNumber(), isFalse);
-          expect(''.hasLetterAndNumber(), isFalse);
-        },
-      );
+      test('should return false for letters only or numbers only', () {
+        expect('abc'.hasLetterAndNumber(), isFalse);
+        expect('123'.hasLetterAndNumber(), isFalse);
+        expect(''.hasLetterAndNumber(), isFalse);
+      });
 
-      test(
-        'should return true for strings with special characters',
-        () {
-          expect('hello!'.hasSpecialCharacter(), isTrue);
-          expect('test@test.com'.hasSpecialCharacter(), isTrue);
-          expect('pass#word'.hasSpecialCharacter(), isTrue);
-          expect('with spaces and !@#'.hasSpecialCharacter(), isTrue);
-        },
-      );
+      test('should return true for strings with special characters', () {
+        expect('hello!'.hasSpecialCharacter(), isTrue);
+        expect('test@test.com'.hasSpecialCharacter(), isTrue);
+        expect('pass#word'.hasSpecialCharacter(), isTrue);
+        expect('with spaces and !@#'.hasSpecialCharacter(), isTrue);
+      });
 
-      test(
-        'should return false for strings without special characters',
-        () {
-          expect('hello'.hasSpecialCharacter(), isFalse);
-          expect('test123'.hasSpecialCharacter(), isFalse);
-          expect(''.hasSpecialCharacter(), isFalse);
-          expect('with spaces'.hasSpecialCharacter(), isFalse);
-        },
-      );
+      test('should return false for strings without special characters', () {
+        expect('hello'.hasSpecialCharacter(), isFalse);
+        expect('test123'.hasSpecialCharacter(), isFalse);
+        expect(''.hasSpecialCharacter(), isFalse);
+        expect('with spaces'.hasSpecialCharacter(), isFalse);
+      });
 
       test('should return the string in reverse order', () {
         expect('hello'.reversed, equals('olleh'));
