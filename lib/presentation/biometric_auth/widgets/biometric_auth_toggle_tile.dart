@@ -6,7 +6,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_bloc.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_event.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class BiometricAuthToggleTile extends StatelessWidget {
   const BiometricAuthToggleTile({super.key});

@@ -9,7 +9,7 @@ import 'package:skelter/presentation/ai_chat/bloc/ai_chat_state.dart';
 import 'package:skelter/presentation/ai_chat/widgets/ai_chat_input_field.dart';
 import 'package:skelter/presentation/ai_chat/widgets/ai_chat_message_bubble.dart';
 import 'package:skelter/presentation/home/domain/entities/product.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 void showAiChatBottomSheet(

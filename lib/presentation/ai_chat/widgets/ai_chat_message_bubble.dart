@@ -5,7 +5,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/ai_chat/model/ai_chat_message.dart';
 import 'package:skelter/presentation/ai_chat/widgets/ai_chat_product_card.dart';
 import 'package:skelter/presentation/home/domain/entities/product.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class AiChatMessageBubble extends StatelessWidget {
   const AiChatMessageBubble({

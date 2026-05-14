@@ -14,7 +14,7 @@ import 'package:skelter/presentation/login/widgets/login_app_bar.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class LoginWithEmailPasswordScreen extends StatelessWidget {
