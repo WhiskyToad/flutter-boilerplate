@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
+import 'package:skelter/presentation/chat/domain/usecases/delete_chat_user_document.dart';
 import 'package:skelter/presentation/delete_account/bloc/delete_account_event.dart';
 import 'package:skelter/presentation/delete_account/bloc/delete_account_state.dart';
 import 'package:skelter/presentation/delete_account/constants/delete_account_constants.dart';
@@ -57,6 +59,25 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
     emit(state.copyWith(isLoading: true));
 
     var hasErrorOccurred = false;
+
+    // Remove the user's chat directory document BEFORE deleting the auth
+    // user. Firestore rules require `request.auth.uid == userId` for delete,
+    // which fails once the auth user is gone. Best-effort: log on failure
+    // (e.g. transient network) but proceed with auth deletion regardless —
+    // the user's intent is to remove their account, and a stale chat doc is
+    // a smaller harm than a partial deletion the user can't retry.
+    final currentUser = _firebaseAuthService.getCurrentUser();
+    if (currentUser != null) {
+      final result = await sl<DeleteChatUserDocument>()(
+        DeleteChatUserDocumentParams(userId: currentUser.uid),
+      );
+      result.fold(
+        (failure) => debugPrint(
+          '[DeleteAccount] chat user doc delete failed: ${failure.message}',
+        ),
+        (_) => debugPrint('[DeleteAccount] chat user doc deleted'),
+      );
+    }
 
     await _firebaseAuthService.deleteCurrentUser(
       onError: (error, {stackTrace}) async {

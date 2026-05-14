@@ -27,14 +27,7 @@ class ChatListAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: context.currentTheme.textNeutralPrimary,
         ),
       ),
-      actions: [
-        AppButton.icon(
-          iconData: TablerIcons.dots_vertical,
-          iconOrTextColorOverride: context.currentTheme.iconNeutralDefault,
-          size: AppButtonSize.extraLarge,
-          onPressed: () {},
-        ),
-      ],
+
       centerTitle: true,
     );
   }

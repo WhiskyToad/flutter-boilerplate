@@ -12,6 +12,15 @@ import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/app_tour_service.dart';
 import 'package:skelter/main.dart';
+import 'package:skelter/presentation/chat/data/datasources/chat_remote_datasource.dart';
+import 'package:skelter/presentation/chat/data/repositories/chat_repository_impl.dart';
+import 'package:skelter/presentation/chat/domain/repositories/chat_repository.dart';
+import 'package:skelter/presentation/chat/domain/usecases/create_chat_user_document.dart';
+import 'package:skelter/presentation/chat/domain/usecases/delete_chat_user_document.dart';
+import 'package:skelter/presentation/chat/domain/usecases/send_chat_message.dart';
+import 'package:skelter/presentation/chat/domain/usecases/watch_chat_messages.dart';
+import 'package:skelter/presentation/chat/domain/usecases/watch_my_chats.dart';
+import 'package:skelter/presentation/chat/domain/usecases/watch_other_users.dart';
 import 'package:skelter/presentation/feedback/data/datasources/feedback_remote_datasource.dart';
 import 'package:skelter/presentation/feedback/data/repositories/feedback_repository_impl.dart';
 import 'package:skelter/presentation/feedback/domain/repositories/feedback_repository.dart';
@@ -150,7 +159,19 @@ Future<void> configureDependencies({
     )
     ..registerLazySingleton<FeedbackRemoteDatasource>(
       () => FeedbackRemoteDatasourceImpl(sl<FirestoreService>()),
-    );
+    )
+    ..registerLazySingleton<ChatRemoteDatasource>(
+      () => ChatRemoteDatasourceImpl(sl<FirebaseFirestore>()),
+    )
+    ..registerLazySingleton<ChatRepository>(
+      () => ChatRepositoryImpl(sl<ChatRemoteDatasource>()),
+    )
+    ..registerLazySingleton(() => WatchOtherUsers(sl<ChatRepository>()))
+    ..registerLazySingleton(() => WatchChatMessages(sl<ChatRepository>()))
+    ..registerLazySingleton(() => WatchMyChats(sl<ChatRepository>()))
+    ..registerLazySingleton(() => SendChatMessage(sl<ChatRepository>()))
+    ..registerLazySingleton(() => CreateChatUserDocument(sl<ChatRepository>()))
+    ..registerLazySingleton(() => DeleteChatUserDocument(sl<ChatRepository>()));
 }
 
 void _registerDioInterceptor(Dio dio) {
