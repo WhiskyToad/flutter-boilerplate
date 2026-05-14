@@ -13,7 +13,7 @@ import 'package:skelter/presentation/chat/bloc/chat_users_event.dart';
 import 'package:skelter/presentation/chat/bloc/chat_users_state.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/haptic_feedback_util.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ChatUsersSearchBar extends StatefulWidget {

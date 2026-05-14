@@ -19,7 +19,7 @@ import 'package:skelter/presentation/chat/widgets/chat_users_search_bar.dart';
 import 'package:skelter/presentation/chat/widgets/empty_chat_view.dart';
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class ChatScreen extends StatelessWidget {

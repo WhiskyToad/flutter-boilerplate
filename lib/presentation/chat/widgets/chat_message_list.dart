@@ -10,7 +10,7 @@ import 'package:skelter/presentation/chat/model/chat_model.dart';
 import 'package:skelter/presentation/chat/widgets/chat_conversation_tile.dart';
 import 'package:skelter/presentation/chat/widgets/date_separator_text.dart';
 import 'package:skelter/utils/extensions/date_time_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ChatMessageList extends StatelessWidget {
   const ChatMessageList({super.key, required this.chatUser});

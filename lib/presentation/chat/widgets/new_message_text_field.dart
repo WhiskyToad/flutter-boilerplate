@@ -7,7 +7,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/chat/bloc/chat_conversation_bloc.dart';
 import 'package:skelter/presentation/chat/bloc/chat_conversation_event.dart';
 import 'package:skelter/presentation/chat/bloc/chat_conversation_state.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class NewMessageTextField extends StatefulWidget {
   const NewMessageTextField({super.key});
