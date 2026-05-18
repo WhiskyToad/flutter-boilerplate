@@ -1,27 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/validators/validators.dart';
 
-class MockAppLocalizations extends Mock implements AppLocalizations {}
-
-class MockLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
-  final AppLocalizations mockLocalizations;
-
-  const MockLocalizationsDelegate(this.mockLocalizations);
-
-  @override
-  bool isSupported(Locale locale) => true;
-
-  @override
-  Future<AppLocalizations> load(Locale locale) async => mockLocalizations;
-
-  @override
-  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) =>
-      false;
-}
+import '../test_helpers.dart';
 
 void main() {
   group('isValidUrl', () {
@@ -79,220 +60,76 @@ void main() {
   });
 
   group('isEmailValid', () {
-    testWidgets('should return null for valid email', (tester) async {
-      final mockL10n = MockAppLocalizations();
+    late MockAppLocalizations mockL10n;
+
+    setUp(() {
+      mockL10n = MockAppLocalizations();
       when(
         () => mockL10n.email_cant_be_empty,
       ).thenReturn("Email can't be empty");
       when(() => mockL10n.invalid_email).thenReturn('Invalid email');
+    });
 
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = isEmailValid('user@example.com', context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
+    testWidgets('should return null for valid email', (tester) async {
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => isEmailValid('user@example.com', ctx),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, isNull);
     });
 
     testWidgets('should return error message for empty email', (tester) async {
-      final mockL10n = MockAppLocalizations();
-      when(
-        () => mockL10n.email_cant_be_empty,
-      ).thenReturn("Email can't be empty");
-      when(() => mockL10n.invalid_email).thenReturn('Invalid email');
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = isEmailValid('', context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => isEmailValid('', ctx),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, equals("Email can't be empty"));
     });
 
     testWidgets('should return error message for email without @ symbol', (
       tester,
     ) async {
-      final mockL10n = MockAppLocalizations();
-      when(
-        () => mockL10n.email_cant_be_empty,
-      ).thenReturn("Email can't be empty");
-      when(() => mockL10n.invalid_email).thenReturn('Invalid email');
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = isEmailValid('invalidemail.com', context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => isEmailValid('invalidemail.com', ctx),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, equals('Invalid email'));
     });
 
     testWidgets('should return error message for email without domain', (
       tester,
     ) async {
-      final mockL10n = MockAppLocalizations();
-      when(
-        () => mockL10n.email_cant_be_empty,
-      ).thenReturn("Email can't be empty");
-      when(() => mockL10n.invalid_email).thenReturn('Invalid email');
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = isEmailValid('user@', context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => isEmailValid('user@', ctx),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, equals('Invalid email'));
     });
 
     testWidgets(
       'should return error message for email with single-character TLD',
       (tester) async {
-        final mockL10n = MockAppLocalizations();
-        when(
-          () => mockL10n.email_cant_be_empty,
-        ).thenReturn("Email can't be empty");
-        when(() => mockL10n.invalid_email).thenReturn('Invalid email');
-
-        String? result;
-        await tester.pumpWidget(
-          MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-            home: Scaffold(
-              body: Builder(
-                builder: (context) => ElevatedButton(
-                  onPressed: () {
-                    result = isEmailValid('user@example.c', context);
-                  },
-                  child: const Text('Validate'),
-                ),
-              ),
-            ),
-          ),
+        final result = await tester.runValidator(
+          mockL10n,
+          (ctx) => isEmailValid('user@example.c', ctx),
         );
-        await tester.pumpAndSettle();
-        await tester.tap(find.text('Validate'));
-        await tester.pump();
         expect(result, equals('Invalid email'));
       },
     );
 
     testWidgets('should return null for email with subdomain', (tester) async {
-      final mockL10n = MockAppLocalizations();
-      when(
-        () => mockL10n.email_cant_be_empty,
-      ).thenReturn("Email can't be empty");
-      when(() => mockL10n.invalid_email).thenReturn('Invalid email');
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = isEmailValid('user@mail.example.com', context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => isEmailValid('user@mail.example.com', ctx),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, isNull);
     });
 
     testWidgets('should return null for email with plus sign', (tester) async {
-      final mockL10n = MockAppLocalizations();
-      when(
-        () => mockL10n.email_cant_be_empty,
-      ).thenReturn("Email can't be empty");
-      when(() => mockL10n.invalid_email).thenReturn('Invalid email');
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = isEmailValid('user+tag@example.com', context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => isEmailValid('user+tag@example.com', ctx),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, isNull);
     });
   });
@@ -329,154 +166,58 @@ void main() {
   });
 
   group('maxLengthValidator', () {
-    testWidgets('should return null when value is within limit', (
-      tester,
-    ) async {
-      final mockL10n = MockAppLocalizations();
+    late MockAppLocalizations mockL10n;
+
+    setUp(() {
+      mockL10n = MockAppLocalizations();
       when(() => mockL10n.messageTooLong(any())).thenAnswer(
         (i) => 'Message too long (max ${i.positionalArguments.first} chars)',
       );
+    });
 
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = maxLengthValidator('Hello', 10, context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
+    testWidgets('should return null when value is within limit', (
+      tester,
+    ) async {
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => maxLengthValidator('Hello', 10, ctx),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, isNull);
     });
 
     testWidgets('should return null when value length equals the limit', (
       tester,
     ) async {
-      final mockL10n = MockAppLocalizations();
-      when(() => mockL10n.messageTooLong(any())).thenAnswer(
-        (i) => 'Message too long (max ${i.positionalArguments.first} chars)',
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => maxLengthValidator('Hello', 5, ctx),
       );
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = maxLengthValidator('Hello', 5, context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, isNull);
     });
 
     testWidgets('should return error message when value exceeds the limit', (
       tester,
     ) async {
-      final mockL10n = MockAppLocalizations();
-      when(() => mockL10n.messageTooLong(any())).thenAnswer(
-        (i) => 'Message too long (max ${i.positionalArguments.first} chars)',
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => maxLengthValidator('Hello World', 5, ctx),
       );
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = maxLengthValidator('Hello World', 5, context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, equals('Message too long (max 5 chars)'));
     });
 
     testWidgets('should return null for null value', (tester) async {
-      final mockL10n = MockAppLocalizations();
-      when(() => mockL10n.messageTooLong(any())).thenAnswer(
-        (i) => 'Message too long (max ${i.positionalArguments.first} chars)',
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => maxLengthValidator(null, 10, ctx),
       );
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = maxLengthValidator(null, 10, context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, isNull);
     });
 
     testWidgets('should return null for empty string', (tester) async {
-      final mockL10n = MockAppLocalizations();
-      when(() => mockL10n.messageTooLong(any())).thenAnswer(
-        (i) => 'Message too long (max ${i.positionalArguments.first} chars)',
+      final result = await tester.runValidator(
+        mockL10n,
+        (ctx) => maxLengthValidator('', 5, ctx),
       );
-
-      String? result;
-      await tester.pumpWidget(
-        MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [MockLocalizationsDelegate(mockL10n)],
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  result = maxLengthValidator('', 5, context);
-                },
-                child: const Text('Validate'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Validate'));
-      await tester.pump();
       expect(result, isNull);
     });
   });

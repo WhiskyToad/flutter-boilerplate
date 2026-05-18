@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:skelter/core/errors/failure.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/home/data/models/product_model.dart';
 import 'package:skelter/presentation/home/domain/usecases/get_products.dart';
 import 'package:skelter/presentation/my_orders/bloc/my_order_bloc.dart';
@@ -14,14 +13,14 @@ import 'package:skelter/presentation/product_detail/data/models/product_detail_m
 import 'package:skelter/presentation/product_detail/domain/usecases/get_product_detail.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 
+import '../../../test_helpers.dart';
+
 class MockGetProducts extends Mock implements GetProducts {}
 
 class MockGetProductDetail extends Mock implements GetProductDetail {}
 
 class MockPerformanceMonitoringService extends Mock
     implements PerformanceMonitoringService {}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
 
 void main() {
   late MyOrderBloc bloc;

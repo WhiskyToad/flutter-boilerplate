@@ -2,15 +2,14 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_bloc.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_event.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_state.dart';
 import 'package:skelter/services/local_auth_services.dart';
 
-class MockLocalAuthService extends Mock implements LocalAuthService {}
+import '../../../test_helpers.dart';
 
-class MockAppLocalizations extends Mock implements AppLocalizations {}
+class MockLocalAuthService extends Mock implements LocalAuthService {}
 
 void main() {
   late BiometricAuthBloc bloc;

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:skelter/core/services/injection_container.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
@@ -13,8 +12,7 @@ import 'package:skelter/services/performance_monitoring_service.dart';
 
 import '../../../../integration_test/mock_firebase_auth.dart';
 import '../../../../integration_test/mock_firebase_performance.dart';
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
+import '../../../test_helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
