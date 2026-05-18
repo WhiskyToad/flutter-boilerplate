@@ -9,8 +9,8 @@ import 'package:skelter/presentation/home/bloc/home_bloc.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
 import 'package:skelter/presentation/home/widgets/bottom_nav_bar.dart';
 import 'package:skelter/presentation/home/widgets/home_screen_body.dart';
+import 'package:skelter/presentation/my_orders/my_orders_screen.dart';
 import 'package:skelter/presentation/profile/profile_screen.dart';
-import 'package:skelter/presentation/search/search_screen.dart';
 import 'package:skelter/services/in_app_review_service.dart';
 import 'package:skelter/utils/app_environment.dart';
 
@@ -51,7 +51,7 @@ class HomeScreenWrapperState extends State<HomeScreenWrapper> {
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomeScreenBody(bottomNavKey: bottomNavKey),
-      const SearchScreen(),
+      const MyOrdersScreen(),
       const InitialCheckoutScreen(),
       const ProfileScreen(),
     ];

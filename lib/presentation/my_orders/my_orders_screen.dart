@@ -47,8 +47,7 @@ class MyOrdersScreenBody extends StatelessWidget {
     return isLoading
         ? const MyOrdersShimmer()
         : ListView.separated(
-            itemCount: products.take(2).length,
-            shrinkWrap: true,
+            itemCount: products.length,
             padding: const EdgeInsets.all(12),
             itemBuilder: (context, index) {
               return MyOrderItem(product: products[index]);
