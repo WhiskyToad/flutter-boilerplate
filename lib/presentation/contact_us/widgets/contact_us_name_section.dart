@@ -6,7 +6,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_bloc.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_event.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ContactUsNameSection extends StatefulWidget {
   const ContactUsNameSection({super.key});

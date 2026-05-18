@@ -14,7 +14,7 @@ import 'package:skelter/presentation/signup/bloc/signup_state.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_next_button.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_text_field.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class SignupWithEmailPasswordScreen extends StatefulWidget {

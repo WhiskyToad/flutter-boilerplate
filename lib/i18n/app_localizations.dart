@@ -1264,6 +1264,30 @@ abstract class AppLocalizations {
   /// **'No Chats'**
   String get no_chats;
 
+  /// No description provided for @no_users_to_chat_with.
+  ///
+  /// In en, this message translates to:
+  /// **'No users to chat with yet'**
+  String get no_users_to_chat_with;
+
+  /// No description provided for @no_users_match_search.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching users'**
+  String get no_users_match_search;
+
+  /// No description provided for @no_messages_yet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get no_messages_yet;
+
+  /// No description provided for @failed_to_load_chats.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load chats'**
+  String get failed_to_load_chats;
+
   /// No description provided for @send_a_new_message.
   ///
   /// In en, this message translates to:

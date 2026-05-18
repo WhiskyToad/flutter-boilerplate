@@ -9,7 +9,7 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class EmailPasswordTextFields extends StatefulWidget {
   const EmailPasswordTextFields({super.key});

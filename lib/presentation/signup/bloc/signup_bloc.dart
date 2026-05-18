@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
+import 'package:skelter/presentation/chat/domain/usecases/create_chat_user_document.dart';
 import 'package:skelter/presentation/login/enum/enum_login_type.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
@@ -351,6 +352,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         kTraceAttrSuccess,
         true,
       );
+      final firebaseUser = userCredential.user;
+      if (firebaseUser != null) {
+        // Fire-and-forget: a slow Firestore write must not delay the
+        // verification-email queueing.
+        unawaited(_ensureChatUserDocument(firebaseUser));
+      }
       add(SendEmailVerificationLinkEvent());
     } else {
       debugPrint('signup with Email/Password userCredential is null');
@@ -394,6 +401,35 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       debugPrint('Login/Signup type not specified');
       hideAllLoadingsAndShowError();
     }
+  }
+
+  /// Writes a minimal profile document for the freshly-signed-up user into the
+  /// `users` collection so they can be discovered by the chat feature. Fires
+  /// non-blocking — Firestore outages must not derail the signup flow.
+  Future<void> _ensureChatUserDocument(User firebaseUser) async {
+    final email = firebaseUser.email ?? '';
+    final phoneNumber = firebaseUser.phoneNumber ?? '';
+    final fallbackName = email.contains('@')
+        ? email.split('@').first
+        : phoneNumber;
+    final trimmedDisplayName = firebaseUser.displayName?.trim() ?? '';
+    final name = trimmedDisplayName.isNotEmpty
+        ? trimmedDisplayName
+        : fallbackName;
+    final result = await sl<CreateChatUserDocument>()(
+      CreateChatUserDocumentParams(
+        userId: firebaseUser.uid,
+        name: name,
+        email: email,
+        photoUrl: firebaseUser.photoURL,
+      ),
+    );
+    result.fold(
+      (failure) => debugPrint(
+        '[Signup] chat user document write failed: ${failure.message}',
+      ),
+      (_) => debugPrint('[Signup] chat user document upserted'),
+    );
   }
 
   void hideAllLoadingsAndShowError() {

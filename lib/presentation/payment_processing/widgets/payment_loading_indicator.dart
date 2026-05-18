@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class PaymentLoadingIndicator extends StatelessWidget {
   const PaymentLoadingIndicator({super.key});

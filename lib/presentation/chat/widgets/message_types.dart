@@ -1,15 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
-import 'package:skelter/constants/constants.dart';
-import 'package:skelter/gen/assets.gen.dart';
-import 'package:skelter/presentation/chat/enum/message_type_enum.dart';
 import 'package:skelter/presentation/chat/model/chat_message_model.dart';
-import 'package:skelter/presentation/chat/widgets/image_full_screen_view.dart';
-import 'package:skelter/utils/app_environment.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class MessageTypes extends StatelessWidget {
   const MessageTypes({super.key, required this.message});
@@ -18,76 +10,12 @@ class MessageTypes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (message.messageType) {
-      case MessageType.text:
-        return Text(
-          message.message,
-          style: AppTextStyles.p3Regular.copyWith(
-            color: message.isSentByMe
-                ? context.currentTheme.strokeShadesWhite
-                : context.currentTheme.textNeutralPrimary,
-          ),
-        );
-
-      case MessageType.image:
-        return Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: GestureDetector(
-            onTap: () => _navigateToFullScreenImageView(context),
-            child: SizedBox(
-              width: 160,
-              child: AspectRatio(
-                aspectRatio: 1.9,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(6)),
-                  child: Hero(
-                    tag: kHeroAnimationPrefix,
-                    child: AppEnvironment.isTestEnvironment
-                        ? SvgPicture.asset(
-                            Assets.icons.userPlaceholder,
-                            fit: BoxFit.cover,
-                          )
-                        : CachedNetworkImage(
-                            imageUrl: message.message,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-
-      case MessageType.audio:
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RotatedBox(
-              quarterTurns: 45,
-              child: Icon(
-                TablerIcons.triangle_filled,
-                color: context.currentTheme.bgBrandHover,
-              ),
-            ),
-            const SizedBox(width: 8),
-            SvgPicture.asset(
-              Assets.icons.waveforms,
-              colorFilter: ColorFilter.mode(
-                context.currentTheme.bgBrandHover,
-                BlendMode.srcIn,
-              ),
-            ),
-          ],
-        );
-    }
-  }
-
-  void _navigateToFullScreenImageView(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return ImageFullScreenView(imagePathLists: [message.message]);
-        },
+    return Text(
+      message.message,
+      style: AppTextStyles.p2Regular.copyWith(
+        color: message.isSentByMe
+            ? context.currentTheme.strokeShadesWhite
+            : context.currentTheme.textNeutralPrimary,
       ),
     );
   }

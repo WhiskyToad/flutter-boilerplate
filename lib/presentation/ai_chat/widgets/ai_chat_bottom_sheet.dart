@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/ai_chat/bloc/ai_chat_bloc.dart';
@@ -9,7 +10,7 @@ import 'package:skelter/presentation/ai_chat/bloc/ai_chat_state.dart';
 import 'package:skelter/presentation/ai_chat/widgets/ai_chat_input_field.dart';
 import 'package:skelter/presentation/ai_chat/widgets/ai_chat_message_bubble.dart';
 import 'package:skelter/presentation/home/domain/entities/product.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 void showAiChatBottomSheet(
@@ -52,11 +53,15 @@ class _AiChatSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    // iOS 26 liquid-glass surface for the sheet. `GlassContainer` (not
+    // `GlassSheet`) — it gives bounded height to the inner `Expanded` list.
+    return GlassContainer(
       height: MediaQuery.sizeOf(context).height * 0.7,
-      decoration: BoxDecoration(
-        color: context.currentTheme.bgSurfaceBase,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+      // Tinted glass — keeps text readable while showing refraction.
+      settings: LiquidGlassSettings(
+        blur: 10,
+        glassColor: context.currentTheme.bgSurfaceBase.withValues(alpha: 0.78),
+        lightIntensity: 1.2,
       ),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -185,7 +190,18 @@ class _AiChatSheetContent extends StatelessWidget {
             itemCount: suggestions.length,
             separatorBuilder: (_, _) => const SizedBox(width: 8),
             itemBuilder: (context, index) {
-              return GestureDetector(
+              // Pill-shaped glass chip from `liquid_glass_widgets`.
+              return GlassChip(
+                label: suggestions[index],
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
+                labelStyle: AppTextStyles.p3Medium.copyWith(
+                  color: state.isGenerating
+                      ? context.currentTheme.textNeutralSecondary
+                      : context.currentTheme.textBrandSecondary,
+                ),
                 onTap: state.isGenerating
                     ? null
                     : () {
@@ -193,31 +209,6 @@ class _AiChatSheetContent extends StatelessWidget {
                           SendMessageEvent(message: suggestions[index]),
                         );
                       },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: state.isGenerating
-                        ? context.currentTheme.bgNeutralLight50
-                        : context.currentTheme.bgBrandLight50,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: state.isGenerating
-                          ? context.currentTheme.strokeNeutralLight100
-                          : context.currentTheme.strokeBrandDefault,
-                    ),
-                  ),
-                  child: Text(
-                    suggestions[index],
-                    style: AppTextStyles.p3Medium.copyWith(
-                      color: state.isGenerating
-                          ? context.currentTheme.textNeutralSecondary
-                          : context.currentTheme.textBrandSecondary,
-                    ),
-                  ),
-                ),
               );
             },
           ),
@@ -308,7 +299,7 @@ class _AiChatMessageListState extends State<_AiChatMessageList> {
             Icon(
               TablerIcons.message_chatbot,
               size: 40,
-              color: context.currentTheme.strokeNeutralHover,
+              color: context.currentTheme.iconBrandPrimary,
             ),
             const SizedBox(height: 16),
             Text(
@@ -322,7 +313,7 @@ class _AiChatMessageListState extends State<_AiChatMessageList> {
               context.localization.ai_chat_description,
               textAlign: TextAlign.center,
               style: AppTextStyles.p3Regular.copyWith(
-                color: context.currentTheme.textNeutralSecondary,
+                color: context.currentTheme.textNeutralPrimary,
               ),
             ),
           ],

@@ -6,7 +6,7 @@ import 'package:skelter/presentation/home/widgets/product_image.dart';
 import 'package:skelter/presentation/home/widgets/product_price_rating.dart';
 import 'package:skelter/presentation/home/widgets/product_title.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ProductCard extends StatelessWidget {
