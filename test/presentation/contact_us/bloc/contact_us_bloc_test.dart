@@ -1,12 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_bloc.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_event.dart';
 import 'package:skelter/presentation/contact_us/bloc/contact_us_state.dart';
 
-class MockAppLocalizations extends Mock implements AppLocalizations {}
+import '../../../test_helpers.dart';
 
 void main() {
   late ContactUsBloc bloc;
