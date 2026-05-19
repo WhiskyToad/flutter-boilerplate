@@ -73,7 +73,7 @@ class DeleteAccountBody extends StatelessWidget {
               const Expanded(
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       DeleteAccountReasonOptions(),
                       DeleteAccountDivider(),

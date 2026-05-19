@@ -23,9 +23,7 @@ class ChatConversationTile extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
         child: Column(
-          crossAxisAlignment: isSentByMe
-              ? CrossAxisAlignment.end
-              : CrossAxisAlignment.start,
+          crossAxisAlignment: isSentByMe ? .end : .start,
           children: [
             Container(
               padding: const EdgeInsets.all(10),

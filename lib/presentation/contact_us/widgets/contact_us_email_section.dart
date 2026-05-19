@@ -53,7 +53,7 @@ class _ContactUsEmailSectionState extends State<ContactUsEmailSection> {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.email_id,
@@ -81,7 +81,7 @@ class _ContactUsEmailSectionState extends State<ContactUsEmailSection> {
               focusedBorder: buildOutlineInputBorder(hasFocus: true),
               errorBorder: buildOutlineInputBorder(isErrorBorder: true),
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: .next,
             keyboardType: TextInputType.emailAddress,
           ),
         ),

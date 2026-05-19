@@ -22,7 +22,7 @@ class ServerErrorScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: .center,
             children: [
               SvgPicture.asset(
                 Assets.icons.serverError,
@@ -42,7 +42,7 @@ class ServerErrorScreen extends StatelessWidget {
                 style: AppTextStyles.p3Regular.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               const SizedBox(height: 30),
               Row(

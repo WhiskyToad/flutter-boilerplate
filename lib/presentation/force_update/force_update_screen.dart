@@ -49,7 +49,7 @@ class ForceUpdateScreenBody extends StatelessWidget {
             horizontal: ForceUpdateScreen.kHorizontalPadding,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: .center,
             children: [
               const Spacer(),
               SvgPicture.asset(
@@ -63,7 +63,7 @@ class ForceUpdateScreenBody extends StatelessWidget {
                 style: AppTextStyles.p1SemiBold.copyWith(
                   color: context.currentTheme.textNeutralPrimary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               const SizedBox(height: 10),
               Text(
@@ -71,7 +71,7 @@ class ForceUpdateScreenBody extends StatelessWidget {
                 style: AppTextStyles.p3Regular.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               const Spacer(),
               const UpdateNowButton(),

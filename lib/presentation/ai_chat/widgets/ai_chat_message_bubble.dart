@@ -54,8 +54,8 @@ class AiChatMessageBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8, left: 60, right: 16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .end,
+        mainAxisSize: .min,
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -95,7 +95,7 @@ class AiChatMessageBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8, left: 16, right: 60),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Container(
             width: 28,
@@ -103,7 +103,7 @@ class AiChatMessageBubble extends StatelessWidget {
             margin: const EdgeInsets.only(top: 2),
             decoration: BoxDecoration(
               color: context.currentTheme.bgBrandLight50,
-              shape: BoxShape.circle,
+              shape: .circle,
             ),
             child: Icon(
               TablerIcons.robot,
@@ -114,8 +114,8 @@ class AiChatMessageBubble extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: .start,
+              mainAxisSize: .min,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -174,8 +174,8 @@ class AiChatMessageBubble extends StatelessWidget {
     final hasCartMarker = _cartMarkerRegex.hasMatch(message.content);
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: .start,
+      mainAxisSize: .min,
       children: [
         if (textOnly.isNotEmpty)
           Text(
@@ -203,7 +203,7 @@ class AiChatMessageBubble extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               Icon(
                 TablerIcons.shopping_cart,
@@ -226,7 +226,7 @@ class AiChatMessageBubble extends StatelessWidget {
 
   Widget _buildTypingIndicator(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: List.generate(3, (index) {
         return _TypingDot(
           delay: Duration(milliseconds: index * 200),
@@ -286,7 +286,7 @@ class _TypingDotState extends State<_TypingDot>
         margin: const EdgeInsets.symmetric(horizontal: 3),
         width: 8,
         height: 8,
-        decoration: BoxDecoration(color: widget.color, shape: BoxShape.circle),
+        decoration: BoxDecoration(color: widget.color, shape: .circle),
       ),
     );
   }

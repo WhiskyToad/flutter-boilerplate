@@ -93,7 +93,7 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
         children: [
           Text(
             context.localization.enter_otp,
-            textAlign: TextAlign.center,
+            textAlign: .center,
             style: AppTextStyles.h2Bold.copyWith(
               color: context.currentTheme.textNeutralPrimary,
             ),
@@ -102,7 +102,7 @@ class _PhoneNumberOTPScreenBody extends StatelessWidget {
           Text(
             '${context.localization.sent_code_info} '
             '$phoneNumber',
-            textAlign: TextAlign.center,
+            textAlign: .center,
             style: AppTextStyles.p2Medium.copyWith(
               color: context.currentTheme.textNeutralSecondary,
             ),

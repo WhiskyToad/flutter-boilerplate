@@ -29,7 +29,7 @@ class ProductDetailShimmer extends StatelessWidget {
             const ShimmerContent(height: 69, width: double.infinity),
             const SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: .center,
               children: [
                 ShimmerButton(
                   height: 56,
@@ -51,7 +51,7 @@ class ProductDetailShimmer extends StatelessWidget {
               height: 100,
               padding: const EdgeInsetsGeometry.symmetric(horizontal: 10),
               child: ListView.separated(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: .horizontal,
                 itemCount: 4,
                 separatorBuilder: (_, _) => const SizedBox(width: 12),
                 itemBuilder: (_, _) =>

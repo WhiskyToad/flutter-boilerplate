@@ -58,7 +58,7 @@ class _FeedbackMessageSectionState extends State<FeedbackMessageSection> {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.your_feedback,

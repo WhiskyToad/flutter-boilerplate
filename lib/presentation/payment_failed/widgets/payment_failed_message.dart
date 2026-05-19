@@ -15,7 +15,7 @@ class PaymentFailedMessage extends StatelessWidget {
           style: AppTextStyles.h4SemiBold.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
         const SizedBox(height: 8),
         Text(
@@ -23,7 +23,7 @@ class PaymentFailedMessage extends StatelessWidget {
           style: AppTextStyles.p3Regular.copyWith(
             color: context.currentTheme.textNeutralSecondary,
           ),
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
       ],
     );

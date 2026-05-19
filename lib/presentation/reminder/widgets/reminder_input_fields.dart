@@ -64,7 +64,7 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
         }
       },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Text(
             context.localization.reminder_title,
@@ -91,7 +91,7 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
               focusedBorder: _buildOutlineInputBorder(hasFocus: true),
               errorBorder: _buildOutlineInputBorder(isErrorBorder: true),
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: .next,
           ),
           const SizedBox(height: 20),
           Text(
@@ -118,7 +118,7 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
               focusedBorder: _buildOutlineInputBorder(hasFocus: true),
             ),
             maxLines: 2,
-            textInputAction: TextInputAction.done,
+            textInputAction: .done,
           ),
         ],
       ),

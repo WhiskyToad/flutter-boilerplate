@@ -54,7 +54,7 @@ class ForgotPasswordScreenBody extends StatelessWidget {
         horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           const SizedBox(height: 16),
           Center(

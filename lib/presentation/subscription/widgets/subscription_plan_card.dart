@@ -39,11 +39,11 @@ class SubscriptionPlanCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   Row(
                     children: [
@@ -51,14 +51,14 @@ class SubscriptionPlanCard extends StatelessWidget {
                         child: Text(
                           title,
                           style: AppTextStyles.h5Bold,
-                          overflow: TextOverflow.ellipsis,
+                          overflow: .ellipsis,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: .end,
                     children: [
                       Flexible(
                         child: Text(
@@ -66,7 +66,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                           style: AppTextStyles.h3.copyWith(
                             color: context.currentTheme.bgBrandDefault,
                           ),
-                          overflow: TextOverflow.ellipsis,
+                          overflow: .ellipsis,
                         ),
                       ),
                       Text(duration, style: AppTextStyles.p4Regular),
@@ -85,7 +85,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                 color: isSelected && context.isDark
                     ? AppColors.white
                     : Colors.transparent,
-                shape: BoxShape.circle,
+                shape: .circle,
                 border: Border.all(
                   width: isSelected ? 6 : 1,
                   color: isSelected

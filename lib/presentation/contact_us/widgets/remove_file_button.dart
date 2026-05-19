@@ -23,7 +23,7 @@ class RemoveFileButton extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             color: AppColors.neutral800,
-            shape: BoxShape.circle,
+            shape: .circle,
           ),
           padding: const EdgeInsets.all(2),
           child: Icon(

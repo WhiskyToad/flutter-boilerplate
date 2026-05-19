@@ -31,7 +31,7 @@ class NoProductDetailFound extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             SvgPicture.asset(
               Assets.icons.noProductDetailFound,

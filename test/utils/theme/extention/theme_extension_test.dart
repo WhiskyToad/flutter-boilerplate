@@ -13,8 +13,9 @@ void main() {
       return MaterialApp(
         theme: ThemeData(brightness: Brightness.light),
         darkTheme: ThemeData(brightness: Brightness.dark),
-        themeMode:
-            brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light,
+        themeMode: brightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light,
         home: child,
       );
     }
@@ -58,8 +59,9 @@ void main() {
     });
 
     group('currentTheme', () {
-      testWidgets('should return LightAppColors when theme is light',
-          (tester) async {
+      testWidgets('should return LightAppColors when theme is light', (
+        tester,
+      ) async {
         dynamic result;
 
         await tester.pumpWidget(
@@ -77,8 +79,9 @@ void main() {
         expect(result, isA<LightAppColors>());
       });
 
-      testWidgets('should return DarkAppColors when theme is dark',
-          (tester) async {
+      testWidgets('should return DarkAppColors when theme is dark', (
+        tester,
+      ) async {
         dynamic result;
 
         await tester.pumpWidget(
@@ -98,8 +101,9 @@ void main() {
     });
 
     group('themeAsset', () {
-      testWidgets('should return light value when theme is light',
-          (tester) async {
+      testWidgets('should return light value when theme is light', (
+        tester,
+      ) async {
         String? result;
 
         await tester.pumpWidget(
@@ -120,8 +124,9 @@ void main() {
         expect(result, equals('light_asset'));
       });
 
-      testWidgets('should return dark value when theme is dark',
-          (tester) async {
+      testWidgets('should return dark value when theme is dark', (
+        tester,
+      ) async {
         String? result;
 
         await tester.pumpWidget(

@@ -18,7 +18,7 @@ class ProductCategoryChip extends StatelessWidget {
       child: Text(
         category,
         maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+        overflow: .ellipsis,
         style: AppTextStyles.c1SemiBold.copyWith(
           color: context.currentTheme.textBrandSecondary,
         ),

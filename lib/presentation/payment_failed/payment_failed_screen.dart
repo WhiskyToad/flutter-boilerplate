@@ -17,7 +17,7 @@ class PaymentFailedScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
                   PaymentFailedIcon(),
                   SizedBox(height: 24),
@@ -31,7 +31,7 @@ class PaymentFailedScreen extends StatelessWidget {
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               RetryPaymentButton(),
               NavigateToHomeScreenButton(),

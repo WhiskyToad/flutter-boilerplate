@@ -70,7 +70,7 @@ class _ConfirmPasswordTextFieldState extends State<ConfirmPasswordTextField> {
       (bloc) => bloc.state.confirmPasswordErrorMessage,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.confirm_password,
@@ -116,7 +116,7 @@ class _ConfirmPasswordTextFieldState extends State<ConfirmPasswordTextField> {
                 },
               ),
             ),
-            textInputAction: TextInputAction.done,
+            textInputAction: .done,
           ),
         ),
       ],

@@ -16,8 +16,8 @@ class MessageDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final int unreadMessageCount = chatModel.unreadMessageCount ?? 0;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: .end,
+      mainAxisSize: .min,
       children: [
         if (chatModel.lastMessageTime != null)
           Text(

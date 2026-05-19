@@ -18,7 +18,7 @@ class UnderMaintenanceScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             Transform.scale(
               scale: 1.4,
@@ -42,7 +42,7 @@ class UnderMaintenanceScreen extends StatelessWidget {
               style: AppTextStyles.p3Regular.copyWith(
                 color: context.currentTheme.textNeutralSecondary,
               ),
-              textAlign: TextAlign.center,
+              textAlign: .center,
             ),
           ],
         ),

@@ -29,11 +29,11 @@ class ShippingAddress extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   userName,
@@ -55,7 +55,7 @@ class ShippingAddress extends StatelessWidget {
           const SizedBox(width: 16),
           Container(
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
+              shape: .circle,
               color: context.currentTheme.bgSurfaceBase2,
               border: Border.all(
                 color: context.currentTheme.strokeNeutralLight200,

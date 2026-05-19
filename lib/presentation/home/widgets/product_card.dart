@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
           ],
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             ProductImage(imageUrl: product.image),
             Expanded(
@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
                   vertical: 12,
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     ProductCategoryChip(category: product.category),
                     const SizedBox(height: 8),
@@ -50,7 +50,7 @@ class ProductCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: .start,
                           children: [
                             ProductTitle(title: product.title),
                             const Spacer(),

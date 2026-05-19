@@ -13,7 +13,7 @@ class EmptySearchView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         children: [
           SvgPicture.asset(Assets.icons.userNotFound, height: 150, width: 150),
           const SizedBox(height: 24),
@@ -29,7 +29,7 @@ class EmptySearchView extends StatelessWidget {
             style: AppTextStyles.p2Regular.copyWith(
               color: context.currentTheme.textNeutralSecondary,
             ),
-            textAlign: TextAlign.center,
+            textAlign: .center,
           ),
         ],
       ),

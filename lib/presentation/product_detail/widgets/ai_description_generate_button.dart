@@ -22,7 +22,7 @@ class AIDescriptionGenerateButton extends StatelessWidget {
           color: context.currentTheme.bgBrandLight50,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             Icon(
               Icons.psychology_outlined,

@@ -17,14 +17,14 @@ class ChatShimmer extends StatelessWidget {
       enabled: showAnimation,
       highlightColor: context.currentTheme.bgNeutralLight100,
       child: const Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           ShimmerCircularImage(size: profileImageSize),
           SizedBox(width: 16.0),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: .start,
+              mainAxisSize: .min,
               children: [
                 ShimmerText(width: 60),
                 SizedBox(height: 4.0),
@@ -34,8 +34,8 @@ class ChatShimmer extends StatelessWidget {
           ),
           SizedBox(width: 32.0),
           Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: .min,
+            crossAxisAlignment: .end,
             children: [
               ShimmerText(width: 50),
               SizedBox(height: 12.0),

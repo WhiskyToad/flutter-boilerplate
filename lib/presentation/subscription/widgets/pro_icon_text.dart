@@ -15,13 +15,13 @@ class ProIconText extends StatelessWidget {
           Assets.icons.proIcon.path,
           height: 80,
           width: 80,
-          fit: BoxFit.fill,
+          fit: .fill,
         ),
         const SizedBox(height: 24),
         Text(
           context.localization.unlock_access,
           style: AppTextStyles.h1,
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
         Text(
           context.localization.app_name,
@@ -33,7 +33,7 @@ class ProIconText extends StatelessWidget {
         Text(
           context.localization.plan_description,
           style: AppTextStyles.p2Medium,
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
       ],
     );

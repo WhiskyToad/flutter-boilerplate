@@ -21,7 +21,7 @@ class _ZipCodeTextFieldState extends State<ZipCodeTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.zip_code,
@@ -48,7 +48,7 @@ class _ZipCodeTextFieldState extends State<ZipCodeTextField> {
             counterText: '',
           ),
           keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
+          textInputAction: .next,
           maxLength: 50,
         ),
       ],

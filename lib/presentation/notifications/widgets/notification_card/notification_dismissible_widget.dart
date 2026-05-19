@@ -22,7 +22,7 @@ class NotificationDismissibleWidget extends StatelessWidget {
       background: ColoredBox(
         color: context.currentTheme.bgErrorDefault,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: .end,
           children: [
             Icon(Icons.delete, color: context.currentTheme.strokeShadesWhite),
             const SizedBox(width: 16.0),

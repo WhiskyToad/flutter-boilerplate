@@ -33,7 +33,7 @@ class ImageSourceBottomSheetBody extends StatelessWidget {
       child: SizedBox(
         height: 80,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: .spaceEvenly,
           children: [
             _Camera(
               onCameraSelected: () async {
@@ -118,7 +118,7 @@ class _RemoveImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           Expanded(
             child: AspectRatio(
@@ -149,7 +149,7 @@ class _Gallery extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           Expanded(
             child: AspectRatio(
@@ -180,7 +180,7 @@ class _Camera extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           Expanded(
             child: AspectRatio(

@@ -10,7 +10,7 @@ class SubscriptionActivatedSuccessIcon extends StatelessWidget {
       Assets.images.success.path,
       height: 80,
       width: 80,
-      fit: BoxFit.cover,
+      fit: .cover,
     );
   }
 }

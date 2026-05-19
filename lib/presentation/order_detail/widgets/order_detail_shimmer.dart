@@ -15,7 +15,7 @@ class OrderDetailShimmer extends StatelessWidget {
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             Container(
               padding: const EdgeInsets.all(16),
@@ -26,10 +26,10 @@ class OrderDetailShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: .spaceBetween,
                     children: [
                       ShimmerContent(
                         height: 16,
@@ -41,7 +41,7 @@ class OrderDetailShimmer extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       ShimmerImage(
                         height: 80,
@@ -51,7 +51,7 @@ class OrderDetailShimmer extends StatelessWidget {
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: .start,
                           children: [
                             ShimmerContent(
                               height: 14,
@@ -130,17 +130,16 @@ class OrderDetailShimmer extends StatelessWidget {
                   (index) => Padding(
                     padding: EdgeInsets.only(bottom: index < 2 ? 16 : 0),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: .start,
                       children: [
                         const ShimmerContent(height: 24, width: 24, radius: 12),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: .start,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: .spaceBetween,
                                 children: [
                                   ShimmerContent(
                                     height: 16,
@@ -182,7 +181,7 @@ class OrderDetailShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   ShimmerContent(
                     height: 16,
@@ -208,7 +207,7 @@ class OrderDetailShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   const ShimmerContent(height: 20, width: 120, radius: 4),
                   const SizedBox(height: 16),
@@ -217,7 +216,7 @@ class OrderDetailShimmer extends StatelessWidget {
                     (index) => Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: .spaceBetween,
                         children: [
                           ShimmerContent(
                             height: 16,

@@ -37,7 +37,7 @@ class AiChatProductCard extends StatelessWidget {
                 height: 56,
                 child: CachedNetworkImage(
                   imageUrl: product.image,
-                  fit: BoxFit.cover,
+                  fit: .cover,
                   placeholder: (context, url) => Shimmer.fromColors(
                     baseColor: context.currentTheme.bgNeutralLight100,
                     highlightColor: context.currentTheme.bgNeutralLight100
@@ -60,13 +60,13 @@ class AiChatProductCard extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: .start,
+                mainAxisSize: .min,
                 children: [
                   Text(
                     product.title,
                     maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: .ellipsis,
                     style: AppTextStyles.p4SemiBold.copyWith(
                       color: context.currentTheme.textNeutralPrimary,
                     ),

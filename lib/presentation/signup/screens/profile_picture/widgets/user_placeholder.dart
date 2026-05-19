@@ -31,7 +31,7 @@ class UserPlaceholder extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          shape: .circle,
           color: context.currentTheme.bgShadesWhite,
           boxShadow: <BoxShadow>[
             const BoxShadow(

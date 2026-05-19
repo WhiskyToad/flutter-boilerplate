@@ -25,7 +25,7 @@ class PhotosList extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: ListView.separated(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: .horizontal,
         itemCount: photos.length,
         physics: const ClampingScrollPhysics(),
         separatorBuilder: (_, _) => const SizedBox(width: 10),
@@ -53,11 +53,11 @@ class PhotosList extends StatelessWidget {
                         Assets.test.images.testImage.path,
                         height: 100,
                         width: 100,
-                        fit: BoxFit.cover,
+                        fit: .cover,
                       )
                     : CachedNetworkImage(
                         imageUrl: productPhotosUrl,
-                        fit: BoxFit.cover,
+                        fit: .cover,
                         placeholder: (context, url) => Shimmer.fromColors(
                           baseColor: context.currentTheme.bgNeutralLight100,
                           highlightColor: context.currentTheme.bgNeutralLight100

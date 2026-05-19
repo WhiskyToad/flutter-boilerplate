@@ -19,14 +19,14 @@ class UserAvatar extends StatelessWidget {
     );
 
     return Stack(
-      clipBehavior: Clip.none,
+      clipBehavior: .none,
       children: [
         SizedBox(
           height: profileImageSize.w,
           width: profileImageSize.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular((profileImageSize / 2).w),
-            child: Assets.images.demoUser.image(fit: BoxFit.cover),
+            child: Assets.images.demoUser.image(fit: .cover),
           ),
         ),
         if (isProUser)
@@ -41,8 +41,8 @@ class UserAvatar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: .min,
+                mainAxisAlignment: .center,
                 children: [
                   Icon(
                     TablerIcons.star,

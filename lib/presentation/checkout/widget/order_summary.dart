@@ -34,15 +34,15 @@ class OrderSummary extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .start,
+        mainAxisSize: .min,
         children: [
           Text(
             context.localization.order_summary,
             style: AppTextStyles.h6Bold.copyWith(
               color: context.currentTheme.textNeutralPrimary,
             ),
-            overflow: TextOverflow.ellipsis,
+            overflow: .ellipsis,
             maxLines: 1,
           ),
           const SizedBox(height: 20),

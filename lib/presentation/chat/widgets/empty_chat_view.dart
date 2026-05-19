@@ -12,7 +12,7 @@ class EmptyChatView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         children: [
           SvgPicture.asset(Assets.icons.noChats, height: 150, width: 150),
           const SizedBox(height: 24),

@@ -56,7 +56,7 @@ class _AccountDeleteSuccessScreenState
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
                   const Spacer(),
                   Transform.scale(
@@ -72,11 +72,11 @@ class _AccountDeleteSuccessScreenState
                   Text(
                     context.localization.account_deleted,
                     style: AppTextStyles.h4SemiBold,
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                   ),
                   const Spacer(),
                   RichText(
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                     text: TextSpan(
                       style: AppTextStyles.p2Regular,
                       children: [

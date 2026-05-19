@@ -32,14 +32,14 @@ Future<BiometricEnrollmentResult?> showBiometricSetupEnrollmentBottomSheet(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Container(
               height: 56,
               width: 56,
               decoration: const BoxDecoration(
                 color: AppColors.white,
-                shape: BoxShape.circle,
+                shape: .circle,
               ),
               child: Center(
                 child: Container(
@@ -47,7 +47,7 @@ Future<BiometricEnrollmentResult?> showBiometricSetupEnrollmentBottomSheet(
                   width: 40,
                   decoration: const BoxDecoration(
                     color: AppColors.brand100,
-                    shape: BoxShape.circle,
+                    shape: .circle,
                   ),
                   child: Icon(
                     TablerIcons.fingerprint,
@@ -67,7 +67,7 @@ Future<BiometricEnrollmentResult?> showBiometricSetupEnrollmentBottomSheet(
             const SizedBox(height: 10),
             Text(
               context.localization.biometric_auth_desc_for_enrollment,
-              textAlign: TextAlign.center,
+              textAlign: .center,
               style: AppTextStyles.p3Regular.copyWith(
                 color: context.currentTheme.textNeutralSecondary,
               ),

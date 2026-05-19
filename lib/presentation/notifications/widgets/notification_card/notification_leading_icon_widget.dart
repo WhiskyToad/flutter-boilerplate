@@ -27,7 +27,7 @@ class NotificationLeadingIconWidget extends StatelessWidget {
             width: 8.0,
             decoration: BoxDecoration(
               color: context.currentTheme.bgBrandHover,
-              shape: BoxShape.circle,
+              shape: .circle,
             ),
           ),
         ],

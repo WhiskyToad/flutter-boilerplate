@@ -25,7 +25,7 @@ class SubscriptionBottomNavBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           AppButton(
             label: context.localization.continue_to_payment,

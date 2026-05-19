@@ -19,7 +19,7 @@ class SetDefaultAddress extends StatelessWidget {
             width: 2,
           ),
           visualDensity: VisualDensity.compact,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          materialTapTargetSize: .shrinkWrap,
           activeColor: context.currentTheme.bgBrandDefault,
         ),
         const SizedBox(width: 8),
