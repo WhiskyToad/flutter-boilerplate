@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/feedback/bloc/feedback_bloc.dart';
 import 'package:skelter/presentation/feedback/bloc/feedback_event.dart';
 import 'package:skelter/presentation/feedback/bloc/feedback_state.dart';
@@ -19,8 +18,6 @@ import '../../test_helpers.dart';
 
 class MockFeedbackBloc extends MockBloc<FeedbackEvent, FeedbackState>
     implements FeedbackBloc {}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/ai_chat/bloc/ai_chat_bloc.dart';
 import 'package:skelter/presentation/ai_chat/bloc/ai_chat_event.dart';
 import 'package:skelter/presentation/ai_chat/bloc/ai_chat_state.dart';
@@ -18,8 +17,6 @@ import 'data/ai_chat_sample_data.dart';
 
 class MockAiChatBloc extends MockBloc<AiChatEvent, AiChatState>
     implements AiChatBloc {}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
 
 Future<void> _pumpModalAndSettle(WidgetTester tester) async {
   await precacheImages(tester);

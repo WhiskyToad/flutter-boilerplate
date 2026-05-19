@@ -2,19 +2,18 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
 import 'package:skelter/presentation/signup/bloc/signup_state.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 
+import '../../../test_helpers.dart';
+
 class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
 
 class MockPerformanceMonitoringService extends Mock
     implements PerformanceMonitoringService {}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
 
 void main() {
   late SignupBloc bloc;

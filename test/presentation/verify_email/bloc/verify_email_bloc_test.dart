@@ -2,16 +2,15 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/signup/enum/user_details_input_status.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_bloc.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_event.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
 
-class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
+import '../../../test_helpers.dart';
 
-class MockAppLocalizations extends Mock implements AppLocalizations {}
+class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
 
 void main() {
   late VerifyEmailBloc bloc;

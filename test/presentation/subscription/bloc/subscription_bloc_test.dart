@@ -2,19 +2,18 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_bloc.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/services/subscription_service.dart';
 
+import '../../../test_helpers.dart';
+
 class MockSubscriptionService extends Mock implements SubscriptionService {}
 
 class MockPerformanceMonitoringService extends Mock
     implements PerformanceMonitoringService {}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
 
 void main() {
   late SubscriptionBloc bloc;
