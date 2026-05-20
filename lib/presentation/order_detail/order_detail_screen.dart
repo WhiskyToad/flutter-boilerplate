@@ -101,23 +101,23 @@ class OrderDetailBody extends StatelessWidget {
       appBar: const OrderDetailsAppBar(),
       body: productDetail == null
           ? Center(child: Text(context.localization.opps_something_went_wrong))
-          : const SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: .start,
                 children: [
-                  OrderDetailProductCard(),
-                  SizedBox(height: 24),
-                  OrderDetailPaymentMethod(),
-                  SizedBox(height: 24),
-                  TrackingDetails(),
-                  SizedBox(height: 24),
-                  OrderDetailShippingAddress(),
-                  SizedBox(height: 24),
-                  OrderDetailSummary(),
-                  SizedBox(height: 24),
-                  OrderDetailActionButtons(),
-                  SizedBox(height: 24),
+                  const OrderDetailProductCard(),
+                  const SizedBox(height: 24),
+                  const OrderDetailPaymentMethod(),
+                  const SizedBox(height: 24),
+                  const TrackingDetails(),
+                  const SizedBox(height: 24),
+                  const OrderDetailShippingAddress(),
+                  const SizedBox(height: 24),
+                  const OrderDetailSummary(),
+                  const SizedBox(height: 24),
+                  const OrderDetailActionButtons(),
+                  SizedBox(height: 16 + context.bottomPadding),
                 ],
               ),
             ),

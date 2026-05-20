@@ -3,7 +3,6 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/profile/widgets/community.dart';
 import 'package:skelter/presentation/profile/widgets/divider.dart';
-import 'package:skelter/presentation/profile/widgets/history_button.dart';
 import 'package:skelter/presentation/profile/widgets/notifications.dart';
 import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
@@ -30,13 +29,7 @@ class ActivitySection extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: const Column(
-            children: [
-              Notifications(),
-              ProfileItemsDivider(),
-              History(),
-              ProfileItemsDivider(),
-              Community(),
-            ],
+            children: [Notifications(), ProfileItemsDivider(), Community()],
           ),
         ),
       ],

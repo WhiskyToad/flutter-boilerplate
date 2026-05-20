@@ -33,8 +33,8 @@ class BottomNavBar extends StatelessWidget {
           label: context.localization.home,
         ),
         BottomNavigationBarItem(
-          icon: const Icon(TablerIcons.search),
-          label: context.localization.search,
+          icon: const Icon(TablerIcons.package),
+          label: context.localization.my_orders,
         ),
         BottomNavigationBarItem(
           icon: const Icon(TablerIcons.shopping_cart),
