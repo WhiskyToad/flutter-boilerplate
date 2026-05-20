@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class InputDecorations {
   static TextStyle labelStyleBright = const TextStyle(
     fontSize: 17.0,
-    fontWeight: FontWeight.w600,
+    fontWeight: .w600,
     color: Colors.black87,
   );
 
@@ -11,7 +11,7 @@ class InputDecorations {
 
   static TextStyle labelStyleDark = const TextStyle(
     fontSize: 17.0,
-    fontWeight: FontWeight.w600,
+    fontWeight: .w600,
     color: Colors.white,
   );
 
@@ -29,7 +29,7 @@ class InputDecorations {
     Widget? suffix,
     Widget? suffixIcon,
   }) {
-    if (Theme.of(context).brightness == Brightness.light) {
+    if (Theme.of(context).brightness == .light) {
       return denseDecorationBright(
         labelText: labelText,
         errorText: errorText,

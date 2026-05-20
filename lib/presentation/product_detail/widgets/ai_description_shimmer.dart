@@ -11,7 +11,7 @@ class AIDescriptionShimmer extends StatelessWidget {
       baseColor: context.currentTheme.bgNeutralLight100,
       highlightColor: context.currentTheme.bgNeutralLight50,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Container(
             height: 14,

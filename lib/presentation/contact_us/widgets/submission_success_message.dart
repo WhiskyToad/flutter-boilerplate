@@ -22,7 +22,7 @@ class SubmissionSuccessMessage extends StatelessWidget {
           style: AppTextStyles.p2Regular.copyWith(
             color: context.currentTheme.textNeutralSecondary,
           ),
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
       ],
     );

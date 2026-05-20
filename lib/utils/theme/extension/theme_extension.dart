@@ -5,11 +5,9 @@ import 'package:skelter/utils/theme/theme_color_palette.dart';
 
 extension ThemeExtension on BuildContext {
   ThemeColorPalette get currentTheme =>
-      Theme.of(this).brightness == Brightness.dark
-      ? DarkAppColors()
-      : LightAppColors();
+      Theme.of(this).brightness == .dark ? DarkAppColors() : LightAppColors();
 
-  bool get isDark => Theme.of(this).brightness == Brightness.dark;
+  bool get isDark => Theme.of(this).brightness == .dark;
 
   T themeAsset<T>({required T light, required T dark}) => isDark ? dark : light;
 }

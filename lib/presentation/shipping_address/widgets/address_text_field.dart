@@ -21,7 +21,7 @@ class _AddressTextFieldState extends State<AddressTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.address,
@@ -56,7 +56,7 @@ class _AddressTextFieldState extends State<AddressTextField> {
             focusedBorder: buildOutlineInputBorder(hasFocus: true),
             errorBorder: buildOutlineInputBorder(isErrorBorder: true),
           ),
-          textInputAction: TextInputAction.newline,
+          textInputAction: .newline,
           maxLength: 250,
           keyboardType: TextInputType.multiline,
           minLines: 3,

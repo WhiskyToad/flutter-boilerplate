@@ -34,7 +34,7 @@ class AIProductDescription extends StatelessWidget {
         final hasError = state is AIDescriptionError;
 
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             AIDescriptionHeader(
               hasAIDescription: hasAIDescription,

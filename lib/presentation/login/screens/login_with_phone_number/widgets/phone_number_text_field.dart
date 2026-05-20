@@ -82,7 +82,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
 
     return SafeArea(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Text(
             context.localization.mobile_number,
@@ -169,7 +169,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
         color: context.currentTheme.textNeutralDisable,
       ),
       border: buildOutlineInputBorder(),
-      floatingLabelBehavior: FloatingLabelBehavior.always,
+      floatingLabelBehavior: .always,
       enabledBorder: buildOutlineInputBorder(),
       focusedBorder: buildOutlineInputBorder(hasFocus: true),
       prefixIcon: Padding(
@@ -178,7 +178,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
           Assets.icons.searchOutline,
           colorFilter: ColorFilter.mode(
             context.currentTheme.strokeNeutralDisabled,
-            BlendMode.srcIn,
+            .srcIn,
           ),
         ),
       ),

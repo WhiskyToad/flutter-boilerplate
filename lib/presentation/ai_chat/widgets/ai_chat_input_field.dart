@@ -102,7 +102,7 @@ class _AiChatInputFieldState extends State<AiChatInputField> {
                     ),
                   ),
                 ),
-                textInputAction: TextInputAction.send,
+                textInputAction: .send,
                 onSubmitted: (_) => _handleSend(),
               ),
             ),
@@ -161,7 +161,7 @@ class _SendButton extends StatelessWidget {
           canSend
               ? context.currentTheme.bgBrandDefault
               : context.currentTheme.bgBrandDisabled,
-          BlendMode.srcIn,
+          .srcIn,
         ),
       ),
     );
@@ -182,7 +182,7 @@ class _StopButton extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           color: context.currentTheme.bgErrorDefault,
-          shape: BoxShape.circle,
+          shape: .circle,
         ),
         child: Icon(
           TablerIcons.player_stop_filled,

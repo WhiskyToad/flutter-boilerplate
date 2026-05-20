@@ -22,7 +22,7 @@ class EnteredWrongEmail extends StatelessWidget {
         horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
       ),
       child: RichText(
-        textAlign: TextAlign.center,
+        textAlign: .center,
         text: TextSpan(
           style: AppTextStyles.p2Medium.copyWith(
             color: context.currentTheme.textNeutralSecondary,

@@ -4,7 +4,6 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/chat/bloc/chat_conversation_bloc.dart';
 import 'package:skelter/presentation/chat/bloc/chat_conversation_state.dart';
-import 'package:skelter/presentation/chat/enum/message_type_enum.dart';
 import 'package:skelter/presentation/chat/model/chat_message_model.dart';
 import 'package:skelter/presentation/chat/model/chat_model.dart';
 import 'package:skelter/presentation/chat/widgets/chat_conversation_tile.dart';
@@ -35,7 +34,7 @@ class ChatMessageList extends StatelessWidget {
                 style: AppTextStyles.p3Regular.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             );
           case ChatConversationStatus.loaded:
@@ -67,10 +66,10 @@ class ChatMessageList extends StatelessWidget {
                   status: '',
                   isSentByMe: entity.senderId == currentUserId,
                   date: entity.createdAt,
-                  messageType: MessageType.text,
+                  messageType: .text,
                 );
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: .stretch,
                   children: [
                     if (showDateSeparator)
                       DateSeparatorText(

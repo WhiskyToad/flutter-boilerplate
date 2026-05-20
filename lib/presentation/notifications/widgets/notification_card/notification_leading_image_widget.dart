@@ -53,13 +53,10 @@ class NotificationLeadingImageWidget extends StatelessWidget {
                 child: Hero(
                   tag: notificationModel.image,
                   child: Container(
-                    clipBehavior: Clip.hardEdge,
+                    clipBehavior: .hardEdge,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4.0),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
+                      image: DecorationImage(image: imageProvider, fit: .cover),
                     ),
                   ),
                 ),

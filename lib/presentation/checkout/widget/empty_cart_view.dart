@@ -14,7 +14,7 @@ class EmptyCartView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         children: [
           SvgPicture.asset(Assets.icons.emptyCart, height: 150, width: 150),
           const SizedBox(height: 24),
@@ -26,7 +26,7 @@ class EmptyCartView extends StatelessWidget {
           Text(
             context.localization.empty_cart_message,
             style: AppTextStyles.p3Regular,
-            textAlign: TextAlign.center,
+            textAlign: .center,
           ),
           const SizedBox(height: 30),
           AppButton(

@@ -93,7 +93,7 @@ class ProductDetailBody extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         child: Stack(
           alignment: Alignment.center,
-          clipBehavior: Clip.none,
+          clipBehavior: .none,
           children: [
             Container(
               height: 59,
@@ -120,7 +120,7 @@ class ProductDetailBody extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     const SizedBox(height: 10),
                     const InfoHeadlineBar(),
@@ -131,7 +131,7 @@ class ProductDetailBody extends StatelessWidget {
                         vertical: 10,
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: .start,
                         children: [
                           TitleAndRating(
                             title: productDetail.title,

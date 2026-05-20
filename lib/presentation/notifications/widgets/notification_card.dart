@@ -17,7 +17,7 @@ class NotificationCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             if (notificationModel.notificationType == NotificationType.image)
               NotificationLeadingImageWidget(

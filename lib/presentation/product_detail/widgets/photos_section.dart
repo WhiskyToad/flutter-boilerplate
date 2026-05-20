@@ -21,7 +21,7 @@ class PhotosSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 25),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           const PhotosTitle(),
           const SizedBox(height: 10),

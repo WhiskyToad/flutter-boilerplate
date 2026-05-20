@@ -49,7 +49,7 @@ class _ContactUsNameSectionState extends State<ContactUsNameSection> {
       (bloc) => bloc.state.nameError,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.name,
@@ -77,7 +77,7 @@ class _ContactUsNameSectionState extends State<ContactUsNameSection> {
               focusedBorder: buildOutlineInputBorder(hasFocus: true),
               errorBorder: buildOutlineInputBorder(isErrorBorder: true),
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: .next,
           ),
         ),
       ],

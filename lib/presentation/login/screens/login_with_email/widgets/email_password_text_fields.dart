@@ -61,7 +61,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
         }
       },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Text(
             context.localization.email,
@@ -92,7 +92,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
                 focusedBorder: buildOutlineInputBorder(hasFocus: true),
                 errorBorder: buildOutlineInputBorder(isErrorBorder: true),
               ),
-              textInputAction: TextInputAction.next,
+              textInputAction: .next,
               keyboardType: TextInputType.emailAddress,
             ),
           ),
@@ -136,7 +136,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
                   },
                 ),
               ),
-              textInputAction: TextInputAction.done,
+              textInputAction: .done,
             ),
           ),
         ],

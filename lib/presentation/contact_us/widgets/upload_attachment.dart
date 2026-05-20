@@ -42,7 +42,7 @@ class UploadAttachment extends StatelessWidget {
                 ),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
                   Icon(
                     TablerIcons.file_upload,
@@ -81,7 +81,7 @@ void _showImageSourceBottomSheet(BuildContext context) {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               const SizedBox(height: 22),
               Align(

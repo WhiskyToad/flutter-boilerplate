@@ -47,7 +47,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       (bloc) => bloc.state.isPasswordVisible,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.password,
@@ -90,7 +90,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 },
               ),
             ),
-            textInputAction: TextInputAction.done,
+            textInputAction: .done,
           ),
         ),
       ],

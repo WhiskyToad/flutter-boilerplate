@@ -73,7 +73,7 @@ class _NewMessageTextFieldState extends State<NewMessageTextField> {
                   focusedBorder: _buildBorder(context),
                   errorBorder: _buildBorder(context, isError: true),
                 ),
-                textInputAction: TextInputAction.send,
+                textInputAction: .send,
                 onSubmitted: (_) => _sendMessage(),
               ),
             ),
@@ -92,7 +92,7 @@ class _NewMessageTextFieldState extends State<NewMessageTextField> {
                       state.canSend
                           ? context.currentTheme.bgBrandHover
                           : context.currentTheme.iconNeutralDisabled,
-                      BlendMode.srcIn,
+                      .srcIn,
                     ),
                   ),
                 );

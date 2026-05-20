@@ -16,7 +16,7 @@ class AttachmentErrorDisplay extends StatelessWidget {
     return pickedFilesError.isEmpty
         ? const SizedBox.shrink()
         : Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               const SizedBox(height: 8),
               Padding(

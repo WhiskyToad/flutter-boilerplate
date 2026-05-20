@@ -14,13 +14,13 @@ extension DeleteAccountReasonExtension on DeleteAccountReasons {
 
   String toDeleteAccountReasonString(AppLocalizations l10n) {
     switch (this) {
-      case DeleteAccountReasons.doNotNeedItAnyMore:
+      case .doNotNeedItAnyMore:
         return l10n.delete_reason_do_not_need_anymore;
-      case DeleteAccountReasons.productNoMoreRelevant:
+      case .productNoMoreRelevant:
         return l10n.delete_reason_product_no_more_relevant;
-      case DeleteAccountReasons.dislikeTheApp:
+      case .dislikeTheApp:
         return l10n.delete_reason_dislike_app;
-      case DeleteAccountReasons.other:
+      case .other:
         return l10n.delete_reason_other;
     }
   }

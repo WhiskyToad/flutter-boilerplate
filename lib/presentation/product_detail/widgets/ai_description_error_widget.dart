@@ -25,7 +25,7 @@ class AIDescriptionErrorWidget extends StatelessWidget {
         border: Border.all(color: context.currentTheme.strokeErrorDefault),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Row(
             children: [
@@ -65,7 +65,7 @@ class AIDescriptionErrorWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: .min,
                 children: [
                   Icon(
                     Icons.refresh,

@@ -80,7 +80,7 @@ class _ChatUsersView extends StatelessWidget {
                 style: AppTextStyles.p3Regular.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             );
           case ChatUsersStatus.loaded:
@@ -91,7 +91,7 @@ class _ChatUsersView extends StatelessWidget {
                   child: Text(
                     context.localization.no_users_to_chat_with,
                     style: AppTextStyles.p1SemiBold,
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                   ),
                 ),
               );
@@ -106,7 +106,7 @@ class _ChatUsersView extends StatelessWidget {
                     style: AppTextStyles.p3Regular.copyWith(
                       color: context.currentTheme.textNeutralSecondary,
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                   ),
                 ),
               );

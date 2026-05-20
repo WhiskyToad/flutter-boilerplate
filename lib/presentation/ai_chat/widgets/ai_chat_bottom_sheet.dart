@@ -65,7 +65,7 @@ class _AiChatSheetContent extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        behavior: HitTestBehavior.translucent,
+        behavior: .translucent,
         child: Column(
           children: [
             _buildDragHandle(context),
@@ -119,7 +119,7 @@ class _AiChatSheetContent extends StatelessWidget {
             height: 36,
             decoration: BoxDecoration(
               color: context.currentTheme.bgBrandLight50,
-              shape: BoxShape.circle,
+              shape: .circle,
             ),
             child: Icon(
               TablerIcons.robot,
@@ -130,7 +130,7 @@ class _AiChatSheetContent extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   context.localization.ai_assistant,
@@ -185,7 +185,7 @@ class _AiChatSheetContent extends StatelessWidget {
         return SizedBox(
           height: 44,
           child: ListView.separated(
-            scrollDirection: Axis.horizontal,
+            scrollDirection: .horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             itemCount: suggestions.length,
             separatorBuilder: (_, _) => const SizedBox(width: 8),
@@ -294,7 +294,7 @@ class _AiChatMessageListState extends State<_AiChatMessageList> {
       child: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Icon(
               TablerIcons.message_chatbot,
@@ -311,7 +311,7 @@ class _AiChatMessageListState extends State<_AiChatMessageList> {
             const SizedBox(height: 4),
             Text(
               context.localization.ai_chat_description,
-              textAlign: TextAlign.center,
+              textAlign: .center,
               style: AppTextStyles.p3Regular.copyWith(
                 color: context.currentTheme.textNeutralPrimary,
               ),

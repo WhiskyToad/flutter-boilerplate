@@ -30,7 +30,7 @@ class UserAvatar extends StatelessWidget {
                   Assets.icons.userPlaceholder,
                   height: profileImageSize,
                   width: profileImageSize,
-                  fit: BoxFit.cover,
+                  fit: .cover,
                 )
               : CachedNetworkImage(
                   imageUrl: chatModel.profilePicture,
@@ -40,7 +40,7 @@ class UserAvatar extends StatelessWidget {
                     Assets.icons.userPlaceholder,
                     height: profileImageSize,
                     width: profileImageSize,
-                    fit: BoxFit.cover,
+                    fit: .cover,
                   ),
                 ),
         ),
@@ -53,7 +53,7 @@ class UserAvatar extends StatelessWidget {
               height: 10,
               decoration: BoxDecoration(
                 color: context.currentTheme.bgSuccessDefault,
-                shape: BoxShape.circle,
+                shape: .circle,
                 border: Border.all(
                   color: context.currentTheme.strokeShadesWhite,
                   width: 1.5,

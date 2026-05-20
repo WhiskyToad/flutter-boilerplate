@@ -53,7 +53,7 @@ class CheckYourEmailScreenBody extends StatelessWidget {
             bottom: max(20, MediaQuery.of(context).padding.bottom),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: .center,
             children: [
               SvgPicture.asset(Assets.icons.emailNotification),
               const SizedBox(height: 18),
@@ -62,7 +62,7 @@ class CheckYourEmailScreenBody extends StatelessWidget {
                 style: AppTextStyles.h2Bold.copyWith(
                   color: context.currentTheme.textNeutralPrimary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               const SizedBox(height: 18),
               Text(
@@ -70,7 +70,7 @@ class CheckYourEmailScreenBody extends StatelessWidget {
                 style: AppTextStyles.p2Medium.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               const SizedBox(height: 25),
               const ContinueLoginButton(),

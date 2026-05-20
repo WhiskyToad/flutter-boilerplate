@@ -13,7 +13,7 @@ class SubscriptionActivatedTitle extends StatelessWidget {
       style: AppTextStyles.h4SemiBold.copyWith(
         color: context.currentTheme.textNeutralPrimary,
       ),
-      textAlign: TextAlign.center,
+      textAlign: .center,
     );
   }
 }

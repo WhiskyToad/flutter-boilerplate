@@ -17,7 +17,7 @@ class AIDescriptionContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Container(
           width: double.infinity,
@@ -37,7 +37,7 @@ class AIDescriptionContent extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             Text(
               context.localization.generated_by_ai,

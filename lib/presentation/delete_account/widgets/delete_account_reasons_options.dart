@@ -22,7 +22,7 @@ class DeleteAccountReasonOptions extends StatelessWidget {
         );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.delete_reason_title,

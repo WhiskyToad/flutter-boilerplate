@@ -12,7 +12,7 @@ class ProductTitle extends StatelessWidget {
     return Text(
       title,
       maxLines: 2,
-      overflow: TextOverflow.ellipsis,
+      overflow: .ellipsis,
       style: AppTextStyles.p4SemiBold.copyWith(
         color: context.currentTheme.textNeutralPrimary,
       ),

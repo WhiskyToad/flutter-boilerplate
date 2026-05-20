@@ -14,8 +14,8 @@ class TotalAmount extends StatelessWidget {
       (bloc) => bloc.state.finalAmount,
     );
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: .min,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.total_amount,

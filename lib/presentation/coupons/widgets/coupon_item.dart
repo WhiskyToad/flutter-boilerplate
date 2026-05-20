@@ -23,8 +23,8 @@ class CouponItem extends StatelessWidget {
         border: Border.all(color: context.currentTheme.strokeNeutralLight200),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .start,
+        mainAxisSize: .min,
         children: [
           Row(
             children: [
@@ -41,7 +41,7 @@ class CouponItem extends StatelessWidget {
                         color: AppColors.shadesWhite,
                       ),
                       maxLines: 1,
-                      textAlign: TextAlign.center,
+                      textAlign: .center,
                     ),
                   ),
                 ],

@@ -78,8 +78,8 @@ class AppTourService {
               return Container(
                 padding: const EdgeInsets.all(20),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: .min,
+                  crossAxisAlignment: .start,
                   children: [
                     Text(
                       context.localization.tour_search_title,
@@ -96,7 +96,7 @@ class AppTourService {
                     ),
                     const SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: .end,
                       children: [
                         AppButton(
                           onPressed: () => controller.skip(),
@@ -132,8 +132,8 @@ class AppTourService {
               return Container(
                 padding: const EdgeInsets.all(20),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: .min,
+                  crossAxisAlignment: .start,
                   children: [
                     Text(
                       context.localization.tour_nav_title,
@@ -150,7 +150,7 @@ class AppTourService {
                     ),
                     const SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: .end,
                       children: [
                         AppButton(
                           onPressed: () => controller.next(),

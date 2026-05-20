@@ -19,7 +19,7 @@ class OrderReviewScreen extends StatelessWidget {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         const CartItemLists(),
         const SizedBox(height: 16),

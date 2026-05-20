@@ -22,7 +22,7 @@ class ReminderDateTimeSelector extends StatelessWidget {
     });
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.date_and_time,

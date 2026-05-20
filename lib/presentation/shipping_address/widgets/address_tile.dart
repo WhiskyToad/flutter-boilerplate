@@ -33,11 +33,11 @@ class AddressTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Row(
                   children: [
@@ -48,7 +48,7 @@ class AddressTile extends StatelessWidget {
                           color: context.currentTheme.textNeutralPrimary,
                         ),
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: .ellipsis,
                       ),
                     ),
                     SizedBox(width: isDefault ? 8 : 0),
@@ -67,7 +67,7 @@ class AddressTile extends StatelessWidget {
                     color: context.currentTheme.textNeutralSecondary,
                   ),
                   maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                 ),
               ],
             ),
@@ -75,7 +75,7 @@ class AddressTile extends StatelessWidget {
           const SizedBox(width: 16),
           Container(
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
+              shape: .circle,
               color: context.currentTheme.bgShadesWhite,
               boxShadow: [
                 BoxShadow(
