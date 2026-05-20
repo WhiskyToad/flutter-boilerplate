@@ -54,7 +54,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.email,
@@ -84,7 +84,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
                   ? emailError
                   : null,
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: .next,
             keyboardType: TextInputType.emailAddress,
           ),
         ),

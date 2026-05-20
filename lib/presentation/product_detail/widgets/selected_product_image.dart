@@ -25,7 +25,7 @@ class SelectedProductImage extends StatelessWidget {
     final isFromTestEnvironment = AppEnvironment.isTestEnvironment;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         GestureDetector(
           onTap: () {
@@ -38,13 +38,10 @@ class SelectedProductImage extends StatelessWidget {
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 20),
             child: isFromTestEnvironment
-                ? Image.asset(
-                    Assets.test.images.testImage.path,
-                    fit: BoxFit.cover,
-                  )
+                ? Image.asset(Assets.test.images.testImage.path, fit: .cover)
                 : CachedNetworkImage(
                     imageUrl: imageUrl,
-                    fit: BoxFit.cover,
+                    fit: .cover,
                     placeholder: (context, url) => Shimmer.fromColors(
                       baseColor: context.currentTheme.bgNeutralLight100,
                       highlightColor: context.currentTheme.bgNeutralLight100

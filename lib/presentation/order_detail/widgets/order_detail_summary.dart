@@ -25,7 +25,7 @@ class OrderDetailSummary extends StatelessWidget {
         ((itemPrice - discount + _deliveryCharges) * 100).floor() / 100;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Container(
           padding: const EdgeInsets.all(16),
@@ -36,7 +36,7 @@ class OrderDetailSummary extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: .start,
             children: [
               Text(
                 context.localization.order_summary,

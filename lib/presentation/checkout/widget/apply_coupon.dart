@@ -17,10 +17,8 @@ class ApplyCoupon extends StatelessWidget {
       (bloc) => bloc.state.couponCount,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: AppEnvironment.isTestEnvironment
-          ? MainAxisSize.min
-          : MainAxisSize.max,
+      crossAxisAlignment: .start,
+      mainAxisSize: AppEnvironment.isTestEnvironment ? .min : .max,
       children: [
         Text(
           context.localization.apply_coupon,

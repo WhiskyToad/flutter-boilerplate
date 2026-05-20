@@ -24,7 +24,7 @@ class _NameTextFieldState extends State<NameTextField> {
     const fullNameErrorMessage = '';
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.name,
@@ -53,7 +53,7 @@ class _NameTextFieldState extends State<NameTextField> {
             focusedBorder: buildOutlineInputBorder(hasFocus: true),
             errorBorder: buildOutlineInputBorder(isErrorBorder: true),
           ),
-          textInputAction: TextInputAction.next,
+          textInputAction: .next,
           keyboardType: TextInputType.name,
           maxLength: 50,
         ),

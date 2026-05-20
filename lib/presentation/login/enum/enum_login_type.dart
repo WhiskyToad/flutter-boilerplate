@@ -2,7 +2,7 @@ enum LoginType { EMAIL, PHONE, GOOGLE, APPLE }
 
 extension ParseLoginType on LoginType {
   String toViewString() {
-    if (this == LoginType.APPLE || this == LoginType.GOOGLE) {
+    if (this == .APPLE || this == .GOOGLE) {
       return '${name[0].toUpperCase()}${name.substring(1).toLowerCase()}';
     } else {
       return name.toLowerCase();
@@ -11,26 +11,26 @@ extension ParseLoginType on LoginType {
 
   String toSignUpString() {
     switch (this) {
-      case LoginType.EMAIL:
+      case .EMAIL:
         return 'Sign up with email ';
-      case LoginType.PHONE:
+      case .PHONE:
         return 'Sign up with phone ';
-      case LoginType.GOOGLE:
+      case .GOOGLE:
         return 'Sign in with Google';
-      case LoginType.APPLE:
+      case .APPLE:
         return 'Sign in with Apple ';
     }
   }
 
   String toSignInString() {
     switch (this) {
-      case LoginType.EMAIL:
+      case .EMAIL:
         return 'Sign in with email ';
-      case LoginType.PHONE:
+      case .PHONE:
         return 'Sign in with phone ';
-      case LoginType.GOOGLE:
+      case .GOOGLE:
         return 'Sign in with Google';
-      case LoginType.APPLE:
+      case .APPLE:
         return 'Sign in with Apple ';
     }
   }

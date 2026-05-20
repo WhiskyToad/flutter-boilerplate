@@ -9,7 +9,6 @@ import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
-import 'package:skelter/presentation/login/enum/enum_login_type.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/presentation/signup/enum/user_details_input_status.dart';
 import 'package:skelter/services/firebase_auth_services.dart';
@@ -664,7 +663,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       onError('User information could not be retrieved.');
       return;
     }
-    if (loginType == LoginType.PHONE) {
+    if (loginType == .PHONE) {
       if (firebaseUser.phoneNumber?.isNullOrEmpty() ?? true) {
         debugPrint('Authentication Current user phone number is null');
 
@@ -675,7 +674,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       await _storeLoginDetailsInPrefs(firebaseUser);
       add(PhoneNumLoginLoadingEvent(isLoading: false));
       add(NavigateToHomeScreenEvent());
-    } else if (loginType == LoginType.EMAIL) {
+    } else if (loginType == .EMAIL) {
       if (firebaseUser.email.isNullOrEmpty()) {
         onError('Error retrieving your email');
         return;
@@ -689,10 +688,10 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
 
       await _storeLoginDetailsInPrefs(firebaseUser);
       add(NavigateToHomeScreenEvent());
-    } else if (loginType == LoginType.GOOGLE) {
+    } else if (loginType == .GOOGLE) {
       await _storeLoginDetailsInPrefs(firebaseUser);
       add(NavigateToHomeScreenEvent());
-    } else if (loginType == LoginType.APPLE) {
+    } else if (loginType == .APPLE) {
       await _storeLoginDetailsInPrefs(firebaseUser);
       add(NavigateToHomeScreenEvent());
     } else {

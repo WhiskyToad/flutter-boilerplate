@@ -21,7 +21,7 @@ class FeedbackRatingSection extends StatelessWidget {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.rate_your_experience,

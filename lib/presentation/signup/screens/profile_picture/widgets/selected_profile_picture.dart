@@ -23,7 +23,7 @@ class SelectedProfilePicture extends StatelessWidget {
         : Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
+              shape: .circle,
               color: context.currentTheme.strokeShadesWhite,
               boxShadow: <BoxShadow>[
                 const BoxShadow(
@@ -35,18 +35,18 @@ class SelectedProfilePicture extends StatelessWidget {
               ],
             ),
             child: Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: const BoxDecoration(shape: BoxShape.circle),
+              clipBehavior: .hardEdge,
+              decoration: const BoxDecoration(shape: .circle),
               child: AppEnvironment.isTestEnvironment
                   ? Image.asset(
                       profilePicture.path,
-                      fit: BoxFit.cover,
+                      fit: .cover,
                       height: profilePictureSize,
                       width: profilePictureSize,
                     )
                   : Image.file(
                       profilePicture,
-                      fit: BoxFit.cover,
+                      fit: .cover,
                       height: profilePictureSize,
                       width: profilePictureSize,
                     ),

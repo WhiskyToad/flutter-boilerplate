@@ -26,11 +26,11 @@ class ProductImage extends StatelessWidget {
                 Assets.test.images.testImage.path,
                 height: 100,
                 width: 100,
-                fit: BoxFit.cover,
+                fit: .cover,
               )
             : CachedNetworkImage(
                 imageUrl: imageUrl,
-                fit: BoxFit.cover,
+                fit: .cover,
                 placeholder: (context, url) => Shimmer.fromColors(
                   baseColor: context.currentTheme.bgNeutralLight100,
                   highlightColor: context.currentTheme.bgNeutralLight100

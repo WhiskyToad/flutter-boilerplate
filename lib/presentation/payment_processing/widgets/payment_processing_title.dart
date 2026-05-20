@@ -10,7 +10,7 @@ class PaymentProcessingTitle extends StatelessWidget {
     return Text(
       context.localization.processing_your_payment,
       style: AppTextStyles.h1,
-      textAlign: TextAlign.center,
+      textAlign: .center,
     );
   }
 }

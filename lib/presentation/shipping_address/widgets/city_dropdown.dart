@@ -25,7 +25,7 @@ class _CityDropdownState extends State<CityDropdown> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.city,

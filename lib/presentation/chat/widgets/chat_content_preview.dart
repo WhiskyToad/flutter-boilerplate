@@ -12,15 +12,15 @@ class ChatContentPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .start,
+        mainAxisSize: .min,
         children: [
           Text(
             chatModel.name,
             style: AppTextStyles.p2Medium.copyWith(
               color: context.currentTheme.textNeutralPrimary,
             ),
-            overflow: TextOverflow.ellipsis,
+            overflow: .ellipsis,
             maxLines: 1,
           ),
           if (chatModel.lastMessage.isNotEmpty) ...[
@@ -30,7 +30,7 @@ class ChatContentPreview extends StatelessWidget {
               style: AppTextStyles.p3Regular.copyWith(
                 color: context.currentTheme.textNeutralSecondary,
               ),
-              overflow: TextOverflow.ellipsis,
+              overflow: .ellipsis,
               maxLines: 1,
             ),
           ],

@@ -13,7 +13,7 @@ class SubscriptionActivatedMessage extends StatelessWidget {
       style: AppTextStyles.p3Regular.copyWith(
         color: context.currentTheme.textNeutralSecondary,
       ),
-      textAlign: TextAlign.center,
+      textAlign: .center,
     );
   }
 }

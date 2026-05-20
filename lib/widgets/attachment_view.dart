@@ -35,10 +35,7 @@ class NetworkImageScreen extends StatelessWidget {
               return Center(
                 child: Container(
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.contain,
-                    ),
+                    image: DecorationImage(image: imageProvider, fit: .contain),
                   ),
                 ),
               );

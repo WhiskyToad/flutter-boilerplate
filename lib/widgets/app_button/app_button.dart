@@ -215,9 +215,7 @@ class AppButton extends StatelessWidget {
 
   Widget _buildWithTrailingIcon() {
     return Row(
-      mainAxisSize: isRightAppIconAttachedToText
-          ? MainAxisSize.max
-          : MainAxisSize.min,
+      mainAxisSize: isRightAppIconAttachedToText ? .max : .min,
       children: [
         const Spacer(),
         _buildLabel(),

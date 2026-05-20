@@ -42,7 +42,7 @@ class RepliedTo extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   repliedToMessage?.isSentByMe ?? false
@@ -51,7 +51,7 @@ class RepliedTo extends StatelessWidget {
                   style: AppTextStyles.p4Medium.copyWith(
                     color: context.currentTheme.textBrandSecondary,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   maxLines: 1,
                 ),
                 Text(
@@ -59,7 +59,7 @@ class RepliedTo extends StatelessWidget {
                   style: AppTextStyles.p3Regular.copyWith(
                     color: context.currentTheme.textNeutralPrimary,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   maxLines: 1,
                 ),
               ],

@@ -62,10 +62,7 @@ Future<void> initializeApp({
   final remoteConfigService = RemoteConfigService();
   await remoteConfigService.initialize();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  await SystemChrome.setPreferredOrientations([.portraitUp, .portraitDown]);
 
   await dotenv.load();
 

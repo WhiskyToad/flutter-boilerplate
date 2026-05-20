@@ -34,7 +34,7 @@ class HeadingWelcomeWidget extends StatelessWidget {
           style: AppTextStyles.h2Bold.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
         Text(
           isSignup
@@ -43,7 +43,7 @@ class HeadingWelcomeWidget extends StatelessWidget {
           style: AppTextStyles.p2Regular.copyWith(
             color: context.currentTheme.textNeutralSecondary,
           ),
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
       ],
     );

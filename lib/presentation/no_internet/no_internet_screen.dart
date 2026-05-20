@@ -24,7 +24,7 @@ class NoInternetScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
                   SvgPicture.asset(
                     Assets.icons.noInternetConnection,
@@ -37,7 +37,7 @@ class NoInternetScreen extends StatelessWidget {
                     style: AppTextStyles.p1SemiBold.copyWith(
                       color: context.currentTheme.textNeutralPrimary,
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -45,7 +45,7 @@ class NoInternetScreen extends StatelessWidget {
                     style: AppTextStyles.p3Regular.copyWith(
                       color: context.currentTheme.textNeutralSecondary,
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                   ),
                   const SizedBox(height: 30),
                   AppButton(

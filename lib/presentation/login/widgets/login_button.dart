@@ -25,7 +25,7 @@ class LoginButton extends StatelessWidget {
         horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           AppButton(
             label: context.localization.continue_with_google,

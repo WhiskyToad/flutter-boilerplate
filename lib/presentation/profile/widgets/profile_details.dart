@@ -23,15 +23,15 @@ class ProfileDetails extends StatelessWidget {
         const SizedBox(width: 24.0),
         Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: .start,
+            mainAxisSize: .min,
             children: [
               Text(
                 fullName,
                 style: AppTextStyles.h6SemiBold.copyWith(
                   color: context.currentTheme.textNeutralPrimary,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: .ellipsis,
                 maxLines: 1,
               ),
               Text(
@@ -39,7 +39,7 @@ class ProfileDetails extends StatelessWidget {
                 style: AppTextStyles.p3Medium.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: .ellipsis,
                 maxLines: 1,
               ),
             ],

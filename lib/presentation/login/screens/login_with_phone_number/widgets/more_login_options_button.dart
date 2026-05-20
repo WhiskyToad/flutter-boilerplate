@@ -32,7 +32,7 @@ class MoreLoginOptionsButton extends StatelessWidget {
         horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           AppButton(
             key: isSignup

@@ -34,14 +34,14 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Container(
               height: 56,
               width: 56,
               decoration: const BoxDecoration(
                 color: AppColors.redError50,
-                shape: BoxShape.circle,
+                shape: .circle,
               ),
               child: Center(
                 child: Container(
@@ -49,7 +49,7 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                   width: 40,
                   decoration: BoxDecoration(
                     color: context.currentTheme.bgErrorLight100,
-                    shape: BoxShape.circle,
+                    shape: .circle,
                   ),
                   child: const Icon(
                     TablerIcons.trash,
@@ -71,7 +71,7 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 context.localization.delete_account_confirmation_message,
-                textAlign: TextAlign.center,
+                textAlign: .center,
                 style: AppTextStyles.p3Regular.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),

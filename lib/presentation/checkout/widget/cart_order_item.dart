@@ -31,19 +31,19 @@ class CartOrderItem extends StatelessWidget {
             Image.asset(
               Assets.test.images.testImage.path,
               width: Device.width / 6,
-              fit: BoxFit.cover,
+              fit: .cover,
             )
           else
             CachedNetworkImage(
               imageUrl: cartModel.product.image,
               width: Device.width / 6,
-              fit: BoxFit.cover,
+              fit: .cover,
             ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: .start,
+              mainAxisAlignment: .spaceEvenly,
               children: [
                 Row(
                   children: [
@@ -53,14 +53,14 @@ class CartOrderItem extends StatelessWidget {
                         style: AppTextStyles.p3Medium.copyWith(
                           color: context.currentTheme.textNeutralSecondary,
                         ),
-                        overflow: TextOverflow.ellipsis,
+                        overflow: .ellipsis,
                         maxLines: 1,
                       ),
                     ),
                     Container(
                       decoration: BoxDecoration(
                         color: context.currentTheme.bgSurfaceBase2,
-                        shape: BoxShape.circle,
+                        shape: .circle,
                       ),
                       padding: const EdgeInsets.all(8),
                       child: Icon(
@@ -77,7 +77,7 @@ class CartOrderItem extends StatelessWidget {
                   style: AppTextStyles.p2Medium.copyWith(
                     color: context.currentTheme.textNeutralPrimary,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   maxLines: 2,
                 ),
                 const SizedBox(height: 6),
@@ -130,7 +130,7 @@ class CartOrderItem extends StatelessWidget {
                   style: AppTextStyles.p2Medium.copyWith(
                     color: context.currentTheme.textNeutralSecondary,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   maxLines: 1,
                 ),
                 const SizedBox(height: 10),
@@ -140,7 +140,7 @@ class CartOrderItem extends StatelessWidget {
                       Assets.icons.deliveryParcel,
                       colorFilter: ColorFilter.mode(
                         context.currentTheme.bgBrandDefault,
-                        BlendMode.srcIn,
+                        .srcIn,
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -150,7 +150,7 @@ class CartOrderItem extends StatelessWidget {
                         style: AppTextStyles.p3Medium.copyWith(
                           color: context.currentTheme.textNeutralPrimary,
                         ),
-                        overflow: TextOverflow.ellipsis,
+                        overflow: .ellipsis,
                         maxLines: 1,
                       ),
                     ),

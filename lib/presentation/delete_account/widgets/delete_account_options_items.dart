@@ -21,14 +21,14 @@ class DeleteAccountOptionsItems extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
         onTap: onSelected,
-        behavior: HitTestBehavior.translucent,
+        behavior: .translucent,
         child: Row(
           children: [
             Container(
               width: 24,
               height: 24,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
+                shape: .circle,
                 color: isSelected
                     ? context.currentTheme.bgBrandDefault
                     : context.currentTheme.bgSurfaceBase2,
@@ -45,7 +45,7 @@ class DeleteAccountOptionsItems extends StatelessWidget {
                         width: 10,
                         height: 24,
                         decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
+                          shape: .circle,
                           color: AppColors.shadesWhite,
                         ),
                       ),

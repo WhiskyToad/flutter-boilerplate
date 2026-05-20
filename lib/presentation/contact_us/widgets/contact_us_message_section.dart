@@ -59,7 +59,7 @@ class _ContactUsMessageSectionState extends State<ContactUsMessageSection> {
       (bloc) => bloc.state.description,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.message,

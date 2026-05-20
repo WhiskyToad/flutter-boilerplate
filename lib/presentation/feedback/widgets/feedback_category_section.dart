@@ -21,7 +21,7 @@ class FeedbackCategorySection extends StatelessWidget {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.feedback_category_label,

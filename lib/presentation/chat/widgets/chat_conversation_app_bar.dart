@@ -38,7 +38,7 @@ class ChatConversationAppBar extends StatelessWidget
               style: AppTextStyles.p3SemiBold.copyWith(
                 color: context.currentTheme.textNeutralPrimary,
               ),
-              overflow: TextOverflow.ellipsis,
+              overflow: .ellipsis,
               maxLines: 1,
             ),
           ),

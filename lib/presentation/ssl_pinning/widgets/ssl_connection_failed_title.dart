@@ -14,7 +14,7 @@ class SslFailedTitle extends StatelessWidget {
       ),
       child: Text(
         context.localization.secure_connection_failed_title,
-        textAlign: TextAlign.center,
+        textAlign: .center,
         style: AppTextStyles.h4SemiBold.copyWith(
           color: context.currentTheme.textNeutralPrimary,
         ),

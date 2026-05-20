@@ -31,7 +31,7 @@ class OrderDetailProductCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Row(
             children: [
@@ -60,31 +60,31 @@ class OrderDetailProductCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: .start,
             children: [
               if (isFromTestEnvironment)
                 Image.asset(
                   Assets.test.images.testImage.path,
                   width: Device.width / 5,
-                  fit: BoxFit.cover,
+                  fit: .cover,
                 )
               else
                 CachedNetworkImage(
                   imageUrl: productDetail.image,
                   width: Device.width / 5,
-                  fit: BoxFit.cover,
+                  fit: .cover,
                 ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     Text(
                       productDetail.category.toUpperCase(),
                       style: AppTextStyles.p4Medium.copyWith(
                         color: context.currentTheme.textNeutralSecondary,
                       ),
-                      overflow: TextOverflow.ellipsis,
+                      overflow: .ellipsis,
                       maxLines: 1,
                     ),
                     const SizedBox(height: 4),
@@ -93,7 +93,7 @@ class OrderDetailProductCard extends StatelessWidget {
                       style: AppTextStyles.p2Medium.copyWith(
                         color: context.currentTheme.textNeutralPrimary,
                       ),
-                      overflow: TextOverflow.ellipsis,
+                      overflow: .ellipsis,
                       maxLines: 2,
                     ),
                     const SizedBox(height: 4),
@@ -142,7 +142,7 @@ class OrderDetailProductCard extends StatelessWidget {
                 Assets.icons.deliveryParcel,
                 colorFilter: ColorFilter.mode(
                   context.currentTheme.bgBrandDefault,
-                  BlendMode.srcIn,
+                  .srcIn,
                 ),
               ),
               const SizedBox(width: 8),

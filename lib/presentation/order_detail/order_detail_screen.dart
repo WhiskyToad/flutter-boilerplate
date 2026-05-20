@@ -104,7 +104,7 @@ class OrderDetailBody extends StatelessWidget {
           : const SingleChildScrollView(
               padding: EdgeInsets.all(16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   OrderDetailProductCard(),
                   SizedBox(height: 24),
