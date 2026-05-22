@@ -22,7 +22,7 @@ class ImagePreviewList extends StatelessWidget {
         : SizedBox(
             height: 80,
             child: ListView.separated(
-              scrollDirection: Axis.horizontal,
+              scrollDirection: .horizontal,
               itemCount: images.length,
               separatorBuilder: (_, _) => const SizedBox(width: 8),
               itemBuilder: (_, index) {
@@ -36,13 +36,13 @@ class ImagePreviewList extends StatelessWidget {
                               image.path,
                               height: 80,
                               width: 80,
-                              fit: BoxFit.cover,
+                              fit: .cover,
                             )
                           : Image.file(
                               File(image.path),
                               height: 80,
                               width: 80,
-                              fit: BoxFit.cover,
+                              fit: .cover,
                             ),
                     ),
                     RemoveFileButton(

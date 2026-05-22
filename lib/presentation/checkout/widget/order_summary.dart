@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class OrderSummary extends StatelessWidget {
   const OrderSummary({super.key});
@@ -34,15 +34,15 @@ class OrderSummary extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .start,
+        mainAxisSize: .min,
         children: [
           Text(
             context.localization.order_summary,
             style: AppTextStyles.h6Bold.copyWith(
               color: context.currentTheme.textNeutralPrimary,
             ),
-            overflow: TextOverflow.ellipsis,
+            overflow: .ellipsis,
             maxLines: 1,
           ),
           const SizedBox(height: 20),

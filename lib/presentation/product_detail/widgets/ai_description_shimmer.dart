@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class AIDescriptionShimmer extends StatelessWidget {
   const AIDescriptionShimmer({super.key});
@@ -11,7 +11,7 @@ class AIDescriptionShimmer extends StatelessWidget {
       baseColor: context.currentTheme.bgNeutralLight100,
       highlightColor: context.currentTheme.bgNeutralLight50,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Container(
             height: 14,

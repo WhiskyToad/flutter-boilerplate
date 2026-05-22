@@ -27,9 +27,18 @@ extension DateTimeExtensions on DateTime {
   bool isInRange(DateTime start, DateTime end) =>
       isAfter(start) && isBefore(end);
 
-  String timeAgo(AppLocalizations localization) {
+  /// Returns how long ago this date was, e.g. "2 hrs ago",
+  /// "Yesterday", "Last month".
+  ///
+  /// Pass [now] in tests to control what "current time" means
+  /// so results are predictable.
+  /// In production, leave it empty — it uses the real current
+  /// time automatically.
+  String timeAgo(AppLocalizations localization, {DateTime? now}) {
     try {
-      final Duration difference = getCurrentDateTime().difference(this);
+      final Duration difference = (now ?? getCurrentDateTime()).difference(
+        this,
+      );
 
       if (difference.inDays >= 365) {
         final years = (difference.inDays / 365).floor();

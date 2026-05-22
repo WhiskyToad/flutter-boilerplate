@@ -3,7 +3,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/home/domain/entities/product.dart';
 import 'package:skelter/utils/currency_formatter_util.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ProductPriceRating extends StatelessWidget {
   final Product product;
@@ -13,7 +13,7 @@ class ProductPriceRating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: .spaceBetween,
       children: [
         Expanded(
           child: Text(

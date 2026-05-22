@@ -5,7 +5,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class CustomStepper extends StatelessWidget {
@@ -52,7 +52,7 @@ class CustomStepper extends StatelessWidget {
         icon: const Icon(TablerIcons.shopping_cart),
         customTitle: Text(
           context.localization.cart,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: AppTextStyles.p3Regular.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
@@ -62,7 +62,7 @@ class CustomStepper extends StatelessWidget {
         icon: const Icon(TablerIcons.truck_delivery),
         customTitle: Text(
           context.localization.shipping,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: AppTextStyles.p3Regular.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
@@ -72,7 +72,7 @@ class CustomStepper extends StatelessWidget {
         icon: const Icon(TablerIcons.currency_dollar),
         customTitle: Text(
           context.localization.payment,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: AppTextStyles.p3Regular.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),
@@ -82,7 +82,7 @@ class CustomStepper extends StatelessWidget {
         icon: const Icon(TablerIcons.clipboard_text),
         customTitle: Text(
           context.localization.order_review,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: AppTextStyles.p3Regular.copyWith(
             color: context.currentTheme.textNeutralPrimary,
           ),

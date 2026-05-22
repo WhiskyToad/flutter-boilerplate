@@ -24,7 +24,7 @@ class AppButtonIcon extends StatelessWidget {
           iconPath!,
           height: size,
           width: size,
-          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+          colorFilter: ColorFilter.mode(color, .srcIn),
         );
       }
       if (iconPath!.endsWith(kPNGWithDot)) {

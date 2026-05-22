@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
@@ -23,8 +23,8 @@ class CouponItem extends StatelessWidget {
         border: Border.all(color: context.currentTheme.strokeNeutralLight200),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .start,
+        mainAxisSize: .min,
         children: [
           Row(
             children: [
@@ -41,7 +41,7 @@ class CouponItem extends StatelessWidget {
                         color: AppColors.shadesWhite,
                       ),
                       maxLines: 1,
-                      textAlign: TextAlign.center,
+                      textAlign: .center,
                     ),
                   ),
                 ],

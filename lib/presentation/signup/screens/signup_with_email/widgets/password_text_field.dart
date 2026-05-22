@@ -7,7 +7,7 @@ import 'package:skelter/constants/integration_test_keys.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class PasswordTextField extends StatefulWidget {
   const PasswordTextField({super.key});
@@ -47,7 +47,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       (bloc) => bloc.state.isPasswordVisible,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.password,
@@ -90,7 +90,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 },
               ),
             ),
-            textInputAction: TextInputAction.done,
+            textInputAction: .done,
           ),
         ),
       ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class OrderDetailShippingAddress extends StatelessWidget {
   const OrderDetailShippingAddress({super.key});
@@ -9,7 +9,7 @@ class OrderDetailShippingAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.shipping_address,
@@ -28,7 +28,7 @@ class OrderDetailShippingAddress extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: .start,
             children: [
               Text(
                 'Roz Cooper',

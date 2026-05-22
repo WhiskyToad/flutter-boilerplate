@@ -5,7 +5,7 @@ import 'package:skelter/presentation/profile/widgets/contact_us.dart';
 import 'package:skelter/presentation/profile/widgets/divider.dart';
 import 'package:skelter/presentation/profile/widgets/feedback_and_rating.dart';
 import 'package:skelter/presentation/profile/widgets/help_and_support.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class SupportSection extends StatelessWidget {
   const SupportSection({super.key});
@@ -13,7 +13,7 @@ class SupportSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.support,

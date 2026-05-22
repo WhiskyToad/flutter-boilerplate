@@ -9,7 +9,7 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class EmailPasswordTextFields extends StatefulWidget {
   const EmailPasswordTextFields({super.key});
@@ -61,7 +61,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
         }
       },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Text(
             context.localization.email,
@@ -92,7 +92,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
                 focusedBorder: buildOutlineInputBorder(hasFocus: true),
                 errorBorder: buildOutlineInputBorder(isErrorBorder: true),
               ),
-              textInputAction: TextInputAction.next,
+              textInputAction: .next,
               keyboardType: TextInputType.emailAddress,
             ),
           ),
@@ -136,7 +136,7 @@ class _EmailPasswordTextFieldsState extends State<EmailPasswordTextFields> {
                   },
                 ),
               ),
-              textInputAction: TextInputAction.done,
+              textInputAction: .done,
             ),
           ),
         ],

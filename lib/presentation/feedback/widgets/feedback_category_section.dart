@@ -6,7 +6,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/feedback/bloc/feedback_bloc.dart';
 import 'package:skelter/presentation/feedback/bloc/feedback_event.dart';
 import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class FeedbackCategorySection extends StatelessWidget {
   const FeedbackCategorySection({super.key});
@@ -21,7 +21,7 @@ class FeedbackCategorySection extends StatelessWidget {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.feedback_category_label,

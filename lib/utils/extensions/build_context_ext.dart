@@ -56,7 +56,7 @@ extension ShowSnackbar on BuildContext {
                 : AppColors.snackBarBGColor),
         content: Row(children: contents),
         duration: duration ?? Duration(milliseconds: millis),
-        behavior: SnackBarBehavior.floating,
+        behavior: .floating,
         action: action,
       ),
     );

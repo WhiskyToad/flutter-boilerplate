@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/presentation/notifications/model/notification_model.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class NotificationLeadingIconWidget extends StatelessWidget {
   const NotificationLeadingIconWidget({
@@ -27,7 +27,7 @@ class NotificationLeadingIconWidget extends StatelessWidget {
             width: 8.0,
             decoration: BoxDecoration(
               color: context.currentTheme.bgBrandHover,
-              shape: BoxShape.circle,
+              shape: .circle,
             ),
           ),
         ],

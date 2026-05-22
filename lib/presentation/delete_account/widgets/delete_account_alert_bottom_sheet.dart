@@ -10,7 +10,7 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_event.da
 import 'package:skelter/presentation/delete_account/constants/analytics_constant.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
 import 'package:skelter/utils/internet_connectivity_helper.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
@@ -23,25 +23,25 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
     isScrollControlled: true,
     builder: (ctx) {
       return Container(
-        padding: const EdgeInsets.only(
+        padding: EdgeInsets.only(
           top: 20,
           left: 16,
           right: 16,
-          bottom: 16,
+          bottom: 16 + ctx.bottomPadding,
         ),
         decoration: BoxDecoration(
           color: context.currentTheme.bgSurfaceBase2,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Container(
               height: 56,
               width: 56,
               decoration: const BoxDecoration(
                 color: AppColors.redError50,
-                shape: BoxShape.circle,
+                shape: .circle,
               ),
               child: Center(
                 child: Container(
@@ -49,7 +49,7 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                   width: 40,
                   decoration: BoxDecoration(
                     color: context.currentTheme.bgErrorLight100,
-                    shape: BoxShape.circle,
+                    shape: .circle,
                   ),
                   child: const Icon(
                     TablerIcons.trash,
@@ -71,7 +71,7 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 context.localization.delete_account_confirmation_message,
-                textAlign: TextAlign.center,
+                textAlign: .center,
                 style: AppTextStyles.p3Regular.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
@@ -120,7 +120,6 @@ Future<void> showDeleteAccountAlertBottomSheet(BuildContext context) async {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
           ],
         ),
       );

@@ -8,7 +8,7 @@ class ShimmerImage extends StatelessWidget {
     this.height,
     this.radius = 0.0,
     this.margin,
-    this.fit = BoxFit.cover,
+    this.fit = .cover,
   });
 
   final double? width;

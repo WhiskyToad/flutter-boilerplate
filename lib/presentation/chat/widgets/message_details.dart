@@ -5,7 +5,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/chat/model/chat_model.dart';
 import 'package:skelter/utils/extensions/date_time_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class MessageDetails extends StatelessWidget {
   const MessageDetails({super.key, required this.chatModel});
@@ -16,8 +16,8 @@ class MessageDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final int unreadMessageCount = chatModel.unreadMessageCount ?? 0;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: .end,
+      mainAxisSize: .min,
       children: [
         if (chatModel.lastMessageTime != null)
           Text(

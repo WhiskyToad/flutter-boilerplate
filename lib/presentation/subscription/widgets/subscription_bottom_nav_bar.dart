@@ -6,7 +6,7 @@ import 'package:skelter/presentation/subscription/bloc/subscription_event.dart';
 import 'package:skelter/presentation/subscription/bloc/subscription_state.dart';
 import 'package:skelter/presentation/subscription/model/subscription_package_model.dart';
 import 'package:skelter/presentation/subscription/widgets/restore_subscription.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 
@@ -25,7 +25,7 @@ class SubscriptionBottomNavBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           AppButton(
             label: context.localization.continue_to_payment,

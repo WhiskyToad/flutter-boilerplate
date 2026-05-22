@@ -5,7 +5,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
@@ -29,11 +29,11 @@ class ShippingAddress extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   userName,
@@ -55,7 +55,7 @@ class ShippingAddress extends StatelessWidget {
           const SizedBox(width: 16),
           Container(
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
+              shape: .circle,
               color: context.currentTheme.bgSurfaceBase2,
               border: Border.all(
                 color: context.currentTheme.strokeNeutralLight200,

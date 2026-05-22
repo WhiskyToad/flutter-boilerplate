@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/firebase_options_dev.dart' as dev;
 import 'package:skelter/firebase_options_prod.dart' as prod;
@@ -30,6 +31,8 @@ Future<void> initializeApp({
   Dio? dio,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Precache `liquid_glass_widgets` shader to avoid a first-paint white flash.
+  await LiquidGlassWidgets.initialize();
   tz.initializeTimeZones();
 
   final firebaseOptions = switch (AppConfig.appFlavor) {
@@ -59,10 +62,7 @@ Future<void> initializeApp({
   final remoteConfigService = RemoteConfigService();
   await remoteConfigService.initialize();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  await SystemChrome.setPreferredOrientations([.portraitUp, .portraitDown]);
 
   await dotenv.load();
 

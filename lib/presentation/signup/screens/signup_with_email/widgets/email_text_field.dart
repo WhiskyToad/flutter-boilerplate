@@ -8,7 +8,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class EmailTextField extends StatefulWidget {
   const EmailTextField({super.key});
@@ -55,7 +55,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.email,
@@ -93,7 +93,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
                 isErrorBorder: true,
               ),
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: .next,
             keyboardType: TextInputType.emailAddress,
           ),
         ),

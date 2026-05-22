@@ -8,7 +8,7 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({super.key});
@@ -20,7 +20,7 @@ class SignUpButton extends StatelessWidget {
         horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
       ),
       child: RichText(
-        textAlign: TextAlign.center,
+        textAlign: .center,
         text: TextSpan(
           style: AppTextStyles.p2Medium.copyWith(
             color: context.currentTheme.textNeutralSecondary,

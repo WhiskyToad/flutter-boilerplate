@@ -21,7 +21,7 @@ import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/entered_wrong_email.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/resend_verification_mail_button.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class VerifyEmailScreen extends StatefulWidget {
@@ -114,7 +114,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
               bottom: max(20, MediaQuery.of(context).padding.bottom),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: .center,
               children: [
                 SvgPicture.asset(Assets.icons.emailNotification),
                 const SizedBox(height: 18),
@@ -123,7 +123,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
                   style: AppTextStyles.h2Bold.copyWith(
                     color: context.currentTheme.textNeutralPrimary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
                 const SizedBox(height: 18),
                 Text(
@@ -131,7 +131,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
                   style: AppTextStyles.p2Medium.copyWith(
                     color: context.currentTheme.textNeutralSecondary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
                 const SizedBox(height: 25),
                 const ResendVerificationMailButton(),

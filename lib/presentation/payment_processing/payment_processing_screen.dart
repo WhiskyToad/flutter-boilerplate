@@ -15,7 +15,7 @@ class PaymentProcessingScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: .center,
               children: [
                 PaymentLoadingIndicator(),
                 SizedBox(height: 32),

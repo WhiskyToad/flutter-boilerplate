@@ -8,7 +8,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class AccountDeleteSuccessScreen extends StatefulWidget {
@@ -56,7 +56,7 @@ class _AccountDeleteSuccessScreenState
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
                   const Spacer(),
                   Transform.scale(
@@ -72,11 +72,11 @@ class _AccountDeleteSuccessScreenState
                   Text(
                     context.localization.account_deleted,
                     style: AppTextStyles.h4SemiBold,
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                   ),
                   const Spacer(),
                   RichText(
-                    textAlign: TextAlign.center,
+                    textAlign: .center,
                     text: TextSpan(
                       style: AppTextStyles.p2Regular,
                       children: [

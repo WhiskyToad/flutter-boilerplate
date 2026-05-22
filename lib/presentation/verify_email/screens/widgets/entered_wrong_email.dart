@@ -7,7 +7,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_bloc.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class EnteredWrongEmail extends StatelessWidget {
   const EnteredWrongEmail({super.key});
@@ -22,7 +22,7 @@ class EnteredWrongEmail extends StatelessWidget {
         horizontal: LoginWithPhoneNumberScreen.kHorizontalPadding,
       ),
       child: RichText(
-        textAlign: TextAlign.center,
+        textAlign: .center,
         text: TextSpan(
           style: AppTextStyles.p2Medium.copyWith(
             color: context.currentTheme.textNeutralSecondary,

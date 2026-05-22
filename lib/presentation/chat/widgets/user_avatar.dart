@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/presentation/chat/model/chat_model.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/app_environment.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class UserAvatar extends StatelessWidget {
   const UserAvatar({
     super.key,
     required this.chatModel,
-    this.profileImageSize = 14.0,
+    this.profileImageSize = 44.0,
     this.showStatus = true,
   });
 
@@ -18,29 +20,45 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isFromTestEnvironment = AppEnvironment.isTestEnvironment;
     return Stack(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular((profileImageSize / 2).w),
-          child: CachedNetworkImage(
-            imageUrl: chatModel.profilePicture,
-            height: profileImageSize.w,
-            width: profileImageSize.w,
-          ),
+          borderRadius: BorderRadius.circular(profileImageSize / 2),
+          child: isFromTestEnvironment || chatModel.profilePicture.isEmpty
+              ? SvgPicture.asset(
+                  Assets.icons.userPlaceholder,
+                  height: profileImageSize,
+                  width: profileImageSize,
+                  fit: .cover,
+                )
+              : CachedNetworkImage(
+                  imageUrl: chatModel.profilePicture,
+                  height: profileImageSize,
+                  width: profileImageSize,
+                  errorWidget: (context, url, error) => SvgPicture.asset(
+                    Assets.icons.userPlaceholder,
+                    height: profileImageSize,
+                    width: profileImageSize,
+                    fit: .cover,
+                  ),
+                ),
         ),
         if (chatModel.isOnline && showStatus)
           Positioned(
-            bottom: 1,
-            right: 1,
+            bottom: 0,
+            right: 0,
             child: Container(
+              width: 10,
+              height: 10,
               decoration: BoxDecoration(
                 color: context.currentTheme.bgSuccessDefault,
-                shape: BoxShape.circle,
+                shape: .circle,
                 border: Border.all(
                   color: context.currentTheme.strokeShadesWhite,
+                  width: 1.5,
                 ),
               ),
-              padding: const EdgeInsets.all(6),
             ),
           ),
       ],
@@ -57,7 +75,7 @@ class ChatAvatarSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return UserAvatar(
       chatModel: chatModel,
-      profileImageSize: 10,
+      profileImageSize: 40,
       showStatus: false,
     );
   }

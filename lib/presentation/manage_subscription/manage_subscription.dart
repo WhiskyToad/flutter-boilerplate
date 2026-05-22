@@ -6,7 +6,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/manage_subscription/widgets/manage_subscripton_app_bar.dart';
 import 'package:skelter/services/subscription_service.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()

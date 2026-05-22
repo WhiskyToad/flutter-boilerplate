@@ -3,7 +3,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/order_detail/model/tracking_model.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class TrackingDetails extends StatelessWidget {
@@ -13,7 +13,7 @@ class TrackingDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     const steps = TrackingData.mockSteps;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.tracking_detail,
@@ -67,7 +67,7 @@ class _TrackingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Column(
             children: [
@@ -75,7 +75,7 @@ class _TrackingItem extends StatelessWidget {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
+                  shape: .circle,
                   color: context.currentTheme.bgBrandDefault,
                 ),
                 child: const Icon(
@@ -98,10 +98,10 @@ class _TrackingItem extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: .spaceBetween,
                   children: [
                     Text(
                       title,
@@ -144,7 +144,7 @@ class _DashedLinePainter extends CustomPainter {
     final paint = Paint()
       ..color = color
       ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
+      ..style = .stroke;
 
     const dashHeight = 4.0;
     const dashSpace = 4.0;

@@ -26,7 +26,11 @@ class FileValidator {
         return false;
       }
 
-      final header = await file.openRead(0, 16).first;
+      // NOTE : Using toList() instead of .first to avoid StateError
+      // on empty files. Empty stream returns []
+      // so MIME check proceeds correctly.
+      final chunks = await file.openRead(0, 16).toList();
+      final header = chunks.isEmpty ? <int>[] : chunks.first;
       final detectedMime = lookupMimeType(file.path, headerBytes: header);
 
       switch (extension) {

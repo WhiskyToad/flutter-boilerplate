@@ -10,7 +10,7 @@ class PaymentProcessingMessage extends StatelessWidget {
     return Text(
       context.localization.payment_processing_message,
       style: AppTextStyles.p2Medium,
-      textAlign: TextAlign.center,
+      textAlign: .center,
     );
   }
 }

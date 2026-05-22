@@ -6,7 +6,7 @@ import 'package:skelter/presentation/home/widgets/product_image.dart';
 import 'package:skelter/presentation/home/widgets/product_price_rating.dart';
 import 'package:skelter/presentation/home/widgets/product_title.dart';
 import 'package:skelter/routes.gr.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
 class ProductCard extends StatelessWidget {
@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
           ],
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             ProductImage(imageUrl: product.image),
             Expanded(
@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
                   vertical: 12,
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     ProductCategoryChip(category: product.category),
                     const SizedBox(height: 8),
@@ -50,7 +50,7 @@ class ProductCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: .start,
                           children: [
                             ProductTitle(title: product.title),
                             const Spacer(),

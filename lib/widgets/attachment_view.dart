@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class NetworkImageScreen extends StatelessWidget {
@@ -35,10 +35,7 @@ class NetworkImageScreen extends StatelessWidget {
               return Center(
                 child: Container(
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.contain,
-                    ),
+                    image: DecorationImage(image: imageProvider, fit: .contain),
                   ),
                 ),
               );

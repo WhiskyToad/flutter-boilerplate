@@ -3,7 +3,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/chat/model/chat_message_model.dart';
 import 'package:skelter/presentation/chat/model/chat_model.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class RepliedTo extends StatelessWidget {
   const RepliedTo({
@@ -42,7 +42,7 @@ class RepliedTo extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   repliedToMessage?.isSentByMe ?? false
@@ -51,7 +51,7 @@ class RepliedTo extends StatelessWidget {
                   style: AppTextStyles.p4Medium.copyWith(
                     color: context.currentTheme.textBrandSecondary,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   maxLines: 1,
                 ),
                 Text(
@@ -59,7 +59,7 @@ class RepliedTo extends StatelessWidget {
                   style: AppTextStyles.p3Regular.copyWith(
                     color: context.currentTheme.textNeutralPrimary,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   maxLines: 1,
                 ),
               ],

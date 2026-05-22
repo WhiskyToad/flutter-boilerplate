@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class AddressTextField extends StatefulWidget {
   const AddressTextField({super.key});
@@ -21,7 +21,7 @@ class _AddressTextFieldState extends State<AddressTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.address,
@@ -56,7 +56,7 @@ class _AddressTextFieldState extends State<AddressTextField> {
             focusedBorder: buildOutlineInputBorder(hasFocus: true),
             errorBorder: buildOutlineInputBorder(isErrorBorder: true),
           ),
-          textInputAction: TextInputAction.newline,
+          textInputAction: .newline,
           maxLength: 250,
           keyboardType: TextInputType.multiline,
           minLines: 3,

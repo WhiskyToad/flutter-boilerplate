@@ -6,7 +6,7 @@ import 'package:skelter/presentation/settings/widgets/choose_app_theme.dart';
 import 'package:skelter/presentation/settings/widgets/divider.dart';
 import 'package:skelter/presentation/settings/widgets/notification_settings.dart';
 import 'package:skelter/presentation/settings/widgets/privacy_policy.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -14,7 +14,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Container(
           decoration: BoxDecoration(

@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/clarity_analytics/clarity_route_observer.dart';
@@ -95,6 +96,11 @@ class _MainAppState extends State<MainApp> {
   Future<void> _initializeNotifications() async {
     await NotificationService.instance.initialize();
 
+    // `authStateChanges()` can fire repeatedly for the same user (token
+    // refresh, re-auth, hot restart). Cancel the previous subscription before
+    // resubscribing, otherwise the single-subscription `onNotificationTap`
+    // stream throws "Stream has already been listened to".
+    await _notificationSubscription?.cancel();
     _notificationSubscription = NotificationService.instance.onNotificationTap
         .listen((payload) {
           _handleNotificationTap(payload);
@@ -209,27 +215,31 @@ class _MainAppState extends State<MainApp> {
         builder: (context, orientation, screenType) {
           return BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                supportedLocales: I18n.all,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  CountryLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                routerConfig: appRouter.config(
-                  navigatorObservers: () => [ClarityRouteObserver()],
+              // Speeds up `liquid_glass_widgets` rendering when multiple glass
+              // widgets appear on screen. Safe to keep even if no glass is used.
+              return GlassBackdropScope(
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  supportedLocales: I18n.all,
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    CountryLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  routerConfig: appRouter.config(
+                    navigatorObservers: () => [ClarityRouteObserver()],
+                  ),
+                  theme: AppThemesData.themeData[AppThemeEnum.LightTheme]!,
+                  darkTheme: AppThemesData.themeData[AppThemeEnum.DarkTheme]!,
+                  themeMode: state.themeMode,
+                  builder: (context, child) {
+                    final localization = AppLocalizations.of(context)!;
+                    SubscriptionService().setLocalization(localization);
+                    return child!;
+                  },
                 ),
-                theme: AppThemesData.themeData[AppThemeEnum.LightTheme]!,
-                darkTheme: AppThemesData.themeData[AppThemeEnum.DarkTheme]!,
-                themeMode: state.themeMode,
-                builder: (context, child) {
-                  final localization = AppLocalizations.of(context)!;
-                  SubscriptionService().setLocalization(localization);
-                  return child!;
-                },
               );
             },
           );

@@ -13,7 +13,7 @@ class EmptyNotificationsView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             SvgPicture.asset(
               Assets.icons.noNotifications,

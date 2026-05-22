@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/presentation/chat/model/chat_message_model.dart';
 import 'package:skelter/utils/extensions/date_time_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class TimeAgo extends StatelessWidget {
   const TimeAgo({super.key, required this.message});
@@ -11,12 +11,14 @@ class TimeAgo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final time = message.date.to12HourFormat();
+    final showStatusSuffix =
+        message.isSentByMe && message.status.trim().isNotEmpty;
     return Column(
       children: [
         const SizedBox(height: 5),
         Text(
-          '${message.date.to12HourFormat()}${message.isSentByMe ? ' '
-                    '• ${message.status}' : ''}',
+          showStatusSuffix ? '$time • ${message.status}' : time,
           style: AppTextStyles.c2Medium.copyWith(
             color: context.currentTheme.textNeutralSecondary,
           ),

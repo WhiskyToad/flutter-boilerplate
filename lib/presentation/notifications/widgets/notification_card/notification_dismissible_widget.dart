@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/presentation/notifications/bloc/notification_bloc.dart';
 import 'package:skelter/presentation/notifications/bloc/notification_event.dart';
 import 'package:skelter/presentation/notifications/model/notification_model.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class NotificationDismissibleWidget extends StatelessWidget {
   const NotificationDismissibleWidget({
@@ -22,7 +22,7 @@ class NotificationDismissibleWidget extends StatelessWidget {
       background: ColoredBox(
         color: context.currentTheme.bgErrorDefault,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: .end,
           children: [
             Icon(Icons.delete, color: context.currentTheme.strokeShadesWhite),
             const SizedBox(width: 16.0),

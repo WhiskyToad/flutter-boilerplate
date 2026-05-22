@@ -5,7 +5,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/home/bloc/home_bloc.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -33,8 +33,8 @@ class BottomNavBar extends StatelessWidget {
           label: context.localization.home,
         ),
         BottomNavigationBarItem(
-          icon: const Icon(TablerIcons.search),
-          label: context.localization.search,
+          icon: const Icon(TablerIcons.package),
+          label: context.localization.my_orders,
         ),
         BottomNavigationBarItem(
           icon: const Icon(TablerIcons.shopping_cart),

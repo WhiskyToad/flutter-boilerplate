@@ -13,7 +13,7 @@ class NotificationErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         children: [
           const Icon(TablerIcons.info_circle, size: 50),
           const SizedBox(height: 20),

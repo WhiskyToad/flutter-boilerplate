@@ -3,7 +3,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/constants/constants.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class OrderDetailPaymentMethod extends StatelessWidget {
   const OrderDetailPaymentMethod({super.key});
@@ -11,7 +11,7 @@ class OrderDetailPaymentMethod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.payment_method,

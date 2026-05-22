@@ -6,7 +6,7 @@ import 'package:skelter/presentation/reminder/bloc/reminder_bloc.dart';
 import 'package:skelter/presentation/reminder/bloc/reminder_event.dart';
 import 'package:skelter/presentation/reminder/bloc/reminder_state.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ReminderInputFields extends StatefulWidget {
   const ReminderInputFields({super.key});
@@ -64,7 +64,7 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
         }
       },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Text(
             context.localization.reminder_title,
@@ -91,7 +91,7 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
               focusedBorder: _buildOutlineInputBorder(hasFocus: true),
               errorBorder: _buildOutlineInputBorder(isErrorBorder: true),
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: .next,
           ),
           const SizedBox(height: 20),
           Text(
@@ -118,7 +118,7 @@ class _ReminderInputFieldsState extends State<ReminderInputFields> {
               focusedBorder: _buildOutlineInputBorder(hasFocus: true),
             ),
             maxLines: 2,
-            textInputAction: TextInputAction.done,
+            textInputAction: .done,
           ),
         ],
       ),

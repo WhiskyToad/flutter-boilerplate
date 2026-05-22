@@ -21,7 +21,7 @@ import 'package:skelter/presentation/product_detail/widgets/reviews_button.dart'
 import 'package:skelter/presentation/product_detail/widgets/selected_product_image.dart';
 import 'package:skelter/presentation/product_detail/widgets/title_and_rating.dart';
 import 'package:skelter/utils/extensions/build_context_ext.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class ProductDetailScreen extends StatelessWidget {
@@ -93,7 +93,7 @@ class ProductDetailBody extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         child: Stack(
           alignment: Alignment.center,
-          clipBehavior: Clip.none,
+          clipBehavior: .none,
           children: [
             Container(
               height: 59,
@@ -120,7 +120,7 @@ class ProductDetailBody extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     const SizedBox(height: 10),
                     const InfoHeadlineBar(),
@@ -131,7 +131,7 @@ class ProductDetailBody extends StatelessWidget {
                         vertical: 10,
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: .start,
                         children: [
                           TitleAndRating(
                             title: productDetail.title,

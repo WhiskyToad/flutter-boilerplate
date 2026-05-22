@@ -1,60 +1,58 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:skelter/i18n/app_localizations.dart';
 import 'package:skelter/utils/date_time_picker_util.dart';
 import 'package:skelter/utils/extensions/date_time_extensions.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-class MockAppLocalizations extends Mock implements AppLocalizations {}
+import '../../test_helpers.dart';
 
 void main() {
   group('DateTimeExtensions Tests', () {
     final testCurrentDate = DateTime(2025, 9, 22, 12);
 
-    test('isFuture returns true for a date after now', () {
+    test('should return true for a date after now', () {
       final now = DateTime(2025, 9, 20);
       final futureDate = now.add(const Duration(days: 5));
 
       expect(futureDate.isFuture(now), true);
     });
 
-    test('isPast returns true for a date before now', () {
+    test('should return true for a date before now', () {
       final now = DateTime(2025, 9, 20);
       final pastDate = now.subtract(const Duration(days: 5));
 
       expect(pastDate.isPast(now), true);
     });
 
-    test('format returns correctly formatted date string', () {
+    test('should return correctly formatted date string', () {
       expect(testCurrentDate.format(pattern: 'yyyy-MM-dd'), '2025-09-22');
       expect(testCurrentDate.format(pattern: 'MM/dd/yyyy'), '09/22/2025');
     });
 
-    test('isSameDay returns true when two dates fall on the same day', () {
+    test('should return true when two dates fall on the same day', () {
       final sameDayDate = DateTime(2025, 9, 22, 23, 59);
       expect(testCurrentDate.isSameDay(sameDayDate), true);
     });
 
-    test('isSameDay returns false for different days', () {
+    test('should return false for different days', () {
       final differentDayDate = DateTime(2025, 9, 23);
       expect(testCurrentDate.isSameDay(differentDayDate), false);
     });
 
-    test('isInRange returns true when date is within a start-end range', () {
+    test('should return true when date is within a start-end range', () {
       final rangeStart = testCurrentDate.subtract(const Duration(days: 1));
       final rangeEnd = testCurrentDate.add(const Duration(days: 1));
       expect(testCurrentDate.isInRange(rangeStart, rangeEnd), true);
     });
 
-    test('isInRange returns false when date is outside the range', () {
+    test('should return false when date is outside the range', () {
       final rangeStart = testCurrentDate.add(const Duration(days: 1));
       final rangeEnd = testCurrentDate.add(const Duration(days: 2));
       expect(testCurrentDate.isInRange(rangeStart, rangeEnd), false);
     });
 
-    test('to12HourFormat formats time correctly in 12-hour format', () {
+    test('should format time correctly in 12-hour format', () {
       final testTimeMorning = DateTime(2025, 9, 22, 9, 15);
       final testTimeEvening = DateTime(2025, 9, 22, 21, 45);
 
@@ -63,7 +61,7 @@ void main() {
     });
 
     testWidgets(
-      'timeAgo returns correct localized strings for different ranges',
+      'should return correct localized strings for different time ranges',
       (tester) async {
         final mockLocalizations = MockAppLocalizations();
 
@@ -90,74 +88,32 @@ void main() {
           (mockCall) => '${mockCall.positionalArguments.first} years ago',
         );
 
-        await tester.pumpWidget(
-          MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              _MockLocalizationsDelegate(mockLocalizations),
-            ],
-            home: Builder(
-              builder: (context) {
-                final testCurrentTime = testCurrentDate;
+        await tester.runValidator(mockLocalizations, (ctx) {
+          // Must match the value returned by getCurrentDateTime() in test mode.
+          final base = DateTime(2025, 4, 11, 8, 30, 20);
+          final testCases = [
+            (base, 'Just now'),
+            (base.subtract(const Duration(minutes: 1)), '1 min ago'),
+            (base.subtract(const Duration(minutes: 5)), '5 min ago'),
+            (base.subtract(const Duration(hours: 1)), '1 hr ago'),
+            (base.subtract(const Duration(hours: 5)), '5 hrs ago'),
+            (base.subtract(const Duration(days: 1)), 'Yesterday'),
+            (base.subtract(const Duration(days: 3)), '3 days ago'),
+            (base.subtract(const Duration(days: 30)), 'Last month'),
+            (base.subtract(const Duration(days: 60)), '2 months ago'),
+            (base.subtract(const Duration(days: 365)), 'Last year'),
+            (base.subtract(const Duration(days: 730)), '2 years ago'),
+          ];
 
-                final testCases = [
-                  (testCurrentTime, 'Just now'),
-                  (
-                    testCurrentTime.subtract(const Duration(minutes: 1)),
-                    '1 min ago',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(minutes: 5)),
-                    '5 min ago',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(hours: 1)),
-                    '1 hr ago',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(hours: 5)),
-                    '5 hrs ago',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(days: 1)),
-                    'Yesterday',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(days: 3)),
-                    '3 days ago',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(days: 30)),
-                    'Last month',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(days: 60)),
-                    '2 months ago',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(days: 365)),
-                    'Last year',
-                  ),
-                  (
-                    testCurrentTime.subtract(const Duration(days: 730)),
-                    '2 years ago',
-                  ),
-                ];
-
-                for (final (dateTime, expectedString) in testCases) {
-                  final result = dateTime.timeAgo(mockLocalizations);
-                  expect(
-                    result,
-                    expectedString,
-                    reason: 'Failed for $dateTime',
-                  );
-                }
-
-                return const SizedBox.shrink();
-              },
-            ),
-          ),
-        );
+          for (final (dateTime, expectedString) in testCases) {
+            expect(
+              dateTime.timeAgo(mockLocalizations, now: base),
+              expectedString,
+              reason: 'Failed for $dateTime',
+            );
+          }
+          return null;
+        });
       },
     );
   });
@@ -536,21 +492,4 @@ void main() {
       );
     });
   });
-}
-
-class _MockLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
-  final AppLocalizations mockLocalizations;
-
-  const _MockLocalizationsDelegate(this.mockLocalizations);
-
-  @override
-  bool isSupported(Locale locale) => true;
-
-  @override
-  Future<AppLocalizations> load(Locale locale) async => mockLocalizations;
-
-  @override
-  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) =>
-      false;
 }

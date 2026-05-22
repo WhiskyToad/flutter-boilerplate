@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ZipCodeTextField extends StatefulWidget {
   const ZipCodeTextField({super.key});
@@ -21,7 +21,7 @@ class _ZipCodeTextFieldState extends State<ZipCodeTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.zip_code,
@@ -48,7 +48,7 @@ class _ZipCodeTextFieldState extends State<ZipCodeTextField> {
             counterText: '',
           ),
           keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
+          textInputAction: .next,
           maxLength: 50,
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/main.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button_icon.dart';
 import 'package:skelter/widgets/app_button/app_button_label.dart';
 import 'package:skelter/widgets/app_button/app_button_loader.dart';
@@ -215,9 +215,7 @@ class AppButton extends StatelessWidget {
 
   Widget _buildWithTrailingIcon() {
     return Row(
-      mainAxisSize: isRightAppIconAttachedToText
-          ? MainAxisSize.max
-          : MainAxisSize.min,
+      mainAxisSize: isRightAppIconAttachedToText ? .max : .min,
       children: [
         const Spacer(),
         _buildLabel(),

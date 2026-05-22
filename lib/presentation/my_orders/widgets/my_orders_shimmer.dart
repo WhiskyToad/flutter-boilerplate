@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/shimmer/shimmer_content.dart';
 import 'package:skelter/widgets/shimmer/shimmer_image.dart';
 
@@ -37,10 +37,10 @@ class MyOrdersShimmer extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: .spaceBetween,
                   children: [
                     ShimmerContent(
                       height: 16,
@@ -61,7 +61,7 @@ class MyOrdersShimmer extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: .start,
                         children: [
                           ShimmerContent(
                             height: 14,

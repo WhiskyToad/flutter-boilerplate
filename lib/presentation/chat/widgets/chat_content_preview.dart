@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/presentation/chat/model/chat_model.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class ChatContentPreview extends StatelessWidget {
   const ChatContentPreview({super.key, required this.chatModel});
@@ -14,48 +12,28 @@ class ChatContentPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .start,
+        mainAxisSize: .min,
         children: [
           Text(
             chatModel.name,
             style: AppTextStyles.p2Medium.copyWith(
               color: context.currentTheme.textNeutralPrimary,
             ),
-            overflow: TextOverflow.ellipsis,
+            overflow: .ellipsis,
             maxLines: 1,
           ),
-          const SizedBox(height: 4.0),
-          Row(
-            children: [
-              if (chatModel.lastMessageAttachmentUrl != null &&
-                  chatModel.lastMessageAttachmentUrl!.isNotEmpty)
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: CachedNetworkImage(
-                        imageUrl: chatModel.lastMessageAttachmentUrl ?? '',
-                        height: 4.w,
-                        width: 4.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(width: 8.0),
-                  ],
-                ),
-              Expanded(
-                child: Text(
-                  chatModel.lastMessage,
-                  style: AppTextStyles.p3Regular.copyWith(
-                    color: context.currentTheme.textNeutralSecondary,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+          if (chatModel.lastMessage.isNotEmpty) ...[
+            const SizedBox(height: 4.0),
+            Text(
+              chatModel.lastMessage,
+              style: AppTextStyles.p3Regular.copyWith(
+                color: context.currentTheme.textNeutralSecondary,
               ),
-            ],
-          ),
+              overflow: .ellipsis,
+              maxLines: 1,
+            ),
+          ],
         ],
       ),
     );

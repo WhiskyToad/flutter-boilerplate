@@ -10,7 +10,7 @@ import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/screens/login_with_phone_number/login_with_phone_number_screen.dart';
 import 'package:skelter/presentation/signup/screens/phone_num_verified_page/widgets/next_button.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
 class PhoneNumberVerifiedScreen extends StatelessWidget {
@@ -42,7 +42,7 @@ class PhoneNumberVerifiedScreenBody extends StatelessWidget {
           bottom: max(20, MediaQuery.of(context).padding.bottom),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             Transform.scale(
               scale: 1.4,
@@ -59,7 +59,7 @@ class PhoneNumberVerifiedScreenBody extends StatelessWidget {
               style: AppTextStyles.h2Bold.copyWith(
                 color: context.currentTheme.textNeutralPrimary,
               ),
-              textAlign: TextAlign.center,
+              textAlign: .center,
             ),
             const SizedBox(height: 18),
             Padding(
@@ -69,7 +69,7 @@ class PhoneNumberVerifiedScreenBody extends StatelessWidget {
                 style: AppTextStyles.p2Medium.copyWith(
                   color: context.currentTheme.textNeutralSecondary,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             ),
             const SizedBox(height: 25),

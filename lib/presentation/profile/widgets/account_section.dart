@@ -9,7 +9,7 @@ import 'package:skelter/presentation/profile/widgets/manage_subscription.dart';
 import 'package:skelter/presentation/profile/widgets/personal_details.dart';
 import 'package:skelter/presentation/profile/widgets/upgrade_to_pro.dart';
 import 'package:skelter/services/subscription_service.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class AccountSection extends StatefulWidget {
   const AccountSection({super.key});
@@ -44,7 +44,7 @@ class _AccountSectionState extends State<AccountSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.account,

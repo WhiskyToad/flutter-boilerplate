@@ -12,7 +12,7 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class PhoneNumberTextField extends StatefulWidget {
   const PhoneNumberTextField({super.key});
@@ -82,7 +82,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
 
     return SafeArea(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
           Text(
             context.localization.mobile_number,
@@ -169,7 +169,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
         color: context.currentTheme.textNeutralDisable,
       ),
       border: buildOutlineInputBorder(),
-      floatingLabelBehavior: FloatingLabelBehavior.always,
+      floatingLabelBehavior: .always,
       enabledBorder: buildOutlineInputBorder(),
       focusedBorder: buildOutlineInputBorder(hasFocus: true),
       prefixIcon: Padding(
@@ -178,7 +178,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
           Assets.icons.searchOutline,
           colorFilter: ColorFilter.mode(
             context.currentTheme.strokeNeutralDisabled,
-            BlendMode.srcIn,
+            .srcIn,
           ),
         ),
       ),

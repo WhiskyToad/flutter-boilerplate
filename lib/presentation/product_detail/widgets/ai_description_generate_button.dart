@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class AIDescriptionGenerateButton extends StatelessWidget {
   const AIDescriptionGenerateButton({super.key, required this.onTap});
@@ -22,7 +22,7 @@ class AIDescriptionGenerateButton extends StatelessWidget {
           color: context.currentTheme.bgBrandLight50,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             Icon(
               Icons.psychology_outlined,

@@ -28,7 +28,7 @@ class AddAddressScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 AppButton(
                   style: AppButtonStyle.outline,

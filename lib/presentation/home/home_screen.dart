@@ -3,13 +3,16 @@ import 'package:clarity_flutter/clarity_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/core/services/injection_container.dart';
+import 'package:skelter/presentation/ai_chat/widgets/ai_chat_fab.dart';
 import 'package:skelter/presentation/checkout/initial_checkout_screen.dart';
 import 'package:skelter/presentation/home/bloc/home_bloc.dart';
 import 'package:skelter/presentation/home/bloc/home_event.dart';
 import 'package:skelter/presentation/home/widgets/bottom_nav_bar.dart';
 import 'package:skelter/presentation/home/widgets/home_screen_body.dart';
+import 'package:skelter/presentation/my_orders/my_orders_screen.dart';
 import 'package:skelter/presentation/profile/profile_screen.dart';
-import 'package:skelter/presentation/search/search_screen.dart';
+import 'package:skelter/services/in_app_review_service.dart';
+import 'package:skelter/utils/app_environment.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -36,10 +39,19 @@ class HomeScreenWrapperState extends State<HomeScreenWrapper> {
   final GlobalKey bottomNavKey = GlobalKey();
 
   @override
+  void initState() {
+    super.initState();
+    if (AppEnvironment.isTestEnvironment) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      sl<InAppReviewService>().requestReviewIfEligible();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomeScreenBody(bottomNavKey: bottomNavKey),
-      const SearchScreen(),
+      const MyOrdersScreen(),
       const InitialCheckoutScreen(),
       const ProfileScreen(),
     ];
@@ -61,6 +73,7 @@ class HomeScreenWrapperState extends State<HomeScreenWrapper> {
       },
       child: Scaffold(
         bottomNavigationBar: BottomNavBar(key: bottomNavKey),
+        floatingActionButton: const AiChatFab(),
         body: SafeArea(
           child: IndexedStack(index: currentIndex, children: pages),
         ),

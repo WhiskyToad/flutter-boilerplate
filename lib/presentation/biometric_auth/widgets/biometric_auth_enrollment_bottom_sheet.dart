@@ -5,7 +5,7 @@ import 'package:open_settings_plus/open_settings_plus.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/biometric_auth/enum/biometric_auth_enrollment_results.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 import 'package:skelter/widgets/app_button/app_button.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_size_enum.dart';
 import 'package:skelter/widgets/app_button/enums/app_button_style_enum.dart';
@@ -32,14 +32,14 @@ Future<BiometricEnrollmentResult?> showBiometricSetupEnrollmentBottomSheet(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Container(
               height: 56,
               width: 56,
               decoration: const BoxDecoration(
                 color: AppColors.white,
-                shape: BoxShape.circle,
+                shape: .circle,
               ),
               child: Center(
                 child: Container(
@@ -47,7 +47,7 @@ Future<BiometricEnrollmentResult?> showBiometricSetupEnrollmentBottomSheet(
                   width: 40,
                   decoration: const BoxDecoration(
                     color: AppColors.brand100,
-                    shape: BoxShape.circle,
+                    shape: .circle,
                   ),
                   child: Icon(
                     TablerIcons.fingerprint,
@@ -67,7 +67,7 @@ Future<BiometricEnrollmentResult?> showBiometricSetupEnrollmentBottomSheet(
             const SizedBox(height: 10),
             Text(
               context.localization.biometric_auth_desc_for_enrollment,
-              textAlign: TextAlign.center,
+              textAlign: .center,
               style: AppTextStyles.p3Regular.copyWith(
                 color: context.currentTheme.textNeutralSecondary,
               ),

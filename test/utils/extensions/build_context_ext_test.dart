@@ -30,7 +30,7 @@ void main() {
       );
     });
 
-    testWidgets('showSnackBar displays with default parameters', (
+    testWidgets('should display snackBar with default parameters', (
       tester,
     ) async {
       await tester.pumpWidget(testWidget);
@@ -46,7 +46,7 @@ void main() {
       expect(snackBar.duration, const Duration(milliseconds: 3000));
     });
 
-    testWidgets('showSnackBar with error styling', (tester) async {
+    testWidgets('should display snackBar with error styling', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -70,7 +70,7 @@ void main() {
       expect(snackBar.backgroundColor, AppColors.snackBarErrorColor);
     });
 
-    testWidgets('showSnackBar with custom duration', (tester) async {
+    testWidgets('should display snackBar with custom duration', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -92,7 +92,7 @@ void main() {
       expect(snackBar.duration, const Duration(milliseconds: 5000));
     });
 
-    testWidgets('showSnackBar with leading widget', (tester) async {
+    testWidgets('should display snackBar with leading widget', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -116,7 +116,7 @@ void main() {
       expect(find.text('Leading widget'), findsOneWidget);
     });
 
-    testWidgets('showSnackBar with trailing widget', (tester) async {
+    testWidgets('should display snackBar with trailing widget', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -140,7 +140,7 @@ void main() {
       expect(find.text('Trailing widget'), findsOneWidget);
     });
 
-    testWidgets('showSnackBar with trailing loader', (tester) async {
+    testWidgets('should display snackBar with trailing loader', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -162,7 +162,7 @@ void main() {
       expect(find.text('Loading'), findsOneWidget);
     });
 
-    testWidgets('showSnackBar with SnackBarAction', (tester) async {
+    testWidgets('should display snackBar with SnackBarAction', (tester) async {
       bool actionTapped = false;
       final testKey = UniqueKey();
 
@@ -206,7 +206,7 @@ void main() {
       expect(actionTapped, isTrue);
     });
 
-    testWidgets('hideSnackBar removes the current snackbar', (tester) async {
+    testWidgets('should remove the current snackBar', (tester) async {
       await tester.pumpWidget(testWidget);
 
       await tester.tap(find.text('Show Snackbar'));

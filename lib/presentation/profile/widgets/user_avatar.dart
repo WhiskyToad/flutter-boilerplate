@@ -6,7 +6,7 @@ import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/gen/assets.gen.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/profile/bloc/profile_bloc.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class UserAvatar extends StatelessWidget {
   const UserAvatar({super.key});
@@ -19,14 +19,14 @@ class UserAvatar extends StatelessWidget {
     );
 
     return Stack(
-      clipBehavior: Clip.none,
+      clipBehavior: .none,
       children: [
         SizedBox(
           height: profileImageSize.w,
           width: profileImageSize.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular((profileImageSize / 2).w),
-            child: Assets.images.demoUser.image(fit: BoxFit.cover),
+            child: Assets.images.demoUser.image(fit: .cover),
           ),
         ),
         if (isProUser)
@@ -41,8 +41,8 @@ class UserAvatar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: .min,
+                mainAxisAlignment: .center,
                 children: [
                   Icon(
                     TablerIcons.star,

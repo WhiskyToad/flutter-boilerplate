@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/common/theme/text_style/app_text_styles.dart';
 import 'package:skelter/i18n/localization.dart';
 import 'package:skelter/presentation/checkout/bloc/checkout_bloc.dart';
-import 'package:skelter/utils/theme/extention/theme_extension.dart';
+import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 class TotalAmount extends StatelessWidget {
   const TotalAmount({super.key});
@@ -14,8 +14,8 @@ class TotalAmount extends StatelessWidget {
       (bloc) => bloc.state.finalAmount,
     );
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: .min,
+      crossAxisAlignment: .start,
       children: [
         Text(
           context.localization.total_amount,

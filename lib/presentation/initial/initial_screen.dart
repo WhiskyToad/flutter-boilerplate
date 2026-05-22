@@ -8,7 +8,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:skelter/core/deep_link/app_deep_link_manager.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/i18n/localization.dart';
-import 'package:skelter/presentation/biometric_auth/enum/biometric_auth_enrollment_results.dart';
 import 'package:skelter/presentation/biometric_auth/widgets/biometric_auth_enrollment_bottom_sheet.dart';
 import 'package:skelter/presentation/force_update/constants/force_update_constants.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
@@ -167,9 +166,7 @@ class _InitialScreenState extends State<InitialScreen> {
     final result = await showBiometricSetupEnrollmentBottomSheet(context);
 
     // If user cancelled, dismissed, or after going to settings, exit the app
-    if (result == null ||
-        result == BiometricEnrollmentResult.cancel ||
-        result == BiometricEnrollmentResult.settings) {
+    if (result == null || result == .cancel || result == .settings) {
       _exitApp();
     }
   }

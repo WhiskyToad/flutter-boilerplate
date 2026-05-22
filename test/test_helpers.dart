@@ -1,5 +1,6 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,6 +16,26 @@ import 'flutter_test_config.dart';
 
 class MockThemeBloc extends MockBloc<ThemeEvent, ThemeState>
     implements ThemeBloc {}
+
+class MockAppLocalizations extends Mock implements AppLocalizations {}
+
+class MockLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
+  final AppLocalizations mockLocalizations;
+
+  const MockLocalizationsDelegate(this.mockLocalizations);
+
+  @override
+  bool isSupported(Locale locale) => true;
+
+  @override
+  Future<AppLocalizations> load(Locale locale) =>
+      SynchronousFuture(mockLocalizations);
+
+  @override
+  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) =>
+      false;
+}
 
 extension WidgetTestHelper on WidgetTester {
   Future<void> runWidgetTest({
@@ -45,6 +66,26 @@ extension WidgetTestHelper on WidgetTester {
         },
       ),
     );
+  }
+
+  Future<T?> runValidator<T>(
+    MockAppLocalizations l10n,
+    T? Function(BuildContext) run,
+  ) async {
+    T? result;
+    await pumpWidget(
+      MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [MockLocalizationsDelegate(l10n)],
+        home: Builder(
+          builder: (context) {
+            result = run(context);
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
+    return result;
   }
 }
 
