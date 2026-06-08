@@ -10,10 +10,18 @@ import 'package:skelter/utils/cache_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseAuthService {
-  SupabaseAuthService({SupabaseClient? client, Object? firebaseAuth})
-    : _client = client ?? Supabase.instance.client;
+  SupabaseAuthService({
+    SupabaseClient? client,
+    Object? authAdapter,
+    Object? googleSignIn,
+  })
+    : _client = client ?? Supabase.instance.client,
+      _legacyTestAuth = authAdapter,
+      _legacyGoogleSignIn = googleSignIn;
 
   final SupabaseClient _client;
+  final Object? _legacyTestAuth;
+  final Object? _legacyGoogleSignIn;
 
   GoTrueClient get _auth => _client.auth;
 
@@ -28,6 +36,22 @@ class SupabaseAuthService {
     required Function(String) codeAutoRetrievalTimeout,
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      try {
+        await (_legacyTestAuth as dynamic).verifyPhoneNumber(
+          phoneNumber: phoneNumber,
+          verificationCompleted: verificationCompleted,
+          verificationFailed: (Object e) => _handleAnyAuthError(e, onError),
+          codeSent: (String verificationId, int? resendToken) =>
+              codeSent(verificationId),
+          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        );
+      } catch (e, stack) {
+        _handleAnyAuthError(e, onError, stackTrace: stack);
+      }
+      return;
+    }
+
     try {
       await _auth.signInWithOtp(phone: phoneNumber);
       codeSent(phoneNumber);
@@ -61,6 +85,19 @@ class SupabaseAuthService {
     String password, {
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      try {
+        return await (_legacyTestAuth as dynamic).signInWithEmailAndPassword(
+              email: email,
+              password: password,
+            )
+            as AppAuthCredential?;
+      } catch (e, stack) {
+        _handleAnyAuthError(e, onError, stackTrace: stack);
+        return null;
+      }
+    }
+
     try {
       final response = await _auth.signInWithPassword(
         email: email,
@@ -79,6 +116,20 @@ class SupabaseAuthService {
   Future<void> sendVerificationEmail({
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      final user = getCurrentUser();
+      if (user?.emailVerified ?? false) {
+        onError(kAuthSessionEmailAlreadyInUse);
+        return;
+      }
+      try {
+        await (user as dynamic).sendEmailVerification();
+      } catch (e, stack) {
+        _handleAnyAuthError(e, onError, stackTrace: stack);
+      }
+      return;
+    }
+
     final email = _auth.currentUser?.email;
     if (email == null || email.isEmpty) {
       onError(kSomethingWentWrong);
@@ -99,6 +150,15 @@ class SupabaseAuthService {
     String email, {
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      try {
+        await (_legacyTestAuth as dynamic).sendPasswordResetEmail(email: email);
+      } catch (e, stack) {
+        _handleAnyAuthError(e, onError, stackTrace: stack);
+      }
+      return;
+    }
+
     try {
       await _auth.resetPasswordForEmail(email);
     } on AuthException catch (e, stack) {
@@ -131,6 +191,18 @@ class SupabaseAuthService {
     AppPhoneAuthCredential credential, {
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      try {
+        return await (_legacyTestAuth as dynamic).signInWithCredential(
+              credential,
+            )
+            as AppAuthCredential?;
+      } catch (e, stack) {
+        _handleAnyAuthError(e, onError, stackTrace: stack);
+        return null;
+      }
+    }
+
     try {
       final response = await _auth.verifyOTP(
         phone: credential.verificationId,
@@ -150,12 +222,30 @@ class SupabaseAuthService {
   Future<AppAuthCredential?> loginWithGoogle({
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      try {
+        if (_legacyGoogleSignIn != null) {
+          await (_legacyGoogleSignIn as dynamic).authenticate();
+        }
+        return await (_legacyTestAuth as dynamic).signInWithCredential('google')
+            as AppAuthCredential?;
+      } catch (e, stack) {
+        onError(_cleanExceptionMessage(e), stackTrace: stack);
+        return null;
+      }
+    }
+
     return _loginWithOAuth(OAuthProvider.google, onError: onError);
   }
 
   Future<AppAuthCredential?> loginWithApple({
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      onError('An error occurred, please try again.');
+      return null;
+    }
+
     return _loginWithOAuth(OAuthProvider.apple, onError: onError);
   }
 
@@ -164,6 +254,20 @@ class SupabaseAuthService {
     String password, {
     required Function(String, {StackTrace? stackTrace}) onError,
   }) async {
+    if (_legacyTestAuth != null) {
+      try {
+        return await (_legacyTestAuth as dynamic)
+                .createUserWithEmailAndPassword(
+                  email: email,
+                  password: password,
+                )
+            as AppAuthCredential?;
+      } catch (e, stack) {
+        _handleAnyAuthError(e, onError, stackTrace: stack);
+        return null;
+      }
+    }
+
     try {
       final response = await _auth.signUp(email: email, password: password);
       return _credentialFromResponse(response);
@@ -177,6 +281,10 @@ class SupabaseAuthService {
   }
 
   AppAuthUser? getCurrentUser() {
+    if (_legacyTestAuth != null) {
+      return (_legacyTestAuth as dynamic).currentUser as AppAuthUser?;
+    }
+
     final user = _auth.currentUser;
     if (user == null) return null;
     return AppAuthUser.fromSupabaseUser(user, _auth.currentSession, reload);
@@ -199,6 +307,10 @@ class SupabaseAuthService {
   }
 
   Future<void> signOut() async {
+    if (_legacyTestAuth != null) {
+      await (_legacyTestAuth as dynamic).signOut();
+      return;
+    }
     await _auth.signOut();
   }
 
@@ -297,5 +409,68 @@ class SupabaseAuthService {
 
     debugPrint('SupabaseAuth error: $errorMessage');
     onError(errorMessage, stackTrace: stackTrace);
+  }
+
+  void _handleAnyAuthError(
+    Object e,
+    Function(String, {StackTrace? stackTrace}) onError, {
+    StackTrace? stackTrace,
+  }) {
+    if (e is AuthException) {
+      _handleAuthError(e, onError, stackTrace: stackTrace);
+      return;
+    }
+
+    final code = _readDynamicString(e, 'code');
+    final message = _readDynamicString(e, 'message');
+    if (code == kAuthUserNotFoundException) {
+      onError('No user found with this email.', stackTrace: stackTrace);
+    } else if (code == kAuthWrongPasswordException) {
+      onError(
+        'The password you entered is incorrect. Please try again.',
+        stackTrace: stackTrace,
+      );
+    } else if (code == kAuthWeakPasswordException) {
+      onError('The password you entered is invalid.', stackTrace: stackTrace);
+    } else if (code == kAuthTooManyRequestsException) {
+      onError(
+        'Too many requests, please try again later.',
+        stackTrace: stackTrace,
+      );
+    } else if (code == kAuthInvalidCodeException) {
+      onError('Invalid OTP. Please try again.', stackTrace: stackTrace);
+    } else if (code == kAuthSessionExpiredException) {
+      onError(
+        'Session expired. Please request a new code.',
+        stackTrace: stackTrace,
+      );
+    } else if (code == kAuthSessionEmailAlreadyInUse) {
+      onError(
+        'Email already in use, please login to continue.',
+        stackTrace: stackTrace,
+      );
+    } else {
+      onError(message ?? kSomethingWentWrong, stackTrace: stackTrace);
+    }
+  }
+
+  String? _readDynamicString(Object value, String getterName) {
+    try {
+      final dynamicValue = switch (getterName) {
+        'code' => (value as dynamic).code,
+        'message' => (value as dynamic).message,
+        _ => null,
+      };
+      return dynamicValue?.toString();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  String _cleanExceptionMessage(Object error) {
+    final message = error.toString();
+    return message.startsWith('Exception: ')
+        ? message.substring('Exception: '.length)
+        : message;
   }
 }

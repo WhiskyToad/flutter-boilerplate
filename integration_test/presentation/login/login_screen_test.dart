@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,14 +9,14 @@ import 'package:skelter/initialize_app.dart';
 import 'package:skelter/main.dart';
 
 import '../../demo_product_response.dart';
-import '../../mock_firebase_auth.dart';
+import '../../mock_supabase_auth.dart';
 
 class MockDio extends Mock implements Dio {}
 
 class MockDioResponse<T> extends Mock implements Response<T> {}
 
 void main() {
-  final mockFirebaseAuth = MockFirebaseAuth();
+  final mockAuth = MockSupabaseAuth();
   final mockGoogleSignIn = MockGoogleSignIn();
   final mockDio = MockDio();
 
@@ -25,7 +24,7 @@ void main() {
     // NOTE:
     // Mocktail requires a fallback value for non-primitive parameters
     // when using `any()` or `captureAny()` in `when()` / `verify()`.
-    // AuthCredential is an abstract class, so we register a Fake
+    // App auth credential fallback, so we register a Fake
     // to prevent "No fallback value registered" runtime errors in tests.
     registerFallbackValue(FakeAuthCredential());
     final mockResponse = MockDioResponse<List<dynamic>>();
@@ -45,17 +44,17 @@ void main() {
     'open app, login with mobile number, verify products are displayed',
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
-      await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
+      await initializeApp(authAdapter: mockAuth, dio: mockDio);
       await $.pumpWidgetAndSettle(const MainApp());
 
-      when(() => mockFirebaseAuth.signInWithCredential(any())).thenAnswer((
+      when(() => mockAuth.signInWithCredential(any())).thenAnswer((
         _,
       ) async {
         final phoneUser = MockUser(
           phoneNumber: '9999988888',
           email: 'phone@example.com',
         );
-        mockFirebaseAuth.setMockUser(phoneUser);
+        mockAuth.setMockUser(phoneUser);
         return MockUserCredential(phoneUser);
       });
 
@@ -86,14 +85,14 @@ void main() {
     ($) async {
       // Initialise the App
       await initializeApp(
-        firebaseAuth: mockFirebaseAuth,
+        authAdapter: mockAuth,
         googleSignIn: mockGoogleSignIn,
         dio: mockDio,
       );
 
       // Stub signOut to reset mock state
-      when(() => mockFirebaseAuth.signOut()).thenAnswer((_) async {
-        mockFirebaseAuth.setMockUser(null);
+      when(() => mockAuth.signOut()).thenAnswer((_) async {
+        mockAuth.setMockUser(null);
       });
 
       await $.pumpWidgetAndSettle(const MainApp());
@@ -102,12 +101,12 @@ void main() {
       final testUser = MockUser(email: 'test@example.com', emailVerified: true);
 
       when(
-        () => mockFirebaseAuth.signInWithEmailAndPassword(
+        () => mockAuth.signInWithEmailAndPassword(
           email: any(named: 'email'),
           password: any(named: 'password'),
         ),
       ).thenAnswer((_) async {
-        mockFirebaseAuth.setMockUser(testUser);
+        mockAuth.setMockUser(testUser);
         return MockUserCredential(testUser);
       });
 
@@ -137,12 +136,12 @@ void main() {
       final unverifiedUser = MockUser(email: 'unverified@example.com');
 
       when(
-        () => mockFirebaseAuth.signInWithEmailAndPassword(
+        () => mockAuth.signInWithEmailAndPassword(
           email: any(named: 'email'),
           password: any(named: 'password'),
         ),
       ).thenAnswer((_) async {
-        mockFirebaseAuth.setMockUser(unverifiedUser);
+        mockAuth.setMockUser(unverifiedUser);
         return MockUserCredential(unverifiedUser);
       });
 
@@ -169,12 +168,12 @@ void main() {
       await $.pumpAndSettle();
 
       when(
-        () => mockFirebaseAuth.signInWithEmailAndPassword(
+        () => mockAuth.signInWithEmailAndPassword(
           email: any(named: 'email'),
           password: any(named: 'password'),
         ),
       ).thenThrow(
-        FirebaseAuthException(
+        AuthException(
           code: 'wrong-password',
           message: 'The password you entered is incorrect. Please try again.',
         ),
@@ -187,8 +186,8 @@ void main() {
       await $(keys.signInPage.loginWithEmailButton).tap();
       await $.pumpAndSettle();
       // NOTE:
-      // This below test expects the exact FirebaseAuthException
-      // message for ErrorCode - `wrong-password`returned by Firebase.
+      // This below test expects the exact AuthException
+      // message for ErrorCode - `wrong-password` returned by auth service.
       // Do NOT customize the message, otherwise the test will fail.
       expect(
         find.text('The password you entered is incorrect. Please try again.'),
@@ -204,29 +203,29 @@ void main() {
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
       await initializeApp(
-        firebaseAuth: mockFirebaseAuth,
+        authAdapter: mockAuth,
         googleSignIn: mockGoogleSignIn,
         dio: mockDio,
       );
       await $.pumpWidgetAndSettle(const MainApp());
 
       // Stub signOut to reset mock state
-      when(() => mockFirebaseAuth.signOut()).thenAnswer((_) async {
-        mockFirebaseAuth.setMockUser(null);
+      when(() => mockAuth.signOut()).thenAnswer((_) async {
+        mockAuth.setMockUser(null);
       });
 
       // Ensure Google login is NOT cancelled
       mockGoogleSignIn.setIsCancelled(value: false);
 
-      // Mock FirebaseAuth signInWithCredential
-      when(() => mockFirebaseAuth.signInWithCredential(any())).thenAnswer((
+      // Mock Supabase auth signInWithCredential
+      when(() => mockAuth.signInWithCredential(any())).thenAnswer((
         _,
       ) async {
         final googleUser = MockUser(
           email: 'google@example.com',
           emailVerified: true,
         );
-        mockFirebaseAuth.setMockUser(googleUser);
+        mockAuth.setMockUser(googleUser);
         return MockUserCredential(googleUser);
       });
 

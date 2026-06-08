@@ -57,9 +57,9 @@ bool _isForceLoggingOutUser = false;
 
 Future<void> configureDependencies({
   SupabaseClient? supabaseClient,
-  Object? firebaseAuth,
+  Object? authAdapter,
   Object? googleSignIn,
-  Object? firebaseAuthService,
+  Object? authService,
   Dio? dio,
 }) async {
   sl.registerLazySingleton<SupabaseClient>(
@@ -67,7 +67,14 @@ Future<void> configureDependencies({
   );
 
   sl.registerLazySingleton<SupabaseAuthService>(
-    () => SupabaseAuthService(client: sl<SupabaseClient>()),
+    () =>
+        authService is SupabaseAuthService
+            ? authService
+            : SupabaseAuthService(
+                client: sl<SupabaseClient>(),
+                authAdapter: authAdapter,
+                googleSignIn: googleSignIn,
+              ),
   );
 
   final cacheManager = CacheManager();

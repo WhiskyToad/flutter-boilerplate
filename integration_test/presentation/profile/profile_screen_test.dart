@@ -8,7 +8,7 @@ import 'package:skelter/initialize_app.dart';
 import 'package:skelter/main.dart';
 
 import '../../demo_product_response.dart';
-import '../../mock_firebase_auth.dart';
+import '../../mock_supabase_auth.dart';
 
 class MockDio extends Mock implements Dio {}
 
@@ -36,15 +36,15 @@ void main() {
     'profile screen end to end test',
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
+      final mockAuth = MockSupabaseAuth();
 
-      await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
+      await initializeApp(authAdapter: mockAuth, dio: mockDio);
 
       // Stub phone sign-in
-      when(() => mockFirebaseAuth.signInWithCredential(any()))
+      when(() => mockAuth.signInWithCredential(any()))
           .thenAnswer((_) async {
         final phoneUser = MockUser(phoneNumber: '9999988888');
-        mockFirebaseAuth.setMockUser(phoneUser);
+        mockAuth.setMockUser(phoneUser);
         return MockUserCredential(phoneUser);
       });
 

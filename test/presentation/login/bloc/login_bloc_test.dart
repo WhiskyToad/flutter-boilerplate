@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:skelter/core/services/injection_container.dart';
@@ -7,39 +6,39 @@ import 'package:skelter/presentation/login/bloc/login_bloc.dart';
 import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/presentation/login/enum/enum_login_type.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 
-import '../../../../integration_test/mock_firebase_auth.dart';
-import '../../../../integration_test/mock_firebase_performance.dart';
+import '../../../../integration_test/mock_supabase_auth.dart';
+import '../../../../integration_test/mock_performance_monitoring.dart';
 import '../../../test_helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockFirebaseAuth mockFirebaseAuth;
+  late MockSupabaseAuth mockAuth;
   late MockGoogleSignIn mockGoogleSignIn;
   late MockAppLocalizations l10n;
-  late FirebaseAuthService mockFirebaseAuthService;
-  late MockFirebasePerformance mockFirebasePerformance;
+  late SupabaseAuthService mockSupabaseAuthService;
+  late MockPerformanceMonitoring mockPerformanceMonitoring;
 
   setUp(() {
     l10n = MockAppLocalizations();
 
-    mockFirebaseAuth = MockFirebaseAuth();
+    mockAuth = MockSupabaseAuth();
     mockGoogleSignIn = MockGoogleSignIn();
-    mockFirebasePerformance = MockFirebasePerformance();
+    mockPerformanceMonitoring = MockPerformanceMonitoring();
     sl.allowReassignment = true;
-    mockFirebaseAuthService = FirebaseAuthService(
-      firebaseAuth: mockFirebaseAuth,
+    mockSupabaseAuthService = SupabaseAuthService(
+      authAdapter: mockAuth,
       googleSignIn: mockGoogleSignIn,
     );
-    sl.registerLazySingleton<FirebaseAuthService>(
-      () => mockFirebaseAuthService,
+    sl.registerLazySingleton<SupabaseAuthService>(
+      () => mockSupabaseAuthService,
     );
     sl.allowReassignment = true;
     sl.registerLazySingleton<PerformanceMonitoringService>(
-      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
+      () => PerformanceMonitoringService(performance: mockPerformanceMonitoring),
     );
   });
 
@@ -395,12 +394,12 @@ void main() {
       'should emit AuthenticationExceptionState when credentials are invalid',
       build: () {
         when(
-          () => mockFirebaseAuth.signInWithEmailAndPassword(
+          () => mockAuth.signInWithEmailAndPassword(
             email: any(named: 'email'),
             password: any(named: 'password'),
           ),
         ).thenThrow(
-          FirebaseAuthException(
+          AuthException(
             code: 'wrong-password',
             message: 'Invalid email or password',
           ),
@@ -458,13 +457,13 @@ void main() {
         final mockCred = MockUserCredential(mockUser);
 
         when(
-          () => mockFirebaseAuth.signInWithEmailAndPassword(
+          () => mockAuth.signInWithEmailAndPassword(
             email: any(named: 'email'),
             password: any(named: 'password'),
           ),
         ).thenAnswer((_) async => mockCred);
 
-        mockFirebaseAuth.setMockUser(mockUser);
+        mockAuth.setMockUser(mockUser);
 
         return LoginBloc(localizations: l10n);
       },
@@ -513,7 +512,7 @@ void main() {
         mockUser.sendVerificationShouldFail = true;
         mockUser.sendVerificationError =
             'Too many requests, please try again later.';
-        mockFirebaseAuth.setMockUser(mockUser);
+        mockAuth.setMockUser(mockUser);
         return LoginBloc(localizations: l10n);
       },
       act: (bloc) => bloc.add(SendEmailVerificationLinkEvent()),
@@ -549,7 +548,7 @@ void main() {
       'should emit ResetPasswordLinkSentState on successful reset',
       build: () {
         when(
-          () => mockFirebaseAuth.sendPasswordResetEmail(
+          () => mockAuth.sendPasswordResetEmail(
             email: any(named: 'email'),
           ),
         ).thenAnswer((_) async {});
@@ -575,11 +574,11 @@ void main() {
       'should emit error and ResetPasswordLinkSentState when reset fails',
       build: () {
         when(
-          () => mockFirebaseAuth.sendPasswordResetEmail(
+          () => mockAuth.sendPasswordResetEmail(
             email: any(named: 'email'),
           ),
         ).thenThrow(
-          FirebaseAuthException(
+          AuthException(
             code: 'user-not-found',
             message: 'User not found',
           ),
@@ -597,7 +596,7 @@ void main() {
           (state) => state.emailPasswordLoginState?.emailErrorMessage,
           'emailErrorMessage',
           // NOTE: App-specific error message mapped from
-          // FirebaseAuthUserNotFound handled in FirebaseAuthService
+          // AuthUserNotFound handled in SupabaseAuthService
           'No user found with this email.',
         ),
         isA<EmailLoginLoadingState>().having(
@@ -614,7 +613,7 @@ void main() {
     blocTest<LoginBloc, LoginState>(
       'should emit AuthenticationExceptionState when Google sign-in fails',
       build: () {
-        when(() => mockFirebaseAuth.signOut()).thenAnswer((_) async {});
+        when(() => mockAuth.signOut()).thenAnswer((_) async {});
         mockGoogleSignIn.setShouldFail(value: true);
         return LoginBloc(localizations: l10n);
       },
@@ -640,7 +639,7 @@ void main() {
       build: () {
         // SignInWithApple is static, it stays as is in the service if it hasn't
         // been refactored or wrapped.
-        // But FirebaseAuthService handles the error and calls onError.
+        // But SupabaseAuthService handles the error and calls onError.
         return LoginBloc(localizations: l10n);
       },
       act: (bloc) {

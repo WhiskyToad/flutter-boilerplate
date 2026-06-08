@@ -60,7 +60,7 @@ class AppAuthUser {
   final String? phoneNumber;
   final String? displayName;
   final String? photoURL;
-  final bool emailVerified;
+  bool emailVerified;
   final List<AppAuthProviderData> providerData;
   final String? Function() _tokenProvider;
   final Future<void> Function() _reloadProvider;

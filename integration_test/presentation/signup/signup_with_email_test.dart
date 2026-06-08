@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,7 +10,7 @@ import 'package:skelter/initialize_app.dart';
 import 'package:skelter/main.dart';
 
 import '../../demo_product_response.dart';
-import '../../mock_firebase_auth.dart';
+import '../../mock_supabase_auth.dart';
 
 class MockDio extends Mock implements Dio {}
 
@@ -19,7 +18,7 @@ class MockDioResponse<T> extends Mock implements Response<T> {}
 
 void main() {
   final mockDio = MockDio();
-  final mockFirebaseAuth = MockFirebaseAuth();
+  final mockAuth = MockSupabaseAuth();
 
   setUpAll(() {
     final mockResponse = MockDioResponse<List<dynamic>>();
@@ -39,7 +38,7 @@ void main() {
     'sign up with email test',
     framePolicy: LiveTestWidgetsFlutterBindingFramePolicy.fullyLive,
     ($) async {
-      await initializeApp(firebaseAuth: mockFirebaseAuth, dio: mockDio);
+      await initializeApp(authAdapter: mockAuth, dio: mockDio);
       await $.pumpWidgetAndSettle(const MainApp());
 
       // SCENARIO 1: Successful signup with email verification
@@ -48,12 +47,12 @@ void main() {
       );
 
       when(
-        () => mockFirebaseAuth.createUserWithEmailAndPassword(
+        () => mockAuth.createUserWithEmailAndPassword(
           email: any(named: 'email'),
           password: any(named: 'password'),
         ),
       ).thenAnswer((_) async {
-        mockFirebaseAuth.setMockUser(newUser);
+        mockAuth.setMockUser(newUser);
         return MockUserCredential(newUser);
       });
 
@@ -107,13 +106,13 @@ void main() {
 
       // SCENARIO 2: Email already in use error
       when(
-        () => mockFirebaseAuth.createUserWithEmailAndPassword(
+        () => mockAuth.createUserWithEmailAndPassword(
           email: any(named: 'email'),
           password: any(named: 'password'),
         ),
       ).thenThrow(
-        FirebaseAuthException(
-          code: kFirebaseAuthSessionEmailAlreadyInUse,
+        AuthException(
+          code: kAuthSessionEmailAlreadyInUse,
           message: 'Email already in use, please login to continue.',
         ),
       );

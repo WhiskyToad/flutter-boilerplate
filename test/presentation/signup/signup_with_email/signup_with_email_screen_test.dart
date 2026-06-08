@@ -10,11 +10,11 @@ import 'package:skelter/presentation/signup/bloc/signup_state.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/signup_with_email_password_screen.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_next_button.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/email_text_field.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 
-import '../../../../integration_test/mock_firebase_auth.dart';
-import '../../../../integration_test/mock_firebase_performance.dart';
+import '../../../../integration_test/mock_supabase_auth.dart';
+import '../../../../integration_test/mock_performance_monitoring.dart';
 import '../../../flutter_test_config.dart';
 import '../../../test_helpers.dart';
 
@@ -24,23 +24,23 @@ class MockSignupBloc extends MockBloc<SignupEvent, SignupState>
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockFirebaseAuth mokFirebaseAuth;
-  late FirebaseAuthService mockFirebaseAuthService;
-  late MockFirebasePerformance mockFirebasePerformance;
+  late MockSupabaseAuth mockAuth;
+  late SupabaseAuthService mockSupabaseAuthService;
+  late MockPerformanceMonitoring mockPerformanceMonitoring;
 
   setUp(() {
-    mokFirebaseAuth = MockFirebaseAuth();
-    mockFirebasePerformance = MockFirebasePerformance();
+    mockAuth = MockSupabaseAuth();
+    mockPerformanceMonitoring = MockPerformanceMonitoring();
     sl.allowReassignment = true;
-    mockFirebaseAuthService = FirebaseAuthService(
-      firebaseAuth: mokFirebaseAuth,
+    mockSupabaseAuthService = SupabaseAuthService(
+      authAdapter: mockAuth,
     );
-    sl.registerLazySingleton<FirebaseAuthService>(
-      () => mockFirebaseAuthService,
+    sl.registerLazySingleton<SupabaseAuthService>(
+      () => mockSupabaseAuthService,
     );
     sl.allowReassignment = true;
     sl.registerLazySingleton<PerformanceMonitoringService>(
-      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
+      () => PerformanceMonitoringService(performance: mockPerformanceMonitoring),
     );
   });
 

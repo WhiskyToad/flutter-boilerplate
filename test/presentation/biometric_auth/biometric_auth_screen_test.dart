@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,12 +13,12 @@ import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_bloc.dar
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_event.dart';
 import 'package:skelter/presentation/biometric_auth/bloc/biometric_auth_state.dart';
 import 'package:skelter/presentation/biometric_auth/widgets/biometric_auth_enrollment_bottom_sheet.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 
-import '../../../integration_test/mock_firebase_auth.dart';
+import '../../../integration_test/mock_supabase_auth.dart';
 import '../../flutter_test_config.dart';
 import '../../test_helpers.dart';
 
@@ -35,24 +33,14 @@ class MockSharedPreferencesAsync extends Mock
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockFirebaseAuth mockFirebaseAuthService;
+  late MockSupabaseAuth mockSupabaseAuthService;
   late MockLocalAuthService mockLocalAuthService;
 
   setUpAll(() async {
-    setupFirebaseCoreMocks();
-    await Firebase.initializeApp(
-      name: 'test',
-      options: const FirebaseOptions(
-        apiKey: 'apiKey',
-        appId: 'appId',
-        messagingSenderId: 'messagingSenderId',
-        projectId: 'projectId',
-      ),
-    );
 
-    mockFirebaseAuthService = MockFirebaseAuth();
-    sl.registerLazySingleton<FirebaseAuthService>(
-      () => FirebaseAuthService(firebaseAuth: mockFirebaseAuthService),
+    mockSupabaseAuthService = MockSupabaseAuth();
+    sl.registerLazySingleton<SupabaseAuthService>(
+      () => SupabaseAuthService(authAdapter: mockSupabaseAuthService),
     );
 
     mockLocalAuthService = MockLocalAuthService();

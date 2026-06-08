@@ -12,9 +12,9 @@ import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/co
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/password_next_button.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/password_requirement_stats.dart';
 import 'package:skelter/presentation/signup/screens/signup_with_email/widgets/password_text_field.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 
-import '../../../../integration_test/mock_firebase_auth.dart';
+import '../../../../integration_test/mock_supabase_auth.dart';
 import '../../../flutter_test_config.dart';
 import '../../../test_helpers.dart';
 
@@ -24,17 +24,17 @@ class MockSignupBloc extends MockBloc<SignupEvent, SignupState>
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockFirebaseAuth mokFirebaseAuth;
-  late FirebaseAuthService mockFirebaseAuthService;
+  late MockSupabaseAuth mockAuth;
+  late SupabaseAuthService mockSupabaseAuthService;
 
   setUp(() {
-    mokFirebaseAuth = MockFirebaseAuth();
+    mockAuth = MockSupabaseAuth();
     sl.allowReassignment = true;
-    mockFirebaseAuthService = FirebaseAuthService(
-      firebaseAuth: mokFirebaseAuth,
+    mockSupabaseAuthService = SupabaseAuthService(
+      authAdapter: mockAuth,
     );
-    sl.registerLazySingleton<FirebaseAuthService>(
-      () => mockFirebaseAuthService,
+    sl.registerLazySingleton<SupabaseAuthService>(
+      () => mockSupabaseAuthService,
     );
   });
 

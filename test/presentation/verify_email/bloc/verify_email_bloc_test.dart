@@ -6,26 +6,26 @@ import 'package:skelter/presentation/signup/enum/user_details_input_status.dart'
 import 'package:skelter/presentation/verify_email/bloc/verify_email_bloc.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_event.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 
 import '../../../test_helpers.dart';
 
-class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
+class MockSupabaseAuthService extends Mock implements SupabaseAuthService {}
 
 void main() {
   late VerifyEmailBloc bloc;
   late MockAppLocalizations mockLocalizations;
-  late MockFirebaseAuthService mockFirebaseAuthService;
+  late MockSupabaseAuthService mockSupabaseAuthService;
 
   setUp(() {
     mockLocalizations = MockAppLocalizations();
-    mockFirebaseAuthService = MockFirebaseAuthService();
+    mockSupabaseAuthService = MockSupabaseAuthService();
 
     final sl = GetIt.instance;
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
+    if (sl.isRegistered<SupabaseAuthService>()) {
+      sl.unregister<SupabaseAuthService>();
     }
-    sl.registerSingleton<FirebaseAuthService>(mockFirebaseAuthService);
+    sl.registerSingleton<SupabaseAuthService>(mockSupabaseAuthService);
 
     bloc = VerifyEmailBloc(localizations: mockLocalizations);
   });
@@ -33,8 +33,8 @@ void main() {
   tearDown(() {
     bloc.close();
     final sl = GetIt.instance;
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
+    if (sl.isRegistered<SupabaseAuthService>()) {
+      sl.unregister<SupabaseAuthService>();
     }
   });
 

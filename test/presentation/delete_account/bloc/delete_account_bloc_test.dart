@@ -6,17 +6,17 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_bloc.dar
 import 'package:skelter/presentation/delete_account/bloc/delete_account_event.dart';
 import 'package:skelter/presentation/delete_account/bloc/delete_account_state.dart';
 import 'package:skelter/presentation/delete_account/enum/delete_account_reasons.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 
-class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
+class MockSupabaseAuthService extends Mock implements SupabaseAuthService {}
 
 class MockPerformanceMonitoringService extends Mock
     implements PerformanceMonitoringService {}
 
 void main() {
   late DeleteAccountBloc bloc;
-  late MockFirebaseAuthService mockFirebaseAuthService;
+  late MockSupabaseAuthService mockSupabaseAuthService;
   late MockPerformanceMonitoringService mockPerformanceService;
 
   setUpAll(() {
@@ -24,17 +24,17 @@ void main() {
   });
 
   setUp(() {
-    mockFirebaseAuthService = MockFirebaseAuthService();
+    mockSupabaseAuthService = MockSupabaseAuthService();
     mockPerformanceService = MockPerformanceMonitoringService();
 
     final sl = GetIt.instance;
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
+    if (sl.isRegistered<SupabaseAuthService>()) {
+      sl.unregister<SupabaseAuthService>();
     }
     if (sl.isRegistered<PerformanceMonitoringService>()) {
       sl.unregister<PerformanceMonitoringService>();
     }
-    sl.registerSingleton<FirebaseAuthService>(mockFirebaseAuthService);
+    sl.registerSingleton<SupabaseAuthService>(mockSupabaseAuthService);
     sl.registerSingleton<PerformanceMonitoringService>(mockPerformanceService);
 
     bloc = DeleteAccountBloc();
@@ -43,8 +43,8 @@ void main() {
   tearDown(() {
     bloc.close();
     final sl = GetIt.instance;
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
+    if (sl.isRegistered<SupabaseAuthService>()) {
+      sl.unregister<SupabaseAuthService>();
     }
     if (sl.isRegistered<PerformanceMonitoringService>()) {
       sl.unregister<PerformanceMonitoringService>();
@@ -140,7 +140,7 @@ void main() {
         'should emit loading then success when delete succeeds',
         build: () {
           when(
-            () => mockFirebaseAuthService.deleteCurrentUser(
+            () => mockSupabaseAuthService.deleteCurrentUser(
               onError: any(named: 'onError'),
             ),
           ).thenAnswer((_) async {});

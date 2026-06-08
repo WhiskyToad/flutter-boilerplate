@@ -1,8 +1,6 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,7 +17,7 @@ import 'package:skelter/presentation/product_detail/domain/usecases/get_product_
 import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/widgets/styling/app_theme_data.dart';
 
-import '../../../integration_test/mock_firebase_performance.dart';
+import '../../../integration_test/mock_performance_monitoring.dart';
 import '../../flutter_test_config.dart';
 import '../../test_helpers.dart';
 
@@ -31,13 +29,13 @@ class MockGetProductDetail extends Mock implements GetProductDetail {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockFirebasePerformance mockFirebasePerformance;
+  late MockPerformanceMonitoring mockPerformanceMonitoring;
 
   setUpAll(() async {
-    mockFirebasePerformance = MockFirebasePerformance();
+    mockPerformanceMonitoring = MockPerformanceMonitoring();
     sl.allowReassignment = true;
     sl.registerLazySingleton<PerformanceMonitoringService>(
-      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
+      () => PerformanceMonitoringService(performance: mockPerformanceMonitoring),
     );
 
     final mockGetProducts = MockGetProducts();
@@ -47,17 +45,6 @@ void main() {
     ).thenAnswer((_) async => const Right(<Product>[]));
     sl.registerLazySingleton<GetProducts>(() => mockGetProducts);
     sl.registerLazySingleton<GetProductDetail>(() => mockGetProductDetail);
-
-    setupFirebaseCoreMocks();
-    await Firebase.initializeApp(
-      name: 'tenantIdTest',
-      options: const FirebaseOptions(
-        apiKey: 'apiKey',
-        appId: 'appId',
-        messagingSenderId: 'messagingSenderId',
-        projectId: 'projectId',
-      ),
-    );
   });
 
   // Widget tests

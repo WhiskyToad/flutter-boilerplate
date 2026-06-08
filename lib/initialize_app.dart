@@ -16,9 +16,9 @@ import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> initializeApp({
   SupabaseClient? supabaseClient,
-  Object? firebaseAuth,
+  Object? authAdapter,
   Object? googleSignIn,
-  Object? firebaseAuthService,
+  Object? authService,
   Dio? dio,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +58,9 @@ Future<void> initializeApp({
 
   await configureDependencies(
     supabaseClient: supabaseClient,
+    authAdapter: authAdapter,
+    googleSignIn: googleSignIn,
+    authService: authService,
     dio: dio,
   );
   await sl<PerformanceMonitoringService>().initialize();

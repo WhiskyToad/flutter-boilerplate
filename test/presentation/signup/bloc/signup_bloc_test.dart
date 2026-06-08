@@ -5,12 +5,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:skelter/presentation/signup/bloc/signup_bloc.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
 import 'package:skelter/presentation/signup/bloc/signup_state.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 
 import '../../../test_helpers.dart';
 
-class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
+class MockSupabaseAuthService extends Mock implements SupabaseAuthService {}
 
 class MockPerformanceMonitoringService extends Mock
     implements PerformanceMonitoringService {}
@@ -18,12 +18,12 @@ class MockPerformanceMonitoringService extends Mock
 void main() {
   late SignupBloc bloc;
   late MockAppLocalizations mockLocalizations;
-  late MockFirebaseAuthService mockFirebaseAuthService;
+  late MockSupabaseAuthService mockSupabaseAuthService;
   late MockPerformanceMonitoringService mockPerformanceService;
 
   setUp(() {
     mockLocalizations = MockAppLocalizations();
-    mockFirebaseAuthService = MockFirebaseAuthService();
+    mockSupabaseAuthService = MockSupabaseAuthService();
     mockPerformanceService = MockPerformanceMonitoringService();
 
     when(
@@ -37,13 +37,13 @@ void main() {
     ).thenReturn('Oops! Something went wrong');
 
     final sl = GetIt.instance;
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
+    if (sl.isRegistered<SupabaseAuthService>()) {
+      sl.unregister<SupabaseAuthService>();
     }
     if (sl.isRegistered<PerformanceMonitoringService>()) {
       sl.unregister<PerformanceMonitoringService>();
     }
-    sl.registerSingleton<FirebaseAuthService>(mockFirebaseAuthService);
+    sl.registerSingleton<SupabaseAuthService>(mockSupabaseAuthService);
     sl.registerSingleton<PerformanceMonitoringService>(mockPerformanceService);
 
     bloc = SignupBloc(localizations: mockLocalizations);
@@ -52,8 +52,8 @@ void main() {
   tearDown(() {
     bloc.close();
     final sl = GetIt.instance;
-    if (sl.isRegistered<FirebaseAuthService>()) {
-      sl.unregister<FirebaseAuthService>();
+    if (sl.isRegistered<SupabaseAuthService>()) {
+      sl.unregister<SupabaseAuthService>();
     }
     if (sl.isRegistered<PerformanceMonitoringService>()) {
       sl.unregister<PerformanceMonitoringService>();

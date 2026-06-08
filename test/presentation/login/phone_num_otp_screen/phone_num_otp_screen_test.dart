@@ -12,9 +12,9 @@ import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/presentation/login/screens/phone_num_otp_screen/phone_number_otp_screen.dart';
 import 'package:skelter/presentation/login/screens/phone_num_otp_screen/widgets/otp_input_field.dart';
 import 'package:skelter/presentation/login/screens/phone_num_otp_screen/widgets/otp_verification_button.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 
-import '../../../../integration_test/mock_firebase_auth.dart';
+import '../../../../integration_test/mock_supabase_auth.dart';
 import '../../../flutter_test_config.dart';
 import '../../../test_helpers.dart';
 
@@ -23,17 +23,17 @@ class MockLoginBloc extends MockBloc<LoginEvents, LoginState>
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockFirebaseAuth mokFirebaseAuth;
-  late FirebaseAuthService mockFirebaseAuthService;
+  late MockSupabaseAuth mockAuth;
+  late SupabaseAuthService mockSupabaseAuthService;
 
   setUpAll(() {
-    mokFirebaseAuth = MockFirebaseAuth();
+    mockAuth = MockSupabaseAuth();
     sl.allowReassignment = true;
-    mockFirebaseAuthService = FirebaseAuthService(
-      firebaseAuth: mokFirebaseAuth,
+    mockSupabaseAuthService = SupabaseAuthService(
+      authAdapter: mockAuth,
     );
-    sl.registerLazySingleton<FirebaseAuthService>(
-      () => mockFirebaseAuthService,
+    sl.registerLazySingleton<SupabaseAuthService>(
+      () => mockSupabaseAuthService,
     );
     // Mock sms_autofill plugin
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger

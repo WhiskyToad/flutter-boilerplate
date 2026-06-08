@@ -1,7 +1,5 @@
 import 'package:alchemist/alchemist.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_core_platform_interface/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,12 +10,12 @@ import 'package:skelter/presentation/delete_account/bloc/delete_account_event.da
 import 'package:skelter/presentation/delete_account/bloc/delete_account_state.dart';
 import 'package:skelter/presentation/delete_account/delete_account_screen.dart';
 import 'package:skelter/presentation/delete_account/enum/delete_account_reasons.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/widgets/styling/app_theme_data.dart';
 
-import '../../../integration_test/mock_firebase_auth.dart';
-import '../../../integration_test/mock_firebase_performance.dart';
+import '../../../integration_test/mock_supabase_auth.dart';
+import '../../../integration_test/mock_performance_monitoring.dart';
 import '../../flutter_test_config.dart';
 import '../../test_helpers.dart';
 
@@ -27,29 +25,19 @@ class MockDeleteAccountBloc
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockFirebaseAuth mockFirebaseAuthService;
-  late MockFirebasePerformance mockFirebasePerformance;
+  late MockSupabaseAuth mockSupabaseAuthService;
+  late MockPerformanceMonitoring mockPerformanceMonitoring;
 
   setUpAll(() async {
-    mockFirebasePerformance = MockFirebasePerformance();
+    mockPerformanceMonitoring = MockPerformanceMonitoring();
     sl.allowReassignment = true;
     sl.registerLazySingleton<PerformanceMonitoringService>(
-      () => PerformanceMonitoringService(performance: mockFirebasePerformance),
-    );
-    setupFirebaseCoreMocks();
-    await Firebase.initializeApp(
-      name: 'test',
-      options: const FirebaseOptions(
-        apiKey: 'apiKey',
-        appId: 'appId',
-        messagingSenderId: 'messagingSenderId',
-        projectId: 'projectId',
-      ),
+      () => PerformanceMonitoringService(performance: mockPerformanceMonitoring),
     );
 
-    mockFirebaseAuthService = MockFirebaseAuth();
-    sl.registerLazySingleton<FirebaseAuthService>(
-      () => FirebaseAuthService(firebaseAuth: mockFirebaseAuthService),
+    mockSupabaseAuthService = MockSupabaseAuth();
+    sl.registerLazySingleton<SupabaseAuthService>(
+      () => SupabaseAuthService(authAdapter: mockSupabaseAuthService),
     );
   });
 
