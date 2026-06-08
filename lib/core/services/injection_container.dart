@@ -1,11 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:skelter/constants/constants.dart';
@@ -40,12 +36,12 @@ import 'package:skelter/presentation/product_detail/domain/usecases/get_product_
 import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/ai/gemini_service.dart';
 import 'package:skelter/services/dynamic_icon_service.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/firestore_service.dart';
 import 'package:skelter/services/in_app_review_service.dart';
 import 'package:skelter/services/local_auth_services.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
 import 'package:skelter/utils/cache_manager.dart';
@@ -54,31 +50,24 @@ import 'package:skelter/utils/currency_converter/data/datasources/currency_conve
 import 'package:skelter/utils/currency_converter/data/repositories/currency_converter_repository_impl.dart';
 import 'package:skelter/utils/currency_converter/domain/repositories/currency_converter_repository.dart';
 import 'package:skelter/utils/currency_converter/domain/usecases/get_exchange_rate.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 final sl = GetIt.instance;
 bool _isForceLoggingOutUser = false;
 
 Future<void> configureDependencies({
-  FirebaseAuth? firebaseAuth,
-  GoogleSignIn? googleSignIn,
-  FirebaseAuthService? firebaseAuthService,
+  SupabaseClient? supabaseClient,
+  Object? firebaseAuth,
+  Object? googleSignIn,
+  Object? firebaseAuthService,
   Dio? dio,
 }) async {
-  sl.registerLazySingleton<FirebaseAuth>(
-    () => firebaseAuth ?? FirebaseAuth.instance,
+  sl.registerLazySingleton<SupabaseClient>(
+    () => supabaseClient ?? Supabase.instance.client,
   );
 
-  sl.registerLazySingleton<GoogleSignIn>(
-    () => googleSignIn ?? GoogleSignIn.instance,
-  );
-
-  sl.registerLazySingleton<FirebaseAuthService>(
-    () =>
-        firebaseAuthService ??
-        FirebaseAuthService(
-          firebaseAuth: sl<FirebaseAuth>(),
-          googleSignIn: sl<GoogleSignIn>(),
-        ),
+  sl.registerLazySingleton<SupabaseAuthService>(
+    () => SupabaseAuthService(client: sl<SupabaseClient>()),
   );
 
   final cacheManager = CacheManager();
@@ -125,13 +114,7 @@ Future<void> configureDependencies({
       service.initialize();
       return service;
     }, dispose: (service) => service.dispose())
-    ..registerLazySingleton<FirebasePerformance>(
-      () => FirebasePerformance.instance,
-    )
-    ..registerLazySingleton(
-      () =>
-          PerformanceMonitoringService(performance: sl<FirebasePerformance>()),
-    )
+    ..registerLazySingleton(() => PerformanceMonitoringService())
     ..registerLazySingleton(() => GetExchangeRate(sl()))
     ..registerLazySingleton<CurrencyConverterRepository>(
       () => CurrencyConverterRepositoryImpl(sl()),
@@ -149,19 +132,18 @@ Future<void> configureDependencies({
       () => DynamicIconService(remoteConfigService: RemoteConfigService()),
     )
     ..registerLazySingleton<InAppReviewService>(() => InAppReviewService())
-    ..registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance)
-    ..registerLazySingleton<FirestoreService>(
-      () => FirestoreService(firestore: sl<FirebaseFirestore>()),
+    ..registerLazySingleton<SupabaseDatabaseService>(
+      () => SupabaseDatabaseService(client: sl<SupabaseClient>()),
     )
     ..registerLazySingleton(() => SubmitFeedback(sl()))
     ..registerLazySingleton<FeedbackRepository>(
       () => FeedbackRepositoryImpl(sl()),
     )
     ..registerLazySingleton<FeedbackRemoteDatasource>(
-      () => FeedbackRemoteDatasourceImpl(sl<FirestoreService>()),
+      () => FeedbackRemoteDatasourceImpl(sl<SupabaseDatabaseService>()),
     )
     ..registerLazySingleton<ChatRemoteDatasource>(
-      () => ChatRemoteDatasourceImpl(sl<FirebaseFirestore>()),
+      () => ChatRemoteDatasourceImpl(sl<SupabaseClient>()),
     )
     ..registerLazySingleton<ChatRepository>(
       () => ChatRepositoryImpl(sl<ChatRemoteDatasource>()),
@@ -217,7 +199,7 @@ InterceptorsWrapper _authErrorInterceptor() => InterceptorsWrapper(
       try {
         await Prefs.clear();
         await sl<CacheManager>().clearCachedApiResponse();
-        await sl<FirebaseAuthService>().signOut();
+        await sl<SupabaseAuthService>().signOut();
 
         final currentContext = rootNavigatorKey.currentContext;
         if (currentContext != null) {

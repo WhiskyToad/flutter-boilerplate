@@ -8,14 +8,14 @@ mixin FeedbackRemoteDatasource {
 }
 
 class FeedbackRemoteDatasourceImpl with FeedbackRemoteDatasource {
-  FeedbackRemoteDatasourceImpl(this._firestoreService);
+  FeedbackRemoteDatasourceImpl(this._databaseService);
 
-  final FirestoreService _firestoreService;
+  final SupabaseDatabaseService _databaseService;
 
   @override
   Future<void> submitFeedback(FeedbackModel feedback) async {
     try {
-      await _firestoreService.addDocument(
+      await _databaseService.addDocument(
         collection: kFeedbackCollection,
         data: feedback.toMap(),
       );

@@ -54,4 +54,37 @@ class AppConfig {
         return '';
     }
   }
+
+  static String getSupabaseUrl() {
+    switch (appFlavor) {
+      case AppFlavor.dev:
+        return dotenv.env['DEV_SUPABASE_URL']?.trim() ?? '';
+      case AppFlavor.stage:
+        return dotenv.env['STAGE_SUPABASE_URL']?.trim() ?? '';
+      case AppFlavor.prod:
+        return dotenv.env['PROD_SUPABASE_URL']?.trim() ?? '';
+    }
+  }
+
+  static String getSupabaseAnonKey() {
+    switch (appFlavor) {
+      case AppFlavor.dev:
+        return dotenv.env['DEV_SUPABASE_ANON_KEY']?.trim() ?? '';
+      case AppFlavor.stage:
+        return dotenv.env['STAGE_SUPABASE_ANON_KEY']?.trim() ?? '';
+      case AppFlavor.prod:
+        return dotenv.env['PROD_SUPABASE_ANON_KEY']?.trim() ?? '';
+    }
+  }
+
+  static String getGeminiApiKey() {
+    switch (appFlavor) {
+      case AppFlavor.dev:
+        return dotenv.env['DEV_GEMINI_API_KEY']?.trim() ?? '';
+      case AppFlavor.stage:
+        return dotenv.env['STAGE_GEMINI_API_KEY']?.trim() ?? '';
+      case AppFlavor.prod:
+        return dotenv.env['PROD_GEMINI_API_KEY']?.trim() ?? '';
+    }
+  }
 }

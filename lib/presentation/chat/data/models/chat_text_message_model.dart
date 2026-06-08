@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skelter/presentation/chat/domain/entities/chat_text_message_entity.dart';
 import 'package:skelter/utils/typedef.dart';
 
@@ -12,16 +11,13 @@ class ChatTextMessageModel extends ChatTextMessageEntity {
   });
 
   factory ChatTextMessageModel.fromMap(DataMap map, String id, String chatId) {
-    final timestamp = map['createdAt'];
-    final createdAt = timestamp is Timestamp
-        ? timestamp.toDate()
-        : DateTime.now();
     return ChatTextMessageModel(
       id: id,
       chatId: chatId,
       senderId: map['senderId'] as String? ?? '',
       text: map['text'] as String? ?? '',
-      createdAt: createdAt,
+      createdAt:
+          DateTime.tryParse(map['createdAt'].toString()) ?? DateTime.now(),
     );
   }
 
@@ -29,7 +25,7 @@ class ChatTextMessageModel extends ChatTextMessageEntity {
     return {
       'senderId': senderId,
       'text': text,
-      'createdAt': FieldValue.serverTimestamp(),
+      'createdAt': DateTime.now().toIso8601String(),
     };
   }
 }

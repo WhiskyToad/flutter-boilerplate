@@ -8,7 +8,7 @@ class ChatModel {
   bool isOnline;
   bool? isTeam;
 
-  /// Firestore user document id. Set when the model represents a user the
+  /// Supabase user row id. Set when the model represents a user the
   /// current account can chat with. Empty for legacy/demo construction sites.
   String userId;
 

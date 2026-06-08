@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skelter/presentation/feedback/domain/entities/feedback_entity.dart';
 import 'package:skelter/presentation/feedback/enum/feedback_category.dart';
 import 'package:skelter/utils/typedef.dart';
@@ -32,7 +31,8 @@ class FeedbackModel extends FeedbackEntity {
       rating: (map['rating'] as num).toDouble(),
       category: category,
       message: map['message'] as String,
-      createdAt: (map['createdAt'] as Timestamp).toDate(),
+      createdAt: DateTime.tryParse(map['createdAt'].toString()) ??
+          DateTime.now(),
     );
   }
 
@@ -45,7 +45,7 @@ class FeedbackModel extends FeedbackEntity {
       'rating': rating,
       'category': category.value,
       'message': message,
-      'createdAt': Timestamp.fromDate(createdAt),
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 }

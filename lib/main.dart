@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:clarity_flutter/clarity_flutter.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +21,7 @@ import 'package:skelter/routes.gr.dart';
 import 'package:skelter/services/dynamic_icon_service.dart';
 import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/subscription_service.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/services/theme_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/app_environment.dart';
@@ -43,9 +41,7 @@ void main() {
       runApp(const MainApp());
     },
     (error, stack) {
-      if (!AppEnvironment.isTestEnvironment && !kIsWeb) {
-        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      }
+      debugPrint('Uncaught zone error: $error\n$stack');
     },
   );
 }
@@ -84,13 +80,18 @@ class _MainAppState extends State<MainApp> {
       await sl<AppDeepLinkManager>().initializeDeepLink();
     });
 
-    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+    _authSubscription = sl<SupabaseAuthService>().authStateChanges.listen((
+      user,
+    ) {
       if (user != null) {
         _initializeNotifications();
       } else {
         _cleanupNotifications();
       }
     });
+    if (sl<SupabaseAuthService>().getCurrentUser() != null) {
+      _initializeNotifications();
+    }
   }
 
   Future<void> _initializeNotifications() async {
@@ -116,12 +117,6 @@ class _MainAppState extends State<MainApp> {
   Future<void> _cleanupNotifications() async {
     await _notificationSubscription?.cancel();
     _notificationSubscription = null;
-    try {
-      await FirebaseMessaging.instance.deleteToken();
-      debugPrint('FCM token deleted on logout');
-    } catch (e) {
-      debugPrint('Failed to delete FCM token: $e');
-    }
   }
 
   /// Handles notification taps and navigates based on payload type.
@@ -135,7 +130,7 @@ class _MainAppState extends State<MainApp> {
       return;
     }
 
-    final user = FirebaseAuth.instance.currentUser;
+    final user = sl<SupabaseAuthService>().getCurrentUser();
     if (user == null) {
       debugPrint('User not logged in, ignoring notification navigation');
       return;

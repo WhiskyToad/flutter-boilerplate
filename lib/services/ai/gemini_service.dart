@@ -1,102 +1,89 @@
 import 'dart:async';
 
-import 'package:firebase_ai/firebase_ai.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:skelter/services/ai/gemini_constants.dart';
+import 'package:skelter/utils/app_flavor_env.dart';
 
-/// Thin wrapper around [ChatSession] to keep firebase_ai types out of the BLoC.
 class GeminiChatSession {
-  GeminiChatSession._(this._session);
+  GeminiChatSession._(this._service, this._systemInstruction);
 
-  final ChatSession _session;
+  final GeminiService _service;
+  final String _systemInstruction;
 
   Stream<String> sendMessage(String message) async* {
-    final responses = _session.sendMessageStream(Content.text(message));
-    await for (final response in responses) {
-      final text = response.text;
-      if (text != null && text.isNotEmpty) yield text;
-    }
+    yield await _service.generateContent(
+      prompt: '$_systemInstruction\n\n$message',
+    );
   }
 }
 
 class GeminiService {
-  GeminiService();
+  GeminiService({Dio? dio}) : _dio = dio ?? Dio();
 
-  GenerativeModel? _model;
-  GenerativeModel? _visionModel;
+  final Dio _dio;
+  bool _isInitialized = false;
 
   void initialize() {
-    try {
-      debugPrint('[Gemini] Initializing Firebase AI Gemini Service...');
-
-      _model = FirebaseAI.googleAI().generativeModel(
-        model: GeminiConstants.geminiProModel,
-        generationConfig: GenerationConfig(
-          temperature: GeminiConstants.temperature,
-          maxOutputTokens: GeminiConstants.maxOutputTokens,
-          topP: GeminiConstants.topP,
-          topK: GeminiConstants.topK,
-          stopSequences: ['\n\n---\n\n', 'END_OF_DESCRIPTION'],
-        ),
-      );
-
-      debugPrint(
-        '[Gemini] Text model initialized: ${GeminiConstants.geminiProModel}',
-      );
-
-      _visionModel = FirebaseAI.googleAI().generativeModel(
-        model: GeminiConstants.geminiProVisionModel,
-        generationConfig: GenerationConfig(
-          temperature: GeminiConstants.temperature,
-          maxOutputTokens: GeminiConstants.maxOutputTokens,
-          topP: GeminiConstants.topP,
-          topK: GeminiConstants.topK,
-          stopSequences: ['\n\n---\n\n', 'END_OF_DESCRIPTION'],
-        ),
-      );
-
-      debugPrint('[Gemini] Firebase AI Service initialized successfully');
-    } catch (e) {
-      debugPrint('[Gemini] Initialization failed: $e');
-      throw Exception('Failed to initialize Firebase AI Gemini Service: $e');
+    final apiKey = AppConfig.getGeminiApiKey();
+    if (apiKey.isEmpty) {
+      debugPrint('[Gemini] GEMINI_API_KEY not configured');
+      _isInitialized = false;
+      return;
     }
+    _isInitialized = true;
+    debugPrint('[Gemini] REST Gemini Service initialized');
   }
 
   Future<String> generateContent({
     required String prompt,
     Duration? timeout,
   }) async {
-    debugPrint('[Gemini] Generate content called');
-    debugPrint('[Gemini] Prompt length: ${prompt.length}');
-
-    if (_model == null) {
-      debugPrint('[Gemini] ERROR: Model not initialized!');
-      throw Exception(
-        'Firebase AI Gemini Service not initialized. Call initialize() first.',
-      );
+    final apiKey = AppConfig.getGeminiApiKey();
+    if (!_isInitialized || apiKey.isEmpty) {
+      throw Exception('Gemini API key not configured.');
     }
 
     try {
-      debugPrint('[Gemini] Sending request to Firebase AI Gemini API...');
-      final response = await _model!
-          .generateContent([Content.text(prompt)])
+      final response = await _dio
+          .post<Map<String, dynamic>>(
+            'https://generativelanguage.googleapis.com/v1beta/models/'
+            '${GeminiConstants.geminiProModel}:generateContent',
+            queryParameters: {'key': apiKey},
+            data: {
+              'contents': [
+                {
+                  'parts': [
+                    {'text': prompt},
+                  ],
+                },
+              ],
+              'generationConfig': {
+                'temperature': GeminiConstants.temperature,
+                'maxOutputTokens': GeminiConstants.maxOutputTokens,
+                'topP': GeminiConstants.topP,
+                'topK': GeminiConstants.topK,
+                'stopSequences': ['\n\n---\n\n', 'END_OF_DESCRIPTION'],
+              },
+            },
+          )
           .timeout(timeout ?? GeminiConstants.apiTimeout);
 
-      debugPrint('[Gemini] Response received');
-      final text = response.text;
-
+      final candidates = response.data?['candidates'] as List?;
+      final firstCandidate = candidates == null || candidates.isEmpty
+          ? null
+          : candidates.first;
+      final content = firstCandidate is Map ? firstCandidate['content'] : null;
+      final parts = content is Map ? content['parts'] as List? : null;
+      final firstPart = parts == null || parts.isEmpty ? null : parts.first;
+      final text = firstPart is Map ? firstPart['text']?.toString() : null;
       if (text == null || text.isEmpty) {
-        debugPrint('[Gemini] ERROR: Empty response from API');
-        throw Exception('Empty response from Firebase AI Gemini API');
+        throw Exception('Empty response from Gemini API');
       }
-
-      debugPrint('[Gemini] Success: Generated ${text.length} characters');
       return text;
     } on TimeoutException catch (e) {
-      debugPrint('[Gemini] ERROR: Timeout - $e');
       throw Exception('Request timeout: $e');
     } catch (e) {
-      debugPrint('[Gemini] ERROR: $e');
       throw Exception('Failed to generate content: $e');
     }
   }
@@ -106,70 +93,18 @@ class GeminiService {
     required List<String> imageUrls,
     Duration? timeout,
   }) async {
-    if (_visionModel == null) {
-      throw Exception(
-        'Firebase AI Gemini Vision Service not initialized. '
-        'Call initialize() first.',
-      );
-    }
-
-    try {
-      final content = <Content>[
-        Content.multi([TextPart(prompt)]),
-      ];
-
-      final response = await _visionModel!
-          .generateContent(content)
-          .timeout(timeout ?? GeminiConstants.apiTimeout);
-
-      final text = response.text;
-      if (text == null || text.isEmpty) {
-        throw Exception('Empty response from Firebase AI Gemini Vision API');
-      }
-
-      return text;
-    } catch (e) {
-      throw Exception('Failed to generate content with images: $e');
-    }
+    return generateContent(prompt: prompt, timeout: timeout);
   }
 
   Stream<String> generateContentStream({required String prompt}) async* {
-    if (_model == null) {
-      throw Exception(
-        'Firebase AI Gemini Service not initialized. Call initialize() first.',
-      );
-    }
-
-    try {
-      final response = _model!.generateContentStream([Content.text(prompt)]);
-
-      await for (final chunk in response) {
-        final text = chunk.text;
-        if (text != null && text.isNotEmpty) {
-          yield text;
-        }
-      }
-    } catch (e) {
-      throw Exception('Failed to generate streaming content: $e');
-    }
+    yield await generateContent(prompt: prompt);
   }
 
   GeminiChatSession createChatSession(String systemInstruction) {
-    final model = FirebaseAI.googleAI().generativeModel(
-      model: GeminiConstants.geminiProModel,
-      systemInstruction: Content.system(systemInstruction),
-      generationConfig: GenerationConfig(
-        temperature: GeminiConstants.temperature,
-        maxOutputTokens: GeminiConstants.maxOutputTokens,
-        topP: GeminiConstants.topP,
-        topK: GeminiConstants.topK,
-      ),
-    );
-    return GeminiChatSession._(model.startChat());
+    return GeminiChatSession._(this, systemInstruction);
   }
 
   void dispose() {
-    _model = null;
-    _visionModel = null;
+    _isInitialized = false;
   }
 }

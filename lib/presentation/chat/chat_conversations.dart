@@ -11,7 +11,7 @@ import 'package:skelter/presentation/chat/model/chat_model.dart';
 import 'package:skelter/presentation/chat/widgets/chat_conversation_app_bar.dart';
 import 'package:skelter/presentation/chat/widgets/chat_message_list.dart';
 import 'package:skelter/presentation/chat/widgets/new_message_text_field.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 
 @RoutePage()
 class ChatConversationScreen extends StatelessWidget {
@@ -21,7 +21,7 @@ class ChatConversationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserId = sl<FirebaseAuthService>().getCurrentUser()?.uid ?? '';
+    final currentUserId = sl<SupabaseAuthService>().getCurrentUser()?.uid ?? '';
     return BlocProvider<ChatConversationBloc>(
       create: (_) => ChatConversationBloc(
         watchChatMessages: sl<WatchChatMessages>(),

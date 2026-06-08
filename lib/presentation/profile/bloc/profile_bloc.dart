@@ -4,8 +4,8 @@ import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/services/injection_container.dart';
 import 'package:skelter/presentation/profile/bloc/profile_event.dart';
 import 'package:skelter/presentation/profile/bloc/profile_state.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/cache_manager.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
@@ -60,7 +60,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     try {
       await Prefs.clear();
       await sl<CacheManager>().clearCachedApiResponse();
-      await FirebaseAuthService().signOut();
+      await sl<SupabaseAuthService>().signOut();
       _performanceService.putAttribute(kTraceSignOut, kTraceAttrSuccess, true);
       await HapticFeedbackUtil.light();
       emit(SignOutState());

@@ -37,7 +37,7 @@ class OTPVerificationButton extends StatelessWidget {
           isLoading: isLoading,
           onPressed: () {
             if (mobileOtpText.isNotEmpty && mobileOtpText.length == 6) {
-              context.read<LoginBloc>().add(FirebaseOTPVerificationEvent());
+              context.read<LoginBloc>().add(SupabaseOTPVerificationEvent());
             }
           },
         ),
@@ -98,7 +98,7 @@ class _ResendOTPButtonState extends State<_ResendOTPButton> {
       onPressed: () {
         if (isResendOTPEnabled) {
           context.read<LoginBloc>().add(
-            FirebasePhoneLoginEvent(isFromVerificationScreen: true),
+            SupabasePhoneLoginEvent(isFromVerificationScreen: true),
           );
           context.read<LoginBloc>().add(
             IsResendOTPEnabledEvent(isResendOTPEnabled: false),

@@ -117,7 +117,7 @@ class PhoneNumberLoginState with EquatableMixin {
   ];
 }
 
-class FirebaseOTPAutoVerificationState extends PhoneNumberLoginState {
-  FirebaseOTPAutoVerificationState(PhoneNumberLoginState state)
+class SupabaseOTPAutoVerificationState extends PhoneNumberLoginState {
+  SupabaseOTPAutoVerificationState(PhoneNumberLoginState state)
     : super.copy(state.copyWith(phoneOTPText: state.phoneOTPText));
 }

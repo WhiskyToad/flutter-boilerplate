@@ -106,26 +106,26 @@ class NavigateToHomeScreenEvent extends LoginEvents {
   List<Object?> get props => [];
 }
 
-class FirebasePhoneLoginEvent extends LoginEvents {
+class SupabasePhoneLoginEvent extends LoginEvents {
   final bool isFromVerificationScreen;
 
-  FirebasePhoneLoginEvent({required this.isFromVerificationScreen});
+  SupabasePhoneLoginEvent({required this.isFromVerificationScreen});
 
   @override
   List<Object?> get props => [isFromVerificationScreen];
 }
 
-class FirebaseOTPVerificationEvent extends LoginEvents {
-  FirebaseOTPVerificationEvent();
+class SupabaseOTPVerificationEvent extends LoginEvents {
+  SupabaseOTPVerificationEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class FirebaseOTPAutoVerificationEvent extends LoginEvents {
+class SupabaseOTPAutoVerificationEvent extends LoginEvents {
   final String otpCode;
 
-  FirebaseOTPAutoVerificationEvent({required this.otpCode});
+  SupabaseOTPAutoVerificationEvent({required this.otpCode});
 
   @override
   List<Object?> get props => [otpCode];

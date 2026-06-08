@@ -5,7 +5,7 @@ import 'package:skelter/utils/typedef.dart';
 
 mixin ChatRepository {
   /// Streams every registered user except [currentUserId]. Emits whenever the
-  /// underlying Firestore collection changes.
+  /// underlying Supabase table changes.
   Stream<List<ChatUserEntity>> watchOtherUsers({required String currentUserId});
 
   /// Streams the message history of [chatId] in descending creation order
@@ -36,6 +36,6 @@ mixin ChatRepository {
 
   /// Removes the user's profile document so they no longer appear in other
   /// participants' chat directories. Must be called while the user is still
-  /// authenticated — Firestore rules require `request.auth.uid == userId`.
+  /// authenticated — RLS policies require `request.auth.uid == userId`.
   ResultVoid deleteUserDocument({required String userId});
 }

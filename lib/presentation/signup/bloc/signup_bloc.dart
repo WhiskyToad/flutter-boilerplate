@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/constants/constants.dart';
@@ -13,8 +12,9 @@ import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/presentation/signup/bloc/signup_event.dart';
 import 'package:skelter/presentation/signup/bloc/signup_state.dart';
 import 'package:skelter/presentation/signup/enum/user_details_input_status.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/auth/app_auth_models.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
@@ -22,7 +22,7 @@ import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   static const kMinimumPasswordLength = 8;
 
-  final FirebaseAuthService _firebaseAuthService = sl();
+  final SupabaseAuthService _authService = sl();
   final PerformanceMonitoringService _performanceService = sl();
   final AppLocalizations localizations;
 
@@ -259,9 +259,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   void _proceedSignUpDetailsUpload() async {
-    final User? firebaseCurrentUser = FirebaseAuth.instance.currentUser;
-    if (firebaseCurrentUser == null) {
-      debugPrint('Firebase current user == null');
+    final AppAuthUser? currentAuthUser = _authService.getCurrentUser();
+    if (currentAuthUser == null) {
+      debugPrint('Supabase current user == null');
 
       add(
         AuthenticationExceptionEvent(
@@ -270,9 +270,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       );
       return;
     }
-    final String? token = await FirebaseAuth.instance.currentUser!.getIdToken(
-      true,
-    );
+    final String? token = await currentAuthUser.getIdToken(true);
     if (token == null) {
       debugPrint('token == null');
       hideAllLoadingsAndShowError();
@@ -280,22 +278,22 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     }
     switch (state.selectedLoginSignupType) {
       case LoginType.PHONE:
-        await _performSignupWithPhone(firebaseCurrentUser, token);
+        await _performSignupWithPhone(currentAuthUser, token);
       case LoginType.EMAIL:
       case LoginType.GOOGLE:
       case LoginType.APPLE:
-        await _performSignupWithEmailOrSSO(firebaseCurrentUser, token);
+        await _performSignupWithEmailOrSSO(currentAuthUser, token);
     }
   }
 
   Future<void> _performSignupWithPhone(
-    User firebaseCurrentUser,
+    AppAuthUser currentAuthUser,
     String token,
   ) async {
     add(PhoneNumSignUpLoadingEvent(isLoading: true));
-    final String? phoneNumber = firebaseCurrentUser.phoneNumber;
+    final String? phoneNumber = currentAuthUser.phoneNumber;
     if (phoneNumber == null) {
-      debugPrint('Firebase current user phone number == null');
+      debugPrint('Supabase current user phone number == null');
 
       add(PhoneNumSignUpLoadingEvent(isLoading: false));
       add(
@@ -308,12 +306,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   Future<void> _performSignupWithEmailOrSSO(
-    User firebaseCurrentUser,
+    AppAuthUser currentAuthUser,
     String token,
   ) async {
     add(EmailSignUpLoadingEvent(isLoading: true));
-    if (firebaseCurrentUser.email == null) {
-      debugPrint('Firebase current user email == null');
+    if (currentAuthUser.email == null) {
+      debugPrint('Supabase current user email == null');
 
       add(EmailSignUpLoadingEvent(isLoading: false));
       add(
@@ -331,7 +329,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     final email = state.email;
     final password = state.password;
 
-    final userCredential = await _firebaseAuthService
+    final authCredential = await _authService
         .signupWithEmailAndPassword(
           email,
           password,
@@ -346,21 +344,21 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           },
         );
 
-    if (userCredential != null) {
+    if (authCredential != null) {
       _performanceService.putAttribute(
         kTraceSignupEmail,
         kTraceAttrSuccess,
         true,
       );
-      final firebaseUser = userCredential.user;
-      if (firebaseUser != null) {
-        // Fire-and-forget: a slow Firestore write must not delay the
+      final authUser = authCredential.user;
+      if (authUser != null) {
+        // Fire-and-forget: a slow Supabase write must not delay the
         // verification-email queueing.
-        unawaited(_ensureChatUserDocument(firebaseUser));
+        unawaited(_ensureChatUserDocument(authUser));
       }
       add(SendEmailVerificationLinkEvent());
     } else {
-      debugPrint('signup with Email/Password userCredential is null');
+      debugPrint('signup with Email/Password authCredential is null');
       _performanceService.stopTrace(kTraceSignupEmail);
       return;
     }
@@ -370,28 +368,28 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   Future<void> handleUserDetails(
-    User? firebaseUser, {
+    AppAuthUser? authUser, {
     required Function(String) onError,
   }) async {
     final loginType = state.selectedLoginSignupType;
-    if (firebaseUser == null) {
-      debugPrint('firebaseUser is null');
+    if (authUser == null) {
+      debugPrint('authUser is null');
       onError(localizations.user_info_not_retrieved);
       return;
     }
     if (loginType == LoginType.PHONE) {
-      if (firebaseUser.phoneNumber.isNullOrEmpty()) {
+      if (authUser.phoneNumber.isNullOrEmpty()) {
         debugPrint('Authentication Current user phone number is null');
 
         onError(localizations.error_retrieving_phone_number);
         return;
       }
 
-      await _storeLoginDetailsInPrefs(firebaseUser);
+      await _storeLoginDetailsInPrefs(authUser);
       add(PhoneNumSignUpLoadingEvent(isLoading: false));
       add(NavigateToHomeScreenEvent());
     } else if (loginType == LoginType.EMAIL) {
-      if (firebaseUser.email.isNullOrEmpty()) {
+      if (authUser.email.isNullOrEmpty()) {
         onError(localizations.error_retrieving_email);
         return;
       }
@@ -404,31 +402,31 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   /// Writes a minimal profile document for the freshly-signed-up user into the
-  /// `users` collection so they can be discovered by the chat feature. Fires
-  /// non-blocking — Firestore outages must not derail the signup flow.
-  Future<void> _ensureChatUserDocument(User firebaseUser) async {
-    final email = firebaseUser.email ?? '';
-    final phoneNumber = firebaseUser.phoneNumber ?? '';
+  /// `users` table so they can be discovered by the chat feature. Fires
+  /// non-blocking — Supabase outages must not derail the signup flow.
+  Future<void> _ensureChatUserDocument(AppAuthUser authUser) async {
+    final email = authUser.email ?? '';
+    final phoneNumber = authUser.phoneNumber ?? '';
     final fallbackName = email.contains('@')
         ? email.split('@').first
         : phoneNumber;
-    final trimmedDisplayName = firebaseUser.displayName?.trim() ?? '';
+    final trimmedDisplayName = authUser.displayName?.trim() ?? '';
     final name = trimmedDisplayName.isNotEmpty
         ? trimmedDisplayName
         : fallbackName;
     final result = await sl<CreateChatUserDocument>()(
       CreateChatUserDocumentParams(
-        userId: firebaseUser.uid,
+        userId: authUser.uid,
         name: name,
         email: email,
-        photoUrl: firebaseUser.photoURL,
+        photoUrl: authUser.photoURL,
       ),
     );
     result.fold(
       (failure) => debugPrint(
-        '[Signup] chat user document write failed: ${failure.message}',
+        '[Signup] chat user row write failed: ${failure.message}',
       ),
-      (_) => debugPrint('[Signup] chat user document upserted'),
+      (_) => debugPrint('[Signup] chat user row upserted'),
     );
   }
 
@@ -440,12 +438,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  Future<void> _storeLoginDetailsInPrefs(User firebaseUser) async {
+  Future<void> _storeLoginDetailsInPrefs(AppAuthUser authUser) async {
     final loginDetails = LoginDetails(
-      uid: firebaseUser.uid,
-      token: await firebaseUser.getIdToken(),
-      phoneNumber: firebaseUser.phoneNumber,
-      email: firebaseUser.email,
+      uid: authUser.uid,
+      token: await authUser.getIdToken(),
+      phoneNumber: authUser.phoneNumber,
+      email: authUser.email,
     );
     await Prefs.setString(
       PrefKeys.kUserDetails,
@@ -458,7 +456,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     Emitter<SignupState> emit,
   ) async {
     add(EmailSignUpLoadingEvent(isLoading: true));
-    await _firebaseAuthService.sendVerificationEmail(
+    await _authService.sendVerificationEmail(
       onError: (errorMessage, {stackTrace}) {
         add(EmailSignUpLoadingEvent(isLoading: false));
         add(AuthenticationExceptionEvent(errorMessage: errorMessage));

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/core/services/injection_container.dart';
@@ -10,14 +9,15 @@ import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/presentation/signup/enum/user_details_input_status.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_event.dart';
 import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/auth/app_auth_models.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 
 /// Bloc responsible for managing email verification state and events.
 class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
   final AppLocalizations localizations;
-  final FirebaseAuthService _firebaseAuthService = sl();
+  final SupabaseAuthService _authService = sl();
 
   VerifyEmailBloc({required this.localizations})
     : super(VerifyEmailInitialState()) {
@@ -43,7 +43,7 @@ class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
     Emitter<VerifyEmailState> emit,
   ) async {
     try {
-      await _firebaseAuthService.sendVerificationEmail(
+      await _authService.sendVerificationEmail(
         onError: (error, {stackTrace}) {
           add(VerificationCodeFailedToSendEvent());
         },
@@ -84,15 +84,15 @@ class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
     );
   }
 
-  Future<void> storeLoginDetailsInPrefs(User? firebaseUser) async {
-    if (firebaseUser == null) return;
+  Future<void> storeLoginDetailsInPrefs(AppAuthUser? authUser) async {
+    if (authUser == null) return;
     try {
-      final token = await firebaseUser.getIdToken();
+      final token = await authUser.getIdToken();
       final loginDetails = LoginDetails(
-        uid: firebaseUser.uid,
+        uid: authUser.uid,
         token: token,
-        phoneNumber: firebaseUser.phoneNumber,
-        email: firebaseUser.email,
+        phoneNumber: authUser.phoneNumber,
+        email: authUser.email,
       );
       await Prefs.setString(
         PrefKeys.kUserDetails,

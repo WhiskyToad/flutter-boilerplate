@@ -38,7 +38,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
 
   @override
   void codeUpdated() {
-    FirebaseOTPAutoVerificationEvent(otpCode: code ?? '');
+    SupabaseOTPAutoVerificationEvent(otpCode: code ?? '');
   }
 
   @override
@@ -57,7 +57,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
     );
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is FirebaseOTPAutoVerificationState) {
+        if (state is SupabaseOTPAutoVerificationState) {
           _pinController.text = state.phoneNumberLoginState?.phoneOTPText ?? '';
         }
       },
@@ -112,7 +112,7 @@ class _OTPCodeInputFieldState extends State<OTPCodeInputField>
             },
             onCompleted: (phoneOtpText) {
               if (phoneOtpText.isNotEmpty && phoneOtpText.length == 6) {
-                context.read<LoginBloc>().add(FirebaseOTPVerificationEvent());
+                context.read<LoginBloc>().add(SupabaseOTPVerificationEvent());
               }
             },
           ),

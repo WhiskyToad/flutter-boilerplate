@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skelter/presentation/chat/domain/entities/chat_preview_entity.dart';
 import 'package:skelter/utils/typedef.dart';
 
@@ -29,14 +28,14 @@ class ChatPreviewModel extends ChatPreviewEntity {
     );
     if (otherUserId.isEmpty) return null;
 
-    final rawTimestamp = map['lastMessageAt'];
-    if (rawTimestamp is! Timestamp) return null;
+    final lastMessageAt = DateTime.tryParse(map['lastMessageAt'].toString());
+    if (lastMessageAt == null) return null;
 
     return ChatPreviewModel(
       chatId: chatId,
       otherUserId: otherUserId,
       lastMessage: map['lastMessage'] as String? ?? '',
-      lastMessageAt: rawTimestamp.toDate(),
+      lastMessageAt: lastMessageAt,
     );
   }
 }

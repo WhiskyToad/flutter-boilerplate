@@ -1,33 +1,24 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:skelter/core/services/injection_container.dart';
-import 'package:skelter/firebase_options_dev.dart' as dev;
-import 'package:skelter/firebase_options_prod.dart' as prod;
-import 'package:skelter/firebase_options_stage.dart' as stage;
 import 'package:skelter/services/ai/gemini_service.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
-import 'package:skelter/services/notification_service.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
 import 'package:skelter/services/remote_config_service.dart';
 import 'package:skelter/utils/app_environment.dart';
 import 'package:skelter/utils/app_flavor_env.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> initializeApp({
-  FirebaseAuth? firebaseAuth,
-  GoogleSignIn? googleSignIn,
-  FirebaseAuthService? firebaseAuthService,
+  SupabaseClient? supabaseClient,
+  Object? firebaseAuth,
+  Object? googleSignIn,
+  Object? firebaseAuthService,
   Dio? dio,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,28 +26,29 @@ Future<void> initializeApp({
   await LiquidGlassWidgets.initialize();
   tz.initializeTimeZones();
 
-  final firebaseOptions = switch (AppConfig.appFlavor) {
-    AppFlavor.dev => dev.DefaultFirebaseOptions.currentPlatform,
-    AppFlavor.prod => prod.DefaultFirebaseOptions.currentPlatform,
-    AppFlavor.stage => stage.DefaultFirebaseOptions.currentPlatform,
-  };
+  try {
+    await dotenv.load();
+  } catch (e) {
+    debugPrint('[Env] .env load skipped: $e');
+  }
 
-  await Firebase.initializeApp(options: firebaseOptions);
+  if (supabaseClient == null) {
+    final supabaseUrl = AppConfig.getSupabaseUrl();
+    final supabaseAnonKey = AppConfig.getSupabaseAnonKey();
+    final useFallbackConfig = AppEnvironment.isTestEnvironment;
 
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    if (!useFallbackConfig &&
+        (supabaseUrl.isEmpty || supabaseAnonKey.isEmpty)) {
+      throw StateError(
+        'Missing Supabase configuration for ${AppConfig.appFlavor.name}. '
+        'Set *_SUPABASE_URL and *_SUPABASE_ANON_KEY in .env.',
+      );
+    }
 
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
-    !kDebugMode,
-  );
-
-  final bool isTestEnvironment = AppEnvironment.isTestEnvironment;
-
-  if (!isTestEnvironment && !kIsWeb) {
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
+    await Supabase.initialize(
+      url: useFallbackConfig ? 'http://localhost:54321' : supabaseUrl,
+      anonKey: useFallbackConfig ? 'test-anon-key' : supabaseAnonKey,
+    );
   }
 
   final remoteConfigService = RemoteConfigService();
@@ -64,12 +56,8 @@ Future<void> initializeApp({
 
   await SystemChrome.setPreferredOrientations([.portraitUp, .portraitDown]);
 
-  await dotenv.load();
-
   await configureDependencies(
-    firebaseAuth: firebaseAuth,
-    googleSignIn: googleSignIn,
-    firebaseAuthService: firebaseAuthService,
+    supabaseClient: supabaseClient,
     dio: dio,
   );
   await sl<PerformanceMonitoringService>().initialize();
@@ -79,6 +67,4 @@ Future<void> initializeApp({
   } catch (e) {
     debugPrint('[Gemini] Initialization warning: $e');
   }
-
-  await GoogleSignIn.instance.initialize();
 }

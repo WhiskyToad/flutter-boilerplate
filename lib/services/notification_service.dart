@@ -1,22 +1,13 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:skelter/presentation/reminder/model/reminder_model.dart';
 import 'package:skelter/widgets/styling/app_colors.dart';
 
-@pragma('vm:entry-point')
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint('Background Message data: ${message.data}');
-}
-
 class NotificationService {
   NotificationService._();
 
-  // Channel constants
   final basicChannel = 'basic_channel';
   final basicChannelName = 'Basic notifications';
   final basicChannelDescription =
@@ -31,28 +22,19 @@ class NotificationService {
   final defaultNotificationBody = '';
 
   static final NotificationService instance = NotificationService._();
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final AwesomeNotifications _awesomeNotifications = AwesomeNotifications();
 
-  final _onNotificationTapController = StreamController<Map<String, dynamic>>();
-
-  StreamSubscription<RemoteMessage>? _onMessageSubscription;
-  StreamSubscription<RemoteMessage>? _onMessageOpenedAppSubscription;
-  StreamSubscription<String>? _onTokenRefreshSubscription;
-
-  RemoteMessage? _initialMessage;
+  final _onNotificationTapController =
+      StreamController<Map<String, dynamic>>.broadcast();
 
   Stream<Map<String, dynamic>> get onNotificationTap =>
       _onNotificationTapController.stream;
 
-  Map<String, dynamic>? get initialNotificationPayload => _initialMessage?.data;
+  Map<String, dynamic>? get initialNotificationPayload => null;
 
   Future<void> initialize() async {
     await _initializeAwesomeNotifications();
     await _requestPermissions();
-    await _setupFCMListeners();
-    await _getFCMToken();
   }
 
   Future<void> _initializeAwesomeNotifications() async {
@@ -96,94 +78,25 @@ class NotificationService {
     if (!isAllowed) {
       await _awesomeNotifications.requestPermissionToSendNotifications();
     }
-
-    final settings = await _firebaseMessaging.requestPermission();
-    debugPrint('FCM Permission granted: ${settings.authorizationStatus}');
-  }
-
-  Future<void> _setupFCMListeners() async {
-    _onMessageSubscription = FirebaseMessaging.onMessage.listen(
-      _handleForegroundMessage,
-    );
-    _onMessageOpenedAppSubscription = FirebaseMessaging.onMessageOpenedApp
-        .listen(_handleMessageOpenedApp);
-
-    _initialMessage = await _firebaseMessaging.getInitialMessage();
-  }
-
-  Future<void> _handleForegroundMessage(RemoteMessage message) async {
-    if (Platform.isIOS) {
-      return;
-    }
-
-    final notification = message.notification;
-    final data = message.data;
-
-    debugPrint('Foreground Message data: $data');
-
-    if (notification != null) {
-      await showNotification(
-        data: data,
-        imageUrl:
-            notification.android?.imageUrl ?? notification.apple?.imageUrl,
-        notification: notification,
-      );
-    }
-  }
-
-  void _handleMessageOpenedApp(RemoteMessage message) {
-    _onNotificationTapController.add(message.data);
-  }
-
-  Future<String?> _getFCMToken() async {
-    try {
-      final user = _firebaseAuth.currentUser;
-      if (user == null) {
-        debugPrint('User not logged in, skipping FCM token retrieval');
-        return null;
-      }
-      final apnsToken = await _firebaseMessaging.getAPNSToken();
-      debugPrint('APNS Token: $apnsToken');
-      final token = await _firebaseMessaging.getToken();
-      debugPrint('FCM Token: $token');
-
-      _onTokenRefreshSubscription = _firebaseMessaging.onTokenRefresh.listen((
-        newToken,
-      ) {
-        debugPrint('FCM Token refreshed: $newToken');
-      });
-
-      return token;
-    } catch (e) {
-      debugPrint('Error getting FCM token: $e');
-      return null;
-    }
   }
 
   Future<void> showNotification({
     Map<String, dynamic>? data,
     String? imageUrl,
-    RemoteNotification? notification,
+    String? title,
+    String? body,
   }) async {
-    // Create a unique ID for each notification
-    int notificationId;
-    if (data?['notification_id'] != null) {
-      // Convert UUID to a valid 32-bit integer by hashing
-      final notificationIdStr = data!['notification_id'].toString();
-      // Simple hash function that produces a 31-bit positive integer
-      // (avoiding sign issues)
-      notificationId = notificationIdStr.hashCode & 0x7FFFFFFF;
-    } else {
-      // Fallback to timestamp but ensure it's within 32-bit range
-      notificationId = DateTime.now().millisecondsSinceEpoch & 0x7FFFFFFF;
-    }
+    final notificationId =
+        (data?['notification_id']?.toString().hashCode ??
+            DateTime.now().millisecondsSinceEpoch) &
+        0x7FFFFFFF;
 
     await _awesomeNotifications.createNotification(
       content: NotificationContent(
         id: notificationId,
         channelKey: basicChannel,
-        title: notification?.title ?? defaultNotificationTitle,
-        body: notification?.body ?? defaultNotificationBody,
+        title: title ?? defaultNotificationTitle,
+        body: body ?? defaultNotificationBody,
         payload: data?.cast(),
         bigPicture: imageUrl,
         notificationLayout: imageUrl != null
@@ -198,16 +111,12 @@ class NotificationService {
   @pragma('vm:entry-point')
   static Future<void> _onNotificationCreatedMethod(
     ReceivedNotification receivedNotification,
-  ) async {
-    // Notification created callback
-  }
+  ) async {}
 
   @pragma('vm:entry-point')
   static Future<void> _onNotificationDisplayedMethod(
     ReceivedNotification receivedNotification,
-  ) async {
-    // Notification displayed callback
-  }
+  ) async {}
 
   @pragma('vm:entry-point')
   static Future<void> _onActionReceivedMethod(
@@ -220,15 +129,10 @@ class NotificationService {
   @pragma('vm:entry-point')
   static Future<void> _onDismissActionReceivedMethod(
     ReceivedAction receivedAction,
-  ) async {
-    // Notification dismissed callback
-  }
+  ) async {}
 
   Future<bool> scheduleReminder(ReminderModel reminder) async {
     try {
-      // Convert ID to a valid 32-bit integer by hashing
-      // Simple hash function that produces a 31-bit positive integer
-      // (avoiding sign issues)
       final notificationId = reminder.id.toString().hashCode & 0x7FFFFFFF;
 
       await _awesomeNotifications.createNotification(
@@ -255,9 +159,6 @@ class NotificationService {
   }
 
   void dispose() {
-    _onMessageSubscription?.cancel();
-    _onMessageOpenedAppSubscription?.cancel();
-    _onTokenRefreshSubscription?.cancel();
     _onNotificationTapController.close();
   }
 }

@@ -1,7 +1,7 @@
-/// Top-level Firestore collection holding one document per registered user.
+/// Top-level Supabase table holding one document per registered user.
 const String kChatUsersCollection = 'users';
 
-/// Top-level Firestore collection holding one document per one-to-one chat.
+/// Top-level Supabase table holding one document per one-to-one chat.
 const String kChatsCollection = 'chats';
 
 /// Subcollection under each chat document containing its messages.

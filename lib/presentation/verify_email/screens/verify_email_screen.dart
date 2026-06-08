@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fgbg/flutter_fgbg.dart';
@@ -21,6 +20,7 @@ import 'package:skelter/presentation/verify_email/bloc/verify_email_state.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/entered_wrong_email.dart';
 import 'package:skelter/presentation/verify_email/screens/widgets/resend_verification_mail_button.dart';
 import 'package:skelter/routes.gr.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/utils/theme/extension/theme_extension.dart';
 
 @RoutePage()
@@ -72,9 +72,10 @@ class _VerifyEmailScreenBody extends StatefulWidget {
 
 class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
   Timer? _verificationListenTimer, _resendVerificationMailTimer;
-  late final FirebaseAuth _firebaseAuth = sl<FirebaseAuth>();
+  late final SupabaseAuthService _authService = sl<SupabaseAuthService>();
 
-  bool _isEmailVerified() => _firebaseAuth.currentUser?.emailVerified ?? false;
+  bool _isEmailVerified() =>
+      _authService.getCurrentUser()?.emailVerified ?? false;
 
   @override
   void initState() {
@@ -147,7 +148,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
 
   void checkIfEmailVerified(BuildContext context) async {
     _verificationListenTimer?.cancel();
-    await _firebaseAuth.currentUser?.reload();
+    await _authService.reload();
     if (_isEmailVerified()) {
       context.read<VerifyEmailBloc>().add(
         const ChangeUserDetailsInputStatusEvent(
@@ -156,7 +157,7 @@ class _VerifyEmailScreenBodyState extends State<_VerifyEmailScreenBody> {
       );
       if (widget.isSignUp) {
         await context.read<VerifyEmailBloc>().storeLoginDetailsInPrefs(
-          _firebaseAuth.currentUser,
+          _authService.getCurrentUser(),
         );
         context.read<VerifyEmailBloc>().add(NavigateToHomeEvent());
       }

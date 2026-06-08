@@ -73,7 +73,7 @@ class DynamicIconService {
     }
   }
 
-  /// Fetches the desired icon from Firebase Remote Config.
+  /// Fetches the desired icon from Supabase app config.
   AppIconType getRemoteConfigIcon() {
     final iconKey = _remoteConfigService.getString(
       kRemoteConfigActiveAppIconKey,

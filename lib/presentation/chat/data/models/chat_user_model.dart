@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skelter/presentation/chat/domain/entities/chat_user_entity.dart';
 import 'package:skelter/utils/typedef.dart';
 
@@ -25,7 +24,7 @@ class ChatUserModel extends ChatUserEntity {
       'name': name,
       'email': email,
       'photoUrl': photoUrl,
-      'createdAt': Timestamp.fromDate(DateTime.now()),
+      'createdAt': DateTime.now().toIso8601String(),
     };
   }
 }

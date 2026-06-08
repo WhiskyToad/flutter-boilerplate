@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skelter/core/errors/exceptions.dart';
 import 'package:skelter/presentation/chat/constants/chat_constants.dart';
 import 'package:skelter/presentation/chat/data/models/chat_preview_model.dart';
 import 'package:skelter/presentation/chat/data/models/chat_text_message_model.dart';
 import 'package:skelter/presentation/chat/data/models/chat_user_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 mixin ChatRemoteDatasource {
   Stream<List<ChatUserModel>> watchOtherUsers({required String currentUserId});
@@ -28,36 +28,38 @@ mixin ChatRemoteDatasource {
 }
 
 class ChatRemoteDatasourceImpl with ChatRemoteDatasource {
-  ChatRemoteDatasourceImpl(this._firestore);
+  ChatRemoteDatasourceImpl(this._client);
 
-  final FirebaseFirestore _firestore;
+  final SupabaseClient _client;
 
   @override
   Stream<List<ChatUserModel>> watchOtherUsers({required String currentUserId}) {
-    return _firestore
-        .collection(kChatUsersCollection)
-        .snapshots()
+    return _client
+        .from(kChatUsersCollection)
+        .stream(primaryKey: ['id'])
         .map(
-          (snap) => snap.docs
-              .where((doc) => doc.id != currentUserId)
-              .map((doc) => ChatUserModel.fromMap(doc.data(), doc.id))
+          (rows) => rows
+              .where((row) => row['id'] != currentUserId)
+              .map((row) => ChatUserModel.fromMap(row, row['id'].toString()))
               .toList(),
         );
   }
 
   @override
   Stream<List<ChatTextMessageModel>> watchMessages({required String chatId}) {
-    return _firestore
-        .collection(kChatsCollection)
-        .doc(chatId)
-        .collection(kChatMessagesSubcollection)
-        .orderBy('createdAt', descending: true)
-        .snapshots()
+    return _client
+        .from(kChatMessagesSubcollection)
+        .stream(primaryKey: ['id'])
+        .eq('chatId', chatId)
+        .order('createdAt', ascending: false)
         .map(
-          (snap) => snap.docs
+          (rows) => rows
               .map(
-                (doc) =>
-                    ChatTextMessageModel.fromMap(doc.data(), doc.id, chatId),
+                (row) => ChatTextMessageModel.fromMap(
+                  row,
+                  row['id'].toString(),
+                  chatId,
+                ),
               )
               .toList(),
         );
@@ -65,20 +67,21 @@ class ChatRemoteDatasourceImpl with ChatRemoteDatasource {
 
   @override
   Stream<List<ChatPreviewModel>> watchMyChats({required String currentUserId}) {
-    // Client-side sort by lastMessageAt keeps the query free of a compound
-    // index requirement. Chats per user are expected to be in the tens, not
-    // thousands, so the sort cost is negligible.
-    return _firestore
-        .collection(kChatsCollection)
-        .where('participants', arrayContains: currentUserId)
-        .snapshots()
+    return _client
+        .from(kChatsCollection)
+        .stream(primaryKey: ['id'])
         .map(
-          (snap) =>
-              snap.docs
+          (rows) =>
+              rows
+                  .where((row) {
+                    final participants = row['participants'];
+                    return participants is List &&
+                        participants.contains(currentUserId);
+                  })
                   .map(
-                    (doc) => ChatPreviewModel.fromMap(
-                      doc.data(),
-                      doc.id,
+                    (row) => ChatPreviewModel.fromMap(
+                      row,
+                      row['id'].toString(),
                       currentUserId,
                     ),
                   )
@@ -96,27 +99,22 @@ class ChatRemoteDatasourceImpl with ChatRemoteDatasource {
     required String text,
   }) async {
     try {
-      final chatDoc = _firestore.collection(kChatsCollection).doc(chatId);
-      final messagesRef = chatDoc.collection(kChatMessagesSubcollection);
-
-      final batch = _firestore.batch();
-      batch.set(chatDoc, {
+      final now = DateTime.now().toIso8601String();
+      await _client.from(kChatsCollection).upsert({
+        'id': chatId,
         'participants': participants,
         'lastMessage': text,
-        'lastMessageAt': FieldValue.serverTimestamp(),
-      }, SetOptions(merge: true));
+        'lastMessageAt': now,
+      });
 
-      final newMessageRef = messagesRef.doc();
-      batch.set(
-        newMessageRef,
-        ChatTextMessageModel.toCreateMap(senderId: senderId, text: text),
-      );
-
-      await batch.commit();
-    } on FirebaseException catch (e) {
+      await _client.from(kChatMessagesSubcollection).insert({
+        'chatId': chatId,
+        ...ChatTextMessageModel.toCreateMap(senderId: senderId, text: text),
+      });
+    } on PostgrestException catch (e) {
       throw APIException(
-        message: e.message ?? 'Failed to send message',
-        statusCode: int.tryParse(e.code) ?? 500,
+        message: e.message,
+        statusCode: int.tryParse(e.code ?? '') ?? 500,
       );
     } catch (e) {
       throw APIException(message: e.toString(), statusCode: 505);
@@ -129,14 +127,13 @@ class ChatRemoteDatasourceImpl with ChatRemoteDatasource {
     required ChatUserModel user,
   }) async {
     try {
-      await _firestore
-          .collection(kChatUsersCollection)
-          .doc(userId)
-          .set(user.toCreateMap(), SetOptions(merge: true));
-    } on FirebaseException catch (e) {
+      await _client
+          .from(kChatUsersCollection)
+          .upsert({'id': userId, ...user.toCreateMap()});
+    } on PostgrestException catch (e) {
       throw APIException(
-        message: e.message ?? 'Failed to upsert user document',
-        statusCode: int.tryParse(e.code) ?? 500,
+        message: e.message,
+        statusCode: int.tryParse(e.code ?? '') ?? 500,
       );
     } catch (e) {
       throw APIException(message: e.toString(), statusCode: 505);
@@ -146,11 +143,11 @@ class ChatRemoteDatasourceImpl with ChatRemoteDatasource {
   @override
   Future<void> deleteUserDocument({required String userId}) async {
     try {
-      await _firestore.collection(kChatUsersCollection).doc(userId).delete();
-    } on FirebaseException catch (e) {
+      await _client.from(kChatUsersCollection).delete().eq('id', userId);
+    } on PostgrestException catch (e) {
       throw APIException(
-        message: e.message ?? 'Failed to delete user document',
-        statusCode: int.tryParse(e.code) ?? 500,
+        message: e.message,
+        statusCode: int.tryParse(e.code ?? '') ?? 500,
       );
     } catch (e) {
       throw APIException(message: e.toString(), statusCode: 505);

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skelter/constants/constants.dart';
@@ -11,8 +10,9 @@ import 'package:skelter/presentation/login/bloc/login_events.dart';
 import 'package:skelter/presentation/login/bloc/login_state.dart';
 import 'package:skelter/presentation/login/models/login_details.dart';
 import 'package:skelter/presentation/signup/enum/user_details_input_status.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
+import 'package:skelter/services/auth/app_auth_models.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/shared_pref/pref_keys.dart';
 import 'package:skelter/shared_pref/prefs.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
@@ -22,7 +22,7 @@ import 'package:skelter/validators/validators.dart';
 class LoginBloc extends Bloc<LoginEvents, LoginState> {
   static const kMinimumPasswordLength = 8;
 
-  final FirebaseAuthService _firebaseAuthService = sl();
+  final SupabaseAuthService _authService = sl();
   final PerformanceMonitoringService _performanceService = sl();
   final AppLocalizations localizations;
 
@@ -43,9 +43,9 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     on<IsResendOTPEnabledEvent>(_onIsResendOTPEnabledEvent);
     on<ResendOTPTimeLeftEvent>(_onResendOTPTimeLeftEvent);
     on<NavigateToOtpEvent>(_onNavigateToOtpEvent);
-    on<FirebasePhoneLoginEvent>(_onFirebasePhoneLoginEvent);
-    on<FirebaseOTPVerificationEvent>(_onFirebaseOTPVerificationEvent);
-    on<FirebaseOTPAutoVerificationEvent>(_onFirebaseOTPAutoVerificationEvent);
+    on<SupabasePhoneLoginEvent>(_onSupabasePhoneLoginEvent);
+    on<SupabaseOTPVerificationEvent>(_onSupabaseOTPVerificationEvent);
+    on<SupabaseOTPAutoVerificationEvent>(_onSupabaseOTPAutoVerificationEvent);
     on<NavigateToHomeScreenEvent>(_onNavigateToHomeScreenEvent);
     on<EmailChangeEvent>(_onEmailChangeEvent);
     on<EmailErrorEvent>(_onEmailErrorEvent);
@@ -218,29 +218,29 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     emit(NavigateToHomeScreenState(state));
   }
 
-  Future<void> _onFirebasePhoneLoginEvent(
-    FirebasePhoneLoginEvent event,
+  Future<void> _onSupabasePhoneLoginEvent(
+    SupabasePhoneLoginEvent event,
     Emitter emit,
   ) async {
-    await _firebaseVerifyAndOpenOtpScreenOnCodeSent(
+    await _supabaseVerifyAndOpenOtpScreenOnCodeSent(
       isFromVerificationScreen: event.isFromVerificationScreen,
     );
   }
 
-  Future<void> _onFirebaseOTPVerificationEvent(
-    FirebaseOTPVerificationEvent event,
+  Future<void> _onSupabaseOTPVerificationEvent(
+    SupabaseOTPVerificationEvent event,
     Emitter emit,
   ) async {
-    await _firebaseOTPVerification();
+    await _supabaseOTPVerification();
   }
 
-  void _onFirebaseOTPAutoVerificationEvent(
-    FirebaseOTPAutoVerificationEvent event,
+  void _onSupabaseOTPAutoVerificationEvent(
+    SupabaseOTPAutoVerificationEvent event,
     Emitter emit,
   ) {
     final PhoneNumberLoginState phoneNumberLoginState =
         state.phoneNumberLoginState ?? PhoneNumberLoginState.initial();
-    emit(FirebaseOTPAutoVerificationState(phoneNumberLoginState));
+    emit(SupabaseOTPAutoVerificationState(phoneNumberLoginState));
   }
 
   void _onEmailChangeEvent(EmailChangeEvent event, Emitter emit) {
@@ -413,7 +413,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     Emitter emit,
   ) async {
     add(EmailLoginLoadingEvent(isLoading: true));
-    await _firebaseAuthService.sendVerificationEmail(
+    await _authService.sendVerificationEmail(
       onError: (errorMessage, {stackTrace}) {
         add(EmailLoginLoadingEvent(isLoading: false));
         add(AuthenticationExceptionEvent(errorMessage: errorMessage));
@@ -458,7 +458,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       add(PhoneNumLoginLoadingEvent(isLoading: false));
       return;
     }
-    add(FirebasePhoneLoginEvent(isFromVerificationScreen: false));
+    add(SupabasePhoneLoginEvent(isFromVerificationScreen: false));
   }
 
   void _onChangeUserDetailsInputStatusEvent(
@@ -480,15 +480,15 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
   }
 
-  Future<void> _firebaseVerifyAndOpenOtpScreenOnCodeSent({
+  Future<void> _supabaseVerifyAndOpenOtpScreenOnCodeSent({
     required bool isFromVerificationScreen,
   }) async {
     add(PhoneNumLoginLoadingEvent(isLoading: !isFromVerificationScreen));
 
-    await _firebaseAuthService.verifyFBAuthPhoneNumber(
+    await _authService.sendPhoneOtp(
       phoneNumber: state.phoneNumberLoginState?.phoneNumber ?? '',
       verificationCompleted: (credential) {
-        debugPrint('Firebase Phone number verified ${credential.smsCode}');
+        debugPrint('Supabase phone number verified ${credential.smsCode}');
       },
       codeSent: (verificationId) {
         add(PhoneNumLoginLoadingEvent(isLoading: false));
@@ -504,16 +504,16 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     );
   }
 
-  Future<void> _firebaseOTPVerification() async {
+  Future<void> _supabaseOTPVerification() async {
     _performanceService.startTrace(kTraceLoginPhone);
     add(PhoneNumLoginLoadingEvent(isLoading: true));
 
-    final credential = _firebaseAuthService.getPhoneAuthCredential(
+    final credential = _authService.getPhoneAuthCredential(
       verificationId: state.phoneOTPVerificationId,
       smsCode: state.phoneNumberLoginState?.phoneOTPText ?? '',
     );
 
-    final userCredential = await _firebaseAuthService
+    final authCredential = await _authService
         .signInWithPhoneAuthCredential(
           credential,
           onError: (error, {stackTrace}) {
@@ -527,19 +527,19 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
           },
         );
 
-    if (userCredential != null && userCredential.user != null) {
+    if (authCredential != null && authCredential.user != null) {
       _performanceService.putAttribute(
         kTraceLoginPhone,
         kTraceAttrSuccess,
         true,
       );
       if (state.isSignup) {
-        await _storeLoginDetailsInPrefs(userCredential.user!);
+        await _storeLoginDetailsInPrefs(authCredential.user!);
         await HapticFeedbackUtil.success();
         add(NavigateToVerifiedScreenEvent());
       } else {
         await handleUserDetails(
-          userCredential.user,
+          authCredential.user,
           onError: (error) {
             add(AuthenticationExceptionEvent(errorMessage: error));
           },
@@ -556,7 +556,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     final email = state.emailPasswordLoginState?.email ?? '';
     final password = state.emailPasswordLoginState?.password ?? '';
 
-    final userCredential = await _firebaseAuthService
+    final authCredential = await _authService
         .signInWithEmailAndPassword(
           email,
           password,
@@ -571,14 +571,14 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
           },
         );
 
-    if (userCredential != null) {
+    if (authCredential != null) {
       _performanceService.putAttribute(
         kTraceLoginEmailPassword,
         kTraceAttrSuccess,
         true,
       );
       await handleUserDetails(
-        userCredential.user,
+        authCredential.user,
         onError: (error) =>
             add(AuthenticationExceptionEvent(errorMessage: error)),
       );
@@ -589,7 +589,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
 
   Future<void> _loginWithGoogle() async {
     _performanceService.startTrace(kTraceLoginGoogle);
-    final userCredential = await _firebaseAuthService.loginWithGoogle(
+    final authCredential = await _authService.loginWithGoogle(
       onError: (error, {stackTrace}) {
         _performanceService.putAttribute(
           kTraceLoginGoogle,
@@ -600,14 +600,14 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
       },
     );
 
-    if (userCredential != null) {
+    if (authCredential != null) {
       _performanceService.putAttribute(
         kTraceLoginGoogle,
         kTraceAttrSuccess,
         true,
       );
       await handleUserDetails(
-        userCredential.user,
+        authCredential.user,
         onError: (error) =>
             add(AuthenticationExceptionEvent(errorMessage: error)),
       );
@@ -617,7 +617,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
 
   Future<void> _loginWithApple() async {
     _performanceService.startTrace(kTraceLoginApple);
-    final userCredential = await _firebaseAuthService.loginWithApple(
+    final authCredential = await _authService.loginWithApple(
       onError: (error, {stackTrace}) {
         _performanceService.putAttribute(
           kTraceLoginApple,
@@ -627,14 +627,14 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
         add(AuthenticationExceptionEvent(errorMessage: error));
       },
     );
-    if (userCredential != null) {
+    if (authCredential != null) {
       _performanceService.putAttribute(
         kTraceLoginApple,
         kTraceAttrSuccess,
         true,
       );
       await handleUserDetails(
-        userCredential.user,
+        authCredential.user,
         onError: (error) =>
             add(AuthenticationExceptionEvent(errorMessage: error)),
       );
@@ -644,7 +644,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
 
   Future<void> _sendPasswordResetLink() async {
     add(EmailLoginLoadingEvent(isLoading: true));
-    await _firebaseAuthService.sendFBAuthPasswordResetEmail(
+    await _authService.sendPasswordResetEmail(
       state.emailPasswordLoginState?.email ?? '',
       onError: (error, {stackTrace}) =>
           add(EmailErrorEvent(errorMessage: error)),
@@ -654,45 +654,45 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
   }
 
   Future<void> handleUserDetails(
-    User? firebaseUser, {
+    AppAuthUser? authUser, {
     required Function(String) onError,
   }) async {
     final loginType = state.selectedLoginType;
-    if (firebaseUser == null) {
-      debugPrint('firebaseUser is null');
+    if (authUser == null) {
+      debugPrint('authUser is null');
       onError('User information could not be retrieved.');
       return;
     }
     if (loginType == .PHONE) {
-      if (firebaseUser.phoneNumber?.isNullOrEmpty() ?? true) {
+      if (authUser.phoneNumber?.isNullOrEmpty() ?? true) {
         debugPrint('Authentication Current user phone number is null');
 
         onError('Error retrieving your phone number');
         return;
       }
 
-      await _storeLoginDetailsInPrefs(firebaseUser);
+      await _storeLoginDetailsInPrefs(authUser);
       add(PhoneNumLoginLoadingEvent(isLoading: false));
       add(NavigateToHomeScreenEvent());
     } else if (loginType == .EMAIL) {
-      if (firebaseUser.email.isNullOrEmpty()) {
+      if (authUser.email.isNullOrEmpty()) {
         onError('Error retrieving your email');
         return;
       }
       add(EmailLoginLoadingEvent(isLoading: false));
-      if (!firebaseUser.emailVerified) {
+      if (!authUser.emailVerified) {
         add(SendEmailVerificationLinkEvent());
         add(NavigateToEmailVerifyScreenEvent());
         return;
       }
 
-      await _storeLoginDetailsInPrefs(firebaseUser);
+      await _storeLoginDetailsInPrefs(authUser);
       add(NavigateToHomeScreenEvent());
     } else if (loginType == .GOOGLE) {
-      await _storeLoginDetailsInPrefs(firebaseUser);
+      await _storeLoginDetailsInPrefs(authUser);
       add(NavigateToHomeScreenEvent());
     } else if (loginType == .APPLE) {
-      await _storeLoginDetailsInPrefs(firebaseUser);
+      await _storeLoginDetailsInPrefs(authUser);
       add(NavigateToHomeScreenEvent());
     } else {
       debugPrint('Login/Signup type not specified');
@@ -700,12 +700,12 @@ class LoginBloc extends Bloc<LoginEvents, LoginState> {
     }
   }
 
-  Future<void> _storeLoginDetailsInPrefs(User firebaseUser) async {
+  Future<void> _storeLoginDetailsInPrefs(AppAuthUser authUser) async {
     final loginDetails = LoginDetails(
-      uid: firebaseUser.uid,
-      token: await firebaseUser.getIdToken(),
-      phoneNumber: firebaseUser.phoneNumber,
-      email: firebaseUser.email,
+      uid: authUser.uid,
+      token: await authUser.getIdToken(),
+      phoneNumber: authUser.phoneNumber,
+      email: authUser.email,
     );
     await Prefs.setString(
       PrefKeys.kUserDetails,

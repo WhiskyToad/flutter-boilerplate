@@ -36,8 +36,8 @@ boiler plate code for rapid application development.
 - **Dart SDK:** ^3.11.5
 - **State Management:** BLoC
 - **Navigation:** Auto Route
-- **Backend Integration:** Firebase (Core, Analytics, Crashlytics, Auth)
-- **Authentication:** Firebase Auth, Google Sign-In, Apple Sign-In
+- **Backend Integration:** Supabase (Auth, Postgres, Realtime)
+- **Authentication:** Supabase Auth (Email, Phone OTP, Google OAuth, Apple OAuth)
 - **UI Components:** Custom widgets, Flutter SVG, Shimmer effects
 - **Testing:** Flutter Test, Bloc Test, Alchemist (Golden Tests), Mocktail
 - **Code Generation:** Build Runner, Auto Route Generator, Flutter Gen Runner
@@ -58,12 +58,21 @@ This project supports three flavors:
 Create a `.env` file in the project root directory with the following values:
 
 ```
+DEV_SUPABASE_URL=https://your-dev-project.supabase.co
+DEV_SUPABASE_ANON_KEY=your-dev-anon-key
+STAGE_SUPABASE_URL=https://your-stage-project.supabase.co
+STAGE_SUPABASE_ANON_KEY=your-stage-anon-key
+PROD_SUPABASE_URL=https://your-prod-project.supabase.co
+PROD_SUPABASE_ANON_KEY=your-prod-anon-key
+
 DEV_API_BASE_URL=https://dev.example.com/api
 STAGE_API_BASE_URL=https://stage.example.com/api
 PROD_API_BASE_URL=https://prod.example.com/api
 ```
 
-Replace the URLs with your actual API endpoints.
+Replace the Supabase URLs/anon keys and API URLs with your actual project
+values. Use `supabase/schema.sql` to create the required tables, realtime-backed
+chat schema, RLS policies, app config rows, and account deletion RPC.
 
 ### Building APK/IPA
 

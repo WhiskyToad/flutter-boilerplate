@@ -53,28 +53,28 @@ const String kHeroAnimationPrefix = 'fullscreen_image_0';
 // Regex patterns
 final kEmailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
 
-// Firebase Auth exception codes
-const kFirebaseAuthWeakPasswordException = 'weak-password';
-const kFirebaseAuthUserNotFoundException = 'user-not-found';
-const kFirebaseAuthWrongPasswordException = 'wrong-password';
-const kFirebaseAuthTooManyRequestsException = 'too-many-requests';
-const kFirebaseAuthInvalidCodeException = 'invalid-verification-code';
-const kFirebaseAuthSessionExpiredException = 'session-expired';
-const kFirebaseAuthSessionEmailAlreadyInUse = 'email-already-in-use';
-const kFirebaseAuthRequiresRecentLogin = 'requires-recent-login';
+// Auth exception codes
+const kAuthWeakPasswordException = 'weak-password';
+const kAuthUserNotFoundException = 'user-not-found';
+const kAuthWrongPasswordException = 'wrong-password';
+const kAuthTooManyRequestsException = 'too-many-requests';
+const kAuthInvalidCodeException = 'invalid-verification-code';
+const kAuthSessionExpiredException = 'session-expired';
+const kAuthSessionEmailAlreadyInUse = 'email-already-in-use';
+const kAuthRequiresRecentLogin = 'requires-recent-login';
 
-// Firestore exception codes
-const String kFirestorePermissionDenied = 'permission-denied';
-const String kFirestoreNotFound = 'not-found';
-const String kFirestoreAlreadyExists = 'already-exists';
-const String kFirestoreResourceExhausted = 'resource-exhausted';
-const String kFirestoreUnauthenticated = 'unauthenticated';
-const String kFirestoreUnavailable = 'unavailable';
-const String kFirestoreCancelled = 'cancelled';
-const String kFirestoreDeadlineExceeded = 'deadline-exceeded';
-const String kFirestoreInvalidArgument = 'invalid-argument';
-const String kFirestoreInternal = 'internal';
-const String kFirestoreDataLoss = 'data-loss';
+// Supabase database exception codes
+const String kDatabasePermissionDenied = 'permission-denied';
+const String kDatabaseNotFound = 'not-found';
+const String kDatabaseAlreadyExists = 'already-exists';
+const String kDatabaseResourceExhausted = 'resource-exhausted';
+const String kDatabaseUnauthenticated = 'unauthenticated';
+const String kDatabaseUnavailable = 'unavailable';
+const String kDatabaseCancelled = 'cancelled';
+const String kDatabaseDeadlineExceeded = 'deadline-exceeded';
+const String kDatabaseInvalidArgument = 'invalid-argument';
+const String kDatabaseInternal = 'internal';
+const String kDatabaseDataLoss = 'data-loss';
 
 // Network/SSL pinning constants
 const String kConnectionIsNotSecureError = 'Connection is not secure';

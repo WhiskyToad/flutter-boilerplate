@@ -1,14 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:skelter/constants/constants.dart';
 import 'package:skelter/core/errors/exceptions.dart';
 import 'package:skelter/utils/typedef.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class FirestoreService {
-  FirestoreService({FirebaseFirestore? firestore})
-    : _firestore = firestore ?? FirebaseFirestore.instance;
+class SupabaseDatabaseService {
+  SupabaseDatabaseService({SupabaseClient? client})
+    : _client = client ?? Supabase.instance.client;
 
-  final FirebaseFirestore _firestore;
+  final SupabaseClient _client;
 
   Future<String> addDocument({
     required String collection,
@@ -17,17 +16,18 @@ class FirestoreService {
     String? parentDocId,
   }) async {
     try {
-      final ref = await _collectionRef(
-        collection,
-        parentCollection: parentCollection,
-        parentDocId: parentDocId,
-      ).add(data);
-      debugPrint('FirestoreService addDocument: ${ref.id} → $collection');
-      return ref.id;
-    } on FirebaseException catch (e, stack) {
-      _handleFirebaseError(e, collection, stackTrace: stack);
-    } on Exception catch (e) {
-      debugPrint('Error adding document to $collection: $e');
+      final response = await _client
+          .from(_tableName(collection, parentCollection, parentDocId))
+          .insert(data)
+          .select('id')
+          .single();
+      final id = response['id']?.toString() ?? '';
+      debugPrint('SupabaseService addDocument: $id -> $collection');
+      return id;
+    } on PostgrestException catch (e) {
+      _handleSupabaseError(e, collection);
+    } catch (e) {
+      debugPrint('Error adding row to $collection: $e');
       throw APIException(message: e.toString(), statusCode: 505);
     }
   }
@@ -41,17 +41,14 @@ class FirestoreService {
     String? parentDocId,
   }) async {
     try {
-      await _docRef(
-        collection,
-        docId,
-        parentCollection: parentCollection,
-        parentDocId: parentDocId,
-      ).set(data, SetOptions(merge: merge));
-      debugPrint('FirestoreService setDocument: $docId → $collection');
-    } on FirebaseException catch (e, stack) {
-      _handleFirebaseError(e, collection, stackTrace: stack);
-    } on Exception catch (e) {
-      debugPrint('Error setting document $docId in $collection: $e');
+      await _client
+          .from(_tableName(collection, parentCollection, parentDocId))
+          .upsert({'id': docId, ...data});
+      debugPrint('SupabaseService setDocument: $docId -> $collection');
+    } on PostgrestException catch (e) {
+      _handleSupabaseError(e, collection);
+    } catch (e) {
+      debugPrint('Error setting row $docId in $collection: $e');
       throw APIException(message: e.toString(), statusCode: 505);
     }
   }
@@ -64,17 +61,15 @@ class FirestoreService {
     String? parentDocId,
   }) async {
     try {
-      await _docRef(
-        collection,
-        docId,
-        parentCollection: parentCollection,
-        parentDocId: parentDocId,
-      ).update(data);
-      debugPrint('FirestoreService updateDocument: $docId → $collection');
-    } on FirebaseException catch (e, stack) {
-      _handleFirebaseError(e, collection, stackTrace: stack);
-    } on Exception catch (e) {
-      debugPrint('Error updating document $docId in $collection: $e');
+      await _client
+          .from(_tableName(collection, parentCollection, parentDocId))
+          .update(data)
+          .eq('id', docId);
+      debugPrint('SupabaseService updateDocument: $docId -> $collection');
+    } on PostgrestException catch (e) {
+      _handleSupabaseError(e, collection);
+    } catch (e) {
+      debugPrint('Error updating row $docId in $collection: $e');
       throw APIException(message: e.toString(), statusCode: 505);
     }
   }
@@ -86,17 +81,15 @@ class FirestoreService {
     String? parentDocId,
   }) async {
     try {
-      await _docRef(
-        collection,
-        docId,
-        parentCollection: parentCollection,
-        parentDocId: parentDocId,
-      ).delete();
-      debugPrint('FirestoreService deleteDocument: $docId → $collection');
-    } on FirebaseException catch (e, stack) {
-      _handleFirebaseError(e, collection, stackTrace: stack);
-    } on Exception catch (e) {
-      debugPrint('Error deleting document $docId in $collection: $e');
+      await _client
+          .from(_tableName(collection, parentCollection, parentDocId))
+          .delete()
+          .eq('id', docId);
+      debugPrint('SupabaseService deleteDocument: $docId -> $collection');
+    } on PostgrestException catch (e) {
+      _handleSupabaseError(e, collection);
+    } catch (e) {
+      debugPrint('Error deleting row $docId from $collection: $e');
       throw APIException(message: e.toString(), statusCode: 505);
     }
   }
@@ -108,17 +101,15 @@ class FirestoreService {
     String? parentDocId,
   }) async {
     try {
-      final snap = await _docRef(
-        collection,
-        docId,
-        parentCollection: parentCollection,
-        parentDocId: parentDocId,
-      ).get();
-      return snap.data();
-    } on FirebaseException catch (e, stack) {
-      _handleFirebaseError(e, collection, stackTrace: stack);
-    } on Exception catch (e) {
-      debugPrint('Error getting document $docId from $collection: $e');
+      return await _client
+          .from(_tableName(collection, parentCollection, parentDocId))
+          .select()
+          .eq('id', docId)
+          .maybeSingle();
+    } on PostgrestException catch (e) {
+      _handleSupabaseError(e, collection);
+    } catch (e) {
+      debugPrint('Error getting row $docId from $collection: $e');
       throw APIException(message: e.toString(), statusCode: 505);
     }
   }
@@ -130,24 +121,20 @@ class FirestoreService {
     String? parentDocId,
   }) async {
     try {
-      Query<DataMap> query = _collectionRef(
-        collection,
-        parentCollection: parentCollection,
-        parentDocId: parentDocId,
-      );
+      PostgrestFilterBuilder<List<Map<String, dynamic>>> query = _client
+          .from(_tableName(collection, parentCollection, parentDocId))
+          .select();
       if (filters != null) {
         for (final entry in filters.entries) {
-          query = query.where(entry.key, isEqualTo: entry.value);
+          query = query.eq(entry.key, entry.value);
         }
       }
-      final snap = await query.get();
-      return snap.docs
-          .map((doc) => <String, dynamic>{'id': doc.id, ...doc.data()})
-          .toList();
-    } on FirebaseException catch (e, stack) {
-      _handleFirebaseError(e, collection, stackTrace: stack);
-    } on Exception catch (e) {
-      debugPrint('Error getting collection $collection: $e');
+      final rows = await query;
+      return rows;
+    } on PostgrestException catch (e) {
+      _handleSupabaseError(e, collection);
+    } catch (e) {
+      debugPrint('Error getting table $collection: $e');
       throw APIException(message: e.toString(), statusCode: 505);
     }
   }
@@ -158,12 +145,11 @@ class FirestoreService {
     String? parentCollection,
     String? parentDocId,
   }) {
-    return _docRef(
-      collection,
-      docId,
-      parentCollection: parentCollection,
-      parentDocId: parentDocId,
-    ).snapshots().map((snap) => snap.data());
+    return _client
+        .from(_tableName(collection, parentCollection, parentDocId))
+        .stream(primaryKey: ['id'])
+        .eq('id', docId)
+        .map((rows) => rows.isEmpty ? null : rows.first);
   }
 
   Stream<List<DataMap>> collectionStream({
@@ -172,84 +158,40 @@ class FirestoreService {
     String? parentCollection,
     String? parentDocId,
   }) {
-    Query<DataMap> query = _collectionRef(
-      collection,
-      parentCollection: parentCollection,
-      parentDocId: parentDocId,
-    );
-    if (filters != null) {
-      for (final entry in filters.entries) {
-        query = query.where(entry.key, isEqualTo: entry.value);
-      }
-    }
-    return query.snapshots().map(
-      (snap) => snap.docs
-          .map((doc) => <String, dynamic>{'id': doc.id, ...doc.data()})
-          .toList(),
-    );
+    final stream = _client
+        .from(_tableName(collection, parentCollection, parentDocId))
+        .stream(primaryKey: ['id']);
+
+    return stream.map((rows) {
+      if (filters == null || filters.isEmpty) return rows;
+      return rows.where((row) {
+        return filters.entries.every((entry) => row[entry.key] == entry.value);
+      }).toList();
+    });
   }
 
-  CollectionReference<DataMap> _collectionRef(
-    String collection, {
-    String? parentCollection,
-    String? parentDocId,
-  }) {
-    if (parentCollection != null && parentDocId != null) {
-      return _firestore
-          .collection(parentCollection)
-          .doc(parentDocId)
-          .collection(collection);
-    }
-    return _firestore.collection(collection);
-  }
-
-  DocumentReference<DataMap> _docRef(
+  String _tableName(
     String collection,
-    String docId, {
     String? parentCollection,
     String? parentDocId,
-  }) {
-    return _collectionRef(
-      collection,
-      parentCollection: parentCollection,
-      parentDocId: parentDocId,
-    ).doc(docId);
+  ) {
+    if (parentCollection != null && parentDocId != null) {
+      debugPrint(
+        '[SupabaseService] Nested collection path requested: '
+        '$parentCollection/$parentDocId/$collection. Using $collection table.',
+      );
+    }
+    return collection;
   }
 
-  Never _handleFirebaseError(
-    FirebaseException e,
-    String context, {
-    StackTrace? stackTrace,
-  }) {
-    String errorMessage = 'An error occurred, please try again.';
-    switch (e.code) {
-      case kFirestorePermissionDenied:
-        errorMessage = "You don't have permission to perform this action.";
-      case kFirestoreNotFound:
-        errorMessage = 'The requested document was not found.';
-      case kFirestoreAlreadyExists:
-        errorMessage = 'The document already exists.';
-      case kFirestoreResourceExhausted:
-        errorMessage = 'Too many requests, please try again later.';
-      case kFirestoreUnauthenticated:
-        errorMessage = 'Authentication required. Please sign in.';
-      case kFirestoreUnavailable:
-        errorMessage = 'Service temporarily unavailable. Please try again.';
-      case kFirestoreCancelled:
-        errorMessage = 'The operation was cancelled.';
-      case kFirestoreDeadlineExceeded:
-        errorMessage = 'The request timed out. Please try again.';
-      case kFirestoreInvalidArgument:
-        errorMessage = 'Invalid data provided.';
-      case kFirestoreInternal:
-        errorMessage = 'An internal error occurred. Please try again.';
-      case kFirestoreDataLoss:
-        errorMessage = 'Unexpected data loss. Please try again.';
-    }
-    debugPrint('FirestoreService error: $errorMessage');
+  Never _handleSupabaseError(PostgrestException e, String context) {
+    debugPrint('SupabaseService error in $context: ${e.message}');
     throw APIException(
-      message: errorMessage,
-      statusCode: int.tryParse(e.code) ?? 500,
+      message: e.message,
+      statusCode: int.tryParse(e.code ?? '') ?? 500,
     );
   }
 }
+
+@Deprecated('Use SupabaseDatabaseService instead.')
+typedef FirestoreService = SupabaseDatabaseService;

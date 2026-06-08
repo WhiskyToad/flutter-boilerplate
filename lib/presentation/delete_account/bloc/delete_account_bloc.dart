@@ -6,13 +6,13 @@ import 'package:skelter/presentation/chat/domain/usecases/delete_chat_user_docum
 import 'package:skelter/presentation/delete_account/bloc/delete_account_event.dart';
 import 'package:skelter/presentation/delete_account/bloc/delete_account_state.dart';
 import 'package:skelter/presentation/delete_account/constants/delete_account_constants.dart';
-import 'package:skelter/services/firebase_auth_services.dart';
 import 'package:skelter/services/performance_monitoring_service.dart';
+import 'package:skelter/services/supabase_auth_service.dart';
 import 'package:skelter/utils/extensions/primitive_types_extensions.dart';
 import 'package:skelter/utils/haptic_feedback_util.dart';
 
 class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
-  final FirebaseAuthService _firebaseAuthService = sl();
+  final SupabaseAuthService _authService = sl();
   final PerformanceMonitoringService _performanceService = sl();
 
   DeleteAccountBloc() : super(const DeleteAccountState.initial()) {
@@ -61,12 +61,12 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
     var hasErrorOccurred = false;
 
     // Remove the user's chat directory document BEFORE deleting the auth
-    // user. Firestore rules require `request.auth.uid == userId` for delete,
+    // user. RLS policies require `request.auth.uid == userId` for delete,
     // which fails once the auth user is gone. Best-effort: log on failure
     // (e.g. transient network) but proceed with auth deletion regardless —
     // the user's intent is to remove their account, and a stale chat doc is
     // a smaller harm than a partial deletion the user can't retry.
-    final currentUser = _firebaseAuthService.getCurrentUser();
+    final currentUser = _authService.getCurrentUser();
     if (currentUser != null) {
       final result = await sl<DeleteChatUserDocument>()(
         DeleteChatUserDocumentParams(userId: currentUser.uid),
@@ -79,7 +79,7 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
       );
     }
 
-    await _firebaseAuthService.deleteCurrentUser(
+    await _authService.deleteCurrentUser(
       onError: (error, {stackTrace}) async {
         hasErrorOccurred = true;
         _performanceService.putAttribute(
@@ -88,11 +88,11 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
           error.truncate(100),
         );
         await HapticFeedbackUtil.error();
-        final user = _firebaseAuthService.getCurrentUser();
+        final user = _authService.getCurrentUser();
         final providerList =
             user?.providerData.map((p) => p.providerId).toList() ?? [];
 
-        if (error == kFirebaseAuthRequiresRecentLogin ||
+        if (error == kAuthRequiresRecentLogin ||
             error == kEmailPasswordReAuthRequired) {
           if (providerList.contains(kProviderPassword)) {
             emit(state.copyWith(isLoading: false, errorMessage: error));
